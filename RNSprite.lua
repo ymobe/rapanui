@@ -55,7 +55,7 @@ function RNSprite:initWith(image)
 	local u = self.originalWidht / self.pow2Widht
 	local v = self.originalHeight / self.pow2Height
 
-	self.gfxQuad:setUVRect(0, 0, u, v)
+	self.gfxQuad:setUVRect(0, 0, u,v)
 
 	self.prop = MOAIProp2D.new()
 	self.prop:setDeck(self.gfxQuad)
@@ -99,10 +99,9 @@ function RNSprite:getOriginalHeight()
 end
 
 
-function RNSprite:getScreenUILocation()
-	return self.screenX, self.screenY
+function RNSprite:getLocation()
+	return self.x, self.y
 end
-
 
 function RNSprite:getLocatingMode()
 	return self.locatingMode
@@ -111,61 +110,16 @@ end
 
 function RNSprite:setLocation(x, y)
 
-
 	self.screenX = x;
 	self.screenY = y
 
-
-
-
 	if (self.locatingMode == TOP_LEFT_MODE) then
-
-
 		self.x = x + self.originalWidht / 2
-
-
-
 		self.y = y + self.originalHeight / 2
-
 	else
-
 		self.x = x
-
-
-
 		self.y = y
 	end
-
-
-
-	--[[
-	if (self.locatingMode == TOP_LEFT_MODE) then
-
-		if (x > self.screenWidth / 2) then
-			self.x = (self.screenWidth / 2) - (self.screenWidth - x) + self.originalWidht / 2
-		else
-			self.x = self.screenWidth / 2 - (self.screenWidth - x) + self.originalWidht / 2
-		end
-
-		if (y > self.screenHeight / 2) then
-			self.y = (-1) * ((self.screenHeight / 2) - (self.screenHeight - y)) - self.originalHeight / 2
-		else
-			self.y = (self.screenHeight - y) - self.screenHeight / 2 - self.originalHeight / 2
-		end
-	else
-		if (x > self.screenWidth / 2) then
-			self.x = (self.screenWidth / 2) - (self.screenWidth - x)
-		else
-			self.x = self.screenWidth / 2 - (self.screenWidth - x) -- (-1) * screenWidth / 2 -
-		end
-
-		if (y > self.screenHeight / 2) then
-			self.y = (-1) * ((self.screenHeight / 2) - (self.screenHeight - y))
-		else
-			self.y = (self.screenHeight - y) - self.screenHeight / 2
-		end
-	end
-	]] --
 
 	if (self:getProp() ~= nil) then
 		self:getProp():setLoc(self.x, self.y);

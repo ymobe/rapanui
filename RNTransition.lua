@@ -19,6 +19,7 @@ end
 
 mainSprite = nil
 
+
 function RNTransition:run(type, sprite, props)
 
 	if (props.x ~= nil) then
@@ -30,44 +31,23 @@ function RNTransition:run(type, sprite, props)
 	end
 
 	if (type == MOVE) then
-	--[[
+		local px, py = sprite:getProp():getLoc();
+		print("click x: " .. props.x .. " y: " .. props.y)
+		print("prop  x: " .. px .. " y: " .. py)
+		local deltax = self:getDelta(px, props.x )
+		local deltay = self:getDelta(py, props.y)
 
+		if (props.x < px) then
+			deltax = (-1) * deltax
+		end
 
-		local tx, ty = self:getTranslatedLocation(sprite, props.y, props.x)
-		local spriteScrX, spriteScrY = sprite:getScreenUILocation()
-
-		local locX, locy = sprite:getProp():getLoc();
-		print("===========================================================================================")
-		print("Event     						      loc X: " .. props.x .. " Y: " .. props.y)
-		print("Relative sprite:getProp():getLoc();    loc X: " .. locX .. " locy: " .. locy)
-		print("Sprite   sprite:getScreenUILocation()  loc X: " .. spriteScrX .. " locy: " .. spriteScrY)
-
-
-		local locX, locy = sprite:getProp():getLoc();
-
-		print("Sprite delta X: " .. deltaX .. " locy: " .. deltaY)
-
-		--local action = sprite:getProp():moveLoc(deltaX, deltaY, 2)
-		--local action = sprite:getProp():moveLoc(deltaX, (-1) * deltaY, 2)
-		--local action = sprite:getProp():moveLoc(deltaX, (-1) * deltaY, 2)
-		--local action = sprite:getProp():move(10, 0,0, 0, 0, 2)
-		local locX, locy = sprite:getProp():getLoc();
-		print("BEFORE MOVE X: " .. locX .. " Y: " .. locy)
-                                              ]] --
-		local deltaX = self:getDelta(spriteScrX, props.x);
-		local deltaY = self:getDelta(spriteScrY, props.y);
-
-		--local action = sprite:getProp():move(deltaX, 0, 2)
-		local action = sprite:getProp():moveRot(-360, 2)
-		--action:setListener ( MOAIAction.EVENT_STOP, function () print ( "end" ) end )
-		--while action:isBusy() do coroutine.yield() end
-		local locX, locy = sprite:getProp():getLoc();
-		print("AFTTER MOVE X: " .. locX .. " Y: " .. locy)
+		if (props.y < py) then
+			deltay = (-1) * deltay
+		end
 
 
 
-
-	--sprite:setLocation(props.x, props.y)
+		sprite:getProp():moveLoc(deltax, deltay, 2)
 	end
 
 	if (type == ROTATE) then
@@ -84,45 +64,4 @@ function RNTransition:getDelta(a, b)
 	else
 		return b - a
 	end
-end
-
-function RNTransition:getTranslatedLocation(sprite, x, y)
-
-	local screenWidth, screenHeight = sprite:getScreenSize();
-
-	--print(" transition screenW: " .. screenWidth .. " transition screenH:  " .. screenHeight)
-
-	local translatedX = 0;
-	local translatedY = 0;
-
-	--print(" Location mode: " .. sprite:getLocatingMode())
-
-	if (sprite:getLocatingMode() == TOP_LEFT_MODE) then
-
-		if (x > screenWidth / 2) then
-			translatedX = (screenWidth / 2) - (screenWidth - x) + sprite:getOriginalWidth() / 2
-		else
-			translatedX = screenWidth / 2 - (screenWidth - x) + sprite:getOriginalWidth() / 2
-		end
-
-		if (y > screenHeight / 2) then
-			translatedY = (-1) * ((screenHeight / 2) - (screenHeight - y)) - sprite:getOriginalHeight() / 2
-		else
-			translatedY = (screenHeight - y) - screenHeight / 2 - sprite:getOriginalHeight() / 2
-		end
-	else
-		if (x > screenWidth / 2) then
-			translatedX = (screenWidth / 2) - (screenWidth - x)
-		else
-			translatedX = screenWidth / 2 - (screenWidth - x) -- (-1) * screenWidth / 2 -
-		end
-
-		if (y > screenHeight / 2) then
-			translatedY = (-1) * ((screenHeight / 2) - (screenHeight - y))
-		else
-			translatedY = (screenHeight - y) - screenHeight / 2
-		end
-	end
-
-	return translatedX, translatedY
 end

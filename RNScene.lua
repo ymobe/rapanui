@@ -40,8 +40,6 @@ end
 function RNScene:addSpriteWithLocatingMode(sprite, mode)
 	sprite:setScreenSize(self.width, self.height)
 	sprite:setLocatingMode(mode)
---	local prop = MOAIProp2D.new()
---	prop:setDeck(sprite:getGfxQuad())
 	self.layer:insertProp(sprite:getProp())
 	sprite:updateLocation()
 end
