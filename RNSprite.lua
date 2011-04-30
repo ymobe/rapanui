@@ -1,7 +1,10 @@
 ----------------------------------------------------------------
--- RapaNui Framework 0.1
+-- RapaNui Framework
+--
+-- https://github.com/eljeko/rapanui/
 --
 ----------------------------------------------------------------
+
 module(..., package.seeall)
 
 
@@ -55,7 +58,7 @@ function RNSprite:initWith(image)
 	local u = self.originalWidht / self.pow2Widht
 	local v = self.originalHeight / self.pow2Height
 
-	self.gfxQuad:setUVRect(0, 0, u,v)
+	self.gfxQuad:setUVRect(0, 0, u, v)
 
 	self.prop = MOAIProp2D.new()
 	self.prop:setDeck(self.gfxQuad)
@@ -81,7 +84,6 @@ function RNSprite:getScreenSize()
 	return self.screenWidth, self.screenHeight
 end
 
-
 function RNSprite:updateLocation()
 	self:setLocation(self.screenX, self.screenY)
 end
@@ -102,6 +104,15 @@ end
 function RNSprite:getLocation()
 	return self.x, self.y
 end
+
+function RNSprite:getX()
+	return self.x
+end
+
+function RNSprite:getY()
+	return self.y
+end
+
 
 function RNSprite:getLocatingMode()
 	return self.locatingMode

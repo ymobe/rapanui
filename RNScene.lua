@@ -1,7 +1,10 @@
 ----------------------------------------------------------------
--- RapaNui Framework 0.1
+-- RapaNui Framework
+--
+-- https://github.com/eljeko/rapanui/
 --
 ----------------------------------------------------------------
+
 module(..., package.seeall)
 
 

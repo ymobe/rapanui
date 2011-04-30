@@ -1,8 +1,14 @@
 ----------------------------------------------------------------
--- RapaNui Framework 0.1
+-- RapaNui Framework
+--
+-- https://github.com/eljeko/rapanui/
 --
 ----------------------------------------------------------------
+
 module(..., package.seeall)
+
+--require("RNUtil")
+
 
 MOVE = "move"
 ROTATE = "rotate"
@@ -22,38 +28,53 @@ mainSprite = nil
 
 function RNTransition:run(type, sprite, props)
 
+	--print_r(props)
+
+	local toX = sprite:getX();
+	local toY = sprite:getY();
+	local time = 1
+
 	if (props.x ~= nil) then
-	--print("x value:" .. props.x)
+		toX = props.x
 	end
 
 	if (props.y ~= nil) then
-	--print("y value:" .. props.y)
+		toY = props.y
 	end
+
+	if (props.time ~= nil) then
+		time = props.time
+	end
+
 
 	if (type == MOVE) then
 		local px, py = sprite:getProp():getLoc();
-		print("click x: " .. props.x .. " y: " .. props.y)
+		print("click x: " .. toX .. " y: " .. toY)
 		print("prop  x: " .. px .. " y: " .. py)
-		local deltax = self:getDelta(px, props.x )
-		local deltay = self:getDelta(py, props.y)
+		local deltax = self:getDelta(px, toX)
+		local deltay = self:getDelta(py, toY)
 
-		if (props.x < px) then
+		if (toX < px) then
 			deltax = (-1) * deltax
 		end
 
-		if (props.y < py) then
+		if (toY < py) then
 			deltay = (-1) * deltay
 		end
 
+		local action = sprite:getProp():moveLoc(deltax, deltay, time)
 
-
-		sprite:getProp():moveLoc(deltax, deltay, 2)
+		if (props.onEndFunction ~= nil) then
+			print("adding Function")
+			action:setListener(MOAIAction.EVENT_STOP, props.onEndFunction)
+		end
 	end
 
 	if (type == ROTATE) then
 		local action = sprite:getProp():moveRot(-360, 2)
 	end
 end
+
 
 
 
