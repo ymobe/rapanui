@@ -11,7 +11,7 @@ module(..., package.seeall)
 TOP_LEFT_MODE = 1
 CENTERED_MODE = 2
 
--- Create a New sprite Object
+-- Create a new RNSprite Object
 function RNSprite:new(o)
 
 	o = o or {
@@ -64,7 +64,10 @@ function RNSprite:initWith(image)
 	self.prop:setDeck(self.gfxQuad)
 	self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht / 2), (self.originalHeight / 2))
 	self.prop:setLoc(0, 0);
---		self:setLocation(0, 0)
+end
+
+function RNSprite:getImageName()
+	return self.name
 end
 
 function RNSprite:getGfxQuad()
@@ -135,7 +138,7 @@ function RNSprite:setLocation(x, y)
 	if (self:getProp() ~= nil) then
 		self:getProp():setLoc(self.x, self.y);
 		local locX, locy = self:getProp():getLoc();
-		print("[" .. self.name .. "]>>> locX: " .. locX .. " locy: " .. locy)
+		--print("[" .. self.name .. "]>>> locX: " .. locX .. " locy: " .. locy)
 	end
 end
 

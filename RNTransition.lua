@@ -49,8 +49,8 @@ function RNTransition:run(type, sprite, props)
 
 	if (type == MOVE) then
 		local px, py = sprite:getProp():getLoc();
-		print("click x: " .. toX .. " y: " .. toY)
-		print("prop  x: " .. px .. " y: " .. py)
+		--print("click x: " .. toX .. " y: " .. toY)
+		--print("prop  x: " .. px .. " y: " .. py)
 		local deltax = self:getDelta(px, toX)
 		local deltay = self:getDelta(py, toY)
 
@@ -65,7 +65,6 @@ function RNTransition:run(type, sprite, props)
 		local action = sprite:getProp():moveLoc(deltax, deltay, time)
 
 		if (props.onEndFunction ~= nil) then
-			print("adding Function")
 			action:setListener(MOAIAction.EVENT_STOP, props.onEndFunction)
 		end
 	end
@@ -74,10 +73,6 @@ function RNTransition:run(type, sprite, props)
 		local action = sprite:getProp():moveRot(-360, 2)
 	end
 end
-
-
-
-
 
 function RNTransition:getDelta(a, b)
 	if (a > b) then
