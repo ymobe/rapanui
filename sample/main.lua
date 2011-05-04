@@ -1,56 +1,96 @@
 MOAISim.openWindow("test", 320, 480)
 
 require("RNSprite")
+require("RNSpriteButton")
 require("RNScene")
 require("RNTransition")
+require("RNDirector")
 
 mainsprite = nil
 
 propTest = nil
 
+scene = nil
+sceneTwo = nil
+director = nil
+
 local function main()
 
+    local background = RNSprite:new()
+    scene = RNScene:new()
+    director = RNDirector:new()
+
+    print("Created scene: " .. scene:getName())
+
+    scene:initWith(320, 480)
+    scene:setName("main")
+
+    background:initWith("background-purple.png")
+
+    scene:addSpriteWithLocatingMode(background, RNSprite.TOP_LEFT_MODE)
 
 
-	local background = RNSprite:new()
+    background:setLocation(0, 0)
 
-	local scene = RNScene:new()
+    local sprite2 = RNSprite:new();
 
-	scene:initWith(320, 480)
+    sprite2:initWith("color_2.png")
 
-	background:initWith("background.png")
+    sprite2:setLocation(0, 0)
 
-	scene:addSpriteWithLocatingMode(background, RNSprite.TOP_LEFT_MODE)
+    local sprite3 = RNSprite:new();
+
+    sprite3:initWith("color_1.png")
+
+    sprite3:setLocation(100, 448)
+
+    mainsprite = sprite2
+
+    scene:addSpriteWithLocatingMode(sprite2, RNSprite.TOP_LEFT_MODE)
+    scene:addSpriteWithLocatingMode(sprite3, RNSprite.TOP_LEFT_MODE)
 
 
-	background:setLocation(0, 0)
+    director:addScene(scene)
 
-	local sprite2 = RNSprite:new();
+    sceneTwo = RNScene:new()
 
-	sprite2:initWith("color_2.png")
+    sceneTwo:initWith(320, 480)
+    sceneTwo:setName("two")
 
-	sprite2:setLocation(0, 0)
+    local backgroundTwo = RNSprite:new()
 
-	local sprite3 = RNSprite:new();
+    backgroundTwo:initWith("background-green.png")
 
-	sprite3:initWith("color_1.png")
+    sceneTwo:addSpriteWithLocatingMode(backgroundTwo, RNSprite.TOP_LEFT_MODE)
 
-	sprite3:setLocation(100, 448)
+    backgroundTwo:setLocation(0, 0)
 
-	mainsprite = sprite2
 
-	scene:addSpriteWithLocatingMode(sprite2, RNSprite.TOP_LEFT_MODE)
-	scene:addSpriteWithLocatingMode(sprite3, RNSprite.TOP_LEFT_MODE)
+    local sprite3 = RNSprite:new();
+
+    sprite3:initWith("color_3.png")
+
+    sprite3:setLocation(128, 128)
+
+    sceneTwo:addSpriteWithLocatingMode(sprite3, RNSprite.TOP_LEFT_MODE)
+
+
+    director:addScene(sceneTwo)
+    director:startWithScene("two")
 end
 
 main()
 
 function onTouchEvent(eventType, idx, x, y, tapCount)
 
-	if (eventType == MOAITouchSensor.TOUCH_DOWN) then
-		local animation = RNTransition:new()
-		animation:run(RNTransition.MOVE, mainsprite, { x = x, y = y })
-	end
+    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+        local animation = RNTransition:new()
+        if (scene:isVisible()) then
+            director:switch(RNDirector.SLIDE_TO_BOTTOM, "two")
+        else
+            director:switch(RNDirector.SLIDE_TO_RIGHT, "main")
+        end
+    end
 end
 
 MOAIInputMgr.device.touch:setCallback(onTouchEvent)
