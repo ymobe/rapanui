@@ -27,6 +27,7 @@ function RNSprite:new(o)
         y = 0,
         locatingMode = CENTERED_MODE,
         gfxQuad = nil,
+        shader = nil,
         screenX = 0,
         screenY = 0,
         texture = nil
@@ -35,8 +36,6 @@ function RNSprite:new(o)
     self.__index = self
     return o
 end
-
--- height
 
 function RNSprite:initWith(image)
 
@@ -64,6 +63,8 @@ function RNSprite:initWith(image)
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht / 2), (self.originalHeight / 2))
     self.prop:setLoc(0, 0);
+    self.shader = MOAISimpleShader.new()
+    self.prop:setShader(self.shader)
 end
 
 function RNSprite:getImageName()
@@ -117,12 +118,11 @@ function RNSprite:getY()
 end
 
 function RNSprite:setAlpha(value)
-    local shader = MOAISimpleShader.new()
-    self:getProp():setShader(shader)
-    --shader:setColor(1, 1, 1, 1) -- R, G, B, A
-    --shader:seekColor(0.5, 0.5, 0.5, 0, value)
-    shader:setColor(value, value, value, 0)
--- shader:setColor(0, 0, 0, 0.5)
+    self.shader:setColor(value, value, value, 0)
+end
+
+function RNSprite:getShader()
+    return self.shader
 end
 
 function RNSprite:getLocatingMode()
@@ -146,7 +146,6 @@ function RNSprite:setLocation(x, y)
     if (self:getProp() ~= nil) then
         self:getProp():setLoc(self.x, self.y);
         local locX, locy = self:getProp():getLoc();
-    --print("[" .. self.name .. "]>>> locX: " .. locX .. " locy: " .. locy)
     end
 end
 

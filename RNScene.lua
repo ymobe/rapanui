@@ -75,7 +75,6 @@ function RNScene:hideAll()
     self.visible = false
     for key, value in pairs(self.sprites)
     do
-      --  print("Have to remove " .. value:getImageName())
         self.layer:removeProp(value:getProp())
     end
 end
@@ -88,8 +87,29 @@ function RNScene:showAll()
     self.visible = true
     for key, value in pairs(self.sprites)
     do
-      --  print("Have to remove " .. value:getImageName())
         self.layer:insertProp(value:getProp())
     end
- --   print("Have to show all")
+end
+
+function RNScene:seekColor(r, g, b, a, time, mode)
+    local currentSceneSprites = self:getSprites()
+
+    local action = nil
+
+    for key, value in pairs(currentSceneSprites)
+    do
+        action = value:getShader():seekColor(r, g, b, a, time, mode)
+    end
+    return action
+end
+
+function RNScene:setColor(r, g, b, a, time, mode)
+    local currentSceneSprites = self:getSprites()
+
+    local action = nil
+
+    for key, value in pairs(currentSceneSprites)
+    do
+        value:getShader():setColor(r, g, b, a, mode)
+    end
 end

@@ -11,14 +11,18 @@ SLIDE_TO_LEFT = 2
 SLIDE_TO_RIGHT = 3
 SLIDE_TO_BOTTOM = 4
 SLIDE_TO_TOP = 5
+FADE_OUT_FADE_IN = 6
+CROSSFADE = 7
 
 local TRANSITIONING = false
 
-offsetX = 0
-offsetY = 0
+local offsetX = 0
+local offsetY = 0
 
-currentScene = nil
-nextScene = nil
+local currentScene = nil
+local nextScene = nil
+
+local timeToExecute = 1
 
 -- Create a new RNDirector Object
 function RNDirector:new(o)
@@ -50,11 +54,9 @@ end
 
 function RNDirector:startWithScene(name)
 
-
     for key, value in pairs(self.scenes)
     do
         if (key == name) then
-            print("In iteration " .. value:getName())
             currentScene = value
         else
             value:hideAll()
@@ -66,27 +68,51 @@ function RNDirector:getScene(name)
     return self.scenes[name]
 end
 
-
 --
 -- Main method for switching
 --
 -- @param mode the switch mode if the mode it's not valid then a simple swap it's performed
 --
-function RNDirector:switch(mode, name)
+function RNDirector:switch(name, props)
     if (TRANSITIONING) then
         return
     end
 
-    if (mode == SWAP) then
+
+
+    local type = ""
+
+    if (props.type ~= nil) then
+        type = props.type
+    end
+
+    local time = 1
+
+    if (props.time ~= nil) then
+        time = props.time
+    end
+
+    local mode = MOAIEaseType.LINEAR
+
+    if (props.mode ~= nil) then
+        mode = props.mode
+    end
+
+
+    if (type == SWAP) then
         self:swap(name)
-    elseif (mode == SLIDE_TO_LEFT) then
-        self:slideToLeft(name)
-    elseif (mode == SLIDE_TO_RIGHT) then
-        self:slideToRight(name)
-    elseif (mode == SLIDE_TO_BOTTOM) then
-        self:slideToBottom(name)
-    elseif (mode == SLIDE_TO_TOP) then
-        self:slideToTop(name)
+    elseif (type == SLIDE_TO_LEFT) then
+        self:slideToLeft(name, time, mode)
+    elseif (type == SLIDE_TO_RIGHT) then
+        self:slideToRight(name, time, mode)
+    elseif (type == SLIDE_TO_BOTTOM) then
+        self:slideToBottom(name, time, mode)
+    elseif (type == SLIDE_TO_TOP) then
+        self:slideToTop(name, time, mode)
+    elseif (type == FADE_OUT_FADE_IN) then
+        self:fadeOutFadeIn(name, time, mode)
+    elseif (type == CROSSFADE) then
+        self:crossFade(name, time, mode)
     else
         self:swap(name)
     end
@@ -105,33 +131,31 @@ function RNDirector:swap(name)
     currentScene:showAll()
 end
 
-function RNDirector:slideToTop(name)
+function RNDirector:slideToTop(name, time, mode)
     offsetX = 0
     offsetY = -480
-    self:slide(name, offsetX, offsetY)
+    self:slide(name, offsetX, offsetY, time, mode)
 end
 
-function RNDirector:slideToBottom(name)
+function RNDirector:slideToBottom(name, time, mode)
     offsetX = 0
     offsetY = 480
-    self:slide(name, offsetX, offsetY)
+    self:slide(name, offsetX, offsetY, time, mode)
 end
 
-function RNDirector:slideToLeft(name)
+function RNDirector:slideToLeft(name, time, mode)
     offsetX = -320
     offsetY = 0
-    self:slide(name, offsetX, offsetY)
+    self:slide(name, offsetX, offsetY, time, mode)
 end
 
-function RNDirector:slideToRight(name)
+function RNDirector:slideToRight(name, time, mode)
     offsetX = 320
     offsetY = 0
-    self:slide(name, offsetX, offsetY)
+    self:slide(name, offsetX, offsetY, time, mode)
 end
 
-function RNDirector:slide(name, offsetX, offsetY)
-
-
+function RNDirector:slide(name, offsetX, offsetY, time, mode)
 
     if (not TRANSITIONING) then
         TRANSITIONING = true
@@ -146,8 +170,6 @@ function RNDirector:slide(name, offsetX, offsetY)
             xLoc = xLoc + (-1) * offsetX
             yLoc = yLoc + (-1) * offsetY
 
-            print("slide:  xLoc: " .. xLoc)
-
             value:getProp():setLoc(xLoc, yLoc)
         end
 
@@ -155,27 +177,19 @@ function RNDirector:slide(name, offsetX, offsetY)
 
         local action = nil
 
-        --print_r(currentSceneSprites)
         for key, value in pairs(nextSceneSprites)
         do
-        --  print("Name: " .. value:getImageName())
-            value:getProp():moveLoc(offsetX, offsetY, 1)
+            value:getProp():moveLoc(offsetX, offsetY, time, mode)
         end
 
-        --    MOAISim.pushRenderPass(self.layer)
-
         local action = nil
-
-        --print_r(currentSceneSprites)
 
         local currentSceneSprites = currentScene:getSprites()
         for key, value in pairs(currentSceneSprites)
         do
-            print("Name: " .. value:getImageName())
-            action = value:getProp():moveLoc(offsetX, offsetY, 1)
+            action = value:getProp():moveLoc(offsetX, offsetY, time, mode)
         end
 
-        -- add a listener on the last prop moveLoc to do task at the end of animation
         if (action ~= nil) then
             action:setListener(MOAIAction.EVENT_STOP, self.onEndSlide)
         end
@@ -184,8 +198,7 @@ function RNDirector:slide(name, offsetX, offsetY)
 end
 
 --
--- Reset scenes status at the end of the transition
---
+-- Reset scenes status at the end of the slide group transitions
 --
 function RNDirector:onEndSlide()
     currentScene:hideAll()
@@ -197,12 +210,78 @@ function RNDirector:onEndSlide()
         xLoc = xLoc + (-1) * offsetX
         yLoc = yLoc + (-1) * offsetY
 
-        print(" onEndSlide " .. currentScene:getName() .. " xLoc: " .. xLoc .. " yLoc: " .. yLoc)
-
         value:getProp():setLoc(xLoc, yLoc)
     end
 
     currentScene = nextScene
     nextScene = nil
+    TRANSITIONING = false
+end
+
+--
+-- Crossfade to the next scene
+--
+
+function RNDirector:crossFade(name, time, mode)
+    TRANSITIONING = true
+
+    nextScene = self:getScene(name)
+
+    local action = nil
+
+    nextScene:setColor(0, 0, 0, 0)
+    nextScene:showAll()
+
+    currentScene:seekColor(0, 0, 0, 0, time, mode)
+    action = nextScene:seekColor(1, 1, 1, 1, time, mode)
+
+    action:setListener(MOAIAction.EVENT_STOP, RNDirector.onEndFade)
+end
+
+
+function RNDirector:fadeOutFadeIn(name, time, mode)
+    TRANSITIONING = true
+
+    timeToExecute = time
+
+    nextScene = self:getScene(name)
+
+    local action = nil
+
+    nextScene:setColor(0, 0, 0, 0)
+
+    action = currentScene:seekColor(0, 0, 0, 0, time / 2, mode)
+
+    action:setListener(MOAIAction.EVENT_STOP, RNDirector.onEndFadeCurrentScene)
+end
+
+--
+-- start the fade in of the next scene
+--
+
+function RNDirector:onEndFadeCurrentScene()
+
+    currentScene:hideAll()
+    nextScene:showAll()
+    local action = nil
+
+    action = nextScene:seekColor(1, 1, 1, 0, timeToExecute / 2)
+    action:setListener(MOAIAction.EVENT_STOP, RNDirector.onEndFade)
+end
+
+--
+-- Reset scenes status at the end of the crossfade transition
+--
+-- BEWARE: at the moment the alpha of the sprites in the scene reset to full opaque
+--
+
+function RNDirector:onEndFade()
+    currentScene:hideAll()
+    currentScene:setColor(1, 1, 1, 1)
+
+    currentScene = nextScene
+
+    nextScene = nil
+
     TRANSITIONING = false
 end

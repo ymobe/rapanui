@@ -28,8 +28,6 @@ mainSprite = nil
 
 function RNTransition:run(type, sprite, props)
 
-	--print_r(props)
-
 	local toX = sprite:getX();
 	local toY = sprite:getY();
 	local time = 1
@@ -49,8 +47,6 @@ function RNTransition:run(type, sprite, props)
 
 	if (type == MOVE) then
 		local px, py = sprite:getProp():getLoc();
-		--print("click x: " .. toX .. " y: " .. toY)
-		--print("prop  x: " .. px .. " y: " .. py)
 		local deltax = self:getDelta(px, toX)
 		local deltay = self:getDelta(py, toY)
 
