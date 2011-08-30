@@ -7,7 +7,6 @@
 
 module(..., package.seeall)
 
-
 -- Create a New Scene Object
 
 function RNScene:new(o)
@@ -98,7 +97,7 @@ function RNScene:seekColor(r, g, b, a, time, mode)
 
     for key, value in pairs(currentSceneSprites)
     do
-        action = value:getShader():seekColor(r, g, b, a, time, mode)
+        action = value:getProp():seekColor(r, g, b, a, time, mode)
     end
     return action
 end
@@ -110,6 +109,6 @@ function RNScene:setColor(r, g, b, a, time, mode)
 
     for key, value in pairs(currentSceneSprites)
     do
-        value:getShader():setColor(r, g, b, a, mode)
+        value:getProp():setColor(r, g, b, a, mode)
     end
 end

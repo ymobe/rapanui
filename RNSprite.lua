@@ -7,9 +7,14 @@
 
 module(..., package.seeall)
 
+require("RNInputManager")
+require("RNUtil")
+
 
 TOP_LEFT_MODE = 1
 CENTERED_MODE = 2
+
+
 
 -- Create a new RNSprite Object
 function RNSprite:new(o)
@@ -62,9 +67,15 @@ function RNSprite:initWith(image)
     self.prop = MOAIProp2D.new()
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht / 2), (self.originalHeight / 2))
+
     self.prop:setLoc(0, 0);
-    self.shader = MOAISimpleShader.new()
-    self.prop:setShader(self.shader)
+
+    self.shader = MOAIShader.new()
+
+    RNInputManager.addListener(self)
+
+--    self.shader = MOAISimpleShader.new()
+--self.prop:setShader(self.shader)
 end
 
 function RNSprite:getImageName()
@@ -118,11 +129,17 @@ function RNSprite:getY()
 end
 
 function RNSprite:setAlpha(value)
-    self.shader:setColor(value, value, value, 0)
+-- self.shader:setColor(value, value, value, 0)
+    self.image:setRGBA(value, value, value, 0)
 end
+
 
 function RNSprite:getShader()
     return self.shader
+end
+
+function RNSprite:getImage()
+    return self.image
 end
 
 function RNSprite:getLocatingMode()
@@ -146,6 +163,13 @@ function RNSprite:setLocation(x, y)
     if (self:getProp() ~= nil) then
         self:getProp():setLoc(self.x, self.y);
         local locX, locy = self:getProp():getLoc();
+    end
+end
+
+function RNSprite:onTouch(x, y)
+--print("Called " + self.name)
+    if x >= self.x and x < self.x + self.originalWidht and y >= self.y and y < self.y + self.originalHeight then
+        print("Called on x of " .. self.name)
     end
 end
 
