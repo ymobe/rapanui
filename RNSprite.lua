@@ -35,6 +35,9 @@ function RNSprite:new(o)
         shader = nil,
         screenX = 0,
         screenY = 0,
+        visible = true,
+        touchListener = nil,
+        onTouchDownListener = nill,
         texture = nil
     }
     setmetatable(o, self)
@@ -45,6 +48,7 @@ end
 function RNSprite:initWith(image)
 
     self.name = image
+    self.visible = true
 
     self.gfxQuad = MOAIGfxQuad2D.new()
     self.texture = MOAITexture.new()
@@ -146,6 +150,17 @@ function RNSprite:getLocatingMode()
     return self.locatingMode
 end
 
+function RNSprite:setVisible(value)
+    print("Called on x of " .. self.name .. " setting visibility for sprite ")
+    print(value)
+    self.visible = value
+end
+
+function RNSprite:getVisible()
+    return self.visible
+end
+
+
 
 function RNSprite:setLocation(x, y)
 
@@ -166,11 +181,56 @@ function RNSprite:setLocation(x, y)
     end
 end
 
-function RNSprite:onTouch(x, y)
---print("Called " + self.name)
-    if x >= self.x and x < self.x + self.originalWidht and y >= self.y and y < self.y + self.originalHeight then
-        print("Called on x of " .. self.name)
+function RNSprite:onTouchDown(x, y)
+
+    if (self.locatingMode == TOP_LEFT_MODE) then
+        x = x + self.originalWidht / 2
+        y = y + self.originalHeight / 2
+    else
+        self.x = x
+        self.y = y
     end
+
+    if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+        print(os.date() .. "onTouchDown Called on x of " .. self.name)
+        self.onTouchDownListener(x, y)
+    end
+end
+
+function RNSprite:onTouchMove(x, y)
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+        print("onTouchMove Called on x of " .. self.name)
+        self.onTouchMoveListener(x, y)
+    end
+end
+
+function RNSprite:onTouchUp(x, y)
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+        print("onTouchUp Called on x of " .. self.name)
+        self.onTouchUpListener(x, y)
+    end
+end
+
+function RNSprite:onTouchCancel(x, y)
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+        print("onTouchCancel Called on x of " .. self.name)
+        self.onTouchCancelListener(x, y)
+    end
+end
+
+function RNSprite:setOnTouchDown(func)
+    print("setOnTouchDown  " .. self.name)
+    print_r(func)
+    self.onTouchDownListener = func
+end
+
+function RNSprite:setOnTouchMove(func)
+end
+
+function RNSprite:setOnTouchUp(func)
+end
+
+function RNSprite:setOnTouchCancel(func)
 end
 
 function RNSprite:getTranslatedLocation(x, y)

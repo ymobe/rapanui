@@ -75,6 +75,7 @@ function RNScene:hideAll()
     for key, value in pairs(self.sprites)
     do
         self.layer:removeProp(value:getProp())
+        value:setVisible(false)
     end
 end
 
@@ -87,6 +88,7 @@ function RNScene:showAll()
     for key, value in pairs(self.sprites)
     do
         self.layer:insertProp(value:getProp())
+        value:setVisible(true)
     end
 end
 

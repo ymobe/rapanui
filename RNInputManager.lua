@@ -1,8 +1,11 @@
 module(..., package.seeall)
 
-
--- Create a New Scene Object
-
+----------------------------------------------------------------
+-- RapaNui Framework
+--
+-- https://github.com/eljeko/rapanui/
+--
+----------------------------------------------------------------
 
 function RNInputManager:new(o)
 
@@ -30,8 +33,7 @@ function addListener(listener)
 end
 
 function RNInputManager:addListenerToList(listener)
-    print("Adding listener" .. listener:getImageName() .. " @" .. self.size)
-    --print_r(listener)
+--print("Adding listener" .. listener:getImageName() .. " @" .. self.size)
     self.listeners[self.size] = listener
     self.size = self.size + 1
 end
@@ -40,22 +42,37 @@ function RNInputManager:getListeners()
     return self.listeners
 end
 
+-- types of touches:
+
+-- TOUCH_DOWN
+-- TOUCH_MOVE
+-- TOUCH_UP
+-- TOUCH_CANCEL
+
 function onEvent(eventType, idx, x, y, tapCount)
-    print("HERE!!!")
     for key, value in pairs(innerInputManager:getListeners())
     do
-    --  print("key: ==================================")
-    --  print_r(key)
-    --   print("value: ==================================")
-    --  print_r(value)
-        value:onTouch(x, y)
+
+        if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+            value:onTouchDown(x, y)
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+            value:onTouchMove(x, y)
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_UP) then
+            value:onTouchUp(x, y)
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+            value:onTouchCancel(x, y)
+        end
     end
 end
 
 
--- return first piece in the given coloumn
 function getListenerSlotFree()
-
     local size = 0;
     for key, value in pairs(innerInputManager:getListeners())
     do
@@ -67,6 +84,3 @@ function getListenerSlotFree()
 end
 
 RNInputManager.init()
-
-
---inputManager:init()

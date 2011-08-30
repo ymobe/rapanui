@@ -38,9 +38,9 @@ function RNDirector:new(o)
 end
 
 --
--- add a scene to the Director the name of the scene have to be unique because it will be used ad key
+-- add a scene to the Director the name of the scene have to be unique because it will be used as key
 --
--- @param scene  a scene object to add to the director managed scenes
+-- @param scene  a scene object to add to the director's managed scenes
 
 function RNDirector:addScene(scene)
     self.scenes[scene:getName()] = scene
@@ -74,11 +74,10 @@ end
 -- @param mode the switch mode if the mode it's not valid then a simple swap it's performed
 --
 function RNDirector:switch(name, props)
+
     if (TRANSITIONING) then
         return
     end
-
-
 
     local type = ""
 
@@ -97,7 +96,6 @@ function RNDirector:switch(name, props)
     if (props.mode ~= nil) then
         mode = props.mode
     end
-
 
     if (type == SWAP) then
         self:swap(name)
