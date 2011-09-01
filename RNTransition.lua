@@ -5,13 +5,14 @@
 --
 ----------------------------------------------------------------
 
-module(..., package.seeall)
 
 
 MOVE = "move"
 ROTATE = "rotate"
 
 -- Create a New Transition Object
+RNTransition = {}
+
 function RNTransition:new(o)
     o = o or {
         name = ""

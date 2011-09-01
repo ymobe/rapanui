@@ -4,10 +4,11 @@
 -- https://github.com/eljeko/rapanui/
 --
 ----------------------------------------------------------------
-
-module(..., package.seeall)
+require("RNSprite")
 
 -- Create a New Scene Object
+
+RNScene = {}
 
 function RNScene:new(o)
 

@@ -54,19 +54,19 @@ function onEvent(eventType, idx, x, y, tapCount)
     do
 
         if (eventType == MOAITouchSensor.TOUCH_DOWN) then
-            value:onTouchDown(x, y)
+            value:onTouchDown(x, y, value)
         end
 
         if (eventType == MOAITouchSensor.TOUCH_MOVE) then
-            value:onTouchMove(x, y)
+            value:onTouchMove(x, y, value)
         end
 
         if (eventType == MOAITouchSensor.TOUCH_UP) then
-            value:onTouchUp(x, y)
+            value:onTouchUp(x, y, value)
         end
 
         if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
-            value:onTouchCancel(x, y)
+            value:onTouchCancel(x, y, value)
         end
     end
 end

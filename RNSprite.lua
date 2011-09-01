@@ -5,7 +5,6 @@
 --
 ----------------------------------------------------------------
 
-module(..., package.seeall)
 
 require("RNInputManager")
 require("RNUtil")
@@ -14,8 +13,7 @@ require("RNUtil")
 TOP_LEFT_MODE = 1
 CENTERED_MODE = 2
 
-
-
+RNSprite = {}
 -- Create a new RNSprite Object
 function RNSprite:new(o)
 
@@ -47,6 +45,8 @@ end
 
 function RNSprite:initWith(image)
 
+    self.locatingMode = CENTERED_MODE
+
     self.name = image
     self.visible = true
 
@@ -63,23 +63,22 @@ function RNSprite:initWith(image)
 
     self.pow2Widht, self.pow2Height = self.image:getSize()
 
+    self.prop = MOAIProp2D.new()
+
     local u = self.originalWidht / self.pow2Widht
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
 
-    self.prop = MOAIProp2D.new()
+
     self.prop:setDeck(self.gfxQuad)
-    self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht / 2), (self.originalHeight / 2))
+    self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht) / 2, (self.originalHeight) / 2)
 
     self.prop:setLoc(0, 0);
 
     self.shader = MOAIShader.new()
 
     RNInputManager.addListener(self)
-
---    self.shader = MOAISimpleShader.new()
---self.prop:setShader(self.shader)
 end
 
 function RNSprite:getImageName()
@@ -104,7 +103,7 @@ function RNSprite:getScreenSize()
 end
 
 function RNSprite:updateLocation()
-    self:setLocation(self.screenX, self.screenY)
+    self:setLocation(self.x, self.y)
 end
 
 function RNSprite:setLocatingMode(mode)
@@ -133,7 +132,6 @@ function RNSprite:getY()
 end
 
 function RNSprite:setAlpha(value)
--- self.shader:setColor(value, value, value, 0)
     self.image:setRGBA(value, value, value, 0)
 end
 
@@ -151,8 +149,6 @@ function RNSprite:getLocatingMode()
 end
 
 function RNSprite:setVisible(value)
-    print("Called on x of " .. self.name .. " setting visibility for sprite ")
-    print(value)
     self.visible = value
 end
 
@@ -163,7 +159,6 @@ end
 
 
 function RNSprite:setLocation(x, y)
-
     self.screenX = x;
     self.screenY = y
 
@@ -181,40 +176,41 @@ function RNSprite:setLocation(x, y)
     end
 end
 
-function RNSprite:onTouchDown(x, y)
+function RNSprite:onTouchDown(x, y, source)
+
+    print("click on x: " .. x .. " y: " .. y)
+
 
     if (self.locatingMode == TOP_LEFT_MODE) then
         x = x + self.originalWidht / 2
         y = y + self.originalHeight / 2
     else
-        self.x = x
-        self.y = y
     end
 
     if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
-        print(os.date() .. "onTouchDown Called on x of " .. self.name)
-        self.onTouchDownListener(x, y)
+        print(os.date() .. "onTouchDown Called on x of source " .. source:getImageName())
+        self.onTouchDownListener(x, y, source)
     end
 end
 
-function RNSprite:onTouchMove(x, y)
+function RNSprite:onTouchMove(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchMove Called on x of " .. self.name)
-        self.onTouchMoveListener(x, y)
+        self.onTouchMoveListener(x, y, source)
     end
 end
 
-function RNSprite:onTouchUp(x, y)
+function RNSprite:onTouchUp(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchUp Called on x of " .. self.name)
-        self.onTouchUpListener(x, y)
+        self.onTouchUpListener(x, y, source)
     end
 end
 
-function RNSprite:onTouchCancel(x, y)
+function RNSprite:onTouchCancel(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchCancel Called on x of " .. self.name)
-        self.onTouchCancelListener(x, y)
+        self.onTouchCancelListener(x, y, source)
     end
 end
 
@@ -235,8 +231,5 @@ end
 
 function RNSprite:getTranslatedLocation(x, y)
 end
-
-
-
 
 

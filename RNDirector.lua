@@ -4,7 +4,6 @@
 -- https://github.com/eljeko/rapanui/
 --
 ----------------------------------------------------------------
-module(..., package.seeall)
 
 SWAP = 1
 SLIDE_TO_LEFT = 2
@@ -24,6 +23,8 @@ local nextScene = nil
 
 local timeToExecute = 1
 
+
+RNDirector = {}
 -- Create a new RNDirector Object
 function RNDirector:new(o)
 
