@@ -48,14 +48,28 @@ function RNScene:initWith(width, height)
     MOAISim.pushRenderPass(self.layer)
 end
 
-
 function RNScene:addSpriteWithLocatingMode(sprite, mode)
-    sprite:setScreenSize(self.width, self.height)
+    if sprite == nil then
+        print("found nil sprite")
+        return
+    end
+
     sprite:setLocatingMode(mode)
     self.layer:insertProp(sprite:getProp())
     sprite:updateLocation()
     self.sprites[self.spriteIndex] = sprite
     self.spriteIndex = self.spriteIndex + 1
+
+    if sprite:getChildrenSize() > 0 then
+    --print(sprite:getImageName())
+    --print(sprite:getChildrenSize())
+
+        for i = 0, sprite:getChildrenSize() - 1 do
+            local spriteChild = sprite:getChildat(i)
+            --  print("Call add sprite for child index [" .. i .. "]")
+            self:addSpriteWithLocatingMode(spriteChild, mode)
+        end
+    end
 end
 
 function RNScene:getLayer()
@@ -63,7 +77,7 @@ function RNScene:getLayer()
 end
 
 function RNScene:addSprite(sprite)
-    self:addSpriteWithLocatingMode(sprite, RNSprite.CENTERED_MODE)
+    self:addSpriteWithLocatingMode(sprite, 1)
 end
 
 function RNScene:getSprites()

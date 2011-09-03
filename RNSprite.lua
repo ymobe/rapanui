@@ -5,7 +5,6 @@
 --
 ----------------------------------------------------------------
 
-
 require("RNInputManager")
 require("RNUtil")
 
@@ -14,14 +13,13 @@ TOP_LEFT_MODE = 1
 CENTERED_MODE = 2
 
 RNSprite = {}
+
 -- Create a new RNSprite Object
 function RNSprite:new(o)
 
     o = o or {
         name = "",
         image = nil,
-        screenWidth = 0,
-        screenHeight = 0,
         originalHeight = 0,
         originalWidth = 0,
         pow2Widht = 0,
@@ -36,6 +34,8 @@ function RNSprite:new(o)
         visible = true,
         touchListener = nil,
         onTouchDownListener = nill,
+        children = {},
+        childrenSize = 0,
         texture = nil
     }
     setmetatable(o, self)
@@ -44,8 +44,6 @@ function RNSprite:new(o)
 end
 
 function RNSprite:initWith(image)
-
-    self.locatingMode = CENTERED_MODE
 
     self.name = image
     self.visible = true
@@ -56,7 +54,7 @@ function RNSprite:initWith(image)
     self.image = MOAIImage.new()
     self.image:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
 
-    self.originalWidht, self.originalHeight = self.image:getSize()
+    self.originalWidth, self.originalHeight = self.image:getSize()
 
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
@@ -65,14 +63,14 @@ function RNSprite:initWith(image)
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidht / self.pow2Widht
+    local u = self.originalWidth / self.pow2Widht
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
 
 
     self.prop:setDeck(self.gfxQuad)
-    self.gfxQuad:setRect((self.originalWidht / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidht) / 2, (self.originalHeight) / 2)
+    self.gfxQuad:setRect((self.originalWidth / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidth) / 2, (self.originalHeight) / 2)
 
     self.prop:setLoc(0, 0);
 
@@ -80,6 +78,26 @@ function RNSprite:initWith(image)
 
     RNInputManager.addListener(self)
 end
+
+function RNSprite:getChildren()
+    return self.children
+end
+
+function RNSprite:getChildat(index)
+    return self.children[index]
+end
+
+function RNSprite:addChild(sprite)
+    self.children[self.childrenSize] = sprite
+    self.childrenSize = self.childrenSize + 1
+end
+
+
+
+function RNSprite:getChildrenSize()
+    return self.childrenSize
+end
+
 
 function RNSprite:getImageName()
     return self.name
@@ -93,15 +111,6 @@ function RNSprite:getProp()
     return self.prop
 end
 
-function RNSprite:setScreenSize(width, height)
-    self.screenWidth = width
-    self.screenHeight = height
-end
-
-function RNSprite:getScreenSize()
-    return self.screenWidth, self.screenHeight
-end
-
 function RNSprite:updateLocation()
     self:setLocation(self.x, self.y)
 end
@@ -111,7 +120,7 @@ function RNSprite:setLocatingMode(mode)
 end
 
 function RNSprite:getOriginalWidth()
-    return self.originalWidht
+    return self.originalWidth
 end
 
 function RNSprite:getOriginalHeight()
@@ -157,13 +166,17 @@ function RNSprite:getVisible()
 end
 
 
+function RNSprite:TOP_LEFT_MODE()
+    return TOP_LEFT_MODE
+end
+
 
 function RNSprite:setLocation(x, y)
     self.screenX = x;
     self.screenY = y
 
     if (self.locatingMode == TOP_LEFT_MODE) then
-        self.x = x + self.originalWidht / 2
+        self.x = x + self.originalWidth / 2
         self.y = y + self.originalHeight / 2
     else
         self.x = x
@@ -182,33 +195,33 @@ function RNSprite:onTouchDown(x, y, source)
 
 
     if (self.locatingMode == TOP_LEFT_MODE) then
-        x = x + self.originalWidht / 2
+        x = x + self.originalWidth / 2
         y = y + self.originalHeight / 2
     else
     end
 
-    if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+    if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         print(os.date() .. "onTouchDown Called on x of source " .. source:getImageName())
         self.onTouchDownListener(x, y, source)
     end
 end
 
 function RNSprite:onTouchMove(x, y, source)
-    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchMove Called on x of " .. self.name)
         self.onTouchMoveListener(x, y, source)
     end
 end
 
 function RNSprite:onTouchUp(x, y, source)
-    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchUp Called on x of " .. self.name)
         self.onTouchUpListener(x, y, source)
     end
 end
 
 function RNSprite:onTouchCancel(x, y, source)
-    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidht and y >= self.y and y <= self.y + self.originalHeight then
+    if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         print("onTouchCancel Called on x of " .. self.name)
         self.onTouchCancelListener(x, y, source)
     end
@@ -231,5 +244,3 @@ end
 
 function RNSprite:getTranslatedLocation(x, y)
 end
-
-

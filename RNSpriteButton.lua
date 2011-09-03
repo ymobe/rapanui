@@ -7,9 +7,7 @@
 
 require("RNSprite")
 
--- Create a new class that inherits from a base class
---
---SpecialAccount = Account:new()
+-- Create a new class that inherits from a base class RNSprite
 RNSpriteButton = RNSprite:new()
 
 
@@ -18,19 +16,47 @@ function RNSpriteButton:setText(value)
     self.text = value
 end
 
+function RNSpriteButton:initWith(inmage)
+    RNSprite.initWith(self, inmage)
+end
+
+function RNSpriteButton:initWithImageAndText(image, text)
+    RNSprite.initWith(self, image)
+    self:setText(text)
+    self.rnspritetext = RNSpriteText:new()
+    self.rnspritetext:initWithText(text)
+
+    self.rnspritetext:setSize( self.originalWidth , self.originalHeight)
+    self:addChild(self.rnspritetext)
+end
+
 function RNSpriteButton:getText()
     return self.text
 end
 
-function RNSpriteButton:addTextbox(top, height, alignment)
 
-    local textbox = MOAITextBox.new()
-    textbox:setString(text)
-    textbox:setFont(font)
-    textbox:setTextSize(font:getScale())
-    textbox:setRect(-150, top - height, 150, top)
-    textbox:setAlignment(alignment)
-    textbox:setYFlip(true)
-    --layer:insertProp(textbox)
+
+
+function RNSpriteButton:setLocation(x, y)
+
+    print("setlocation override")
+    RNSprite.setLocation(self, x, y)
+    if self.rnspritetext ~= nil then
+        self.rnspritetext:setLocation(x, y);
+    end
+--self.screenX = x;
+--self.screenY = y
+
+--if (self.locatingMode == TOP_LEFT_MODE) then
+--        self.x = x + self.originalWidth / 2
+--        self.y = y + self.originalHeight / 2
+--    else
+--        self.x = x
+--        self.y = y
+--   end
+
+--    if (self:getProp() ~= nil) then
+--        self:getProp():setLoc(self.x, self.y);
+--        local locX, locy = self:getProp():getLoc();
+--    end
 end
-
