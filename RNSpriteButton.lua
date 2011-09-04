@@ -12,12 +12,20 @@ require("RNUtil")
 RNSpriteButton = RNSprite:new()
 
 
+
+function RNSpriteButton.createButton(params)
+    local button = RNSpriteButton:new()
+    button:create(params)
+    return button
+end
+
 function RNSpriteButton:setText(value)
     self.text = value
 end
 
 
 function RNSpriteButton:create(params)
+
     self.onOverImageName = params.onOverImage
 
     if self.onOverImageName ~= nil then
