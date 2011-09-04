@@ -36,7 +36,7 @@ function RNSpriteText:initWithText(text)
     self.textbox:setFont(self.font)
     self.textbox:setTextSize(self.font:getScale())
     self.textbox:setRect(0, 0, 120, 60)
-    self.textbox:setAlignment(MOAITextBox.LEFT_JUSTIFY)
+    self.textbox:setAlignment(MOAITextBox.CENTER_JUSTIFY)
 
 --RNInputManager.addListener(self)
 end
