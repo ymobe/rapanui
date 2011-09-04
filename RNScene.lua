@@ -56,6 +56,7 @@ function RNScene:addSpriteWithLocatingMode(sprite, mode)
 
     sprite:setLocatingMode(mode)
     self.layer:insertProp(sprite:getProp())
+    sprite:setParentScene(self)
     sprite:updateLocation()
     self.sprites[self.spriteIndex] = sprite
     self.spriteIndex = self.spriteIndex + 1

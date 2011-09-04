@@ -33,7 +33,6 @@ function addListener(listener)
 end
 
 function RNInputManager:addListenerToList(listener)
---print("Adding listener" .. listener:getImageName() .. " @" .. self.size)
     self.listeners[self.size] = listener
     self.size = self.size + 1
 end
@@ -69,18 +68,6 @@ function onEvent(eventType, idx, x, y, tapCount)
             value:onTouchCancel(x, y, value)
         end
     end
-end
-
-
-function getListenerSlotFree()
-    local size = 0;
-    for key, value in pairs(innerInputManager:getListeners())
-    do
-        if key ~= nil then
-            size = size + 1
-        end
-    end
-    return 0
 end
 
 RNInputManager.init()

@@ -35,8 +35,7 @@ function RNSprite:new(o)
         touchListener = nil,
         onTouchDownListener = nill,
         children = {},
-        childrenSize = 0,
-        texture = nil
+        childrenSize = 0
     }
     setmetatable(o, self)
     self.__index = self
@@ -44,12 +43,20 @@ function RNSprite:new(o)
 end
 
 function RNSprite:initWith(image)
-
-    self.name = image
     self.visible = true
 
+    self.x = 0
+    self.y = 0
+    self:loadImage(image)
+
+    RNInputManager.addListener(self)
+end
+
+
+function RNSprite:loadImage(image)
+    self.name = image
+
     self.gfxQuad = MOAIGfxQuad2D.new()
-    self.texture = MOAITexture.new()
 
     self.image = MOAIImage.new()
     self.image:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
@@ -73,10 +80,6 @@ function RNSprite:initWith(image)
     self.gfxQuad:setRect((self.originalWidth / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidth) / 2, (self.originalHeight) / 2)
 
     self.prop:setLoc(0, 0);
-
-    self.shader = MOAIShader.new()
-
-    RNInputManager.addListener(self)
 end
 
 function RNSprite:getChildren()
@@ -92,12 +95,13 @@ function RNSprite:addChild(sprite)
     self.childrenSize = self.childrenSize + 1
 end
 
-
+function RNSprite:setParentScene(scene)
+    self.scene = scene
+end
 
 function RNSprite:getChildrenSize()
     return self.childrenSize
 end
-
 
 function RNSprite:getImageName()
     return self.name
@@ -144,7 +148,6 @@ function RNSprite:setAlpha(value)
     self.image:setRGBA(value, value, value, 0)
 end
 
-
 function RNSprite:getShader()
     return self.shader
 end
@@ -190,46 +193,45 @@ function RNSprite:setLocation(x, y)
 end
 
 function RNSprite:onTouchDown(x, y, source)
-
-    print("click on x: " .. x .. " y: " .. y)
-
+--print("click on x: " .. x .. " y: " .. y)
 
     if (self.locatingMode == TOP_LEFT_MODE) then
         x = x + self.originalWidth / 2
         y = y + self.originalHeight / 2
-    else
     end
 
     if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
-        print(os.date() .. "onTouchDown Called on x of source " .. source:getImageName())
+    --  print(os.date() .. "onTouchDown Called on x of source " .. source:getImageName())
         self.onTouchDownListener(x, y, source)
+        return true
     end
 end
 
 function RNSprite:onTouchMove(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
-        print("onTouchMove Called on x of " .. self.name)
+    --   print("onTouchMove Called on x of " .. self.name)
         self.onTouchMoveListener(x, y, source)
+        return true
     end
 end
 
 function RNSprite:onTouchUp(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
-        print("onTouchUp Called on x of " .. self.name)
+    --   print("onTouchUp Called on x of " .. self.name)
         self.onTouchUpListener(x, y, source)
+        return true
     end
 end
 
 function RNSprite:onTouchCancel(x, y, source)
     if self.visible and self.touchListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
-        print("onTouchCancel Called on x of " .. self.name)
+    -- print("onTouchCancel Called on x of " .. self.name)
         self.onTouchCancelListener(x, y, source)
+        return true
     end
 end
 
 function RNSprite:setOnTouchDown(func)
-    print("setOnTouchDown  " .. self.name)
-    print_r(func)
     self.onTouchDownListener = func
 end
 
@@ -237,6 +239,7 @@ function RNSprite:setOnTouchMove(func)
 end
 
 function RNSprite:setOnTouchUp(func)
+    self.onOnTouchUpListener = func
 end
 
 function RNSprite:setOnTouchCancel(func)
