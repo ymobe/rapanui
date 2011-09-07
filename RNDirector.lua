@@ -5,13 +5,8 @@
 --
 ----------------------------------------------------------------
 
-SWAP = 1
-SLIDE_TO_LEFT = 2
-SLIDE_TO_RIGHT = 3
-SLIDE_TO_BOTTOM = 4
-SLIDE_TO_TOP = 5
-FADE_OUT_FADE_IN = 6
-CROSSFADE = 7
+require("RNGlobals")
+
 
 local TRANSITIONING = false
 
@@ -100,17 +95,17 @@ function RNDirector:switch(name, props)
 
     if (type == SWAP) then
         self:swap(name)
-    elseif (type == SLIDE_TO_LEFT) then
+    elseif (type == RNGlobals.SLIDE_TO_LEFT) then
         self:slideToLeft(name, time, mode)
-    elseif (type == SLIDE_TO_RIGHT) then
+    elseif (type == RNGlobals.SLIDE_TO_RIGHT) then
         self:slideToRight(name, time, mode)
-    elseif (type == SLIDE_TO_BOTTOM) then
+    elseif (type == RNGlobals.SLIDE_TO_BOTTOM) then
         self:slideToBottom(name, time, mode)
-    elseif (type == SLIDE_TO_TOP) then
+    elseif (type == RNGlobals.SLIDE_TO_TOP) then
         self:slideToTop(name, time, mode)
-    elseif (type == FADE_OUT_FADE_IN) then
+    elseif (type == RNGlobals.FADE_OUT_FADE_IN) then
         self:fadeOutFadeIn(name, time, mode)
-    elseif (type == CROSSFADE) then
+    elseif (type == RNGlobals.CROSSFADE) then
         self:crossFade(name, time, mode)
     else
         self:swap(name)

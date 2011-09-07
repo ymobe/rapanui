@@ -33,7 +33,7 @@ function RNSprite:new(o)
         screenY = 0,
         visible = true,
         touchListener = nil,
-        onTouchDownListener = nill,
+        onTouchDownListener = nil,
         children = {},
         childrenSize = 0
     }
@@ -44,7 +44,7 @@ end
 
 function RNSprite:initWith(image)
     self.visible = true
-
+    self.childrenSize = 0
     self.x = 0
     self.y = 0
     self:loadImage(image)

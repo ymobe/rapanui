@@ -49,6 +49,9 @@ function RNScene:initWith(width, height)
 end
 
 function RNScene:addSpriteWithLocatingMode(sprite, mode)
+
+    --print("adding with mode ".. mode)
+
     if sprite == nil then
         print("found nil sprite")
         return
