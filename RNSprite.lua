@@ -47,6 +47,7 @@ function RNSprite:initWith(image)
     self.childrenSize = 0
     self.x = 0
     self.y = 0
+    self.alpha =1
     self:loadImage(image)
 
     RNInputManager.addListener(self)
@@ -144,8 +145,13 @@ function RNSprite:getY()
     return self.y
 end
 
+function RNSprite:getAlpha()
+    return self.alpha
+end
+
 function RNSprite:setAlpha(value)
-    self.image:setRGBA(value, value, value, 0)
+    self.alpha = value
+    self.prop:setColor(1, 1, 1, value, 0)
 end
 
 function RNSprite:getShader()

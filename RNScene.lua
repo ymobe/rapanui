@@ -50,7 +50,7 @@ end
 
 function RNScene:addSpriteWithLocatingMode(sprite, mode)
 
-    --print("adding with mode ".. mode)
+--print("adding with mode ".. mode)
 
     if sprite == nil then
         print("found nil sprite")
@@ -119,6 +119,18 @@ function RNScene:seekColor(r, g, b, a, time, mode)
     for key, value in pairs(currentSceneSprites)
     do
         action = value:getProp():seekColor(r, g, b, a, time, mode)
+    end
+    return action
+end
+
+function RNScene:seekColorToDefault(r, g, b,  time, mode)
+    local currentSceneSprites = self:getSprites()
+
+    local action = nil
+
+    for key, value in pairs(currentSceneSprites)
+    do
+        action = value:getProp():seekColor(r, g, b, value:getAlpha(), time, mode)
     end
     return action
 end

@@ -227,7 +227,7 @@ function RNDirector:crossFade(name, time, mode)
     nextScene:showAll()
 
     currentScene:seekColor(0, 0, 0, 0, time, mode)
-    action = nextScene:seekColor(1, 1, 1, 1, time, mode)
+    action = nextScene:seekColorToDefault(1, 1, 1,  time, mode)
 
     action:setListener(MOAIAction.EVENT_STOP, RNDirector.onEndFade)
 end
