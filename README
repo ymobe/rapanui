@@ -43,7 +43,8 @@ To change the demo of RapaNui
 
 How to use RapaNui in your project:
 
-1) copy all the files of the root dir of the distribution into your project and add a lua require in your app's scripts.
+1) copy all the files of the root dir of the distribution into your project and add a lua require
+   in your app's scripts.
 
 enjoy,
 The RapaNui team
