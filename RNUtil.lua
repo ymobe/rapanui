@@ -1,18 +1,17 @@
-----------------------------------------------------------------
--- RapaNui Framework
+------------------------------------------------------------------------------------------------------------------------
 --
--- https://github.com/eljeko/rapanui/
+-- RapaNui
 --
-----------------------------------------------------------------
+-- by Ymobe ltd  (http://ymobe.co.uk)
 --
--- function print_r
+-- LICENSE:
 --
--- Recursively print tables useful for debug purpose
+-- RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
+-- CPAL is an Open Source Initiative approved
+-- license based on the Mozilla Public License, with the added requirement that you attribute
+-- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
--- Original by OderWat site: oderwat.de
---
--- Argument t = a table
-
+------------------------------------------------------------------------------------------------------------------------
 function print_r(t)
     local print_r_cache = {}
     local function sub_print_r(t, indent)
@@ -59,7 +58,7 @@ function class(base, init)
         init = base
         base = nil
     elseif type(base) == 'table' then
-    -- our new class is a shallow copy of the base class!
+        -- our new class is a shallow copy of the base class!
         for i, v in pairs(base) do
             c[i] = v
         end
@@ -77,7 +76,7 @@ function class(base, init)
         if init then
             init(obj, ...)
         else
-        -- make sure that any stuff from the base class is initialized!
+            -- make sure that any stuff from the base class is initialized!
             if base and base.init then
                 base.init(obj, ...)
             end

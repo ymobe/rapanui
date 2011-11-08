@@ -13,22 +13,10 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+local background = RNFactory.createImage("images/background-blue.png")
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
+anImage = RNFactory.createImage("images/image2.png")
 
-    o = o or {
-        enabled = true
-    }
-    setmetatable(o, self)
-    self.__index = self
-    return o
-end
+anImage = RNFactory.createImage("images/image3.png", { top = 130, left = 130 })
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
-    end
-end
-
+anImage = RNFactory.createImage("images/image4.png", { top = 194, left = 194 })

@@ -13,22 +13,41 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+RNRuntime = {}
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
-
+function RNRuntime:new(o)
     o = o or {
-        enabled = true
+        name = ""
     }
     setmetatable(o, self)
     self.__index = self
+
+    self.objects = {}
     return o
 end
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
+function RNRuntime:addEventListener(eventName, listener)
+
+    if eventName == "enterFrame" then
+
+
+        if type(listener) == "table" then
+            RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
+            RNMainThread.startMainThread()
+        end
+
+        if type(listener) == "function" then
+            RNMainThread.getMainThread():addEnterFrame(listener)
+            RNMainThread.startMainThread()
+        end
+
+    elseif eventName == "touch" then
+        RNInputManager.addGlobalListenerToEvent(eventName, listener)
     end
 end
 
+function RNRuntime:removeEventListener(eventname, func)
+end
+
+
+RNListeners = RNRuntime:new()

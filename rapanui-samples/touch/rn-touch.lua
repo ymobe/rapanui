@@ -13,22 +13,24 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+sprite1 = RNFactory.createImage("images/tile1.png")
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
+back = RNFactory.createImage("images/background-purple.png")
+back:sendToBottom()
 
-    o = o or {
-        enabled = true
-    }
-    setmetatable(o, self)
-    self.__index = self
-    return o
-end
+local w, h = RNFactory.stageWidth, RNFactory.stageHeight
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
+function onTouchEvent(event)
+
+    if event.phase == "began" then
+        sprite1.x = event.x
+        sprite1.y = event.y
+    end
+
+    if event.phase == "moved" then
+        sprite1.x = event.x
+        sprite1.y = event.y
     end
 end
 
+RNListeners:addEventListener("touch", onTouchEvent)

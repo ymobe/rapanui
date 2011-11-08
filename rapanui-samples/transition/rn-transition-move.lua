@@ -13,22 +13,19 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+local background = RNFactory.createImage("images/background-blue.png")
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
+anImage = RNFactory.createImage("images/tile1.png", { top = 64, left = 64 })
 
-    o = o or {
-        enabled = true
-    }
-    setmetatable(o, self)
-    self.__index = self
-    return o
+trn = RNTransition:new()
+
+function goToPointA()
+    trn:run(anImage, { type = "move", time = 1500, alpha = 0, x = 200, y = 200, onComplete = goToPointB })
 end
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
-    end
+function goToPointB()
+    trn:run(anImage, { type = "move", time = 1500, alpha = 0, x = 64, y = 64, onComplete = goToPointA })
 end
+
+goToPointA()
 

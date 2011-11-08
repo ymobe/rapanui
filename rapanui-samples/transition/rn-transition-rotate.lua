@@ -13,22 +13,18 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+local background = RNFactory.createImage("images/background-blue.png")
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
+anImage = RNFactory.createImage("images/tile1.png", { top = 64, left = 64 })
 
-    o = o or {
-        enabled = true
-    }
-    setmetatable(o, self)
-    self.__index = self
-    return o
+trn = RNTransition:new()
+
+function first()
+    trn:run(anImage, { type = "rotate", time = 1500, angle = 360, onComplete = second })
 end
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
-    end
+function second()
+    trn:run(anImage, { type = "rotate", time = 1500, angle = -360, onComplete = first })
 end
 
+first()

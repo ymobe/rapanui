@@ -1,14 +1,23 @@
-----------------------------------------------------------------
--- RapaNui Framework
+------------------------------------------------------------------------------------------------------------------------
 --
--- https://github.com/eljeko/rapanui/
+-- RapaNui
 --
-----------------------------------------------------------------
-
-
+-- by Ymobe ltd  (http://ymobe.co.uk)
+--
+-- LICENSE:
+--
+-- RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
+-- CPAL is an Open Source Initiative approved
+-- license based on the Mozilla Public License, with the added requirement that you attribute
+-- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
+--
+------------------------------------------------------------------------------------------------------------------------
+require("RNUtil")
 
 MOVE = "move"
 ROTATE = "rotate"
+SCALE = "scale"
+ALPHA = "alpha"
 
 -- Create a New Transition Object
 RNTransition = {}
@@ -24,30 +33,69 @@ end
 
 mainSprite = nil
 
+function RNTransition:run(target, params)
 
-function RNTransition:run(type, sprite, props)
+    local toX = target.x
+    local toY = target.y
 
-    local toX = sprite:getX();
-    local toY = sprite:getY();
+    local xScale = 0
+    local yScale = 0
+
     local time = 1
+    local delay = 1
+    local type = ""
+    local alpha = -1
+    local angle = 0
+    local mode = MOAIEaseType.SMOOTH
 
-    if (props.x ~= nil) then
-        toX = props.x
+    if (params.type ~= nil) then
+        type = params.type
     end
 
-    if (props.y ~= nil) then
-        toY = props.y
+    if (params.x ~= nil) then
+        toX = params.x
     end
 
-    if (props.time ~= nil) then
-        time = props.time
+    if (params.y ~= nil) then
+        toY = params.y
+    end
+
+    if (params.xScale ~= nil) then
+        xScale = params.xScale
+    end
+
+    if (params.yScale ~= nil) then
+        yScale = params.yScale
+    end
+
+    if (params.time ~= nil) then
+        time = params.time / 1000
     else
         time = 1
     end
 
+    if (params.delay ~= nil) then
+        delay = params.delay / 1000
+    else
+        delay = 0
+    end
+
+    if (params.alpha ~= nil) then
+        alpha = params.alpha
+    end
+
+    if (params.angle ~= nil) then
+        angle = params.angle
+    end
+
+    if (params.mode ~= nil) then
+        mode = params.mode
+    end
+
 
     if (type == MOVE) then
-        local px, py = sprite:getProp():getLoc();
+        local px, py = target:getProp():getLoc();
+
         local deltax = self:getDelta(px, toX)
         local deltay = self:getDelta(py, toY)
 
@@ -59,15 +107,34 @@ function RNTransition:run(type, sprite, props)
             deltay = (-1) * deltay
         end
 
-        local action = sprite:getProp():moveLoc(deltax, deltay, time)
+        local action = target:getProp():moveLoc(deltax, deltay, time)
 
-        if (props.onEndFunction ~= nil) then
-            action:setListener(MOAIAction.EVENT_STOP, props.onEndFunction)
+        if (params.onComplete ~= nil) then
+            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
         end
     end
 
     if (type == ROTATE) then
-        local action = sprite:getProp():moveRot(-360, 2)
+        local action = target:getProp():moveRot(angle, time)
+        if (params.onComplete ~= nil) then
+            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        end
+    end
+
+    if (type == ALPHA) then
+        action = target:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
+
+        if (params.onComplete ~= nil) then
+            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        end
+    end
+
+
+    if (type == SCALE) then
+        action = target:getProp():moveScl(xScale, yScale, time, mode)
+        if (params.onComplete ~= nil) then
+            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        end
     end
 end
 

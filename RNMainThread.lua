@@ -13,22 +13,21 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+module(..., package.seeall)
 
--- Create a new RNSprite Object
-function RNLogger:new(o)
+require("RNThread")
 
-    o = o or {
-        enabled = true
-    }
-    setmetatable(o, self)
-    self.__index = self
-    return o
+rnThread = RNThread:new()
+
+function addTimedAction(delay, func, iterations)
+    rnThread:runFunction(delay, func, iterations)
+    rnThread:start()
 end
 
-function RNLogger:log(text)
-    if self.enabled then
-        print(text)
-    end
+function getMainThread()
+    return rnThread
 end
 
+function startMainThread()
+    rnThread:start()
+end
