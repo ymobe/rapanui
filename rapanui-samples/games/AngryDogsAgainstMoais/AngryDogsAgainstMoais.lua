@@ -103,7 +103,7 @@ function create_level()
     --create texts
     label = RNFactory.createText("Shots: ", { size = 10, top = 420, left = -60, width = 200, height = 50 })
     score = RNFactory.createText("0", { size = 10, top = 420, left = 100, width = 30, height = 50 })
-    label2 = RNFactory.createText("Moais Destroied: ", { size = 10, top = 440, left = -50, width = 300, height = 50 })
+    label2 = RNFactory.createText("Moais Destroyed: ", { size = 10, top = 440, left = -50, width = 300, height = 50 })
     lev = RNFactory.createText("0", { size = 10, top = 440, left = 200, width = 30, height = 50 })
 
     --create restart button
