@@ -35,8 +35,6 @@ bricksBroken = 0
 label = RNFactory.createText("Bricks broken: ", { size = 10, top = 440, left = 5, width = 200, height = 50 })
 score = RNFactory.createText("", { size = 10, top = 440, left = 210, width = 30, height = 50 })
 
-
-
 function init()
     dir = round(math.random() * 1);
     ball.speed = 2;
@@ -101,7 +99,7 @@ end
 
 function collidePad()
 
-    if (ball.y >= paddle.y - 5 and ball.y <= paddle.y + 5) and
+    if (ball.y >= paddle.y - 5 and ball.y <= paddle.y) and
             (ball.x >= paddle.x - 20 and ball.x <= paddle.x + 20)
     then
         return true

@@ -61,13 +61,15 @@ function create_level()
     RNPhysics.createBodyFromImage(obstacle1, "static")
     RNPhysics.createBodyFromImage(obstacle2, "static")
     RNPhysics.createBodyFromImage(obstacle3, "static")
+
+    print("hole x:y: ", hole.x, hole.y)
 end
 
+trn = RNTransition:new()
 function goNextLevel()
     --transition to before changing level
-    trn = RNTransition:new()
-    trn:run(ball, { type = "scale", xScale = -1, yScale = -1, time = 500, onComplete = newLevel })
-    trn:run(ball, { type = "alpha", alpha = 0, time = 400 })
+    trn:run(ball, { type = "scale", xScale = -1, yScale = -1, time = 800, onComplete = newLevel })
+    trn:run(ball, { type = "alpha", alpha = 0, time = 800 })
 end
 
 function newLevel()
@@ -79,10 +81,6 @@ function newLevel()
     obstacle3:remove()
     create_level()
 end
-
-
-
-
 
 
 --Debud Draw it if you want
@@ -139,7 +137,7 @@ function Step()
     end
     --end level check
     local distance = math.sqrt(math.pow(hole.x - ball.x, 2) + math.pow(hole.y - ball.y, 2))
-    if distance < 35 and canMove == true and canChangeLevel == true then
+    if distance < 25 and canMove == true and canChangeLevel == true then
         goNextLevel()
         canChangeLevel = false
     end
