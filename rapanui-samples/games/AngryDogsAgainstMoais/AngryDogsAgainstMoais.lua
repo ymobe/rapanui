@@ -22,6 +22,8 @@ canMove = false
 lastx = 0
 moaisDestroyed = 0
 shots = 0
+startX=0
+startY=0
 
 --groups
 gameGroup = RNGroup:new()
@@ -121,24 +123,36 @@ end
 
 --handling touch
 function screen_touch(event)
-if event.phase=="began" then
-    local xx = event.x
-    local yy = event.y
-    local fx = event.x - dog.x
-    local fy = event.y - dog.y
-    local distance
+local xx = event.x
+local yy = event.y
+local fx = event.x - dog.x
+local fy = event.y - dog.y
+local distance
 
+
+if event.phase=="began" then
+	--restart button
     if (event.y < 50) then
         relocateBall()
         removeAll()
         create_level()
-    else
-        distance = math.sqrt(math.pow(event.x - dog.x, 2) + math.pow(event.y - dog.y, 2))
-        if canMove == true then
-            dog:applyForce(fx * 2000, fy * 2000, dog.x, dog.y)
-            shots = shots + 1
-            score:setText("" .. shots)
-        end
+    end
+    --sets the starting touch point
+	if event.y>50 then
+	startX=event.x
+	startY=event.y
+	print("got start point, now drag and drop")
+	end
+    
+end
+if event.phase=="ended" then
+	--shot the dog
+	print("drop received, shooting...go dog, go!")
+    distance = math.sqrt(math.pow(event.x - startX, 2) + math.pow(event.y - startY, 2))
+    if canMove == true then
+        dog:applyForce(fx * 2000, fy * 2000, dog.x, dog.y)
+        shots = shots + 1
+        score:setText("" .. shots)
     end
 end
 end
