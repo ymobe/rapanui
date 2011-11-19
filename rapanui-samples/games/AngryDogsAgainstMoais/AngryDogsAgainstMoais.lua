@@ -121,6 +121,7 @@ end
 
 --handling touch
 function screen_touch(event)
+if event.phase=="began" then
     local xx = event.x
     local yy = event.y
     local fx = event.x - dog.x
@@ -139,6 +140,7 @@ function screen_touch(event)
             score:setText("" .. shots)
         end
     end
+end
 end
 
 --add touch listener

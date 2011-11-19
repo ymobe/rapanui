@@ -69,3 +69,4 @@ require("RNPhysics")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
 
+
