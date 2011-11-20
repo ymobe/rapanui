@@ -175,15 +175,20 @@ end
 function onPointer(x, y)
     innerInputManager:setPointerX(x)
     innerInputManager:setPointerY(y)
+    onEvent(MOAITouchSensor.TOUCH_MOVE, -1, x, y, 0)
 end
 
 
 function onClick(down)
-
     if down then
         local x = innerInputManager:getPointerX()
         local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
+
+    else
+        local x = innerInputManager:getPointerX()
+        local y = innerInputManager:getPointerY()
+        onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
     end
 end
 
