@@ -35,7 +35,7 @@ DRAGGING = false
 DRAGGED_TARGET_LISTENER = nil
 LAST_xSTART = nil
 LAST_ySTART = nil
-
+isTOUCHING = false
 
 function RNInputManager:new(o)
 
@@ -175,7 +175,9 @@ end
 function onPointer(x, y)
     innerInputManager:setPointerX(x)
     innerInputManager:setPointerY(y)
-    onEvent(MOAITouchSensor.TOUCH_MOVE, -1, x, y, 0)
+    if isTOUCHING == true then
+        onEvent(MOAITouchSensor.TOUCH_MOVE, -1, x, y, 0)
+    end
 end
 
 
@@ -184,11 +186,12 @@ function onClick(down)
         local x = innerInputManager:getPointerX()
         local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
-
+        isTOUCHING = true
     else
         local x = innerInputManager:getPointerX()
         local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
+        isTOUCHING = false
     end
 end
 

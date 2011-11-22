@@ -15,7 +15,7 @@
 
 --Touch/Collision Handling sample
 
-
+boxTouched=false
 --add images
 background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
 box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 170; box.y = 80;
@@ -38,27 +38,37 @@ triangle.restitution = 0.3
 
 
 function screen_touch(event)
-    --receiveing from touch
+ --if you touch the box,you move it
+--(this is not really a precise touching function)
+--(the real one  should be done with object:addEventListener("touch")
+--so we receive callback only if the specified object is touched.
+--if the box is touched we apply a force toward the touch to it.
+local xx = event.x
+local yy = event.y
+local xx2 = box.x
+local yy2 = box.y
+local fx = xx - xx2
+local fy = yy - yy2
+--receiveing from touch:
+if event.phase=="began" then
     print(event.phase .. " touch event at " .. event.x .. "  " .. event.y)
-    --if the box is touched we apply a force toward the touch to it.
-    local xx = event.x
-    local yy = event.y
-    local xx2 = box.x
-    local yy2 = box.y
-    local fx = xx - xx2
-    local fy = yy - yy2
-    --if you touch the box,you move it
-    --(this is not really a precise touching function)
-    --(the real one  should be done with object:addEventListener("touch")
-    --so we receive callback only if the specified object is touched.
+	--if we are close to the box we set it to move
     if (math.abs(yy - yy2) < 32) and (math.abs(xx - xx2) < 32) then
-        box:applyForce(fx * 2000, fy * 2000, xx, yy)
+        boxTouched=true
         print("touching the box, moving it")
     else
-        --else we create a ball
+    --else we create a ball
         create_ball(xx, yy)
-        print("not touching the box")
+        print("not touching the box, creating a ball")
     end
+end
+if event.phase=="moved" and boxTouched==true then
+	box:applyForce(fx * 200, fy * 200, xx, yy)
+end
+if event.phase=="ended"then
+boxTouched=false
+end
+
 end
 
 
