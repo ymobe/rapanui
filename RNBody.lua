@@ -484,3 +484,23 @@ function RNBody:applyAngularImpulse(value)
     self.body:applyAngularImpulse(value)
 end
 
+
+
+
+-- additional methods from last update
+ 	
+function RNBody:getInertia()
+	return self.body:getInertia()
+end
+
+function RNBody:getMass()
+	return self.body:getInertia()
+end
+
+function RNBody:setMassData(mass,I,centerX,centerY )
+	if I~=nil then
+		self.body:setMassData(mass,I,centerX,centerY)
+	else
+	    self.body:setMassData(mass)
+	end
+end

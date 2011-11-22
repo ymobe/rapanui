@@ -1088,3 +1088,24 @@ end
 function RNObject:applyAngularImpulse(value)
     self.physicObject:applyAngularImpulse(value)
 end
+
+
+
+
+-- additional methods from last update
+ 	
+function RNObject:getInertia()
+	return self.physicObject:getInertia()
+end
+
+function RNObject:getMass()
+	return self.physicObject:getInertia()
+end
+
+function RNObject:setMassData(mass,I,centerX,centerY )
+	if I~=nil then
+		self.physicObject:setMassData(mass,I,centerX,centerY)
+	else
+	    self.physicObject:setMassData(mass)
+	end
+end
