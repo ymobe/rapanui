@@ -38,6 +38,15 @@ RNPhysics.setIterations(1, 1)
 print(RNPhysics.getMeters())
 RNPhysics.setAutoClearForces(true)
 print(RNPhysics.getAutoClearForces())
+--after-update methods
+RNPhysics.setAngularSleepTolerance(1)
+RNPhysics.setLinearSleepTolerance(1)
+RNPhysics.setTimeToSleep(1)
+print(RNPhysics.getAngularSleepTolerance())
+print(RNPhysics.getLinearSleepTolerance())
+print(RNPhysics.getTimeToSleep())
+ 	
+ 	
 
 --set images as physics objects
 RNPhysics.createBodyFromImage(box)
@@ -48,6 +57,12 @@ box.restitution = 0.5
 ball.restitution = 0.3
 triangle.restitution = 0.3
 
+
+
+--after update some bodies methods
+box:setMassData(5)
+print(box:getInertia())
+print(box:getMass()) 
 
 
 
