@@ -21,6 +21,7 @@ require("RNListeners")
 require("RNTransition")
 require("RNMainThread")
 require("RNPhysics")
+require("RNDirector")
 
 -- RapaNui demos:
 
@@ -36,6 +37,9 @@ require("RNPhysics")
 
 -- Groups
 --require("rapanui-samples/groups/rn-groups")
+
+-- Director
+require("rapanui-samples/director/rn-director-basic")
 
 -- Transition
 
@@ -56,7 +60,7 @@ require("RNPhysics")
 --require("rapanui-samples/physics/rn-physics-forces")
 --require("rapanui-samples/physics/rn-physics-complex")
 --require("rapanui-samples/physics/rn-physics-filters")
-require("rapanui-samples/physics/rn-physics-joints")
+--require("rapanui-samples/physics/rn-physics-joints")
 --require("rapanui-samples/physics/rn-physics-collisionhandling")
 --require("rapanui-samples/physics/rn-physics-touchtest")
 --require("rapanui-samples/physics/rn-physics-animation")
