@@ -30,7 +30,6 @@ function RNMapTileset:getTilesets()
 end
 
 function RNMapTileset:getFirstGid()
-
     return self.firstgid
 end
 
@@ -53,6 +52,64 @@ function RNMapTileset:getPropertiesForTile(id)
     else
         return {}
     end
+end
+
+function RNMapTileset:getTileImage(tileid)
+
+    if self.image.source ~= nil then
+        if self.srcMoaiImage == nil then
+            local src = RNFactory.createMoaiImage(self.image.source)
+            local width, height = src:getSize()
+            self.image.width = width
+            self.image.height = height
+            self.srcMoaiImage = src
+            self.tilescols = self.image.width / self.tilewidth
+            self.tilesrows = self.image.height / self.tileheight
+
+            --self.tiles[(row * self.width) + col]
+            self.srcMoaiImage = src
+        end
+
+        self.tilescols = self.image.width / self.tilewidth
+        self.tilesrows = self.image.height / self.tileheight
+
+        local row = math.ceil(tileid / self.tilescols) - 1 -- Returns the smallest integer larger than or equal to the division result
+
+        local moduleRows = tileid % self.tilescols
+
+        local col
+
+        if (moduleRows > 0) then
+            col = moduleRows - 1
+        else
+            col = self.tilescols - 1
+        end
+
+        local srcXMin = col * self.tilewidth
+        local srcXMax = srcXMin + self.tilewidth
+
+        local srcYMin = row * self.tileheight
+        local srcYMax = srcXMin + self.tileheight
+
+        local params = {
+            top = 0,
+            left = 0,
+            srcXMin = srcXMin,
+            srcYMin = srcYMin,
+            srcXMax = srcXMax,
+            srcYMax = srcYMax,
+            destXMin = 0,
+            destYMin = 0
+        }
+
+
+
+        return RNFactory.createCopyRect(self.srcMoaiImage, params)
+    end
+end
+
+function RNMapTileset:updateImageSource(image)
+    self.image.source = image
 end
 
 function RNMapTileset:getImage()

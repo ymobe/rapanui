@@ -365,6 +365,59 @@ function RNObject:innerNew(o)
     return o
 end
 
+
+function RNObject:initCopyRect(src, params)
+    self.visible = true
+    self.childrenSize = 0
+
+    self.alpha = 1
+    self:loadCopyRect(src, params)
+end
+
+function RNObject:loadCopyRect(src, params)
+
+    local image
+
+    if (type(src) == "string") then
+        image = MOAIImage.new()
+        image:load(src, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    elseif (type(src) == "userdata") then -- light check should be a MOAIImage.
+        image = src
+    end
+
+    self.name = ""
+
+    self.gfxQuad = MOAIGfxQuad2D.new()
+
+    self.image = MOAIImage.new()
+    self.image:init(40, 40)
+
+
+    self.image:copyRect(image, params.srcXMin, params.srcYMin, params.srcXMax, params.srcYMax, params.destXMin, params.destYMin, params.destXMax, params.destYMax, params.filter)
+
+    -- self.image.
+
+    self.originalWidth, self.originalHeight = self.image:getSize()
+
+    self.image = self.image:padToPow2()
+    self.gfxQuad:setTexture(self.image)
+
+    self.pow2Widht, self.pow2Height = self.image:getSize()
+
+    self.prop = MOAIProp2D.new()
+
+    local u = self.originalWidth / self.pow2Widht
+    local v = self.originalHeight / self.pow2Height
+
+    self.gfxQuad:setUVRect(0, 0, u, v)
+
+
+    self.prop:setDeck(self.gfxQuad)
+    self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
+    self.prop:setPriority(1)
+end
+
+
 function RNObject:initWith(image)
     self.visible = true
     self.childrenSize = 0
@@ -415,6 +468,7 @@ function RNObject:initAnimWith(image, sx, sy, scaleX, scaleY)
     self.alpha = 1
     self:loadAnim(image, sx, sy, scaleX, scaleY)
 end
+
 
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
@@ -1093,19 +1147,19 @@ end
 
 
 -- additional methods from last update
- 	
+
 function RNObject:getInertia()
-	return self.physicObject:getInertia()
+    return self.physicObject:getInertia()
 end
 
 function RNObject:getMass()
-	return self.physicObject:getInertia()
+    return self.physicObject:getInertia()
 end
 
-function RNObject:setMassData(mass,I,centerX,centerY )
-	if I~=nil then
-		self.physicObject:setMassData(mass,I,centerX,centerY)
-	else
-	    self.physicObject:setMassData(mass)
-	end
+function RNObject:setMassData(mass, I, centerX, centerY)
+    if I ~= nil then
+        self.physicObject:setMassData(mass, I, centerX, centerY)
+    else
+        self.physicObject:setMassData(mass)
+    end
 end
