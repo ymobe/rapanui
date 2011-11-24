@@ -21,7 +21,8 @@ module(..., package.seeall)
 TIME=800
 SCENE_TO_END_FADE_OUT=nil
 SCENE_TO_START_FADE_IN=nil
-
+SCENE_TO_END_SCALE_OUT=nil
+SCENE_TO_START_SCALE_IN=nil
 
 
 
@@ -69,6 +70,10 @@ local currentScene=self:getSceneByName(name)
 	if effect=="fade" then
 	    self:fadeIn(currentScene)
 	end
+	
+	if effect=="scale" then
+		self:scaleIn(currentScene)
+	end
 
 end
 
@@ -81,6 +86,9 @@ local currentScene=self:getSceneByName(name)
 
 	if effect=="fade" then
 	    self:fadeOut(currentScene)
+	end
+	if effect=="scale" then
+		self:scaleOut(currentScene)
 	end
 
 end
@@ -100,6 +108,11 @@ local scene2=self:getSceneByName(scene2name)
 	if effect=="fade" then
 	    self:fadeOut(scene1)
 	    self:fadeIn(scene2)
+	end
+	
+	if effect=="scale" then
+	    self:scaleOut(scene1)
+	    self:scaleIn(scene2)
 	end
 
 
@@ -123,14 +136,7 @@ end
 
 
 
----fade effect
-trn = RNTransition:new()
-function goNextLevel()
-    --transition to before changing level
-    trn:run(ball, { type = "scale", xScale = -1, yScale = -1, time = 800, onComplete = newLevel })
-    trn:run(ball, { type = "alpha", alpha = 0, time = 800 })
-end
-
+----------------------------fade effect---------------------------------------------------------
 
 function RNDirector:fadeIn(scene)
 --set up a scene to start fade in
@@ -177,8 +183,51 @@ end
 
 
 
+----------------------Scale Effect---------------------------------------------------------------
 
 
+function RNDirector:scaleIn(scene)
+--set up a scene to start fade in
+trn=RNTransition:new()
+	for i=0,table.getn(scene.displayObjects),1 do
+		trn:run(scene.displayObjects[i],{type="scale",xScale = -1, yScale = -1,time=1,onComplete=startscaleIn})
+	end
+SCENE_TO_START_SCALE_IN=scene
+end
+
+
+function RNDirector:scaleOut(scene)
+--fade the scene out with a transition, then calls a function to reset scene
+trn=RNTransition:new()
+	for i=0,table.getn(scene.displayObjects),1 do
+		trn:run(scene.displayObjects[i],{type="scale",xScale = -1, yScale = -1,time=self.TIME,onComplete=endscaleOut})
+	end
+SCENE_TO_END_SCALE_OUT=scene
+end
+
+
+
+
+function startscaleIn()
+--now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
+local scene=SCENE_TO_START_SCALE_IN
+scene.visible=true
+trn=RNTransition:new()
+	for i=0,table.getn(scene.displayObjects),1 do
+		trn:run(scene.displayObjects[i],{type="scale",xScale = 0.5, yScale = 0.5,time=TIME})
+	end
+end
+
+
+function endscaleOut()
+	--when fadeOut ends we need to set the scene hidden, but with alpha values to 1
+	local scene=SCENE_TO_END_SCALE_OUT
+	scene.visible=false
+	trn=RNTransition:new()
+		for i=0,table.getn(scene.displayObjects),1 do
+			trn:run(scene.displayObjects[i],{type="scale",xScale = 0.5, yScale = 0.5,time=1})
+		end
+end
 
 
 
