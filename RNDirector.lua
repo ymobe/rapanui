@@ -20,12 +20,12 @@ module(..., package.seeall)
 --global time for transitions
 TIME=800
 SCENE_TO_END_FADE_OUT=nil
-SCENE_TO_START_FADE_IN=nil
 SCENE_TO_END_SCALE_OUT=nil
 SCENE_TO_START_SCALE_IN=nil
 
-
-
+CURRENT_SCENE=nil
+CURRENT_SCENE_GROUP=nil
+OLD_SCENE=nil
 
 
 
@@ -47,7 +47,6 @@ end
 function RNDirector:addScene(scene)
     	local len = table.getn(self.scenes)
         self.scenes[len + 1] = scene
-        scene.visible=false
 end
 
 
@@ -61,60 +60,56 @@ end
 
 
 function RNDirector:showScene(name,effect)
-local currentScene=self:getSceneByName(name)
 
 	if effect=="pop" then
-	    currentScene.visible=true
+		self:popIn(name)	
 	end
 
 	if effect=="fade" then
-	    self:fadeIn(currentScene)
+	    self:fadeIn(name)
 	end
 	
-	if effect=="scale" then
-		self:scaleIn(currentScene)
+	if effect=="slidetoleft" then
+	    self:slideToLeftIn(name)
 	end
 
 end
 
 function RNDirector:hideScene(name,effect)
-local currentScene=self:getSceneByName(name)
-
 	if effect=="pop" then
-	    currentScene.visible=false
+		self:popOut()
 	end
 
 	if effect=="fade" then
-	    self:fadeOut(currentScene)
+	    self:fadeOut()
 	end
-	if effect=="scale" then
-		self:scaleOut(currentScene)
+	
+	if effect=="slidetoleft" then
+	    self:slideToLeftOut()
 	end
-
+	
 end
 
 
 --function for changing a scene to another one
 
-function RNDirector:changeScene(scene1name,scene2name,effect)
-local scene1=self:getSceneByName(scene1name)
-local scene2=self:getSceneByName(scene2name)
+function RNDirector:changeScene(sceneToGo,effect)
 
 	if effect=="pop" then
-	   scene1.visible=false
-	   scene2.visible=true
+		self:popOutChange()
+		self:popIn(sceneToGo)   
 	end
 
 	if effect=="fade" then
-	    self:fadeOut(scene1)
-	    self:fadeIn(scene2)
+	    self:fadeOutChange()
+	    self:fadeIn(sceneToGo)
 	end
 	
-	if effect=="scale" then
-	    self:scaleOut(scene1)
-	    self:scaleIn(scene2)
+	if effect=="slidetoleft" then
+	    self:slideToLeftOutChange()
+	    self:slideToLeftIn(sceneToGo)
 	end
-
+	
 
 end
 
@@ -122,39 +117,48 @@ end
 
 
 
---get scene RNGroup object from his string name
+-------------------------pop effect-------------------------------------------------------------
 
-function RNDirector:getSceneByName(name)
-	local currentScene
-		for i=1,table.getn(self.scenes),1 do
-	        if self.scenes[i].name==name then
-	            currentScene=self.scenes[i]
-	        end
-		end
-    return currentScene
+function RNDirector:popIn(name)
+		CURRENT_SCENE=require(name)
+		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
 end
 
+
+
+function RNDirector:popOut()
+		CURRENT_SCENE.onEnd()
+end
+
+function RNDirector:popOutChange()
+		OLD_SCENE=CURRENT_SCENE()
+		OLD_SCENE.onEnd()
+end
 
 
 ----------------------------fade effect---------------------------------------------------------
 
-function RNDirector:fadeIn(scene)
+function RNDirector:fadeIn(name)
 --set up a scene to start fade in
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="alpha",alpha=0,time=1,onComplete=startFadeIn})
+		CURRENT_SCENE=require(name)
+		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
+--set starting alpha
+--and call for startFadeIn when ready
+CURRENT_SCENE_GROUP.visible=false	
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=1,onComplete=startFadeIn})
 	end
-SCENE_TO_START_FADE_IN=scene
+	
 end
 
 
-function RNDirector:fadeOut(scene)
+function RNDirector:fadeOut()
 --fade the scene out with a transition, then calls a function to reset scene
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOut})
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOut})
 	end
-SCENE_TO_END_FADE_OUT=scene
 end
 
 
@@ -162,72 +166,91 @@ end
 
 function startFadeIn()
 --now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
-local scene=SCENE_TO_START_FADE_IN
-scene.visible=true
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="alpha",alpha=1,time=TIME})
+CURRENT_SCENE_GROUP.visible=true
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=1,time=TIME})
 	end
 end
 
 
 function endFadeOut()
-	--when fadeOut ends we need to set the scene hidden, but with alpha values to 1
-	local scene=SCENE_TO_END_FADE_OUT
-	scene.visible=false
-	trn=RNTransition:new()
-		for i=0,table.getn(scene.displayObjects),1 do
-			trn:run(scene.displayObjects[i],{type="alpha",alpha=1,time=1})
-		end
+	CURRENT_SCENE.onEnd()
 end
 
-
-
-----------------------Scale Effect---------------------------------------------------------------
-
-
-function RNDirector:scaleIn(scene)
---set up a scene to start fade in
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="scale",xScale = -1, yScale = -1,time=1,onComplete=startscaleIn})
-	end
-SCENE_TO_START_SCALE_IN=scene
-end
-
-
-function RNDirector:scaleOut(scene)
+function RNDirector:fadeOutChange()
+OLD_SCENE=CURRENT_SCENE
 --fade the scene out with a transition, then calls a function to reset scene
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="scale",xScale = -1, yScale = -1,time=self.TIME,onComplete=endscaleOut})
-	end
-SCENE_TO_END_SCALE_OUT=scene
-end
-
-
-
-
-function startscaleIn()
---now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
-local scene=SCENE_TO_START_SCALE_IN
-scene.visible=true
-trn=RNTransition:new()
-	for i=0,table.getn(scene.displayObjects),1 do
-		trn:run(scene.displayObjects[i],{type="scale",xScale = 0.5, yScale = 0.5,time=TIME})
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOutChange})
 	end
 end
 
-
-function endscaleOut()
-	--when fadeOut ends we need to set the scene hidden, but with alpha values to 1
-	local scene=SCENE_TO_END_SCALE_OUT
-	scene.visible=false
-	trn=RNTransition:new()
-		for i=0,table.getn(scene.displayObjects),1 do
-			trn:run(scene.displayObjects[i],{type="scale",xScale = 0.5, yScale = 0.5,time=1})
-		end
+function endFadeOutChange()
+    OLD_SCENE.onEnd()
 end
+
+
+
+
+
+
+----------------------------Scale to left effect---------------------------------------------------------
+
+function RNDirector:slideToLeftIn(name)
+--set up a scene to start slide in
+		CURRENT_SCENE=require(name)
+		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()	
+		CURRENT_SCENE_GROUP.x=320
+--start slide
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-320,y=CURRENT_SCENE_GROUP.displayObjects[i].y,time=TIME})
+	end	
+end
+
+function RNDirector:slideToLeftOut()		
+--start slide
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-320,y=CURRENT_SCENE_GROUP.displayObjects[i].y,time=TIME,onComplete=slideToLeftOutEnd})
+	end	
+end
+
+
+function slideToLeftOutEnd()
+	CURRENT_SCENE.onEnd()	
+end
+
+function RNDirector:slideToLeftOutChange()
+OLD_SCENE=CURRENT_SCENE		
+--start slide
+	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+		local trn=RNTransition:new()
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-320,y=CURRENT_SCENE_GROUP.displayObjects[i].y,time=TIME,onComplete=endSlideToLeftOutChange})
+	end	
+end
+
+function endSlideToLeftOutChange()
+    OLD_SCENE.onEnd()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
