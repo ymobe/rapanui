@@ -30,7 +30,7 @@ function RNMap:getLayers()
 end
 
 function RNMap:getLayersSize()
-    return self.layersSize + 1
+    return self.layersSize
 end
 
 

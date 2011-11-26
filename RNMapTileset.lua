@@ -89,7 +89,7 @@ function RNMapTileset:getTileImage(tileid)
         local srcXMax = srcXMin + self.tilewidth
 
         local srcYMin = row * self.tileheight
-        local srcYMax = srcXMin + self.tileheight
+        local srcYMax = srcYMin + self.tileheight
 
         local params = {
             top = 0,
@@ -101,8 +101,6 @@ function RNMapTileset:getTileImage(tileid)
             destXMin = 0,
             destYMin = 0
         }
-
-
 
         return RNFactory.createCopyRect(self.srcMoaiImage, params)
     end

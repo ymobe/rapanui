@@ -38,12 +38,12 @@ print("=========================================================================
 print("layerProp1", "=", aLayer:getProperty("layerProp1"))
 print("layerPropX", "=", aLayer:getProperty("layerPropX"))
 
-print(map:getOrientation())
-print(map:getCols())
-print(map:getRows())
-print(map:getTileWidth())
-print(map:getTileWidth())
-print(map:getLayersSize())
+print("map:getOrientation()", map:getOrientation())
+print("       map:getCols()", map:getCols())
+print("       map:getRows()", map:getRows())
+print("  map:getTileWidth()", map:getTileWidth())
+print("  map:getTileWidth()", map:getTileWidth())
+print(" map:getLayersSize()", map:getLayersSize())
 
 
 -- TileSet
@@ -81,10 +81,4 @@ print("=========================================================================
 print("================================================================================")
 aObjectGroup = map:getFirstObjectGroupByName("ObjectGroup02")
 print("================================================================================")
-
-
-
---print_r(map)
-
-
 

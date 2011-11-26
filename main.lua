@@ -39,7 +39,7 @@ require("RNDirector")
 --require("rapanui-samples/groups/rn-groups")
 
 -- Director
-require("rapanui-samples/director/rn-director-basic")
+--require("rapanui-samples/director/rn-director-basic")
 
 -- Transition
 
@@ -72,4 +72,11 @@ require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/games/brick2d/brick2d")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
+
+-- Maps
+require("rapanui-samples/maps/rn-basic-map")
+--require("rapanui-samples/maps/rn-tiledmap-parser")
+--require("rapanui-samples/maps/rn-tileset")
+
+
 
