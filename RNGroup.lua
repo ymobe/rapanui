@@ -130,7 +130,12 @@ function RNGroup:insert(object, resetTransform)
     self.levels[level] = level
 
     self.displayObjects[self.numChildren] = object
+    object:setIDInGroup(self.numChildren)
     self.numChildren = self.numChildren + 1
+end
+
+function RNGroup:removeChild(id)
+    self.displayObjects[id] = nil
 end
 
 function RNGroup:inserLevel(level)

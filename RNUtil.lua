@@ -48,6 +48,14 @@ function print_r(t)
 end
 
 
+function memestatus()
+
+    local sysMem = collectgarbage("count") * .001
+
+    print("Mem: " .. math.floor(sysMem * 1000) * .001 .. "MB \t")
+end
+
+
 -- source http://lua-users.org/wiki/SimpleLuaClasses
 
 -- class.lua

@@ -55,22 +55,26 @@ function RNScreen:initWith(width, height)
     MOAISim.pushRenderPass(self.layer)
 end
 
-function RNScreen:addRNObject(RNObject, mode)
+function RNScreen:addRNObject(object, mode)
 
-    if RNObject == nil then
+    if object == nil then
         return
     end
 
-    self.images[self.images_size] = RNObject
+    --self.images[self.images_size] = object
 
-    self.images_size = self.images_size + 1
+   -- self.images_size = self.images_size + 1
 
-    RNObject:setLocatingMode(mode)
-    self.layer:insertProp(RNObject:getProp())
-    RNObject:setParentScene(self)
-    RNObject:updateLocation()
-    self.sprites[self.spriteIndex] = RNObject
-    self.spriteIndex = self.spriteIndex + 1
+    object:setLocatingMode(mode)
+    self.layer:insertProp(object:getProp())
+    object:setParentScene(self)
+    object:updateLocation()
+    --self.sprites[self.spriteIndex] = object
+    --self.spriteIndex = self.spriteIndex + 1
+end
+
+function RNScreen:removeRNObject(object)
+    self.layer:removeProp(object:getProp())
 end
 
 function RNScreen:getImages()

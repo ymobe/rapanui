@@ -470,6 +470,10 @@ function RNObject:initAnimWith(image, sx, sy, scaleX, scaleY)
 end
 
 
+function RNObject:setIDInGroup(id)
+    self.idInGroup = id
+end
+
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
 
@@ -978,11 +982,14 @@ end
 -- calls to phsyic object methods
 --
 function RNObject:remove()
+    self.scene:removeRNObject(self)
+    --print_r(self.scene)
     if self.isPhysical == true then
         self.physicObject:remove()
     else
         self.prop:setDeck(nil)
     end
+    self.parentGroup:removeChild(self.idInGroup)
 end
 
 --if it's awake (returns boolean)
