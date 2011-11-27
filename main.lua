@@ -26,7 +26,7 @@ require("RNDirector")
 -- RapaNui demos:
 
 -- Anim
---require("rapanui-samples/anim/rn-anim")
+require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
@@ -74,9 +74,11 @@ require("RNDirector")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
 
 -- Maps
-require("rapanui-samples/maps/rn-basic-map")
+--require("rapanui-samples/maps/rn-basic-map")
+--require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tiledmap-parser")
 --require("rapanui-samples/maps/rn-tileset")
+
 
 
 

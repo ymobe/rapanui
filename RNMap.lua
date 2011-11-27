@@ -95,3 +95,13 @@ function RNMap:getFirstObjectGroupByName(name)
     return {}
 end
 
+function RNMap:drawMapAt(x, y, tileset)
+    local layersSize = self:getLayersSize()
+
+    for i = 0, layersSize - 1 do
+        local layer = self.layers[i]
+        layer:drawLayerAt(x, y, tileset)
+    end
+end
+
+

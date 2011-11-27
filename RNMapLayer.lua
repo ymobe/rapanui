@@ -17,7 +17,8 @@ RNMapLayer = {}
 
 function RNMapLayer:new(o)
     o = o or {
-        name = ""
+        name = "",
+        lastRenderedItems = {}
     }
     setmetatable(o, self)
     self.__index = self
@@ -75,6 +76,37 @@ function RNMapLayer:getProperty(key)
         end
     end
     return ""
+end
+
+function RNMapLayer:cleanLastRendering()
+    for key, value in pairs(self.lastRenderedItems) do
+        value:remove()
+    end
+end
+
+function RNMapLayer:drawLayerAt(x, y, tileset)
+    self:cleanLastRendering()
+    self.lastRenderedItemSize = 0
+    for col = 0, self:getCols() - 1 do
+        local rowTiles = ""
+        for row = 0, self:getRows() - 1 do
+            local tileIdx = self:getTilesAt(row, col)
+
+            local tileX = x + tileset:getTileWidth() * col + tileset:getTileWidth() / 2
+            local tileY = y + tileset:getTileHeight() * row + tileset:getTileHeight() / 2
+
+            if tileX > -tileset:getTileWidth() and tileX < config.width + tileset:getTileWidth() and
+                    tileY > -tileset:getTileHeight() and tileY < config.height + tileset:getTileWidth() and tileIdx ~= tileset:getBlankTileId()
+            then
+                local aTile = tileset:getTileImage(tileIdx)
+                self.lastRenderedItems[self.lastRenderedItemSize] = aTile
+                self.lastRenderedItemSize = self.lastRenderedItemSize + 1
+                aTile.x = tileX
+                aTile.y = tileY
+            end
+        end
+        rowTiles = ""
+    end
 end
 
 function RNMapLayer:printToAscii()

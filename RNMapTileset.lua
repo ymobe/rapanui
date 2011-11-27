@@ -45,6 +45,18 @@ function RNMapTileset:getTilesetsSize()
     return self.tilesetsSize
 end
 
+
+function RNMapTileset:getBlankTileId()
+    if self.blankTileId ~= nil then
+        return self.blankTileId
+    end
+    return "0"
+end
+
+function RNMapTileset:setBlankTileId(id)
+    self.blankTileId = id
+end
+
 -- returns the properties configured in the tileset for the given tile with id
 function RNMapTileset:getPropertiesForTile(id)
     if self.tilesproperties[id] ~= nil then
