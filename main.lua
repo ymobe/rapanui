@@ -39,7 +39,8 @@ require("RNDirector")
 --require("rapanui-samples/groups/rn-groups")
 
 -- Director
-require("rapanui-samples/director/rn-director-basic")
+--require("rapanui-samples/director/rn-director-basic")
+require("rapanui-samples/director/rn-director-loop")
 
 -- Transition
 

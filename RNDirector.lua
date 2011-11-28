@@ -19,10 +19,7 @@ module(..., package.seeall)
 
 --global time for transitions
 TIME=800
-SCENE_TO_END_FADE_OUT=nil
-SCENE_TO_END_SCALE_OUT=nil
-SCENE_TO_START_SCALE_IN=nil
-
+--other globals
 CURRENT_SCENE=nil
 CURRENT_SCENE_GROUP=nil
 OLD_SCENE=nil
@@ -164,7 +161,7 @@ function RNDirector:popOut()
 end
 
 function RNDirector:popOutChange()
-		OLD_SCENE=CURRENT_SCENE()
+		OLD_SCENE=CURRENT_SCENE
 		OLD_SCENE.onEnd()
 end
 
@@ -240,9 +237,15 @@ function RNDirector:slideIn(name,xx,yy)
 --start slide
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onEndSlideIn})
 	end	
 end
+
+function onEndSlideIn()
+	CURRENT_SCENE_GROUP.x=0
+	CURRENT_SCENE_GROUP.y=0
+end
+
 
 function RNDirector:slideOut(xx,yy)
 --start slide
