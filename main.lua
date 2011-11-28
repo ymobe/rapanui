@@ -26,7 +26,7 @@ require("RNDirector")
 -- RapaNui demos:
 
 -- Anim
-require("rapanui-samples/anim/rn-anim")
+--require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
@@ -39,7 +39,7 @@ require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/groups/rn-groups")
 
 -- Director
---require("rapanui-samples/director/rn-director-basic")
+require("rapanui-samples/director/rn-director-basic")
 
 -- Transition
 

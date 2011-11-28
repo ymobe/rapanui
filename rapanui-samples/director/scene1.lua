@@ -49,8 +49,8 @@ end
 
 
 function onEnd()
-	for i=0,table.getn(mainGroup.displayObjects),1 do
-		mainGroup.displayObjects[i]:remove();
+	for i=1,table.getn(mainGroup.displayObjects),1 do
+		mainGroup.displayObjects[1]:remove();
 	end	
 end
 
