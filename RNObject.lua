@@ -474,6 +474,10 @@ function RNObject:setIDInGroup(id)
     self.idInGroup = id
 end
 
+function RNObject:setIDInScreen(id)
+    self.idInScreen = id
+end
+
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
 
