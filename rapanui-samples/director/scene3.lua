@@ -38,6 +38,9 @@ function onCreate()
 	tile1a = RNFactory.createImage("images/tile3.png");tile1a.x=100;tile1a.y=340;
 	tile1b = RNFactory.createImage("images/tile3.png");tile1b.x=100;tile1b.y=240;
 	tile1c = RNFactory.createImage("images/tile3.png");tile1c.x=260;tile1c.y=140;
+	for i=1,table.getn(RNFactory.mainGroup.displayObjects),1 do
+		RNFactory.mainGroup:removeChild(1);
+	end
 	mainGroup:insert(background)
 	mainGroup:insert(tile1a)
 	mainGroup:insert(tile1b)
