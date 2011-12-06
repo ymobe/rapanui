@@ -121,9 +121,57 @@ function createImage(filename, params)
     return image
 end
 
+function createImageFromMoaiImage(moaiImage, params)
+
+    local parentGroup, left, top
+
+    top = 0
+    left = 0
+
+    if (params ~= nil) then
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.parentGroup ~= nil) then
+            parentGroup = params.parentGroup
+        else
+            parentGroup = mainGroup
+        end
+    end
+
+    if (parentGroup == nil) then
+        parentGroup = mainGroup
+    end
+
+
+    local image = RNObject:new()
+    image:initWithMoaiImage(moaiImage)
+    screen:addRNObject(image)
+    image.x = image.originalWidth / 2 + left
+    image.y = image.originalHeight / 2 + top
+
+    if parentGroup ~= nil then
+        parentGroup:insert(image)
+    end
+
+
+    return image
+end
+
 function createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    return image
+end
+
+function createBlankMoaiImage(width, height)
+    local image = MOAIImage.new()
+    image:init(width, height)
     return image
 end
 

@@ -374,6 +374,37 @@ function RNObject:initCopyRect(src, params)
     self:loadCopyRect(src, params)
 end
 
+
+function RNObject:initBlank(width, height)
+
+    self.name = image
+
+    self.gfxQuad = MOAIGfxQuad2D.new()
+
+    self.image = MOAIImage.new()
+    self.image:init(width, height)
+
+
+    self.originalWidth, self.originalHeight = self.image:getSize()
+
+    self.image = self.image:padToPow2()
+    self.gfxQuad:setTexture(self.image)
+
+    self.pow2Widht, self.pow2Height = self.image:getSize()
+
+    self.prop = MOAIProp2D.new()
+
+    local u = self.originalWidth / self.pow2Widht
+    local v = self.originalHeight / self.pow2Height
+
+    self.gfxQuad:setUVRect(0, 0, u, v)
+
+
+    self.prop:setDeck(self.gfxQuad)
+    self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
+    self.prop:setPriority(1)
+end
+
 function RNObject:loadCopyRect(src, params)
 
     local image
@@ -390,8 +421,11 @@ function RNObject:loadCopyRect(src, params)
     self.gfxQuad = MOAIGfxQuad2D.new()
 
     self.image = MOAIImage.new()
-    self.image:init(40, 40)
 
+    local tmpWidth = params.srcXMax - params.srcXMin
+    local tmpEight = params.srcYMax - params.srcYMin
+
+    self.image:init(tmpWidth, tmpEight)
 
     self.image:copyRect(image, params.srcXMin, params.srcYMin, params.srcXMax, params.srcYMax, params.destXMin, params.destYMin, params.destXMax, params.destYMax, params.filter)
 
@@ -424,6 +458,37 @@ function RNObject:initWith(image)
 
     self.alpha = 1
     self:loadImage(image)
+end
+
+function RNObject:initWithMoaiImage(moaiImage)
+    self.visible = true
+    self.childrenSize = 0
+
+    self.alpha = 1
+    self.name = ""
+
+    self.gfxQuad = MOAIGfxQuad2D.new()
+
+    self.image = moaiImage
+
+    self.originalWidth, self.originalHeight = self.image:getSize()
+
+    self.image = self.image:padToPow2()
+    self.gfxQuad:setTexture(self.image)
+
+    self.pow2Widht, self.pow2Height = self.image:getSize()
+
+    self.prop = MOAIProp2D.new()
+
+    local u = self.originalWidth / self.pow2Widht
+    local v = self.originalHeight / self.pow2Height
+
+    self.gfxQuad:setUVRect(0, 0, u, v)
+
+
+    self.prop:setDeck(self.gfxQuad)
+    self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
+    self.prop:setPriority(1)
 end
 
 
@@ -989,6 +1054,7 @@ function RNObject:remove()
     else
         self.prop:setDeck(nil)
     end
+    --print("remove", self.idInGroup)
     self.parentGroup:removeChild(self.idInGroup)
 end
 

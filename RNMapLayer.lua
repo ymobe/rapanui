@@ -84,7 +84,7 @@ function RNMapLayer:cleanLastRendering()
     end
 end
 
-function RNMapLayer:drawLayerAt(x, y, tileset)
+function RNMapLayer:drawLayerAt_tileByTile(x, y, tileset)
     self:cleanLastRendering()
     self.lastRenderedItemSize = 0
     for col = 0, self:getCols() - 1 do
@@ -107,6 +107,62 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
         end
         rowTiles = ""
     end
+end
+
+function RNMapLayer:drawLayerAt(x, y, tileset)
+    if self.renderedMap ~= nil then
+        self.renderedMap:remove()
+    end
+
+    local newMap = RNFactory.createBlankMoaiImage(config.width + tileset:getTileWidth(), config.height + tileset:getTileHeight())
+    --collectgarbage("step")
+
+    if self.aTileSample == nil then
+        self.aTileSample = tileset:getTileImage(1)
+        self.aTileSample:remove()
+    end
+
+    for col = 0, self:getCols() - 1 do
+        local rowTiles = ""
+        --local dummy1 = {}
+        for row = 0, self:getRows() - 1 do
+            local tileIdx = self:getTilesAt(row, col)
+
+            local tileX = x + tileset:getTileWidth() * col
+            local tileY = y + tileset:getTileHeight() * row
+
+            if tileX > -tileset:getTileWidth() and tileX < config.width + tileset:getTileWidth() and
+                    tileY > -tileset:getTileHeight() and tileY < config.height + tileset:getTileWidth() and tileIdx ~= tileset:getBlankTileId()
+            then
+
+                local tilerow = math.ceil(tileIdx / tileset.tilescols) - 1 -- Returns the smallest integer larger than or equal to the division result
+
+                local tilemoduleRows = tileIdx % tileset.tilescols
+
+                local tilecol
+
+                if (tilemoduleRows > 0) then
+                    tilecol = tilemoduleRows - 1
+                else
+                    tilecol = tileset.tilescols - 1
+                end
+
+                local tilesrcXMin = tilecol * tileset:getTileWidth()
+                local tilesrcXMax = tilesrcXMin + tileset:getTileWidth()
+
+                local tilesrcYMin = tilerow * tileset:getTileHeight()
+                local tilesrcYMax = tilesrcYMin + tileset:getTileHeight()
+             --   local dummy2 = {}
+                newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
+            end
+        end
+
+        rowTiles = ""
+    end
+
+    self.renderedMap = RNFactory.createImageFromMoaiImage(newMap)
+    self.renderedMap.x = self.renderedMap.x
+    self.renderedMap.y = self.renderedMap.y
 end
 
 function RNMapLayer:printToAscii()
