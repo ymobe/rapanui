@@ -19,10 +19,7 @@ module(..., package.seeall)
 
 --global time for transitions
 TIME=800
-SCENE_TO_END_FADE_OUT=nil
-SCENE_TO_END_SCALE_OUT=nil
-SCENE_TO_START_SCALE_IN=nil
-
+--other globals
 CURRENT_SCENE=nil
 CURRENT_SCENE_GROUP=nil
 OLD_SCENE=nil
@@ -164,7 +161,7 @@ function RNDirector:popOut()
 end
 
 function RNDirector:popOutChange()
-		OLD_SCENE=CURRENT_SCENE()
+		OLD_SCENE=CURRENT_SCENE
 		OLD_SCENE.onEnd()
 end
 
@@ -178,7 +175,7 @@ function RNDirector:fadeIn(name)
 --set starting alpha
 --and call for startFadeIn when ready
 CURRENT_SCENE_GROUP.visible=false	
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=1,onComplete=startFadeIn})
 	end
@@ -188,7 +185,7 @@ end
 
 function RNDirector:fadeOut()
 --fade the scene out with a transition, then calls a function to reset scene
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOut})
 	end
@@ -200,7 +197,7 @@ end
 function startFadeIn()
 --now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
 CURRENT_SCENE_GROUP.visible=true
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=1,time=TIME})
 	end
@@ -214,7 +211,7 @@ end
 function RNDirector:fadeOutChange()
 OLD_SCENE=CURRENT_SCENE
 --fade the scene out with a transition, then calls a function to reset scene
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOutChange})
 	end
@@ -238,15 +235,21 @@ function RNDirector:slideIn(name,xx,yy)
 		CURRENT_SCENE_GROUP.x=xx
 		CURRENT_SCENE_GROUP.y=yy
 --start slide
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onEndSlideIn})
 	end	
 end
 
+function onEndSlideIn()
+	CURRENT_SCENE_GROUP.x=0
+	CURRENT_SCENE_GROUP.y=0
+end
+
+
 function RNDirector:slideOut(xx,yy)
 --start slide
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=slideOutEnd})
 	end	
@@ -260,7 +263,7 @@ end
 function RNDirector:slideOutChange(xx,yy)
 OLD_SCENE=CURRENT_SCENE		
 --start slide
-	for i=0,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
+	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
 		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=endSlideOutChange})
 	end	

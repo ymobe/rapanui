@@ -117,7 +117,6 @@ function createImage(filename, params)
         parentGroup:insert(image)
     end
 
-
     return image
 end
 

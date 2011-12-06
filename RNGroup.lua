@@ -32,7 +32,7 @@ local function fieldChangedListener(self, key, value)
             deltax = -deltax
         end
 
-        for i = 0, self.numChildren - 1 do
+        for i = 1, self.numChildren,1 do
             local anObject = self.displayObjects[i]
             anObject.x = anObject.x + deltax
         end
@@ -51,7 +51,7 @@ local function fieldChangedListener(self, key, value)
             deltay = -deltay
         end
 
-        for i = 0, self.numChildren - 1 do
+        for i = 1, self.numChildren,1 do
             local anObject = self.displayObjects[i]
             anObject.y = anObject.y + deltay
         end
@@ -129,13 +129,27 @@ function RNGroup:insert(object, resetTransform)
 
     self.levels[level] = level
 
+    self.numChildren = self.numChildren + 1
     self.displayObjects[self.numChildren] = object
     object:setIDInGroup(self.numChildren)
-    self.numChildren = self.numChildren + 1
 end
 
 function RNGroup:removeChild(id)
-    self.displayObjects[id] = nil
+    len = table.getn(self.displayObjects)
+    ind = id
+    for i = 1, len, 1 do
+        if (i == ind) then
+            for k = ind + 1, len, 1 do
+				self.displayObjects[k - 1] = self.displayObjects[k]
+				self.displayObjects[k].idInGroup = k - 1
+			end
+            self.displayObjects[len] = nil
+        end
+    end
+    --refresh other objects id
+    for i, v in ipairs(self.displayObjects) do v.idInGroup = i end
+    --
+    self.numChildren=table.getn(self.displayObjects)
 end
 
 function RNGroup:inserLevel(level)

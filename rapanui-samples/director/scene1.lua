@@ -34,14 +34,10 @@ mainGroup=RNGroup:new()
 --init Scene
 function onCreate()
 	--add things to mainGroup
-	background = RNFactory.createImage("images/background-purple.png");background.x=160;background.y=240;
-	tile1a = RNFactory.createImage("images/tile1.png");tile1a.x=160;tile1a.y=240;
-	tile1b = RNFactory.createImage("images/tile1.png");tile1b.x=100;tile1b.y=240;
-	tile1c = RNFactory.createImage("images/tile1.png");tile1c.x=260;tile1c.y=240;
-	mainGroup:insert(background)
-	mainGroup:insert(tile1a)
-	mainGroup:insert(tile1b)
-	mainGroup:insert(tile1c)
+	background = RNFactory.createImage("images/background-purple.png",{parentGroup=mainGroup});background.x=160;background.y=240;
+	tile1a = RNFactory.createImage("images/tile1.png",{parentGroup=mainGroup});tile1a.x=160;tile1a.y=240;
+	tile1b = RNFactory.createImage("images/tile1.png",{parentGroup=mainGroup});tile1b.x=100;tile1b.y=240;
+	tile1c = RNFactory.createImage("images/tile1.png",{parentGroup=mainGroup});tile1c.x=260;tile1c.y=240;
 	--return mainGroup	
 	return mainGroup	
 end
@@ -49,8 +45,8 @@ end
 
 
 function onEnd()
-	for i=0,table.getn(mainGroup.displayObjects),1 do
-		mainGroup.displayObjects[i]:remove();
+	for i=1,table.getn(mainGroup.displayObjects),1 do
+		mainGroup.displayObjects[1]:remove();
 	end	
 end
 

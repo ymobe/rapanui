@@ -365,7 +365,7 @@ function setDebugDraw(screen)
 
     local layerfordebug = screen.layer
     len = table.getn(screen.sprites)
-    for i = 0, len, 1 do
+    for i = 1, len, 1 do
         screen.sprites[i].visible = false
     end
     layerfordebug:setBox2DWorld(world)
