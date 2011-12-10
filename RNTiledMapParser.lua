@@ -47,7 +47,11 @@ function parseNode(node, map)
         if node.type == "map" then
 
             for key, value in pairs(node.attributes) do
-                map[key] = value --node.attributes.key
+                if tonumber(value) ~= nil then
+                    map[key] = tonumber(value) --node.attributes.key
+                else
+                    map[key] = value --node.attributes.key
+                end
             end
 
             if node.children.properties then
@@ -64,7 +68,11 @@ function parseNode(node, map)
             map.tilesets[map.tilesetsSize] = RNMapTileset:new()
 
             for key, value in pairs(node.attributes) do
-                map.tilesets[map.tilesetsSize][key] = value
+                if tonumber(value) ~= nil then
+                    map.tilesets[map.tilesetsSize][key] = tonumber(value)
+                else
+                    map.tilesets[map.tilesetsSize][key] = value
+                end
             end
 
 
@@ -93,11 +101,11 @@ function parseNode(node, map)
                         map.tilesets[map.tilesetsSize].tilesproperties = {}
                     end
 
-                    if map.tilesets[map.tilesetsSize].tilesproperties[value.attributes.id] == nil then
-                        map.tilesets[map.tilesetsSize].tilesproperties[value.attributes.id] = {}
+                    if map.tilesets[map.tilesetsSize].tilesproperties[tonumber(value.attributes.id)] == nil then
+                        map.tilesets[map.tilesetsSize].tilesproperties[tonumber(value.attributes.id)] = {}
                     end
 
-                    local size = loadNodeProperties(map.tilesets[map.tilesetsSize].tilesproperties[value.attributes.id], value)
+                    local size = loadNodeProperties(map.tilesets[map.tilesetsSize].tilesproperties[tonumber(value.attributes.id)], value)
                     map.tilesets[map.tilesetsSize].tilespropertiesSize = size
                 end
             end
@@ -154,8 +162,14 @@ function parseNode(node, map)
             map.objectgroups[map.objectgroupsSize] = RNMapObjectGroup:new()
 
             for key, value in pairs(node.attributes) do
-                map.objectgroups[map.objectgroupsSize][key] = value
+                if tonumber(value) ~= nil then
+
+                    map.objectgroups[map.objectgroupsSize][key] = tonumber(value)
+                else
+                    map.objectgroups[map.objectgroupsSize][key] = value
+                end
             end
+
 
             map.objectgroups[map.objectgroupsSize].objectsSize = 0
             map.objectgroups[map.objectgroupsSize].objects = {}
@@ -164,9 +178,9 @@ function parseNode(node, map)
                 if map.objectgroups[map.objectgroupsSize].properties == nil then
                     map.objectgroups[map.objectgroupsSize].properties = {}
                 end
-                loadNodeProperties(map.objectgroups[map.objectgroupsSize].properties, node)
+                local size = loadNodeProperties(map.objectgroups[map.objectgroupsSize].properties, node)
+                map.objectgroups[map.objectgroupsSize].propertiesSize = size
             end
-
 
             -- map.objectgroups[map.objectgroupsSize].objects.objectsInGroupSize = 0
 
@@ -182,14 +196,19 @@ function parseNode(node, map)
                         map.objectgroups[map.objectgroupsSize].objectsSize = map.objectgroups[map.objectgroupsSize].objectsSize + 1
 
                         for key, value in pairs(value.attributes) do
-                            map.objectgroups[map.objectgroupsSize].objects[currentName][key] = value
+                            if tonumber(value) ~= nil then
+                                map.objectgroups[map.objectgroupsSize].objects[currentName][key] = tonumber(value)
+                            else
+                                map.objectgroups[map.objectgroupsSize].objects[currentName][key] = value
+                            end
                         end
 
                         if value.children ~= nill and value.children.properties ~= nil then
-                            if map.objectgroups[map.objectgroupsSize].objects[currentName].properites == nil then
-                                map.objectgroups[map.objectgroupsSize].objects[currentName].properites = {}
+                            if map.objectgroups[map.objectgroupsSize].objects[currentName].properties == nil then
+                                map.objectgroups[map.objectgroupsSize].objects[currentName].properties = {}
                             end
-                            loadNodeProperties(map.objectgroups[map.objectgroupsSize].objects[currentName].properites, value)
+                            local size = loadNodeProperties(map.objectgroups[map.objectgroupsSize].objects[currentName].properties, value)
+                            map.objectgroups[map.objectgroupsSize].objects[currentName].propertiesSize = size
                         end
                     end
                     --map.objectgroups[map.objectgroupsSize].objects.objectsInGroupSize = map.objectgroups[map.objectgroupsSize].objects.objectsInGroupSize + 1

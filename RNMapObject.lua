@@ -33,6 +33,10 @@ function RNMapObject:getProperties()
     return self.properties
 end
 
+function RNMapObject:getPropertiesSize()
+    return self.propertiesSize
+end
+
 
 function RNMapObject:getGid()
     return self.gid

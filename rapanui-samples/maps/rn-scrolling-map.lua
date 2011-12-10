@@ -34,17 +34,20 @@ require("RNMapObject")
 require("RNMapObjectGroup")
 require("RNMapTileset")
 require("RNUtil")
+require("socket")
 
+--socket.gettime()
 
 local background = RNFactory.createImage("rapanui-samples/maps/platformbck.png")
 
 
-map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platform.tmx")
+local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platform.tmx")
 
 
 aTileset = map:getTileset(0)
 
 aTileset:updateImageSource("rapanui-samples/maps/platformtiles.png")
+print_r(aTileset)
 
 
 local layersSize = map:getLayersSize()
@@ -52,18 +55,32 @@ local layersSize = map:getLayersSize()
 tilesCreated = 0
 map:drawMapAt(0, 0, aTileset)
 
-lastx = 0
-delta = -32
+local lastx = 0
+local delta = -2
+
+lastTime = socket.gettime()
+
+local intervalForFps = 1 / 60
+
+print(intervalForFps)
+local currentTime = socket.gettime()
+local diff = currentTime - lastTime
+
 function update(enterFrame)
-    map:drawMapAt(lastx, 0, aTileset)
-    lastx = lastx + delta
+    currentTime = socket.gettime()
+    diff = currentTime - lastTime
+    if diff >= intervalForFps then
+        map:drawMapAt(lastx, 0, aTileset)
+        lastx = lastx + delta
 
-    if lastx <= -1280 then
-        delta = 64
-    end
+        if lastx <= -1280 then
+            delta = delta * -1
+        end
 
-    if lastx >= 0 then
-        delta = -64
+        if lastx >= 0 then
+            delta = delta * -1
+        end
+        lastTime = currentTime
     end
 end
 

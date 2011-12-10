@@ -26,6 +26,12 @@ function RNMapLayer:new(o)
     return o
 end
 
+
+function RNMapLayer:getName()
+    return self.name
+end
+
+
 function RNMapLayer:getTiles()
     return self.tiles
 end
@@ -48,7 +54,7 @@ function RNMapLayer:getRows()
 end
 
 function RNMapLayer:getTilesAt(index)
-    return self.tiles[index]
+    return tonumber(self.tiles[index])
 end
 
 function RNMapLayer:getOpacity()
@@ -60,7 +66,7 @@ function RNMapLayer:getOpacity()
 end
 
 function RNMapLayer:getTilesAt(row, col)
-    return self.tiles[(row * self.width) + col]
+    return tonumber(self.tiles[(row * self.width) + col])
 end
 
 function RNMapLayer:getProperties()
@@ -75,7 +81,7 @@ function RNMapLayer:getProperty(key)
             end
         end
     end
-    return ""
+    return nil
 end
 
 function RNMapLayer:cleanLastRendering()
@@ -152,7 +158,7 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
 
                 local tilesrcYMin = tilerow * tileset:getTileHeight()
                 local tilesrcYMax = tilesrcYMin + tileset:getTileHeight()
-             --   local dummy2 = {}
+                --   local dummy2 = {}
                 newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
             end
         end

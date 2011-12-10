@@ -33,6 +33,9 @@ function RNMap:getLayersSize()
     return self.layersSize
 end
 
+function RNMap:getObjectGroupSize()
+    return self.objectgroupsSize
+end
 
 function RNMap:getOrientation()
     return self.orientation
@@ -77,6 +80,17 @@ function RNMap:getProperty(key)
     return ""
 end
 
+
+
+function RNMap:getFirstTilesetByName(name)
+    for key, value in pairs(self.tilesets) do
+        if value.name == name then
+            return value
+        end
+    end
+    return {}
+end
+
 function RNMap:getFirstLayerByName(name)
     for key, value in pairs(self.layers) do
         if value.name == name then
@@ -92,7 +106,7 @@ function RNMap:getFirstObjectGroupByName(name)
             return value
         end
     end
-    return {}
+    return nil
 end
 
 function RNMap:drawMapAt(x, y, tileset)

@@ -15,14 +15,21 @@
 module(..., package.seeall)
 
 require("RNTiledMapParser")
+require("RNTiledLuaMapParser")
 
 TILED = "tiled"
+TILEDLUA = "tiledlua"
 
 function loadMap(type, filename)
 
     local map = RNMap:new()
     if type == TILED then
         RNTiledMapParser.load(map, filename)
+        return map
+    end
+
+     if type == TILEDLUA then
+        RNTiledLuaMapParser.load(map, filename)
         return map
     end
 

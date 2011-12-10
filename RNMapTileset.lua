@@ -58,6 +58,14 @@ function RNMapTileset:setBlankTileId(id)
 end
 
 -- returns the properties configured in the tileset for the given tile with id
+function RNMapTileset:getPropertyValueForTile(id, property)
+    if self.tilesproperties[id] ~= nil then
+        return self.tilesproperties[id][property]
+    else
+        return nil
+    end
+end
+
 function RNMapTileset:getPropertiesForTile(id)
     if self.tilesproperties[id] ~= nil then
         return self.tilesproperties[id]
@@ -127,11 +135,11 @@ function RNMapTileset:getImage()
 end
 
 function RNMapTileset:getWidth()
-    return self.image.width
+    return tonumber(self.image.width)
 end
 
 function RNMapTileset:getHeight()
-    return self.image.height
+    return tonumber(self.image.height)
 end
 
 -- returns the list of tiles with properties configured in the tileset
