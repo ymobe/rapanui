@@ -26,10 +26,12 @@ require("RNDirector")
 -- RapaNui demos:
 
 -- Anim
+
 --require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
+
 require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
@@ -51,6 +53,7 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/transition/rn-transition-scale")
 
 -- Touch
+
 --require("rapanui-samples/touch/rn-touch")
 
 -- RapaNui Physics demos:
@@ -68,13 +71,14 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
 
--- RapaNui sample game:
+-- RapaNui sample games:
 
 --require("rapanui-samples/games/brick2d/brick2d")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
 
 -- Maps
+
 --require("rapanui-samples/maps/rn-basic-map")
 --require("rapanui-samples/maps/rn-basic-map-autodraw")
 --require("rapanui-samples/maps/rn-scrolling-map")
