@@ -97,7 +97,6 @@ function RNMapLayer:drawLayerAt_tileByTile(x, y, tileset)
         local rowTiles = ""
         for row = 0, self:getRows() - 1 do
             local tileIdx = self:getTilesAt(row, col)
-
             local tileX = x + tileset:getTileWidth() * col + tileset:getTileWidth() / 2
             local tileY = y + tileset:getTileHeight() * row + tileset:getTileHeight() / 2
 
