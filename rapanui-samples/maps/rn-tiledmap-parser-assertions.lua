@@ -74,17 +74,17 @@ RNUnit.assertEquals(200, aTileSet:getHeight(), "The Image Height was wrong")
 aTileSet = map:getFirstTilesetByName("tileset-platformer")
 
 -- tile 16 and 50
-aProp = aTileSet:getPropertiesForTile(16)
+aProp = aTileSet:getPropertiesForTile(17)
 RNUnit.assertNotNil(aProp, "The Tile 16 properties were nil")
 
 -- tile 16 and 50
 aProp = aTileSet:getPropertiesForTile(77)
 RNUnit.assertNil(aProp, "The Tile 77 properties should be nil")
 
-aValue = aTileSet:getPropertyValueForTile(16, "tileCustomProp1")
+aValue = aTileSet:getPropertyValueForTile(17, "tileCustomProp1")
 RNUnit.assertEquals("value1", aValue, "The Tile property value was wrong")
 
-aValue = aTileSet:getPropertyValueForTile(50, "tileCustomProp2")
+aValue = aTileSet:getPropertyValueForTile(51, "tileCustomProp2")
 RNUnit.assertEquals("value2", aValue, "The Tile property value was wrong")
 
 
