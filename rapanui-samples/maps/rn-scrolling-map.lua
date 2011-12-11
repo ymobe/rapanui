@@ -47,8 +47,6 @@ local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platf
 aTileset = map:getTileset(0)
 
 aTileset:updateImageSource("rapanui-samples/maps/platformtiles.png")
-print_r(aTileset)
-
 
 local layersSize = map:getLayersSize()
 
@@ -56,7 +54,7 @@ tilesCreated = 0
 map:drawMapAt(0, 0, aTileset)
 
 local lastx = 0
-local delta = -2
+local delta = -3
 
 lastTime = socket.gettime()
 

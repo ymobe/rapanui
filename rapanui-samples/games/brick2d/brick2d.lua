@@ -99,7 +99,7 @@ end
 
 function collidePad()
 
-    if (ball.y >= paddle.y - 5 and ball.y <= paddle.y) and
+    if (ball.y >= paddle.y - 10 and ball.y <= paddle.y) and
             (ball.x >= paddle.x - 20 and ball.x <= paddle.x + 20)
     then
         return true
@@ -126,7 +126,7 @@ function update(enterFrame)
     end
 
     if (ball.y > paddle.y + 20) then
-        trn:run(ball, { type = "alpha", alpha = 0, time = 500, onComplete = function() ball:setAlpha(1) end })
+        trn:run(ball, { type = "alpha", alpha = 0, time = 300, onComplete = function() ball:setAlpha(1) end })
     end
 
     if (ball.y > 480) then

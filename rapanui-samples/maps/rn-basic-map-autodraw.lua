@@ -23,23 +23,9 @@ require("RNMapObjectGroup")
 require("RNMapTileset")
 require("RNUtil")
 
-
 map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/demomap.tmx")
 
-
 aTileset = map:getTileset(0)
-
 aTileset:updateImageSource("rapanui-samples/maps/tilesetdemo.png")
 
-
-local layersSize = map:getLayersSize()
-
-print("Layers", layersSize)
-local layers = map:getLayers()
-
-
-memestatus()
-
 map:drawMapAt(0, 0, aTileset)
-
-memestatus()

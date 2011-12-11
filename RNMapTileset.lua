@@ -70,7 +70,7 @@ function RNMapTileset:getPropertiesForTile(id)
     if self.tilesproperties[id] ~= nil then
         return self.tilesproperties[id]
     else
-        return {}
+        return nil
     end
 end
 

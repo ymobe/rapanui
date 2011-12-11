@@ -90,6 +90,7 @@ function RNMapLayer:cleanLastRendering()
     end
 end
 
+--[[
 function RNMapLayer:drawLayerAt_tileByTile(x, y, tileset)
     self:cleanLastRendering()
     self.lastRenderedItemSize = 0
@@ -113,6 +114,7 @@ function RNMapLayer:drawLayerAt_tileByTile(x, y, tileset)
         rowTiles = ""
     end
 end
+]]
 
 function RNMapLayer:drawLayerAt(x, y, tileset)
     if self.renderedMap ~= nil then
@@ -158,7 +160,11 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
                 local tilesrcYMin = tilerow * tileset:getTileHeight()
                 local tilesrcYMax = tilesrcYMin + tileset:getTileHeight()
                 --   local dummy2 = {}
-                newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
+
+                local aValue = tileset:getPropertyValueForTile(16, "isPhysical")
+                if aValue == nil then
+                    newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
+                end
             end
         end
 
