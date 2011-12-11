@@ -161,7 +161,7 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
                 local tilesrcYMax = tilesrcYMin + tileset:getTileHeight()
                 --   local dummy2 = {}
 
-                local aValue = tileset:getPropertyValueForTile(16, "isPhysical")
+                local aValue = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
                 if aValue == nil then
                     newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
                 end

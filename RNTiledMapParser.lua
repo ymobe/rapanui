@@ -143,7 +143,7 @@ function parseNode(node, map)
                         if type(value) == "table" then
                             for key, value in pairs(value) do
                                 for key, value in pairs(value) do
-                                    map.layers[map.layersSize].tiles[map.layers[map.layersSize].tilesnumber] = value.attributes.gid
+                                    map.layers[map.layersSize].tiles[map.layers[map.layersSize].tilesnumber] = tonumber(value.attributes.gid)
                                     map.layers[map.layersSize].tilesnumber = map.layers[map.layersSize].tilesnumber + 1
                                 end
                             end
