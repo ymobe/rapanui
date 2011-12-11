@@ -59,7 +59,7 @@ end
 
 -- returns the properties configured in the tileset for the given tile with id
 function RNMapTileset:getPropertyValueForTile(id, property)
-    if self.tilesproperties[id] ~= nil then
+    if self.tilesproperties ~= nil and self.tilesproperties[id] ~= nil then
         return self.tilesproperties[id][property]
     else
         return nil
