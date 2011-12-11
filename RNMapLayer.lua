@@ -164,22 +164,91 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
 
 
 
-                local aValue = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
-                --print_r(tileset)
-                --print(tileIdx, type(tileIdx), aValue)
-                if aValue == nil then
+                local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
+                if tileIsPhysical == nil then
                     newMap:copyBits(tileset.srcMoaiImage, tilesrcXMin, tilesrcYMin, tileX, tileY, tonumber(tileset:getTileWidth()), tonumber(tileset:getTileHeight()))
+                else
+                	--we don't draw here the tiles that should be phsyical
+                	--but we store the their properties in a table
+                	
+                   	--we create the table if nil
+                   	if self.imagesToBePhysical==nil then 
+					   self.imagesToBePhysical={}
+					end
+					
+					--we create and draw the RNObject at right coordinates
+					local mimage=tileset:getTileImage(tileIdx)
+                   	mimage.x=tileX
+                   	mimage.y=tileY
+                   	
+                   	--we take other physical properties
+                   	local mrestitution=tileset:getPropertyValueForTile(tileIdx, "restitution")  
+                   	local mdensity=tileset:getPropertyValueForTile(tileIdx, "density")
+                   	local mfriction=tileset:getPropertyValueForTile(tileIdx, "friction")
+                   	local msensor=tileset:getPropertyValueForTile(tileIdx, "sensor")
+                   	local mgroupIndex=tileset:getPropertyValueForTile(tileIdx, "groupIndex")
+                   	local mtype=tileset:getPropertyValueForTile(tileIdx, "type")
+                   	local mshape=tileset:getPropertyValueForTile(tileIdx, "shape")
+                   	obj={}
+                   	obj.image=mimage
+                   	obj.restitution=mrestitution
+                   	obj.density=mdensity
+                   	obj.friction=mfriction
+                   	obj.sensor=msensor
+                   	obj.groupIndex=mgroupIndex
+                   	obj.type=mtype
+                   	obj.shape=mshape
+                   	if obj.type==nil then
+                   		obj.type="dynamic"
+                   	end                  	
+                   	table.insert(self.imagesToBePhysical,obj)
                 end
             end
         end
 
         rowTiles = ""
+        
+        
     end
 
     self.renderedMap = RNFactory.createImageFromMoaiImage(newMap)
     self.renderedMap.x = self.renderedMap.x
     self.renderedMap.y = self.renderedMap.y
+    
+    self:createPhysicBodies()
 end
+
+function RNMapLayer:createPhysicBodies()
+--[[
+	And here's a little snippet to create physical objects
+	from the ones stored in the layer field.
+	
+	How to:
+	
+	In you tile layer
+	add the property "isPhysical" to your tile and it'll become phsyical.
+	
+	you can also set
+	friction
+	desity
+	restution
+	sensor
+	groupIndex
+	type  ("static" or "dynamic")
+	shape
+	
+--]]
+		currentLayer=self
+		if currentLayer.imagesToBePhysical~=nil then
+			for i=1,table.getn(currentLayer.imagesToBePhysical),1 do
+				currentTile=currentLayer.imagesToBePhysical[i]			
+				RNPhysics.createBodyFromImage(currentTile.image,currentTile.type,{shape=currentTile.shape,density=tonumber(currentTile.density),restitution=tonumber(currentTile.restitution),friction=tonumber(currentTile.friction),sensor=currentTile.sensor,filter={groupIndex=tonumber(currentTile.groupIndex)}})	
+			end 
+		end
+end
+
+
+
 
 function RNMapLayer:printToAscii()
     for row = 0, self:getCols() - 1 do
