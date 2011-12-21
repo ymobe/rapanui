@@ -452,12 +452,12 @@ function RNObject:loadCopyRect(src, params)
 end
 
 
-function RNObject:initWith(image)
+function RNObject:initWith(image,size)
     self.visible = true
     self.childrenSize = 0
 
     self.alpha = 1
-    self:loadImage(image)
+    self:loadImage(image,size)
 end
 
 function RNObject:initWithMoaiImage(moaiImage)
@@ -492,7 +492,7 @@ function RNObject:initWithMoaiImage(moaiImage)
 end
 
 
-function RNObject:loadImage(image)
+function RNObject:loadImage(image,size)
     self.name = image
 
     self.gfxQuad = MOAIGfxQuad2D.new()
@@ -500,12 +500,16 @@ function RNObject:loadImage(image)
     self.image = MOAIImage.new()
     self.image:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
 
-    self.originalWidth, self.originalHeight = self.image:getSize()
-
+    if size then
+		self.originalWidth, self.originalHeight = size[1],size[2]
+	else
+		self.originalWidth, self.originalHeight = self.image:getSize()
+	end
+	
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Widht, self.pow2Height = self.originalWidth, self.originalHeight
 
     self.prop = MOAIProp2D.new()
 
@@ -516,6 +520,7 @@ function RNObject:loadImage(image)
 
 
     self.prop:setDeck(self.gfxQuad)
+   -- self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
     self.prop:setPriority(1)
 end
@@ -1055,9 +1060,8 @@ function RNObject:remove()
     --print_r(self.scene)
     if self.isPhysical == true then
         self.physicObject:remove()
-    else
-        self.prop:setDeck(nil)
     end
+        self.prop:setDeck(nil)
     --print("remove", self.idInGroup)
     self.parentGroup:removeChild(self.idInGroup)
 end
