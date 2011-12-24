@@ -86,7 +86,7 @@ function RNWrappedTimedAction:call()
     if self.event ~= nil and self.event.source ~= nil then
         func(self.event)
     else
-		func ()
+		func ( unpack ( self.arg ))
     end
     self.exectuions = self.exectuions + 1
 end

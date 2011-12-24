@@ -14,7 +14,9 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Create a new class that inherits from a base class RNObject
-local RNText = RN.Object:innerNew()
+local RNObject = require("RNObject")
+local RNText = RNObject:innerNew()
+RNObject = nil
 
 local function fieldChangedListenerRNText(self, key, value)
 
@@ -55,6 +57,10 @@ function RNText:innerNew(o)
     setmetatable(o, self)
     self.__index = self
     return o
+end
+
+function RNText:init()
+	--RNText = RN.Object:innerNew()
 end
 
 local R

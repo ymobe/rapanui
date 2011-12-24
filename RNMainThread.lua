@@ -13,13 +13,14 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 local M = {}
-rnThread = RNThread:new()
+local rnThread = RNThread:new()
 
 function M.addTimedAction(delay, func, iterations, ...)
 local iterations = iterations
 if not iterations then iterations = 1 end 
-    rnThread:runFunction(delay, func, iterations, arg)
-    rnThread:start()
+print(arg)
+	rnThread:runFunction(delay, func, iterations, arg)
+	rnThread:start()
 end
 
 function M.getMainThread()

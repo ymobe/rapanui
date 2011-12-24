@@ -59,6 +59,7 @@ R = RN
     M.contentHeight = PH
 	  
 	R.InputManager.setGlobalRNScreen(M.screen)
+	R.InputManager.init()
 end
 
 function M.showDebugLines()
