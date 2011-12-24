@@ -14,8 +14,9 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 RNMap = {}
-
+local R
 function RNMap:new(o)
+	if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -183,15 +184,14 @@ for i = 0, aObjectGroup:getObjectsSize() - 1,1 do
 		if aObject.properties~=nil then
 			--if the bodyType is set
 			if aObject.properties.bodyType~=nil then
-				RNPhysics.createBodyFromMapObject(aObject,aObject.properties.bodyType)
+				R.Physics.createBodyFromMapObject(aObject,aObject.properties.bodyType)
 			else
-				RNPhysics.createBodyFromMapObject(aObject,"static")
+				R.Physics.createBodyFromMapObject(aObject,"static")
 			end
 		else
-			RNPhysics.createBodyFromMapObject(aObject,"static")
+			R.Physics.createBodyFromMapObject(aObject,"static")
 		end
 	end
-	
 	
 	
 	--if we have to create a body from vertex points
@@ -230,7 +230,7 @@ for i = 0, aObjectGroup:getObjectsSize() - 1,1 do
 				fakeMapObject.y=0
 				fakeMapObject.height=0
 				fakeMapObject.width=0
-			    RNPhysics.createBodyFromMapObject(fakeMapObject,"static",{shape=Vshape})		
+			    R.Physics.createBodyFromMapObject(fakeMapObject,"static",{shape=Vshape})		
 			end
 		
 		end

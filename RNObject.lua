@@ -13,16 +13,12 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-require("RNInputManager")
-require("RNUtil")
+local TOP_LEFTMODE = 1
+local CENTEREDMODE = 2
 
+local RNObject = {}
 
-TOP_LEFT_MODE = 1
-CENTERED_MODE = 2
-
-RNObject = {}
-
-
+local R
 local function fieldChangedListener(self, key, value)
 
     getmetatable(self).__object[key] = value
@@ -278,7 +274,8 @@ end
 
 
 function RNObject:new(o)
-    local displayobject = RNObject:innerNew(o)
+R = RN
+    local displayobject = R.Object:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
 end
@@ -452,12 +449,12 @@ function RNObject:loadCopyRect(src, params)
 end
 
 
-function RNObject:initWith(image)
+function RNObject:initWith(image,size)
     self.visible = true
     self.childrenSize = 0
 
     self.alpha = 1
-    self:loadImage(image)
+    self:loadImage(image,size)
 end
 
 function RNObject:initWithMoaiImage(moaiImage)
@@ -492,7 +489,7 @@ function RNObject:initWithMoaiImage(moaiImage)
 end
 
 
-function RNObject:loadImage(image)
+function RNObject:loadImage(image,size)
     self.name = image
 
     self.gfxQuad = MOAIGfxQuad2D.new()
@@ -500,23 +497,27 @@ function RNObject:loadImage(image)
     self.image = MOAIImage.new()
     self.image:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
 
-    self.originalWidth, self.originalHeight = self.image:getSize()
+	if size then
+		self.originalWidth, self.originalHeight = size[1],size[2]
+	else
+		self.originalWidth, self.originalHeight = self.image:getSize()
+	end
 
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
     self.pow2Widht, self.pow2Height = self.image:getSize()
-
     self.prop = MOAIProp2D.new()
 
     local u = self.originalWidth / self.pow2Widht
     local v = self.originalHeight / self.pow2Height
 
-    self.gfxQuad:setUVRect(0, 0, u, v)
+    self.gfxQuad:setUVRect(0, 0, u,v)
 
 
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
+
     self.prop:setPriority(1)
 end
 
@@ -596,7 +597,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    RNListeners:addEventListener("enterFrame", self)
+    R.Listeners:addEventListener("enterFrame", self)
 end
 
 function RNObject:enterFrame(event)
@@ -772,13 +773,13 @@ function RNObject:putOver(object)
 end
 
 function RNObject:setTileScaleX(value)
-    self.originalWidth = (self.originalWidth / 2 / self.scaleX / self.sizex) * value * 2 * self.sizex
-    self.tileDeck:setRect(self.originalWidth / 2, self.originalHeight / 2, -self.originalWidth / 2, -self.originalHeight / 2)
+    self.originalWidth = (self.originalWidth *.5 / self.scaleX / self.sizex) * value * 2 * self.sizex
+    self.tileDeck:setRect(self.originalWidth *.5, self.originalHeight *.5, -self.originalWidth *.5, -self.originalHeight *.5)
 end
 
 function RNObject:setTileScaleY(value)
-    self.originalHeight = (self.originalHeight / 2 / self.scaleY / self.sizey) * value * 2 * self.sizey
-    self.tileDeck:setRect(self.originalWidth / 2, self.originalHeight / 2, -self.originalWidth / 2, -self.originalHeight / 2)
+    self.originalHeight = (self.originalHeight *.5 / self.scaleY / self.sizey) * value * 2 * self.sizey
+    self.tileDeck:setRect(self.originalWidth *.5, self.originalHeight *.5, -self.originalWidth *.5, -self.originalHeight *.5)
 end
 
 function RNObject:getChildren()
@@ -894,8 +895,8 @@ function RNObject:getVisible()
 end
 
 
-function RNObject:TOP_LEFT_MODE()
-    return TOP_LEFT_MODE
+function RNObject:TOP_LEFTMODE()
+    return TOP_LEFTMODE
 end
 
 function RNObject:getSDType()
@@ -961,8 +962,8 @@ function RNObject:isInRange(x, y)
     local buttonx = x
     local buttony = y
 
-    buttonx = x + self.originalWidth / 2
-    buttony = y + self.originalHeight / 2
+    buttonx = x + self.originalWidth *.5
+    buttony = y + self.originalHeight *.5
 
     if self.visible
             and buttonx >= self.x
@@ -979,8 +980,8 @@ end
 
 function RNObject:onTouchDown(x, y, source)
 
-    x = x + self.originalWidth / 2
-    y = y + self.originalHeight / 2
+    x = x + self.originalWidth *.5
+    y = y + self.originalHeight *.5
 
     if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         self.onTouchDownListener(x, y, source)
@@ -1055,9 +1056,8 @@ function RNObject:remove()
     --print_r(self.scene)
     if self.isPhysical == true then
         self.physicObject:remove()
-    else
-        self.prop:setDeck(nil)
     end
+        self.prop:setDeck(nil)
     --print("remove", self.idInGroup)
     self.parentGroup:removeChild(self.idInGroup)
 end
@@ -1240,3 +1240,5 @@ function RNObject:setMassData(mass, I, centerX, centerY)
         self.physicObject:setMassData(mass)
     end
 end
+
+return RNObject

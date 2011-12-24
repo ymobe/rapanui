@@ -14,8 +14,9 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 RNMapLayer = {}
-
+local R
 function RNMapLayer:new(o)
+if not R then R = RN end
     o = o or {
         name = "",
         lastRenderedItems = {}
@@ -121,7 +122,7 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
         self.renderedMap:remove()
     end
 
-    local newMap = RNFactory.createBlankMoaiImage(config.width + tileset:getTileWidth(), config.height + tileset:getTileHeight())
+    local newMap = R.Factory.createBlankMoaiImage(config.width + tileset:getTileWidth(), config.height + tileset:getTileHeight())
     --collectgarbage("step")
 
     if self.aTileSample == nil then
@@ -211,7 +212,7 @@ function RNMapLayer:drawLayerAt(x, y, tileset)
         
     end
 
-    self.renderedMap = RNFactory.createImageFromMoaiImage(newMap)
+    self.renderedMap = R.Factory.createImageFromMoaiImage(newMap)
     self.renderedMap.x = self.renderedMap.x
     self.renderedMap.y = self.renderedMap.y
     
@@ -242,7 +243,7 @@ function RNMapLayer:createPhysicBodies()
 		if currentLayer.imagesToBePhysical~=nil then
 			for i=1,table.getn(currentLayer.imagesToBePhysical),1 do
 				currentTile=currentLayer.imagesToBePhysical[i]			
-				RNPhysics.createBodyFromImage(currentTile.image,currentTile.type,{shape=currentTile.shape,density=tonumber(currentTile.density),restitution=tonumber(currentTile.restitution),friction=tonumber(currentTile.friction),sensor=currentTile.sensor,filter={groupIndex=tonumber(currentTile.groupIndex)}})	
+				R.Physics.createBodyFromImage(currentTile.image,currentTile.type,{shape=currentTile.shape,density=tonumber(currentTile.density),restitution=tonumber(currentTile.restitution),friction=tonumber(currentTile.friction),sensor=currentTile.sensor,filter={groupIndex=tonumber(currentTile.groupIndex)}})	
 			end 
 		end
 end

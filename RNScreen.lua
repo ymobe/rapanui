@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNScreen = {}
+local RNScreen = {}
 
 function RNScreen:new(o)
 
@@ -44,11 +44,11 @@ function RNScreen:setName(name)
     self.name = name
 end
 
-function RNScreen:initWith(width, height)
+function RNScreen:initWith(width, height, SW, SH)
     self.width = width
     self.height = height
     self.viewport = MOAIViewport.new()
-    self.viewport:setSize(width, height)
+    self.viewport:setSize(SW, SH)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
     self.layer = MOAILayer2D.new()
@@ -101,3 +101,5 @@ end
 function RNScreen:getImages()
     return self.images
 end
+
+return RNScreen

@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNGroup = {}
+local RNGroup = {}
 
 local function fieldChangedListener(self, key, value)
 
@@ -82,7 +82,9 @@ local function fieldAccessListener(self, key)
     return getmetatable(self).__object[key]
 end
 
+local R
 function RNGroup:new(o)
+if not R then R = RN end
     local displayobject = RNGroup:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     proxy.displayObjects = {}
@@ -223,3 +225,5 @@ function RNGroup:getDelta01(a, b)
         return -1 * (b - a)
     end
 end
+
+return RNGroup

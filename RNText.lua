@@ -12,10 +12,11 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
-require("RNObject")
 
 -- Create a new class that inherits from a base class RNObject
-RNText = RNObject:innerNew()
+local RNObject = require("RNObject")
+local RNText = RNObject:innerNew()
+RNObject = nil
 
 local function fieldChangedListenerRNText(self, key, value)
 
@@ -58,9 +59,15 @@ function RNText:innerNew(o)
     return o
 end
 
+function RNText:init()
+	--RNText = RN.Object:innerNew()
+end
+
+local R
 -- Create a new proxy for RNText Object
 function RNText:new(o)
-    local RNText = RNText:innerNew()
+R = RN
+    local RNText = R.Text:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListenerRNText, __index = RNText })
     return proxy
 end
@@ -76,7 +83,7 @@ function RNText:initWithText(text, font, size, x, y, width, height, alignment)
     self.font = MOAIFont.new()
     self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
 
-    self.locatingMode = CENTERED_MODE
+    self.locatingMode = CENTEREDMODE
     self.text = text
 
     self.name = text
@@ -127,3 +134,5 @@ function RNText:setAlpha(value)
     self.alpha = value
     self.prop:setColor(self.r, self.g, self.g, value, 0)
 end
+
+return RNText

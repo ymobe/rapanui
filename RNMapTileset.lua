@@ -14,8 +14,9 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 RNMapTileset = {}
-
+local R
 function RNMapTileset:new(o)
+	if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -78,7 +79,7 @@ function RNMapTileset:getTileImage(tileid)
 
     if self.image.source ~= nil then
         if self.srcMoaiImage == nil then
-            local src = RNFactory.createMoaiImage(self.image.source)
+            local src = R.Factory.createMoaiImage(self.image.source)
             local width, height = src:getSize()
             self.image.width = width
             self.image.height = height
@@ -122,7 +123,7 @@ function RNMapTileset:getTileImage(tileid)
             destYMin = 0
         }
 
-        return RNFactory.createCopyRect(self.srcMoaiImage, params)
+        return R.Factory.createCopyRect(self.srcMoaiImage, params)
     end
 end
 

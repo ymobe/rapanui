@@ -12,16 +12,12 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
-
-require("RNWrappedTimedAction")
-require("RNUtil")
-
-
 RNThread = {}
 
-thread = MOAIThread.new()
+local thread = MOAIThread.new()
 
-main_thread_started = false
+local main_thread_started = false
+local R
 function RNThread:new(o)
     o = o or {
         name = ""
@@ -35,18 +31,20 @@ end
 
 
 
-function RNThread:runFunction(delay, func, iterations)
-    local wrappedTimedAction = RNWrappedTimedAction:new()
+function RNThread:runFunction(delay, func, iterations, arg)
+if not R then R = RN end
+    local wrappedTimedAction = R.WrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction:setDelay(delay)
     wrappedTimedAction:setIterations(iterations)
+    wrappedTimedAction:setArg(arg)
 
     self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
 end
 
 function RNThread:addEnterFrame(func, source)
-    local wrappedTimedAction = RNWrappedTimedAction:new()
+    local wrappedTimedAction = R.WrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction.event = {}
     wrappedTimedAction.event.source = source
@@ -76,3 +74,4 @@ function RNThread:start()
     end
 end
 
+return RNThread

@@ -13,8 +13,8 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNRuntime = {}
-
+local RNRuntime = {}
+local R
 function RNRuntime:new(o)
     o = o or {
         name = ""
@@ -27,22 +27,22 @@ function RNRuntime:new(o)
 end
 
 function RNRuntime:addEventListener(eventName, listener)
-
+if not R then R = RN end
     if eventName == "enterFrame" then
 
 
         if type(listener) == "table" then
-            RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
-            RNMainThread.startMainThread()
+            R.MainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
+            R.MainThread.startMainThread()
         end
 
         if type(listener) == "function" then
-            RNMainThread.getMainThread():addEnterFrame(listener)
-            RNMainThread.startMainThread()
+            R.MainThread.getMainThread():addEnterFrame(listener)
+            R.MainThread.startMainThread()
         end
 
     elseif eventName == "touch" then
-        RNInputManager.addGlobalListenerToEvent(eventName, listener)
+        R.InputManager.addGlobalListenerToEvent(eventName, listener)
     end
 end
 
@@ -50,4 +50,5 @@ function RNRuntime:removeEventListener(eventname, func)
 end
 
 
-RNListeners = RNRuntime:new()
+local RNListeners = RNRuntime:new()
+return RNListeners

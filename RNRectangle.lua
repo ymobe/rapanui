@@ -13,14 +13,10 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-require("RNInputManager")
-require("RNUtil")
+local TOP_LEFTMODE = 1
+local CENTEREDMODE = 2
 
-
-TOP_LEFT_MODE = 1
-CENTERED_MODE = 2
-
-RNRectangle = {}
+local RNRectangle = {}
 
 
 local function fieldChangedListener(self, key, value)
@@ -154,7 +150,7 @@ function RNRectangle:loadImage(image)
 
 
     self.prop:setDeck(self.gfxQuad)
-    self.gfxQuad:setRect((self.originalWidth / 2) * (-1), (self.originalHeight / 2) * (-1), (self.originalWidth) / 2, (self.originalHeight) / 2)
+    self.gfxQuad:setRect((self.originalWidth *.5) * (-1), (self.originalHeight *.5) * (-1), (self.originalWidth) *.5, (self.originalHeight) *.5)
 end
 
 function RNRectangle:initWith(image)
@@ -267,8 +263,8 @@ function RNRectangle:getVisible()
 end
 
 
-function RNRectangle:TOP_LEFT_MODE()
-    return TOP_LEFT_MODE
+function RNRectangle:TOP_LEFTMODE()
+    return TOP_LEFTMODE
 end
 
 function RNRectangle:setLocation(x, y)
@@ -329,8 +325,8 @@ function RNRectangle:isInRange(x, y)
     local buttonx = x
     local buttony = y
 
-    buttonx = x + self.originalWidth / 2
-    buttony = y + self.originalHeight / 2
+    buttonx = x + self.originalWidth *.5
+    buttony = y + self.originalHeight *.5
 
     if self.visible
             and buttonx >= self.x
@@ -347,8 +343,8 @@ end
 
 function RNRectangle:onTouchDown(x, y, source)
 
-    x = x + self.originalWidth / 2
-    y = y + self.originalHeight / 2
+    x = x + self.originalWidth *.5
+    y = y + self.originalHeight *.5
 
     if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
         self.onTouchDownListener(x, y, source)

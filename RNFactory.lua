@@ -12,74 +12,62 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
-module(..., package.seeall)
 
-require("RNInputManager")
-require("RNObject")
-require("RNRectangle")
-require("RNText")
-require("RNGroup")
-require("RNScreen")
-require("RNUtil")
-require("config")
+local M = {}
 
-contentCenterX = nil
-contentCenterY = nil
-contentHeight = nil
-contentWidth = nil
-contentScaleX = nil
-contentScaleY = nil
-contentWidth = nil
-screenOriginX = nil
-screenOriginY = nil
-statusBarHeight = nil
-viewableContentHeight = nil
-viewableContentWidth = nil
-HiddenStatusBar = "HiddenStatusBar"
-CenterReferencePoint = "CenterReferencePoint"
+M.contentCenterX = nil
+M.contentCenterY = nil
+M.contentHeight = nil
+M.contentWidth = nil
+M.contentScaleX = nil
+M.contentScaleY = nil
+M.screenOriginX = nil
+M.screenOriginY = nil
+M.statusBarHeight = nil
+M.viewableContentHeight = nil
+M.viewableContentWidth = nil
+M.HiddenStatusBar = "HiddenStatusBar"
+M.CenterReferencePoint = "CenterReferencePoint"
+M.stageWidth = 0
+M.stageHeight = 0
 
-screen = RNScreen:new()
+local R
+function M.init(PW, PH, SW, SH , name)
+R = RN
 
-groups = {}
-groups_size = 0
--- extra method call to setup the underlying system
 
-mainGroup = RNGroup:new()
+	M.screen = R.Screen:new()
 
-stageWidth = 0
-stageHeight = 0
+	M.groups = {}
+	M.groups_size = 0
+	-- extra method call to setup the underlying system
 
-function init(width, height, name)
+	mainGroup = R.Group:new()
+
 
     if name == nil then
         name = "mainwindow"
     end
 
-    --  width, height from the SDConfig.lua
+    MOAISim.openWindow(name, SW, SH)
+    M.screen:initWith(PW, PH, SW, SH )
 
-    MOAISim.openWindow(name, width, height) --960-by-640
-    screen:initWith(width, height)
+	M.stageWidth = PW
+	M.stageHeight = PW
 
-    stageWidth = width
-    stageHeight = height
-
-    contentWidth = width
-    contentHeight = height
-
-
-    RNInputManager.setGlobalRNScreen(screen)
+    M.contentWidth = PW
+    M.contentHeight = PH
+	  
+	R.InputManager.setGlobalRNScreen(M.screen)
+	R.InputManager.init()
 end
 
-init(config.width, config.height)
-
-
-
-function showDebugLines()
-    MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
+function M.showDebugLines()
+    MOAIDebugLines.setStyle(MOAIDebugLines.PROPMODEL_BOUNDS, 2, 1, 1, 1)
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_WORLD_BOUNDS, 2, 0.75, 0.75, 0.75)
 end
 
-function createImage(filename, params)
+function M.createImage(filename, params)
 
     local parentGroup, left, top
 
@@ -100,6 +88,9 @@ function createImage(filename, params)
         else
             parentGroup = mainGroup
         end
+		if (params.size ~= nil) then
+            size = params.size
+        end
     end
 
     if (parentGroup == nil) then
@@ -107,11 +98,11 @@ function createImage(filename, params)
     end
 
 
-    local image = RNObject:new()
-    image:initWith(filename)
-    screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    local image = R.Object:new()
+    image:initWith(filename,size)
+    M.screen:addRNObject(image)
+    image.x = image.originalWidth *.5 + left
+    image.y = image.originalHeight *.5 + top
 
     if parentGroup ~= nil then
         parentGroup:insert(image)
@@ -120,7 +111,7 @@ function createImage(filename, params)
     return image
 end
 
-function createImageFromMoaiImage(moaiImage, params)
+function M.createImageFromMoaiImage(moaiImage, params)
 
     local parentGroup, left, top
 
@@ -148,11 +139,11 @@ function createImageFromMoaiImage(moaiImage, params)
     end
 
 
-    local image = RNObject:new()
+    local image = R.Object:new()
     image:initWithMoaiImage(moaiImage)
-    screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    M.screen:addRNObject(image)
+    image.x = image.originalWidth *.5 + left
+    image.y = image.originalHeight *.5 + top
 
     if parentGroup ~= nil then
         parentGroup:insert(image)
@@ -162,19 +153,19 @@ function createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
-function createMoaiImage(filename)
+function M.createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
     return image
 end
 
-function createBlankMoaiImage(width, height)
+function M.createBlankMoaiImage(width, height)
     local image = MOAIImage.new()
     image:init(width, height)
     return image
 end
 
-function createCopyRect(moaiimage, params)
+function M.createCopyRect(moaiimage, params)
 
     local parentGroup, left, top
 
@@ -202,11 +193,11 @@ function createCopyRect(moaiimage, params)
     end
 
 
-    local image = RNObject:new()
+    local image = R.Object:new()
     image:initCopyRect(moaiimage, params)
-    screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    M.screen:addRNObject(image)
+    image.x = image.originalWidth *.5 + left
+    image.y = image.originalHeight *.5 + top
 
     if parentGroup ~= nil then
         parentGroup:insert(image)
@@ -216,7 +207,7 @@ function createCopyRect(moaiimage, params)
     return image
 end
 
-function createAnim(filename, sx, sy, left, top, scaleX, scaleY)
+function M.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     if scaleX == nil then
         scaleX = 1
@@ -236,11 +227,11 @@ function createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     local parentGroup = mainGroup
 
-    local image = RNObject:new()
+    local image = R.Object:new()
     image:initAnimWith(filename, sx, sy, scaleX, scaleY)
-    screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    M.screen:addRNObject(image)
+    image.x = image.originalWidth *.5 + left
+    image.y = image.originalHeight *.5 + top
 
     if parentGroup ~= nil then
         parentGroup:insert(image)
@@ -249,11 +240,11 @@ function createAnim(filename, sx, sy, left, top, scaleX, scaleY)
     return image
 end
 
-function createText(text, params)
+function M.createText(text, params)
 
     local top, left, size, font, height, width, alignment
 
-    font = "arial-rounded"
+    font = "RN/arial-rounded"
     size = 15
     alignment = MOAITextBox.CENTER_JUSTIFY
     --LEFT_JUSTIFY, CENTER_JUSTIFY or RIGHT_JUSTIFY.
@@ -288,9 +279,10 @@ function createText(text, params)
         end
     end
 
-    local RNText = RNText:new()
+    local RNText = R.Text:new()
     RNText:initWithText(text, font, size, left, top, width, height, alignment)
-    screen:addRNObject(RNText)
+    M.screen:addRNObject(RNText)
     mainGroup:insert(RNText)
     return RNText
 end
+return M

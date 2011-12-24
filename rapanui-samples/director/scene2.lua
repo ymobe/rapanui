@@ -16,7 +16,7 @@
 
 
 module(..., package.seeall)
-
+local l = require("localise")
 --[[
 	  
 	  SCENES MUST HAVE 
@@ -34,11 +34,11 @@ mainGroup=RNGroup:new()
 --init Scene
 function onCreate()
 	--add things to mainGroup
-	background = RNFactory.createImage("images/background-green.png",{parentGroup=mainGroup});background.x=160;background.y=240;
-	tile1a = RNFactory.createImage("images/tile2.png",{parentGroup=mainGroup});tile1a.x=160;tile1a.y=240;
-	tile1b = RNFactory.createImage("images/tile2.png",{parentGroup=mainGroup});tile1b.x=100;tile1b.y=140;
-	tile1c = RNFactory.createImage("images/tile2.png",{parentGroup=mainGroup});tile1c.x=260;tile1c.y=240;
-	--return mainGroup	
+	background = l.RNFactory.createImage("RN/images/background-green.png",{parentGroup=mainGroup});background.x=160;background.y=240;
+	tile1a = l.RNFactory.createImage("RN/images/tile2.png",{parentGroup=mainGroup});tile1a.x=160;tile1a.y=240;
+	tile1b = l.RNFactory.createImage("RN/images/tile2.png",{parentGroup=mainGroup});tile1b.x=100;tile1b.y=140;
+	tile1c = l.RNFactory.createImage("RN/images/tile2.png",{parentGroup=mainGroup});tile1c.x=260;tile1c.y=240;
+	--retul.RN mainGroup	
 	return mainGroup	
 end
 
