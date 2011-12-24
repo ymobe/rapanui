@@ -12,13 +12,13 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
+local R = RN
+sprite1 = R.Factory.createImage("RN/images/tile1.png")
 
-sprite1 = RNFactory.createImage("images/tile1.png")
-
-back = RNFactory.createImage("images/background-purple.png")
+back = R.Factory.createImage("RN/images/background-purple.png")
 back:sendToBottom()
 
-local w, h = RNFactory.stageWidth, RNFactory.stageHeight
+local w, h = R.Factory.stageWidth, R.Factory.stageHeight
 
 function onTouchEvent(event)
 
@@ -33,4 +33,4 @@ function onTouchEvent(event)
     end
 end
 
-RNListeners:addEventListener("touch", onTouchEvent)
+ R.Listeners:addEventListener("touch", onTouchEvent)

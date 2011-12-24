@@ -13,8 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNWrappedTimedAction = {}
-require"socket"
+local RNWrappedTimedAction = {}
 
 
 function RNWrappedTimedAction:new(o)
@@ -78,12 +77,18 @@ function RNWrappedTimedAction:setIterations(iterations)
     self.iterations = iterations
 end
 
+function RNWrappedTimedAction:setArg(arg)
+    self.arg = arg
+end
+
 function RNWrappedTimedAction:call()
     local func = self.wrappedFunction
     if self.event ~= nil and self.event.source ~= nil then
         func(self.event)
     else
-        func()
+		func ()
     end
     self.exectuions = self.exectuions + 1
 end
+
+return RNWrappedTimedAction

@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNLogger = {}
+local RNLogger = {}
 
 -- Create a new RNSprite Object
 function RNLogger:new(o)

@@ -13,22 +13,25 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-module(..., package.seeall)
-
 --global vars
+local TIME
+local POP_SCENE
+local POP_SCENE_GROUP
+local CURRENT_SCENE
+local CURRENT_SCENE_GROUP
+local OLD_SCENE
+local OLD_SCENE_GROUP
+local trn
+local width, height
 
---global time for transitions
-TIME=800
---other globals
-CURRENT_SCENE=nil
-CURRENT_SCENE_GROUP=nil
-OLD_SCENE=nil
-
-
-
+local RNDirector = {}
+local R
 -- Create a new RNDirector Object
 function RNDirector:new(o)
-
+R = RN
+	width, height = R.Factory.contentWidth, R.Factory.contentHeight
+	trn = R.Transition:new()
+	TIME = 800 --default
     o = o or {
         name = "",
         scenes = {}
@@ -39,14 +42,6 @@ function RNDirector:new(o)
     return o
 end
 
-
---add a scene to Director and set it to invisible . scene must be an instance of RNGroup
-function RNDirector:addScene(scene)
-    	local len = table.getn(self.scenes)
-        self.scenes[len + 1] = scene
-end
-
-
 --sets the time of transitions
 function RNDirector:setTime(value)
 	TIME=value
@@ -55,128 +50,111 @@ end
 
 --Functions to show/hide  a scene with the given effect
 
-
+local function getab(effect)
+	local a,b = 0,0
+		if effect=="slidetoleft" then
+			a,b = width,0  
+		elseif effect=="slidetoright" then
+			a,b = -width,0
+		elseif effect=="slidetotop" then
+			a,b = 0,height
+		elseif effect=="slidetobottom" then
+			a,b = 0,-height
+		end
+	return a,b
+end
 function RNDirector:showScene(name,effect)
-
-	if effect=="pop" then
+local name = "../"..name
+	if effect=="pop" or effect==nil then
 		self:popIn(name)	
-	end
-
-	if effect=="fade" then
+	elseif effect=="fade" then
 	    self:fadeIn(name)
+	else	
+		local a,b = getab(effect)
+		self:slideIn(name,a,b)
 	end
-	
-	if effect=="slidetoleft" then
-	    self:slideIn(name,320,0)
-	end
-	if effect=="slidetoright" then
-	    self:slideIn(name,-320,0)
-	end
-	if effect=="slidetotop" then
-	    self:slideIn(name,0,480)
-	end
-	if effect=="slidetobottom" then
-	    self:slideIn(name,0,-480)
-	end
-
 end
 
 function RNDirector:hideScene(name,effect)
-	if effect=="pop" then
-		self:popOut()
+local name = "../"..name
+	if effect=="pop" or effect==nil then
+		onOut()
+	elseif effect=="fade" then
+		onOut()
+	else	
+		local a,b = getab(effect)
+		self:slideOut(a,b)
 	end
-
-	if effect=="fade" then
-	    self:fadeOut()
-	end
-	
-	if effect=="slidetoleft" then
-	    self:slideOut(320,0)
-	end
-	if effect=="slidetoright" then
-	    self:slideOut(-320,0)
-	end
-	if effect=="slidetotop" then
-	    self:slideOut(0,480)
-	end
-	if effect=="slidetobottom" then
-	    self:slideOut(0,-480)
-	end
-	
 end
 
+local coll = collectgarbage
+local unloadScene = function ( moduleName )
+	if moduleName ~= "main" and type( package.loaded[moduleName] ) == "table" then
+		package.loaded[moduleName] = nil
+		local collect = function() coll() end
+		R.MainThread.addTimedAction(TIME/10, collect)
+	end
+end
 
 --function for changing a scene to another one
 
 function RNDirector:changeScene(sceneToGo,effect)
-
-	if effect=="pop" then
-		self:popOutChange()
+OLD_SCENE=CURRENT_SCENE
+OLD_SCENE_GROUP=CURRENT_SCENE_GROUP
+local sceneToGo = "../"..sceneToGo
+	unloadScene(sceneToGo)
+	if effect=="pop" or effect==nil then
+		onChangeOut()
 		self:popIn(sceneToGo)   
-	end
-
-	if effect=="fade" then
+	elseif effect=="fade" then
 	    self:fadeOutChange()
 	    self:fadeIn(sceneToGo)
+	else	
+		local a,b = getab(effect)
+		self:slideOutChange(a,b)
+		self:slideIn(sceneToGo,a,b)
 	end
-	
-	if effect=="slidetoleft" then
-	    self:slideOutChange(320,0)
-	    self:slideIn(sceneToGo,320,0)
-	end
-	
-	if effect=="slidetoright" then
-	    self:slideOutChange(-320,0)
-	    self:slideIn(sceneToGo,-320,0)
-	end
-	
-	if effect=="slidetotop" then
-	    self:slideOutChange(0,480)
-	    self:slideIn(sceneToGo,0,480)
-	end
-	
-	if effect=="slidetobottom" then
-	    self:slideOutChange(0,-480)
-	    self:slideIn(sceneToGo,0,-480)
-	end
-	
-
 end
 
+function RNDirector:openPopUp(sceneToGo,effect)
+local sceneToGo = "../"..sceneToGo
+	POP_SCENE=require(sceneToGo)
+	POP_SCENE_GROUP=POP_SCENE.onCreate() 
+end
 
-
-
-
+function RNDirector:closePopUp(sceneToGo,effect)
+	for i=1,table.getn(POP_SCENE_GROUP.displayObjects),1 do
+		POP_SCENE_GROUP.displayObjects[1]:remove();
+	end
+end
 -------------------------pop effect-------------------------------------------------------------
 
 function RNDirector:popIn(name)
-		CURRENT_SCENE=require(name)
-		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
+	CURRENT_SCENE=require(name)
+	CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
 end
 
-
-
-function RNDirector:popOut()
-		CURRENT_SCENE.onEnd()
+function ended()
+	for i=1,table.getn(OLD_SCENE_GROUP.displayObjects),1 do
+		OLD_SCENE_GROUP.displayObjects[1]:remove();
+	end
 end
 
-function RNDirector:popOutChange()
-		OLD_SCENE=CURRENT_SCENE
-		OLD_SCENE.onEnd()
+function onOut()
+	CURRENT_SCENE.onEnd()
+	ended()	
 end
 
-
-----------------------------fade effect---------------------------------------------------------
+function onChangeOut()
+    OLD_SCENE.onEnd()
+	ended()	
+end
 
 function RNDirector:fadeIn(name)
---set up a scene to start fade in
-		CURRENT_SCENE=require(name)
-		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
---set starting alpha
---and call for startFadeIn when ready
+	CURRENT_SCENE=require(name)
+	CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
 CURRENT_SCENE_GROUP.visible=false	
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=1,onComplete=startFadeIn})
 	end
 	
@@ -186,8 +164,7 @@ end
 function RNDirector:fadeOut()
 --fade the scene out with a transition, then calls a function to reset scene
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOut})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=onOut})
 	end
 end
 
@@ -198,31 +175,19 @@ function startFadeIn()
 --now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
 CURRENT_SCENE_GROUP.visible=true
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=1,time=TIME})
 	end
 end
 
 
-function endFadeOut()
-	CURRENT_SCENE.onEnd()
-end
+
 
 function RNDirector:fadeOutChange()
-OLD_SCENE=CURRENT_SCENE
 --fade the scene out with a transition, then calls a function to reset scene
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=endFadeOutChange})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=onChangeOut})
 	end
 end
-
-function endFadeOutChange()
-    OLD_SCENE.onEnd()
-end
-
-
-
 
 
 
@@ -235,41 +200,30 @@ function RNDirector:slideIn(name,xx,yy)
 		CURRENT_SCENE_GROUP.x=xx
 		CURRENT_SCENE_GROUP.y=yy
 --start slide
+	local function onEndSlideIn()
+		CURRENT_SCENE_GROUP.x=0
+		CURRENT_SCENE_GROUP.y=0
+	end
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
 		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onEndSlideIn})
 	end	
-end
 
-function onEndSlideIn()
-	CURRENT_SCENE_GROUP.x=0
-	CURRENT_SCENE_GROUP.y=0
 end
 
 
 function RNDirector:slideOut(xx,yy)
 --start slide
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=slideOutEnd})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onOut})
 	end	
 end
 
-
-function slideOutEnd()
-	CURRENT_SCENE.onEnd()	
-end
 
 function RNDirector:slideOutChange(xx,yy)
-OLD_SCENE=CURRENT_SCENE		
 --start slide
 	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		local trn=RNTransition:new()
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=endSlideOutChange})
+		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onChangeOut})
 	end	
 end
 
-function endSlideOutChange()
-    OLD_SCENE.onEnd()
-end
-
+return RNDirector

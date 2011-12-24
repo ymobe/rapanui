@@ -15,23 +15,25 @@
 
 --Touch/Collision Handling sample
 
+local R = RN
+
 boxTouched=false
 --add images
-background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
-box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 170; box.y = 80;
-ball = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball.x = 240; ball.y = 80;
-triangle = RNFactory.createImage("RapaNui-samples/physics/poly.png"); triangle.x = 80; triangle.y = 80; triangle.rotation = 190
-floor = RNFactory.createImage("RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
+background = R.Factory.createImage("RN/RapaNui-samples/physics/background-purple.png")
+box = R.Factory.createImage("RN/RapaNui-samples/physics/box.png"); box.x = 170; box.y = 80;
+ball = R.Factory.createImage("RN/RapaNui-samples/physics/ball.png"); ball.x = 240; ball.y = 80;
+triangle = R.Factory.createImage("RN/RapaNui-samples/physics/poly.png"); triangle.x = 80; triangle.y = 80; triangle.rotation = 190
+floor = R.Factory.createImage("RN/RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
 
 --starts simulation
-RNPhysics.start()
+R.Physics.start()
 
 
 --set images as physics objects
-RNPhysics.createBodyFromImage(box)
-RNPhysics.createBodyFromImage(ball, { shape = "circle" })
-RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
-RNPhysics.createBodyFromImage(floor, "static")
+R.Physics.createBodyFromImage(box)
+R.Physics.createBodyFromImage(ball, { shape = "circle" })
+R.Physics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
+R.Physics.createBodyFromImage(floor, "static")
 box.restitution = 0.5
 ball.restitution = 0.3
 triangle.restitution = 0.3
@@ -73,19 +75,19 @@ end
 
 
 --add a listener for touching the screen
-RNListeners:addEventListener("touch", screen_touch)
+R.Listeners:addEventListener("touch", screen_touch)
 
 
 function removeBall(self, event)
     --removes the ball if it touches the floor
-    if (event.other.name == "RapaNui-samples/physics/floor.png") then self:remove() end
+    if (event.other.name == "RN/RapaNui-samples/physics/floor.png") then self:remove() end
 end
 
 
 function create_ball(xx, yy)
     --each ball calls the remove ball each collision
-    local bb = RNFactory.createImage("RapaNui-samples/physics/ball.png"); bb.x = xx; bb.y = yy;
-    RNPhysics.createBodyFromImage(bb, { radius = 21, restitution = 0.9, density = 1, friction = 0.3 })
+    local bb = R.Factory.createImage("RN/RapaNui-samples/physics/ball.png"); bb.x = xx; bb.y = yy;
+    R.Physics.createBodyFromImage(bb, { radius = 21, restitution = 0.9, density = 1, friction = 0.3 })
     bb.collision = removeBall
     bb:addEventListener("collision")
 end

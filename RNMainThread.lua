@@ -12,22 +12,21 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
-
-module(..., package.seeall)
-
-require("RNThread")
-
+local M = {}
 rnThread = RNThread:new()
 
-function addTimedAction(delay, func, iterations)
-    rnThread:runFunction(delay, func, iterations)
+function M.addTimedAction(delay, func, iterations, ...)
+local iterations = iterations
+if not iterations then iterations = 1 end 
+    rnThread:runFunction(delay, func, iterations, arg)
     rnThread:start()
 end
 
-function getMainThread()
+function M.getMainThread()
     return rnThread
 end
 
-function startMainThread()
+function M.startMainThread()
     rnThread:start()
 end
+return M

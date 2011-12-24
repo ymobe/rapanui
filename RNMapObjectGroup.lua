@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-RNMapObjectGroup = {}
+local RNMapObjectGroup = {}
 
 function RNMapObjectGroup:new(o)
     o = o or {

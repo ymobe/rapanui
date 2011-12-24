@@ -14,13 +14,7 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 
-module(..., package.seeall)
-
-
-
-
-
-
+local RNFixture = {}
 
 local function fieldChangedListener(self, key, value)
 
@@ -61,9 +55,10 @@ end
 
 -- Create a new proxy
 
-
+local R
 function RNFixture:new(o)
-    local fixture = RNFixture:innerNew(o)
+if not R then R = RN end
+    local fixture = R.Fixture:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = fixture })
     return proxy, physicObject
 end
@@ -127,4 +122,6 @@ end
 function RNFixture:setSensor(value)
     if self.fixture ~= nil then self.fixture:setSensor(value) end
 end
+
+return RNFixture
 

@@ -14,8 +14,7 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 
-module(..., package.seeall)
-
+local RNJoint = {}
 
 local function fieldChangedListener(self, key, value)
 
@@ -634,3 +633,5 @@ function RNJoint:remove()
         end
     end
 end
+ 
+return RNJoint

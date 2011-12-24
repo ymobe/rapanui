@@ -12,15 +12,13 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
-require("RNUtil")
-
-MOVE = "move"
-ROTATE = "rotate"
-SCALE = "scale"
-ALPHA = "alpha"
+local MOVE = "move"
+local ROTATE = "rotate"
+local SCALE = "scale"
+local ALPHA = "alpha"
 
 -- Create a New Transition Object
-RNTransition = {}
+local RNTransition = {}
 
 function RNTransition:new(o)
     o = o or {
@@ -31,7 +29,7 @@ function RNTransition:new(o)
     return o
 end
 
-mainSprite = nil
+local mainSprite = nil
 
 function RNTransition:run(target, params)
 
@@ -69,13 +67,13 @@ function RNTransition:run(target, params)
     end
 
     if (params.time ~= nil) then
-        time = params.time / 1000
+        time = params.time *.001
     else
         time = 1
     end
 
     if (params.delay ~= nil) then
-        delay = params.delay / 1000
+        delay = params.delay *.001
     else
         delay = 0
     end
@@ -145,3 +143,4 @@ function RNTransition:getDelta(a, b)
         return b - a
     end
 end
+return RNTransition

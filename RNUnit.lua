@@ -1,6 +1,6 @@
-module(..., package.seeall)
+local RNUnit = {}
 
-function assertEquals(expected, actual, message)
+function RNUnit.assertEquals(expected, actual, message)
 
     local fullMessage = "expected and actual are different"
 
@@ -27,7 +27,7 @@ function assertEquals(expected, actual, message)
     assert(actual == expected, fullMessage)
 end
 
-function assertNil(actual, message)
+function RNUnit.assertNil(actual, message)
 
     local fullMessage = "actual should be nil"
 
@@ -37,7 +37,7 @@ function assertNil(actual, message)
     assert(actual == nil, fullMessage)
 end
 
-function assertNotNil(actual, message)
+function RNUnit.assertNotNil(actual, message)
 
     local fullMessage = "actual should not be nil"
 

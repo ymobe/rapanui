@@ -12,7 +12,21 @@
 -- Moai (http://getmoai.com/) and  RapaNui in the credits of your program.
 ------------------------------------------------------------------------------------------------------------------------
 
-module(..., package.seeall)
+local M = {}
 
-width = 320
-height = 480
+local landscape = true
+local device = "iPad" 
+
+
+local sizes = {}
+sizes["iPad"] = {1024, 768, 670, 503}
+sizes["iPhone"] = {480, 320, 670, 503}
+
+M.PW, M.PH, M.SW, M.SH = sizes[device][1],sizes[device][2], sizes[device][3], sizes[device][4]
+
+if landscape == false then -- flip Widths and Hieghts
+	M.PW, M.PH = M.PH, M.PW
+	M.SW, M.SH = M.SH, M.SW
+end
+
+return M

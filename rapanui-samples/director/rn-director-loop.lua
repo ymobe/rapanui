@@ -16,17 +16,9 @@
 --RNDirector test , remove comments to test effects.
 
 
+local l = require("localise")
+director=l.RNDirector:new()
 
-director=RNDirector:new()
-
-
-director:addScene("rapanui-samples/director/scene1")
-director:addScene("rapanui-samples/director/scene2")
-director:addScene("rapanui-samples/director/scene3")
-director:addScene("rapanui-samples/director/scene4")
-
---check if they are inside the director
-for i,v in ipairs(director.scenes) do print(i,v) end
 
 --counter, flag and state for loop
 counter=0
@@ -48,7 +40,7 @@ director:showScene("rapanui-samples/director/scene1","pop")
 --for loop counter
 function updateCounter()
 	counter=counter+1
-	if counter==200 then
+	if counter==10 then
     	state=state+1
     	counter=0
     	canChange=true
@@ -95,4 +87,4 @@ end
 
 
 --set a listener for enterFrame
-RNListeners:addEventListener("enterFrame",step)
+l.RNListeners:addEventListener("enterFrame",step)
