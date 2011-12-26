@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-effects = { "slidetoleft", "slidetoright", "slidetotop", "slidetobottom", "pop", "fade" }
+effects = { "slidetoleft", "slidetoright", "slidetotop", "slidetobottom", "pop", "fade", "crossfade" }
 
 director = RNDirector:new()
 
@@ -28,7 +28,7 @@ end
 --Set director's time
 director:setTime(1000)
 
-director:showScene("rapanui-samples/director/scene1", "fade")
+director:showScene("rapanui-samples/director/scene1", getRandomTransition())
 
 text1 = RNFactory.createText("Touch to swap!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 

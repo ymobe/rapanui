@@ -82,4 +82,22 @@ function update(enterFrame)
     end
 end
 
+function update(enterFrame)
+    currentTime = socket.gettime()
+    diff = currentTime - lastTime
+
+        map:drawMapAt(lastx, 0, aTileset)
+        lastx = lastx + delta
+
+        if lastx <= -1280 then
+            delta = delta * -1
+        end
+
+        if lastx >= 0 then
+            delta = delta * -1
+        end
+        lastTime = currentTime
+
+end
+
 RNListeners:addEventListener("enterFrame", update)
