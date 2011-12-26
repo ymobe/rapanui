@@ -35,8 +35,8 @@ director:setTime(1000)
 director:showScene("rapanui-samples/director/scene1", getRandomTransition())
 
 text1 = RNFactory.createText("Touch to swap!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
-
 text1:setLevel(1000)
+
 local scene1 = "rapanui-samples/director/scene1"
 local scene2 = "rapanui-samples/director/scene2"
 local sceneToShow = scene1
@@ -53,8 +53,4 @@ function onTouchEvent(event)
     end
 end
 
-
-
 RNListeners:addEventListener("touch", onTouchEvent)
-
-

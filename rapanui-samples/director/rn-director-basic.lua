@@ -26,11 +26,8 @@ director:addScene("rapanui-samples/director/scene2")
 --check if they are inside the director
 for i,v in ipairs(director.scenes) do print(i,v) end
 
-
 --Set director's time
 director:setTime(1000)
-
-
 
 
 --POP TEST
@@ -39,25 +36,18 @@ director:setTime(1000)
 --director:showScene("rapanui-samples/director/scene1","pop")
 
 
-
-
 --POP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
 --director:showScene("rapanui-samples/director/scene2","pop")
-
-
 
 
 --FADE IN TEST
 --director:showScene("rapanui-samples/director/scene1","fade")
 
 
-
-
 --FADE OUT TEST
-director:showScene("rapanui-samples/director/scene2","pop")
-director:hideScene("rapanui-samples/director/scene2","fade")
-
+--director:showScene("rapanui-samples/director/scene2","pop")
+--director:hideCurrentScene("fade")
 
 
 --FADE CHANGE TEST
@@ -66,19 +56,17 @@ director:hideScene("rapanui-samples/director/scene2","fade")
 
 
 --SLIDE TO LEFT IN TEST
---director:showScene("rapanui-samples/director/scene1","slidetoleft")
+director:showScene("rapanui-samples/director/scene1","slidetoleft")
 
 
 --SLIDE TO LEFT OUT TEST
 --director:showScene("rapanui-samples/director/scene2","pop")
---director:hideScene("rapanui-samples/director/scene2","slidetoleft")
-
+--director:hideCurrentScene("slidetoleft")
 
 
 --SLIDE TO LEFT CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
 --director:showScene("rapanui-samples/director/scene2","slidetoleft")
-
 
 
 --SLIDE TO RIGHT IN TEST
@@ -87,7 +75,7 @@ director:hideScene("rapanui-samples/director/scene2","fade")
 
 --SLIDE TO RIGHT OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetoright")
+--director:hideCurrentScene("slidetoright")
 
 
 --SLIDE TO RIGHT CHANGE TEST
@@ -101,7 +89,8 @@ director:hideScene("rapanui-samples/director/scene2","fade")
 
 --SLIDE TO TOP OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetotop")
+--director:hideCurrentScene("slidetotop")
+
 
 --SLIDE TO TOP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
@@ -114,9 +103,9 @@ director:hideScene("rapanui-samples/director/scene2","fade")
 
 --SLIDE TO BOTTOM OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetobottom")
+--director:hideCurrentScene("slidetobottom")
+
 
 --SLIDE TO BOTTOM CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
 --director:showScene("rapanui-samples/director/scene2","slidetobottom")
-

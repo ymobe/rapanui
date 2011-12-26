@@ -91,7 +91,7 @@ function RNDirector:showScene(name, effect)
     end
 end
 
-function RNDirector:hideScene(effect)
+function RNDirector:hideCurrentScene(effect)
     self:showScene(nil, effect)
 end
 
@@ -103,8 +103,10 @@ function RNDirector:popIn()
         CURRENT_SCENE.onEnd()
     end
 
-    CURRENT_SCENE_GROUP = NEXT_SCENE.onCreate()
-    CURRENT_SCENE = NEXT_SCENE
+    if NEXT_SCENE ~= nil then
+        CURRENT_SCENE_GROUP = NEXT_SCENE.onCreate()
+        CURRENT_SCENE = NEXT_SCENE
+    end
     TRANSITIONING = false
 end
 
