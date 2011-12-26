@@ -43,7 +43,7 @@ director:setTime(1000)
 
 --POP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","pop")
+--director:showScene("rapanui-samples/director/scene2","pop")
 
 
 
@@ -55,14 +55,14 @@ director:setTime(1000)
 
 
 --FADE OUT TEST
---director:showScene("rapanui-samples/director/scene2","pop")
---director:hideScene("rapanui-samples/director/scene2","fade")
+director:showScene("rapanui-samples/director/scene2","pop")
+director:hideScene("rapanui-samples/director/scene2","fade")
 
 
 
 --FADE CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","fade")
+--director:showScene("rapanui-samples/director/scene2","fade")
 
 
 --SLIDE TO LEFT IN TEST
@@ -77,7 +77,7 @@ director:setTime(1000)
 
 --SLIDE TO LEFT CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetoleft")
+--director:showScene("rapanui-samples/director/scene2","slidetoleft")
 
 
 
@@ -92,7 +92,7 @@ director:setTime(1000)
 
 --SLIDE TO RIGHT CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetoright")
+--director:showScene("rapanui-samples/director/scene2","slidetoright")
 
 
 --SLIDE TO TOP IN TEST
@@ -105,7 +105,7 @@ director:setTime(1000)
 
 --SLIDE TO TOP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetotop")
+--director:showScene("rapanui-samples/director/scene2","slidetotop")
 
 
 --SLIDE TO BOTTOM IN TEST
@@ -118,5 +118,5 @@ director:setTime(1000)
 
 --SLIDE TO BOTTOM CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetobottom")
+--director:showScene("rapanui-samples/director/scene2","slidetobottom")
 

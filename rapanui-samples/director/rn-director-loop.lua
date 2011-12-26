@@ -17,7 +17,7 @@
 
 
 
-director=RNDirector:new()
+director = RNDirector:new()
 
 
 director:addScene("rapanui-samples/director/scene1")
@@ -26,12 +26,12 @@ director:addScene("rapanui-samples/director/scene3")
 director:addScene("rapanui-samples/director/scene4")
 
 --check if they are inside the director
-for i,v in ipairs(director.scenes) do print(i,v) end
+for i, v in ipairs(director.scenes) do print(i, v) end
 
 --counter, flag and state for loop
-counter=0
-state=1
-canChange=false
+counter = 0
+state = 1
+canChange = false
 
 
 --Set director's time
@@ -40,59 +40,59 @@ director:setTime(800)
 
 
 --show first scene
-director:showScene("rapanui-samples/director/scene1","pop")
+director:showScene("rapanui-samples/director/scene1", "pop")
 
 
 
 
 --for loop counter
 function updateCounter()
-	counter=counter+1
-	if counter==200 then
-    	state=state+1
-    	counter=0
-    	canChange=true
-	end
+    counter = counter + 1
+    if counter == 200 then
+        state = state + 1
+        counter = 0
+        canChange = true
+    end
 end
 
---perform changeScene
+--perform showScene
 function perform()
-	if state==2 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene2","pop")
-		canChange=false
-	elseif state==3 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene3","fade")	
-		canChange=false
-	elseif state==4 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene4","slidetoleft")	
-		canChange=false
-	elseif state==5 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene1","slidetoright")	
-		canChange=false
-	elseif state==6 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene2","slidetotop")	
-		canChange=false
-	elseif state==7 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene3","slidetobottom")	
-		canChange=false
-	elseif state==8 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene4","fade")	
-		canChange=false
-	elseif state==9 and canChange==true then
-		director:changeScene("rapanui-samples/director/scene1","pop")	
-		canChange=false
-		state=1
-	end	
+    if state == 2 and canChange == true then
+        director:showScene("rapanui-samples/director/scene2", "pop")
+        canChange = false
+    elseif state == 3 and canChange == true then
+        director:showScene("rapanui-samples/director/scene3", "fade")
+        canChange = false
+    elseif state == 4 and canChange == true then
+        director:showScene("rapanui-samples/director/scene4", "slidetoleft")
+        canChange = false
+    elseif state == 5 and canChange == true then
+        director:showScene("rapanui-samples/director/scene1", "slidetoright")
+        canChange = false
+    elseif state == 6 and canChange == true then
+        director:showScene("rapanui-samples/director/scene2", "slidetotop")
+        canChange = false
+    elseif state == 7 and canChange == true then
+        director:showScene("rapanui-samples/director/scene3", "slidetobottom")
+        canChange = false
+    elseif state == 8 and canChange == true then
+        director:showScene("rapanui-samples/director/scene4", "fade")
+        canChange = false
+    elseif state == 9 and canChange == true then
+        director:showScene("rapanui-samples/director/scene1", "pop")
+        canChange = false
+        state = 1
+    end
 end
 
 
 
 --handling enterFrame
 function step()
-	updateCounter()
-	perform()
+    updateCounter()
+    perform()
 end
 
 
 --set a listener for enterFrame
-RNListeners:addEventListener("enterFrame",step)
+RNListeners:addEventListener("enterFrame", step)
