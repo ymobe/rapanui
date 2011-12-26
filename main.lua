@@ -32,7 +32,7 @@ require("RNDirector")
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -42,6 +42,7 @@ require("RNDirector")
 
 -- Director
 --require("rapanui-samples/director/rn-director-basic")
+--require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-loop")
 
 -- Transition
@@ -85,4 +86,4 @@ require("RNDirector")
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 --require("rapanui-samples/maps/rn-tileset")
-require("rapanui-samples/maps/rn-physics-map")
+--require("rapanui-samples/maps/rn-physics-map")
