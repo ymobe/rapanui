@@ -13,7 +13,11 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-effects = { "slidetoleft", "slidetoright", "slidetotop", "slidetobottom", "pop", "fade", "crossfade" }
+effects = { "slidetoleft", "slidetoright", "crossfade", "slidetotop", "slidetobottom", "pop", "fade" }
+
+function getRandomTransition()
+    return effects[math.random(1, table.getn(effects) + 1)]
+end
 
 director = RNDirector:new()
 
@@ -49,9 +53,7 @@ function onTouchEvent(event)
     end
 end
 
-function getRandomTransition()
-    return effects[math.random(1, 6)]
-end
+
 
 RNListeners:addEventListener("touch", onTouchEvent)
 
