@@ -42,7 +42,6 @@ screen = RNScreen:new()
 
 groups = {}
 groups_size = 0
--- extra method call to setup the underlying system
 
 mainGroup = RNGroup:new()
 
@@ -70,9 +69,8 @@ function init(width, height, name)
     RNInputManager.setGlobalRNScreen(screen)
 end
 
+-- extra method call to setup the underlying system
 init(config.width, config.height)
-
-
 
 function showDebugLines()
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
