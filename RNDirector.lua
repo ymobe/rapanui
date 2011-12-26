@@ -62,7 +62,12 @@ end
 
 --Functions to show/hide  a scene with the given effect
 function RNDirector:showScene(name, effect)
-    NEXT_SCENE = require(name)
+
+    if name ~= nil then
+        NEXT_SCENE = require(name)
+    else
+        NEXT_SCENE = nil
+    end
 
     if TRANSITIONING == false then
         TRANSITIONING = true
@@ -84,6 +89,10 @@ function RNDirector:showScene(name, effect)
     end
 end
 
+function RNDirector:hideScene(effect)
+    self:showScene(nil, effect)
+end
+
 
 ------------------------- pop effect -------------------------------------------------------------
 function RNDirector:popIn()
@@ -102,31 +111,46 @@ end
 function RNDirector:slideout(xx, yy)
 
     --start slide
-    for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
-        trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+    if CURRENT_SCENE_GROUP ~= nill then
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then --call transition end callback only for last element
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+            end
+        end
     end
 
-    -- change the current scene group
-    NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
-    NEXT_SCENE_GROUP.x = xx
-    NEXT_SCENE_GROUP.y = yy
-    --start slide
-    for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
-        if i == table.getn(NEXT_SCENE_GROUP.displayObjects) then
-            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = allSlideEnd })
-        else
-            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+    -- if next scene has a value go for transition
+    if NEXT_SCENE ~= nil then
+        -- change the current scene group
+        NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+        NEXT_SCENE_GROUP.x = xx
+        NEXT_SCENE_GROUP.y = yy
+        --start slide
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            if CURRENT_SCENE_GROUP == nil and i == table.getn(NEXT_SCENE_GROUP.displayObjects) then --if CURRENT_SCENE nil we have to call endSlide on last element transition
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
+            else
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+            end
         end
     end
 end
 
 
-function allSlideEnd()
-    CURRENT_SCENE.onEnd()
-    NEXT_SCENE_GROUP.x = 0
-    NEXT_SCENE_GROUP.y = 0
-    CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
-    CURRENT_SCENE = NEXT_SCENE
+function slideEnd()
+
+    if CURRENT_SCENE ~= nil then
+        CURRENT_SCENE.onEnd()
+    end
+
+    if NEXT_SCENE ~= nil then
+        NEXT_SCENE_GROUP.x = 0
+        NEXT_SCENE_GROUP.y = 0
+        CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
+        CURRENT_SCENE = NEXT_SCENE
+    end
     TRANSITIONING = false
     collectgarbage("collect")
 end
@@ -135,36 +159,70 @@ end
 ---------------------------- fade effect---------------------------------------------------------
 function RNDirector:fade()
 
-    for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
-        if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
-            trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME/2, onComplete = DIRECTOR.startFadeInNext })
-        else
-            trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME/2 })
+
+    local timeToRun = TIME
+
+    if CURRENT_SCENE == nil or NEXT_SCENE == nil then
+        timeToRun = TIME / 2
+    end
+
+    if CURRENT_SCENE_GROUP ~= nill then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
+                if NEXT_SCENE ~= nil then
+                    trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.startFadeInNext })
+                else
+                    trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.endFade })
+                end
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun() })
+            end
         end
+    else
+        -- if we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP then call fadeIn on the next scene
+        DIRECTOR:startFadeInNext()
     end
 end
 
 
+function RNDirector:timeToRun()
+    -- used for fading, if one of NEXT or CURRENT is missing we have to do the transition with on at full lenght
+    if CURRENT_SCENE == nil or NEXT_SCENE == nil then
+        return TIME
+    else
+        --if we have both NEXT and CURRENT each group have to run own transition at half time so the whole animation lasts the full lenght
+        return TIME / 2
+    end
+end
+
 function RNDirector:startFadeInNext()
+
     NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
     for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
         NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
     end
 
     for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
         if i == table.getn(NEXT_SCENE_GROUP.displayObjects) then
-            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME/2, onComplete = DIRECTOR.endFade })
+            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.endFade })
         else
-            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME/2 })
+            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = DIRECTOR:timeToRun() })
         end
     end
 end
 
 
 function RNDirector:endFade()
-    CURRENT_SCENE.onEnd()
-    collectgarbage("collect")
-    CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
-    CURRENT_SCENE = NEXT_SCENE
+    if CURRENT_SCENE ~= nil then
+        CURRENT_SCENE.onEnd()
+    end
+
+    if NEXT_SCENE ~= nil then
+        CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
+        CURRENT_SCENE = NEXT_SCENE
+    end
+
     TRANSITIONING = false
+    collectgarbage("collect")
 end
