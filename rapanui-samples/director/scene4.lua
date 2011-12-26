@@ -20,41 +20,41 @@ module(..., package.seeall)
 --[[
 	  
 	  SCENES MUST HAVE 
-	  1)a mainGroup where all instances are inserted
+	  1)a sceneGroup where all instances are inserted
 	  2)onCreate function in which we create everything
 	  3)onEnd function in which we clean the instance
 
-]]--
+]] --
 
 
-mainGroup=RNGroup:new()
+local sceneGroup = RNGroup:new()
 
 
 
 --init Scene
 function onCreate()
-	--add things to mainGroup
-	background = RNFactory.createImage("images/background-green.png");background.x=160;background.y=240;
-	tile1a = RNFactory.createImage("images/tile4.png");tile1a.x=160;tile1a.y=320;
-	tile1b = RNFactory.createImage("images/tile4.png");tile1b.x=100;tile1b.y=140;
-	tile1c = RNFactory.createImage("images/tile4.png");tile1c.x=260;tile1c.y=340;
-	for i=1,table.getn(RNFactory.mainGroup.displayObjects),1 do
-		RNFactory.mainGroup:removeChild(1);
-	end
-	mainGroup:insert(background)
-	mainGroup:insert(tile1a)
-	mainGroup:insert(tile1b)
-	mainGroup:insert(tile1c)
-	--return mainGroup	
-	return mainGroup	
+    --add things to sceneGroup
+    local background = RNFactory.createImage("images/background-green.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
+    local tile1a = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 320;
+    local tile1b = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1b.x = 100; tile1b.y = 140;
+    local tile1c = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1c.x = 260; tile1c.y = 340;
+    --  for i = 1, table.getn(RNFactory.sceneGroup.displayObjects), 1 do
+    --      RNFactory.sceneGroup:removeChild(1);
+    --   end
+    --sceneGroup:insert(background)
+    -- sceneGroup:insert(tile1a)
+    --sceneGroup:insert(tile1b)
+    --sceneGroup:insert(tile1c)
+    --return sceneGroup
+    return sceneGroup
 end
 
 
 
 function onEnd()
-	for i=1,table.getn(mainGroup.displayObjects),1 do
-		mainGroup.displayObjects[1]:remove();
-	end
+    for i = 1, table.getn(sceneGroup.displayObjects), 1 do
+        sceneGroup.displayObjects[1]:remove();
+    end
 end
 
 
