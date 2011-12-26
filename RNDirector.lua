@@ -83,6 +83,8 @@ function RNDirector:showScene(name, effect)
             self:popIn()
         elseif effect == "fade" then
             self:fade()
+        elseif effect == "crossfade" then
+            self:crossFade()
         else
             self:popIn()
         end
@@ -156,15 +158,42 @@ function slideEnd()
 end
 
 
+---------------------------- crossfade effect----------------------------------------------------
+function RNDirector:crossFade()
+
+    if CURRENT_SCENE_GROUP ~= nil then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
+
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if NEXT_SCENE == nil and i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME, onComplete = DIRECTOR.endFade })
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME })
+            end
+        end
+    end
+
+    if NEXT_SCENE ~= nil then
+
+        NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
+        end
+
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(NEXT_SCENE_GROUP.displayObjects) then
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME, onComplete = DIRECTOR.endFade })
+            else
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME })
+            end
+        end
+    end
+end
+
+
+
 ---------------------------- fade effect---------------------------------------------------------
 function RNDirector:fade()
-
-
-    local timeToRun = TIME
-
-    if CURRENT_SCENE == nil or NEXT_SCENE == nil then
-        timeToRun = TIME / 2
-    end
 
     if CURRENT_SCENE_GROUP ~= nill then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
         for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
@@ -195,6 +224,7 @@ function RNDirector:timeToRun()
     end
 end
 
+
 function RNDirector:startFadeInNext()
 
     NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
@@ -214,6 +244,8 @@ end
 
 
 function RNDirector:endFade()
+
+    print("ON END FADE!")
     if CURRENT_SCENE ~= nil then
         CURRENT_SCENE.onEnd()
     end
