@@ -287,21 +287,17 @@ function M.createText(text, params)
 end
 
 function M.newRect(x1,y1,x2,y2, params)
-    local parentGroup, top, left = nil, x1,y1
+    local parentGroup = nil
 
     if params then
-        if type(params) == "table" then
-            parentGroup = params.parentGroup or mainGroups
-            top = params.top or 0
-            left = params.left or 0
-        end
+         parentGroup = params.parentGroup or mainGroups
     end
 	
 	local shape = R.Object:new()
     shape:initWithRect(x1,y1,x2,y2)
     M.screen:addRNObject(shape)
-    shape.x = shape.originalWidth *.5 + left
-    shape.y = shape.originalHeight *.5 + top
+    shape.x = shape.originalWidth *.5 + x1
+    shape.y = shape.originalHeight *.5 + y1
     shape.rotation = 0
     
     if parentGroup ~= nil then

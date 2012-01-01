@@ -550,10 +550,9 @@ function RNObject:loadRect(x1,y1,x2,y2)
     self.gfxQuad:setRect (-x,-y,x,y)
     self.gfxQuad:setDrawCallback ( onDraw )
     
-	self.originalWidth, self.originalHeight = x, y
+	self.originalWidth, self.originalHeight = x2, y2
 
-    self.pow2Widht, self.pow2Height = x, y
-    self.prop = MOAIProp2D.new(MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    self.prop = MOAIProp2D.new()
 
     self.prop:setDeck(self.gfxQuad)
 
@@ -570,7 +569,7 @@ function RNObject:loadCircle(x,y,r)
 	
     self.gfxQuad = MOAIScriptDeck.new ()
     self.gfxQuad:setRect (-r,-r,r,r)
-    print(r)
+    
     self.gfxQuad:setDrawCallback ( onDraw )
     
 	self.originalWidth, self.originalHeight = x, y
