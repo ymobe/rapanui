@@ -53,7 +53,7 @@ R = RN
     M.screen:initWith(PW, PH, SW, SH )
 
 	M.stageWidth = PW
-	M.stageHeight = PW
+	M.stageHeight = PH
 
     M.contentWidth = PW
     M.contentHeight = PH
@@ -285,4 +285,55 @@ function M.createText(text, params)
     mainGroup:insert(RNText)
     return RNText
 end
+
+function M.newRect(x1,y1,x2,y2, params)
+    local parentGroup, top, left = nil, x1,y1
+
+    if params then
+        if type(params) == "table" then
+            parentGroup = params.parentGroup or mainGroups
+            top = params.top or 0
+            left = params.left or 0
+        end
+    end
+	
+	local shape = R.Object:new()
+    shape:initWithRect(x1,y1,x2,y2)
+    M.screen:addRNObject(shape)
+    shape.x = shape.originalWidth *.5 + left
+    shape.y = shape.originalHeight *.5 + top
+    shape.rotation = 0
+    
+    if parentGroup ~= nil then
+        parentGroup:insert(shape)
+    end
+    return shape
+end
+
+function M.newCircle(x,y,r, params)
+    local parentGroup, top, left = nil, x,y
+
+    if params then
+        if type(params) == "table" then
+            parentGroup = params.parentGroup or mainGroups
+            top = params.top or 0
+            left = params.left or 0
+        end
+    end
+	
+	local shape = R.Object:new()
+    shape:initWithCircle(x,y,r)
+    M.screen:addRNObject(shape)
+    shape.x = shape.originalWidth *.5 + left
+    shape.y = shape.originalHeight *.5 + top
+    shape.rotation = 0
+    
+    if parentGroup ~= nil then
+        parentGroup:insert(shape)
+    end
+    return shape
+end
+
+
+
 return M

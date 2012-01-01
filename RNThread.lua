@@ -44,7 +44,7 @@ if not R then R = RN end
 end
 
 function RNThread:addEnterFrame(func, source)
-    local wrappedTimedAction = R.WrappedTimedAction:new()
+    local wrappedTimedAction = RN.WrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction.event = {}
     wrappedTimedAction.event.source = source

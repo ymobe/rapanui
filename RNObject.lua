@@ -274,7 +274,7 @@ end
 
 
 function RNObject:new(o)
-R = RN
+if not R then R = RN end
     local displayobject = R.Object:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
@@ -521,6 +521,67 @@ function RNObject:loadImage(image,size)
     self.prop:setPriority(1)
 end
 
+function RNObject:initWithRect(x1,y1,x2,y2)
+    self.visible = true
+    self.childrenSize = 0
+
+    self.alpha = 1
+    self:loadRect(x1,y1,x2,y2)
+end
+
+function RNObject:initWithCircle(x,y,r)
+    self.visible = true
+    self.childrenSize = 0
+
+    self.alpha = 1
+    self:loadCircle(x,y,r)
+end
+
+function RNObject:loadRect(x1,y1,x2,y2)
+    self.name = "shape"
+    local x = x2*.5
+	local y = y2*.5
+    local function onDraw()
+	    MOAIGfxDevice.setPenColor ( 1, 1, 1, 1 )
+	    MOAIDraw.fillRect(-x,-y,x,y)
+	end
+	
+    self.gfxQuad = MOAIScriptDeck.new ()
+    self.gfxQuad:setRect (-x,-y,x,y)
+    self.gfxQuad:setDrawCallback ( onDraw )
+    
+	self.originalWidth, self.originalHeight = x, y
+
+    self.pow2Widht, self.pow2Height = x, y
+    self.prop = MOAIProp2D.new(MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+
+    self.prop:setDeck(self.gfxQuad)
+
+    self.prop:setPriority(1)
+end
+
+function RNObject:loadCircle(x,y,r)
+    self.name = "shape"
+    
+    local function onDraw()
+	    MOAIGfxDevice.setPenColor ( 1, 1, 1, 1 )
+	    MOAIDraw.fillCircle ( 0, 0, r, 100 )
+	end
+	
+    self.gfxQuad = MOAIScriptDeck.new ()
+    self.gfxQuad:setRect (-r,-r,r,r)
+    print(r)
+    self.gfxQuad:setDrawCallback ( onDraw )
+    
+	self.originalWidth, self.originalHeight = x, y
+
+    self.pow2Widht, self.pow2Height = x, y
+    self.prop = MOAIProp2D.new()
+
+    self.prop:setDeck(self.gfxQuad)
+
+    self.prop:setPriority(1)
+end
 
 function RNObject:getDebugName()
     return self.name
@@ -953,7 +1014,7 @@ function RNObject:addEventListener(eventName, func)
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
-        RNInputManager.addListenerToEvent(eventName, func, self)
+        R.InputManager.addListenerToEvent(eventName, func, self)
     end
 end
 

@@ -15,21 +15,12 @@
 
 -- tiles by Daniel Cook (http://www.lostgarden.com)
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
-
-
-map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/demomap.tmx")
-
+local R = RN
+map = R.MapFactory.loadMap(R.MapFactory.TILED, "RN/rapanui-samples/maps/demomap.tmx")
 
 aTileset = map:getTileset(0)
 
-aTileset:updateImageSource("rapanui-samples/maps/tilesetdemo.png")
+aTileset:updateImageSource("RN/rapanui-samples/maps/tilesetdemo.png")
 
 
 local layersSize = map:getLayersSize()

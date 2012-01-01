@@ -40,7 +40,7 @@ R = RN
 	RNPhysics.world = MOAIBox2DWorld.new()
 	RNPhysics.world:setGravity(0, 10)
 	RNPhysics.world:start()
-	RNPhysics.world:setUnitsToMeters(0.06)
+	RNPhysics.world:setUnitsToMeters(0.03)
 	end
 end
 

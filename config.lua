@@ -19,7 +19,8 @@ local device = "iPad"
 
 
 local sizes = {}
-sizes["iPad"] = {1024, 768, 670, 503}
+sizes["iPad"] = {1024, 768, 512, 384}
+sizes["iPad2"] = {1024, 768, 1024, 768}
 sizes["iPhone"] = {480, 320, 670, 503}
 
 M.PW, M.PH, M.SW, M.SH = sizes[device][1],sizes[device][2], sizes[device][3], sizes[device][4]

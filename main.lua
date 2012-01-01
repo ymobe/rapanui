@@ -19,7 +19,7 @@
 -- Anim
 
 --require("RN/rapanui-samples/anim/rn-anim")
---require("RN/rapanui-samples/anim/rn-anim2")
+require("RN/rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
@@ -75,5 +75,5 @@
 --require("RN/rapanui-samples/maps/rn-scrolling-map")
 --require("RN/rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("RN/rapanui-samples/maps/rn-tiledmap-parser-lua")
-require("RN/rapanui-samples/maps/rn-tileset")
+--require("RN/rapanui-samples/maps/rn-tileset")
 --require("RN/rapanui-samples/maps/rn-physics-map")

@@ -41,16 +41,22 @@ function RNWrappedTimedAction:isToCall()
     end
 
     if self.lastTimeCheck == 0 then
-        self.lastTimeCheck = socket.gettime() * 1000
+        self.lastTimeCheck = os.time()
     end
 
-
-    if socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
-        self.lastTimeCheck = socket.gettime() * 1000
+    if os.time() - self.lastTimeCheck > self.delay then
+        self.lastTimeCheck = os.time()
         return true
     else
         return false
     end
+    
+    --[[if socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
+        self.lastTimeCheck = socket.gettime() * 1000
+        return true
+    else
+        return false
+    end --]]
 end
 
 function RNWrappedTimedAction:getFunction()
@@ -86,7 +92,11 @@ function RNWrappedTimedAction:call()
     if self.event ~= nil and self.event.source ~= nil then
         func(self.event)
     else
-		func ( unpack ( self.arg ))
+		if  self.arg then
+			func ( unpack ( self.arg ))
+		else
+			func ()
+		end
     end
     self.exectuions = self.exectuions + 1
 end

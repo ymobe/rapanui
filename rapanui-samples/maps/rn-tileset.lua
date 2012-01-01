@@ -21,14 +21,14 @@ require("RNMapLayer")
 require("RNMapObject")
 require("RNMapObjectGroup")
 require("RNMapTileset")
-require("RNUtil")
 
 
-map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/demomap.tmx")
+
+map = RNMapFactory.loadMap(RNMapFactory.TILED, "RN/rapanui-samples/maps/demomap.tmx")
 
 aTileset = map:getTileset(0)
 
-aTileset:updateImageSource("rapanui-samples/maps/tilesetdemo.png")
+aTileset:updateImageSource("RN/rapanui-samples/maps/tilesetdemo.png")
 
 for i = 0, 6 do
     aTile = aTileset:getTileImage(i)

@@ -14,7 +14,7 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Create a new class that inherits from a base class RNObject
-local RNObject = require("RNObject")
+local RNObject = require("RN/RNObject")
 local RNText = RNObject:innerNew()
 RNObject = nil
 

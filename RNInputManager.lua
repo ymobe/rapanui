@@ -289,17 +289,20 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
 
     if (eventType == MOAITouchSensor.TOUCH_DOWN) then
         event.phase = "began"
+        event.down = true
         LAST_xSTART = x
         LAST_ySTART = y
     end
 
     if (eventType == MOAITouchSensor.TOUCHMOVE) then
         event.phase = "moved"
+        event.down = true
     end
 
     if (eventType == MOAITouchSensor.TOUCH_UP) then
 
         event.phase = "ended"
+		 event.down = false
         event.xStart = LAST_xSTART
         event.yStart = LAST_ySTART
 
