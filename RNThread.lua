@@ -19,6 +19,7 @@ local thread = MOAIThread.new()
 local main_thread_started = false
 local R
 function RNThread:new(o)
+	if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -44,7 +45,8 @@ if not R then R = RN end
 end
 
 function RNThread:addEnterFrame(func, source)
-    local wrappedTimedAction = RN.WrappedTimedAction:new()
+	if not R then R = RN end
+    local wrappedTimedAction = R.WrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction.event = {}
     wrappedTimedAction.event.source = source

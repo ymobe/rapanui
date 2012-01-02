@@ -571,10 +571,10 @@ function RNObject:loadCircle(x,y,r)
     self.gfxQuad:setRect (-r,-r,r,r)
     
     self.gfxQuad:setDrawCallback ( onDraw )
-    
-	self.originalWidth, self.originalHeight = x, y
+    local r2 = r*2
+	self.originalWidth, self.originalHeight = r2,r2
 
-    self.pow2Widht, self.pow2Height = x, y
+    self.pow2Widht, self.pow2Height = r2,r2
     self.prop = MOAIProp2D.new()
 
     self.prop:setDeck(self.gfxQuad)

@@ -33,7 +33,7 @@ local R
 -----------------------------------------------------------------------
 -- RNPhysics.world settings-------------------------------------------------------
 function RNPhysics.start(value)
-R = RN
+if not R then R = RN end
     if value ~= nil then
         print("noSleep not available at the moment")
     else

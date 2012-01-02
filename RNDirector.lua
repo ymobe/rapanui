@@ -28,7 +28,7 @@ local RNDirector = {}
 local R
 -- Create a new RNDirector Object
 function RNDirector:new(o)
-R = RN
+	if not R then R = RN end
 	width, height = R.Factory.contentWidth, R.Factory.contentHeight
 	trn = R.Transition:new()
 	TIME = 800 --default

@@ -153,7 +153,7 @@ end
 local RNBody = {}
 local R
 function RNBody:new(o)
-	R = RN
+	if not R then R = RN end
     local physicObject = R.Body:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = physicObject })
     return proxy, physicObject

@@ -33,9 +33,7 @@ M.stageHeight = 0
 
 local R
 function M.init(PW, PH, SW, SH , name)
-R = RN
-
-
+	if not R then R = RN end
 	M.screen = R.Screen:new()
 
 	M.groups = {}

@@ -66,7 +66,7 @@ end
 local R
 -- Create a new proxy for RNText Object
 function RNText:new(o)
-R = RN
+	if not R then R = RN end
     local RNText = R.Text:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListenerRNText, __index = RNText })
     return proxy
