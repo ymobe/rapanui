@@ -33,29 +33,13 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-How to test RapaNui in Moai distribution:
+>>How to use RapaNui.
 
-1) under your moai dir find the dir "samples" create a new dir "RapaNui"
-2) copy all the file of RapaNui (including sub subdirectories) in the new [YOUR_MOAI_DIR]/samples/RapaNui
-
-in Moai's xcode ios SampleMoai project:
-
-1) find the file named "moai-target" (should be under Resources -> build -> moai-target)
-2) change the content to "../../samples/RapaNui"
-
-now run the project
-
-To change the demo of RapaNui
-
-1) find and edit the main.lua under [YOUR_MOAI_DIR]/samples/RapaNui/main.lua
-2) comment current sample with "--"
-3) uncomment the sample you want to test.
-4) run the project
-
-How to use RapaNui in your project:
-
-1) copy all the files of the root dir of the distribution into your project and add a lua require
-   in your app's scripts.
-
-enjoy,
-The RapaNui team
+In your project folder, make a folder titled "RN", this is where you will extract/download Rapanui to.
+In your main.lua file, put this at the top:
+	RN = require("RN/localise")
+	local R = RN
+	R.init()
+In all subsequent files, (scenes etc) put:
+	local R = RN
+I hope using locals will make Rapanui perform faster.

@@ -305,7 +305,7 @@ function M.newRect(x1,y1,x2,y2, params)
 end
 
 function M.newCircle(x,y,r, params)
-    local parentGroup, top, left = nil, x,y
+    local parentGroup = nil
 
     if params then
         if type(params) == "table" then
@@ -318,8 +318,8 @@ function M.newCircle(x,y,r, params)
 	local shape = R.Object:new()
     shape:initWithCircle(x,y,r)
     M.screen:addRNObject(shape)
-    shape.x = shape.originalWidth *.5 + left
-    shape.y = shape.originalHeight *.5 + top
+    shape.x = x
+    shape.y = y
     shape.rotation = 0
     
     if parentGroup ~= nil then

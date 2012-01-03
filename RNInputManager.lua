@@ -274,10 +274,12 @@ function RNInputManager:onTouchCancel(x, y, source)
     end
 end
 
+local prev = {}
+
 function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
     local event = R.Event:new()
 
-    x, y = layer.layer:wndToWorld ( x, y )
+    local x, y = layer.layer:wndToWorld ( x, y )
     event.x, event.y = x, y
 
     local listeners
@@ -300,9 +302,8 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
     end
 
     if (eventType == MOAITouchSensor.TOUCH_UP) then
-
         event.phase = "ended"
-		 event.down = false
+		event.down = false
         event.xStart = LAST_xSTART
         event.yStart = LAST_ySTART
 
@@ -329,6 +330,8 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
                 event.target = value:getTarget()
                 lastLevelValue = value:getTarget():getLevel()
                 lastlistener = value
+                prev.target = event.target
+               -- prev.target.awake = false --temp fix
             end
         end
 
@@ -359,10 +362,9 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
             local breakHere = value:call(event)
         end
     end
-	if event.target then
-		if event.target.physicObject then
-			event.target.physicObject:setAwake ()
-		end
-	end
+    if event.phase == "ended" and prev.target then
+       prev.target.awake = true
+       prev.target = nil
+    end
 end
 return RNInputManager

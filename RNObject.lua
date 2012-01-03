@@ -564,7 +564,7 @@ function RNObject:loadCircle(x,y,r)
     
     local function onDraw()
 	    MOAIGfxDevice.setPenColor ( 1, 1, 1, 1 )
-	    MOAIDraw.fillCircle ( 0, 0, r, 100 )
+	    MOAIDraw.fillCircle ( 0, 0, r, 32 )
 	end
 	
     self.gfxQuad = MOAIScriptDeck.new ()
