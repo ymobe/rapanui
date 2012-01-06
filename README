@@ -22,7 +22,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-How to test RapaNui in Moai distribution:
+How to test RapaNui in Moai distribution for Mac iOS:
 
 1) under your moai dir find the dir "samples" create a new dir "RapaNui"
 2) copy all the file of RapaNui (including sub subdirectories) in the new [YOUR_MOAI_DIR]/samples/RapaNui
@@ -34,12 +34,37 @@ in Moai's xcode ios SampleMoai project:
 
 now run the project
 
+
+
+How to test RapaNui in Moai distribution for Windows:
+
+1)download or clone RapaNui as is.
+
+2)Find these files in the Moai distribution:
+- moai.exe from Moai's bin folder
+- config.lua from Moai's samples\config folder 
+
+3)Now create .bat file in the RapaNui root directory.
+Use the paths of those files and set the lua file to run.
+
+Example .bat file (in this example Moai distribution is under C:\moai-sdk directory):
+
+"C:\moai-sdk\bin\win32\moai.exe"
+"C:\moai-sdk\samples\config\config.lua" 
+"main.lua"
+
+4)Now run the .bat file you've just created.
+
+
+
 To change the demo of RapaNui
 
 1) find and edit the main.lua under [YOUR_MOAI_DIR]/samples/RapaNui/main.lua
 2) comment current sample with "--"
 3) uncomment the sample you want to test.
 4) run the project
+
+
 
 How to use RapaNui in your project:
 
