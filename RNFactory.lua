@@ -285,14 +285,16 @@ function M.createText(text, params)
 end
 
 function M.newRect(x1,y1,x2,y2, params)
-    local parentGroup = nil
-
+    local parentGroup, top, left
+    local rgb = {225,225,225}
+    
     if params then
          parentGroup = params.parentGroup or mainGroups
+         rgb = params.rgb or rgb
     end
 	
 	local shape = R.Object:new()
-    shape:initWithRect(x1,y1,x2,y2)
+    shape:initWithRect(x1,y1,x2,y2,rgb)
     M.screen:addRNObject(shape)
     shape.x = shape.originalWidth *.5 + x1
     shape.y = shape.originalHeight *.5 + y1
@@ -305,18 +307,20 @@ function M.newRect(x1,y1,x2,y2, params)
 end
 
 function M.newCircle(x,y,r, params)
-    local parentGroup = nil
+    local parentGroup, top, left
+    local rgb = {225,225,225}
 
     if params then
         if type(params) == "table" then
             parentGroup = params.parentGroup or mainGroups
             top = params.top or 0
             left = params.left or 0
+            rgb = params.rgb or rgb
         end
     end
 	
 	local shape = R.Object:new()
-    shape:initWithCircle(x,y,r)
+    shape:initWithCircle(x,y,r,rgb)
     M.screen:addRNObject(shape)
     shape.x = x
     shape.y = y

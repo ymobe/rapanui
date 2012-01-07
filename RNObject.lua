@@ -521,28 +521,28 @@ function RNObject:loadImage(image,size)
     self.prop:setPriority(1)
 end
 
-function RNObject:initWithRect(x1,y1,x2,y2)
+function RNObject:initWithRect(x1,y1,x2,y2, rgb)
     self.visible = true
     self.childrenSize = 0
 
     self.alpha = 1
-    self:loadRect(x1,y1,x2,y2)
+    self:loadRect(x1,y1,x2,y2,rgb)
 end
 
-function RNObject:initWithCircle(x,y,r)
+function RNObject:initWithCircle(x,y,r,rgb)
     self.visible = true
     self.childrenSize = 0
 
     self.alpha = 1
-    self:loadCircle(x,y,r)
+    self:loadCircle(x,y,r, rgb)
 end
 
-function RNObject:loadRect(x1,y1,x2,y2)
+function RNObject:loadRect(x1,y1,x2,y2,rgb)
     self.name = "shape"
     local x = x2*.5
 	local y = y2*.5
     local function onDraw()
-	    MOAIGfxDevice.setPenColor ( 1, 1, 1, 1 )
+	    MOAIGfxDevice.setPenColor ( rgb[1]*0.0044, rgb[2]*0.0044, rgb[3]*0.0044, 1 )
 	    MOAIDraw.fillRect(-x,-y,x,y)
 	end
 	
@@ -559,11 +559,10 @@ function RNObject:loadRect(x1,y1,x2,y2)
     self.prop:setPriority(1)
 end
 
-function RNObject:loadCircle(x,y,r)
+function RNObject:loadCircle(x,y,r, rgb)
     self.name = "shape"
-    
     local function onDraw()
-	    MOAIGfxDevice.setPenColor ( 1, 1, 1, 1 )
+	    MOAIGfxDevice.setPenColor ( rgb[1]*0.0044, rgb[2]*0.0044, rgb[3]*0.0044, 1 )
 	    MOAIDraw.fillCircle ( 0, 0, r, 32 )
 	end
 	
