@@ -6,19 +6,8 @@
 --  |  _  // _` | '_ \ / _` | . ` | | | | |
 --  | | \ \ (_| | |_) | (_| | |\  | |_| | |
 --  |_|  \_\__,_| .__/ \__,_|_| \_|\__,_|_|
---              | |
---              |_|                    _     _                   
---     /\             | |   | |                  
---    /  \   _ __   __| | __| |_ __ _____      __
---   / /\ \ | '_ \ / _` |/ _` | '__/ _ \ \ /\ / /
---  / ____ \| | | | (_| | (_| | | |  __/\ V  V / 
--- /_/    \_\_| |_|\__,_|\__,_|_|  \___| \_/\_/                                              
---  ______    _ _ _   _             
--- |  ____|  | (_) | (_)            
--- | |__   __| |_| |_ _  ___  _ __  
--- |  __| / _` | | __| |/ _ \| '_ \ 
--- | |___| (_| | | |_| | (_) | | | |
--- |______\__,_|_|\__|_|\___/|_| |_|
+--  Anddrew     | |
+--              |_|
 --   
 -- RapaNui
 --
@@ -37,9 +26,32 @@
 
 In your project folder, make a folder titled "RN", this is where you will extract/download Rapanui to.
 In your main.lua file, put this at the top:
-	RN = require("RN/localise")
-	local R = RN
-	R.init()
+
+
+RN = require("RN/localise")
+local R = RN
+R.init()
+
+
 In all subsequent files, (scenes etc) put:
-	local R = RN
-I hope using locals will make Rapanui perform faster.
+	
+local R = RN
+
+I hope using locals will make Rapanui perform faster. Functions are now called using (example):
+
+R.Factory.createImage()
+    instead of 
+RNFactory.createImage()
+
+
+
+Project Setup:
+
+PROJECT FOLDER
+|--main.lua
+|--other assets
+|--run.bat or run.sh
+|--RN
+   |--RNFactory.lua
+   |--RNPhysics.lua
+   |--Etc
