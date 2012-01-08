@@ -50,7 +50,7 @@ function RNMapTileset:getBlankTileId()
     if self.blankTileId ~= nil then
         return self.blankTileId
     end
-    return "0"
+    return 0
 end
 
 function RNMapTileset:setBlankTileId(id)
@@ -126,8 +126,35 @@ function RNMapTileset:getTileImage(tileid)
     end
 end
 
+
+
+
+function RNMapTileset:getTileDeck2D()
+    if self.tileDeck == nil then
+        self.tileDeck = MOAITileDeck2D.new()
+        self.tileDeck:setTexture(self.image.source)
+        print("cols, rows", self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
+        self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
+        self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
+    end
+
+    return self.tileDeck
+end
+
 function RNMapTileset:updateImageSource(image)
+
+    -- check the new size of the image and update the width height
     self.image.source = image
+    local moaiimage = MOAIImage.new()
+    moaiimage:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    self.image.width, self.image.height = moaiimage:getSize()
+
+    if self.tileDeck ~= nil then
+        self.tileDeck = MOAITileDeck2D.new()
+        self.tileDeck:setTexture(self.image.source)
+        self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
+        self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
+    end
 end
 
 function RNMapTileset:getImage()

@@ -77,6 +77,11 @@ function showDebugLines()
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_WORLD_BOUNDS, 2, 0.75, 0.75, 0.75)
 end
 
+function getCurrentScreen()
+    return screen
+end
+
+
 function createImage(filename, params)
 
     local parentGroup, left, top

@@ -19,19 +19,26 @@ require("RNTiledLuaMapParser")
 
 TILED = "tiled"
 TILEDLUA = "tiledlua"
+MAP_DRAW_MODE_FULLIMAGE = "FullImage"
+MAP_DRAW_MODE_BIGTILED = "BigTiled"
+MAP_DRAW_MODE_TESSELLATED = "Tessellated"
 
-function loadMap(type, filename)
+
+function loadMap(type, filename, drawmode)
+
 
     local map = RNMap:new()
+
+
     if type == TILED then
         RNTiledMapParser.load(map, filename)
-        return map
     end
 
-     if type == TILEDLUA then
+    if type == TILEDLUA then
         RNTiledLuaMapParser.load(map, filename)
-        return map
     end
+
+    map:init(RNFactory.getCurrentScreen())
 
     return map
 end

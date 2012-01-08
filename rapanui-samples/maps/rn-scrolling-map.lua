@@ -39,14 +39,13 @@ require("socket")
 --socket.gettime()
 
 local background = RNFactory.createImage("rapanui-samples/maps/platformbck.png")
+background:setLevel(-1)
 
-
-local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platform.tmx")
-
+local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platformmap.tmx")
 
 aTileset = map:getTileset(0)
 
-aTileset:updateImageSource("rapanui-samples/maps/platformtiles.png")
+aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
 
 local layersSize = map:getLayersSize()
 
@@ -80,24 +79,6 @@ function update(enterFrame)
         end
         lastTime = currentTime
     end
-end
-
-function update(enterFrame)
-    currentTime = socket.gettime()
-    diff = currentTime - lastTime
-
-        map:drawMapAt(lastx, 0, aTileset)
-        lastx = lastx + delta
-
-        if lastx <= -1280 then
-            delta = delta * -1
-        end
-
-        if lastx >= 0 then
-            delta = delta * -1
-        end
-        lastTime = currentTime
-
 end
 
 RNListeners:addEventListener("enterFrame", update)
