@@ -129,9 +129,9 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
 
     self.grid:setSize(self:getCols(), self:getRows(), tileset:getTileWidth(), tileset:getTileHeight(), 0, 0, tileset:getTileWidth(), tileset:getTileHeight())
 
-    for row = 0, self:getRows() - 1 do
+    for row = 0, self:getRows()-1  do
         local cols = {}
-        for col = 0, self:getCols() - 1 do
+        for col = 0, self:getCols() -1 do
             local tileIdx = self:getTilesAt(row, col)
             local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
             if tileIsPhysical == nil then
@@ -140,7 +140,7 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
                 table.insert(cols, 0)
             end
         end
-        self.grid:setRow(row, unpack(cols))
+        self.grid:setRow(row+1, unpack(cols))
     end
 
     self.prop = MOAIProp2D.new()
@@ -150,6 +150,9 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.screen:addRNObject(self)
 
     self.prop:setLoc(0, 0)
+    
+    self:drawPhysics(x, y, tileset)
+    
 end
 
 
@@ -159,7 +162,6 @@ function RNMapLayer:drawLayerAt(x, y, tileset, drawmode)
     end
 
     self.prop:setLoc(x, y)
- --   self:drawPhysics(x, y, tileset)
 end
 
 

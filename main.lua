@@ -81,11 +81,11 @@ require("RNDirector")
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
-require("rapanui-samples/maps/rn-scrolling-map")
+--require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 --require("rapanui-samples/maps/rn-tileset")
---require("rapanui-samples/maps/rn-physics-map")
+require("rapanui-samples/maps/rn-physics-map")
 
 --require("tilemapgridtest")
 --require("tilemapQuadDeckGridtest")
