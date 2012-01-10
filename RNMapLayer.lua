@@ -190,9 +190,6 @@ function RNMapLayer:drawPhysics(x, y, tileset)
             local tileX = x + tileset:getTileWidth() * col
             local tileY = y + tileset:getTileHeight() * row
 
-            if tileX > -tileset:getTileWidth() and tileX < config.width + tileset:getTileWidth() and
-                    tileY > -tileset:getTileHeight() and tileY < config.height + tileset:getTileWidth() and tileIdx ~= tileset:getBlankTileId()
-            then
 
                 local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
                 --print("isPhysical", tileIsPhysical)
@@ -233,7 +230,6 @@ function RNMapLayer:drawPhysics(x, y, tileset)
                     end
                     table.insert(self.imagesToBePhysical, obj)
                 end
-            end
         end
 
         rowTiles = ""

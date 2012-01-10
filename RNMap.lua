@@ -17,7 +17,8 @@ RNMap = {}
 
 function RNMap:new(o)
     o = o or {
-        name = ""
+        name = "",
+        physicsIsStarted=false
     }
     setmetatable(o, self)
     self.__index = self
@@ -129,8 +130,24 @@ function RNMap:drawMapAt(x, y, tileset)
         local layer = self.layers[i]
         layer:drawLayerAt(x, y, tileset, self.drawMode)
     end
-    self:createPhysicBodiesFromObjecLayer()
+    
+    --handling physics
+    if self.physicsIsStarted==false then
+        --for the first call
+        self.physicsIsStarted=true
+        self:createPhysicBodiesFromObjecLayer()
+	end
+
+    
 end
+
+function RNMap:movePhysics(deltax,deltay)
+	for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
+            RNPhysics.bodylist[i].x=RNPhysics.bodylist[i].x+deltax
+            RNPhysics.bodylist[i].y=RNPhysics.bodylist[i].y+deltay
+    end
+end
+
 
 
 function splitString(pString, pPattern)
@@ -183,6 +200,7 @@ function RNMap:createPhysicBodiesFromObjecLayer()
 for g=0,table.getn(self.objectgroups),1 do
 aObjectGroup=self.objectgroups[g]
 --check each object
+if aObjectGroup~=nil then
 for i = 0, aObjectGroup:getObjectsSize() - 1,1 do
 	aObject = aObjectGroup:getObject(i)
 	
@@ -194,12 +212,15 @@ for i = 0, aObjectGroup:getObjectsSize() - 1,1 do
 		if aObject.properties~=nil then
 			--if the bodyType is set
 			if aObject.properties.bodyType~=nil then
-				RNPhysics.createBodyFromMapObject(aObject,aObject.properties.bodyType)
+				local o=RNPhysics.createBodyFromMapObject(aObject,aObject.properties.bodyType)
+				o.isFromObjectLayer=true
 			else
-				RNPhysics.createBodyFromMapObject(aObject,"static")
+				local o=RNPhysics.createBodyFromMapObject(aObject,"static")
+				o.isFromObjectLayer=true
 			end
 		else
-			RNPhysics.createBodyFromMapObject(aObject,"static")
+			local o=RNPhysics.createBodyFromMapObject(aObject,"static")
+			o.isFromObjectLayer=true
 		end
 	end
 	
@@ -241,7 +262,9 @@ for i = 0, aObjectGroup:getObjectsSize() - 1,1 do
 				fakeMapObject.y=0
 				fakeMapObject.height=0
 				fakeMapObject.width=0
-			    RNPhysics.createBodyFromMapObject(fakeMapObject,"static",{shape=Vshape})		
+				fakeMapObject.name="ObjectLayerChild"
+			    local o=RNPhysics.createBodyFromMapObject(fakeMapObject,"static",{shape=Vshape})
+			    o.isFromObjectLayer=true
 			end
 		
 		end
@@ -255,8 +278,16 @@ end
 
 
 
+end
 
 
+end
 
 
+function RNMap:getDelta(a, b)
+    if (a > b) then
+        return a - b
+    else
+        return b - a
+    end
 end

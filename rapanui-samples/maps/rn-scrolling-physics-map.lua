@@ -1,0 +1,103 @@
+------------------------------------------------------------------------------------------------------------------------
+--
+-- RapaNui
+--
+-- by Ymobe ltd  (http://ymobe.co.uk)
+--
+-- LICENSE:
+--
+-- RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
+-- CPAL is an Open Source Initiative approved
+-- license based on the Mozilla Public License, with the added requirement that you attribute
+-- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
+--
+------------------------------------------------------------------------------------------------------------------------
+--
+-- Tiles of the map from:
+--
+-- gfxlib
+--
+-- Product	: gfxlib-fuzed.zip
+-- Website	: http://www.spicypixel.net
+-- Author	: Marc Russell
+-- Released: 10th January 2008
+--
+--
+-- gfxlib is under Common Public License (http://www.opensource.org/licenses/cpl1.0.php)
+--
+------------------------------------------------------------------------------------------------------------------------
+
+require("RNMapFactory")
+require("RNMap")
+require("RNMapLayer")
+require("RNMapObject")
+require("RNMapObjectGroup")
+require("RNMapTileset")
+require("RNUtil")
+require("socket")
+
+--socket.gettime()
+
+------start physic simulation
+
+RNPhysics.start()
+
+
+local background = RNFactory.createImage("rapanui-samples/maps/platformbck.png")
+background:setLevel(-1)
+
+local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platformmapphysics.tmx")
+
+aTileset = map:getTileset(0)
+
+aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
+
+local layersSize = map:getLayersSize()
+
+tilesCreated = 0
+map:drawMapAt(0, 0, aTileset)
+
+
+local lastx = 0
+local delta = -3
+
+lastTime = socket.gettime()
+
+local intervalForFps = 1 / 60
+
+print(intervalForFps)
+local currentTime = socket.gettime()
+local diff = currentTime - lastTime
+
+
+
+
+
+function update(enterFrame)
+    currentTime = socket.gettime()
+    diff = currentTime - lastTime
+    if diff >= intervalForFps then
+        map:drawMapAt(lastx, 0, aTileset)
+        lastx = lastx + delta
+
+        if lastx <= -1280 then
+            delta = delta * -1
+        end
+
+        if lastx >= 0 then
+            delta = delta * -1
+        end
+        lastTime = currentTime
+        
+		--move physics (manually for now)
+		map:movePhysics(delta,0)
+        
+    end
+end
+
+RNListeners:addEventListener("enterFrame", update)
+
+
+
+--Debug Draw if you want
+--RNPhysics.setDebugDraw(RNFactory.screen)
