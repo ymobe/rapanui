@@ -14,5 +14,5 @@
 
 module(..., package.seeall)
 
-width = 480
-height = 320
+width = 320
+height = 480
