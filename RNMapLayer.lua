@@ -129,9 +129,9 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
 
     self.grid:setSize(self:getCols(), self:getRows(), tileset:getTileWidth(), tileset:getTileHeight(), 0, 0, tileset:getTileWidth(), tileset:getTileHeight())
 
-    for row = 0, self:getRows()-1  do
+    for row = 0, self:getRows() - 1 do
         local cols = {}
-        for col = 0, self:getCols() -1 do
+        for col = 0, self:getCols() - 1 do
             local tileIdx = self:getTilesAt(row, col)
             local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
             if tileIsPhysical == nil then
@@ -140,7 +140,7 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
                 table.insert(cols, 0)
             end
         end
-        self.grid:setRow(row+1, unpack(cols))
+        self.grid:setRow(row + 1, unpack(cols))
     end
 
     self.prop = MOAIProp2D.new()
@@ -150,9 +150,8 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.screen:addRNObject(self)
 
     self.prop:setLoc(0, 0)
-    
+
     self:drawPhysics(x, y, tileset)
-    
 end
 
 
@@ -191,45 +190,45 @@ function RNMapLayer:drawPhysics(x, y, tileset)
             local tileY = y + tileset:getTileHeight() * row
 
 
-                local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
-                --print("isPhysical", tileIsPhysical)
-                if tileIsPhysical ~= nil then
+            local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")
+            --print("isPhysical", tileIsPhysical)
+            if tileIsPhysical ~= nil then
 
-                    --we don't draw here the tiles that should be phsyical
-                    --but we store the their properties in a table
+                --we don't draw here the tiles that should be phsyical
+                --but we store the their properties in a table
 
-                    --we create the table if nil
-                    if self.imagesToBePhysical == nil then
-                        self.imagesToBePhysical = {}
-                    end
-
-                    --we create and draw the RNObject at right coordinates
-                    local mimage = tileset:getTileImage(tileIdx)
-                    mimage.x = tileX
-                    mimage.y = tileY
-
-                    --we take other physical properties
-                    local mrestitution = tileset:getPropertyValueForTile(tileIdx, "restitution")
-                    local mdensity = tileset:getPropertyValueForTile(tileIdx, "density")
-                    local mfriction = tileset:getPropertyValueForTile(tileIdx, "friction")
-                    local msensor = tileset:getPropertyValueForTile(tileIdx, "sensor")
-                    local mgroupIndex = tileset:getPropertyValueForTile(tileIdx, "groupIndex")
-                    local mtype = tileset:getPropertyValueForTile(tileIdx, "type")
-                    local mshape = tileset:getPropertyValueForTile(tileIdx, "shape")
-                    obj = {}
-                    obj.image = mimage
-                    obj.restitution = mrestitution
-                    obj.density = mdensity
-                    obj.friction = mfriction
-                    obj.sensor = msensor
-                    obj.groupIndex = mgroupIndex
-                    obj.type = mtype
-                    obj.shape = mshape
-                    if obj.type == nil then
-                        obj.type = "dynamic"
-                    end
-                    table.insert(self.imagesToBePhysical, obj)
+                --we create the table if nil
+                if self.imagesToBePhysical == nil then
+                    self.imagesToBePhysical = {}
                 end
+
+                --we create and draw the RNObject at right coordinates
+                local mimage = tileset:getTileImage(tileIdx)
+                mimage.x = tileX
+                mimage.y = tileY
+
+                --we take other physical properties
+                local mrestitution = tileset:getPropertyValueForTile(tileIdx, "restitution")
+                local mdensity = tileset:getPropertyValueForTile(tileIdx, "density")
+                local mfriction = tileset:getPropertyValueForTile(tileIdx, "friction")
+                local msensor = tileset:getPropertyValueForTile(tileIdx, "sensor")
+                local mgroupIndex = tileset:getPropertyValueForTile(tileIdx, "groupIndex")
+                local mtype = tileset:getPropertyValueForTile(tileIdx, "type")
+                local mshape = tileset:getPropertyValueForTile(tileIdx, "shape")
+                obj = {}
+                obj.image = mimage
+                obj.restitution = mrestitution
+                obj.density = mdensity
+                obj.friction = mfriction
+                obj.sensor = msensor
+                obj.groupIndex = mgroupIndex
+                obj.type = mtype
+                obj.shape = mshape
+                if obj.type == nil then
+                    obj.type = "dynamic"
+                end
+                table.insert(self.imagesToBePhysical, obj)
+            end
         end
 
         rowTiles = ""
