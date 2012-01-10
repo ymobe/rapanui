@@ -49,44 +49,44 @@ function start(value)
     world:setUnitsToMeters(0.06)
 end
 
- 	
+
 function setTimeToSleep(value)
-	if value~=nil then world:setTimeToSleep(value) else world:setTimeToSleep() end
+    if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep() end
 end
 
 
 
 
 function setLinearSleepTolerance()
-	if value~=nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance() end
+    if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance() end
 end
 
 
 
 
 function setAngularSleepTolerance()
-	if value~=nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance() end
+    if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance() end
 end
 
 
 
 
 function getAngularSleepTolerance()
-	return world:getAngularSleepTolerance()
+    return world:getAngularSleepTolerance()
 end
 
 
 
 
 function getLinearSleepTolerance()
-	return world:getAngularSleepTolerance()
+    return world:getAngularSleepTolerance()
 end
 
 
 
 
 function getTimeToSleep()
-	return world:getAngularSleepTolerance()
+    return world:getAngularSleepTolerance()
 end
 
 
@@ -224,7 +224,7 @@ function createBodyFromImage(image, ...)
             if (tempFixture.radius == nil) then tempFixture.radius = h / 2 end
             --adds the fixture shape to the body
             if (tempFixture.shape == "circle") then
-                fixture = body:addCircle(0, 0,tempFixture.radius)
+                fixture = body:addCircle(0, 0, tempFixture.radius)
             elseif (tempFixture.shape == "rectangle") then
                 fixture = body:addRect(-w / 2, -h / 2, w / 2, h / 2)
             else
@@ -387,8 +387,8 @@ function createBodyFromMapObject(mapObject, ...)
 
 
     --get some image proprieties
-    local xx=mapObject.x
-    local yy=mapObject.y
+    local xx = mapObject.x
+    local yy = mapObject.y
     local h = mapObject.height
     local w = mapObject.width
 
@@ -419,7 +419,7 @@ function createBodyFromMapObject(mapObject, ...)
             if (tempFixture.radius == nil) then tempFixture.radius = h / 2 end
             --adds the fixture shape to the body
             if (tempFixture.shape == "circle") then
-                fixture = body:addCircle(0, 0,tempFixture.radius)
+                fixture = body:addCircle(0, 0, tempFixture.radius)
             elseif (tempFixture.shape == "rectangle") then
                 fixture = body:addRect(-w / 2, -h / 2, w / 2, h / 2)
             else
@@ -508,8 +508,8 @@ function createBodyFromMapObject(mapObject, ...)
 
 
     --traslate body to sprite position
-    RNBody.x = xx+w/2
-    RNBody.y = yy+h/2
+    RNBody.x = xx + w / 2
+    RNBody.y = yy + h / 2
 
 
 
@@ -541,12 +541,12 @@ function setDebugDraw(screen)
 
     local layerfordebug = screen.layer
     len = table.getn(screen.sprites)
-    for i,sprite in pairs(screen.sprites) do
-       --sprite.visible = false
-       --in general, assigning visibility doesnt work at all
+    for i, sprite in pairs(screen.sprites) do
+        --sprite.visible = false
+        --in general, assigning visibility doesnt work at all
     end
     --for i = 1, len, 1 do
-      -- screen.sprites[i].visible = false;
+    -- screen.sprites[i].visible = false;
     --end
     layerfordebug:setBox2DWorld(world)
 end
@@ -879,13 +879,12 @@ function createJoint(type, ...)
         if (maxLengthA == nil) then maxLengthA = 100 end
         if (maxLengthB == nil) then maxLengthB = 100 end
         joint = world:addPulleyJoint(bodyA.body, bodyB.body, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, ratio, maxLengthA, maxLengthB)
-        
     end
 
     --gear joint
     --(type,jointA,jointB,ratio)
     if (type == "gear") then
-        jointA = arg[1],joint
+        jointA = arg[1], joint
         jointB = arg[2].joint
         ratio = arg[3]
         joint = world:addGearJoint(jointA, jointB, ratio)
@@ -904,29 +903,28 @@ function createJoint(type, ...)
         if (frequency == nil) then frequency = 30 end
         if (dampingRatio == nil) then dampingRatio = 0.2 end
 
-        joint = world:addMouseJoint(bodyA.body,bodyB.body, world, targetX, targetY, maxForce, frequencyHz, dampingRatio)
+        joint = world:addMouseJoint(bodyA.body, bodyB.body, world, targetX, targetY, maxForce, frequencyHz, dampingRatio)
     end
-    
-    
+
+
     --rope joint
     --(type,bodyA,bodyB,maxLength,[,anchorAX,anchorAY,anchorBX,anchorBY])
     --function addRopeJoint ( MOAIBox2DWorld self, MOAIBox2DBody bodyA, MOAIBox2DBody bodyB, number maxLength [, number anchorAX, number anchorAY, number anchorBX, number anchorBY ] )
-	if (type=="rope") then
-	    bodyA=arg[1].physicObject
-	    bodyB=arg[2].physicObject
-	    maxLength=arg[3]
-	    anchorAX=arg[4]
-	    anchorAY=arg[5]
-	    anchorBX=arg[6]
-	    anchorBY=arg[7]
-	    if (anchorAX==nil) then anchorAX=bodyA.x end
-	    if (anchorAY==nil) then anchorAY=bodyA.y end
-	    if (anchorBX==nil) then anchorBX=bodyB.x end
-	    if (anchorBY==nil) then anchorBY=bodyB.y end
-	
-	    joint = world:addRopeJoint(bodyA,bodyB,maxLength,anchorAX,anchorAY,anchorBX,anchorBY)
+    if (type == "rope") then
+        bodyA = arg[1].physicObject
+        bodyB = arg[2].physicObject
+        maxLength = arg[3]
+        anchorAX = arg[4]
+        anchorAY = arg[5]
+        anchorBX = arg[6]
+        anchorBY = arg[7]
+        if (anchorAX == nil) then anchorAX = bodyA.x end
+        if (anchorAY == nil) then anchorAY = bodyA.y end
+        if (anchorBX == nil) then anchorBX = bodyB.x end
+        if (anchorBY == nil) then anchorBY = bodyB.y end
 
-	end
+        joint = world:addRopeJoint(bodyA, bodyB, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
+    end
 
     --set RNJoint
     local RNJoint = RNJoint:new()
@@ -943,7 +941,7 @@ function createJoint(type, ...)
         RNJoint.anchorB_X = anchorB_X
         RNJoint.anchorB_Y = anchorB_Y
     end
-    
+
 
     --add RNJoint to RNPhysics jointlist
     len = table.getn(jointlist)
@@ -955,15 +953,15 @@ function createJoint(type, ...)
         len = table.getn(bodyA.jointlist)
         bodyA.jointlist[len + 1] = RNJoint
         RNJoint.indexinbodyAlist = len + 1
-        
-		if type~= "mouse" then
-        	--add RNJoint to bodyB.jointlist
-        	len = table.getn(bodyB.jointlist)
-        	bodyB.jointlist[len + 1] = RNJoint
-        	RNJoint.indexinbodyBlist = len + 1
+
+        if type ~= "mouse" then
+            --add RNJoint to bodyB.jointlist
+            len = table.getn(bodyB.jointlist)
+            bodyB.jointlist[len + 1] = RNJoint
+            RNJoint.indexinbodyBlist = len + 1
         end
     end
-    
+
 
     return RNJoint
 end
