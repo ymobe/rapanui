@@ -52,6 +52,11 @@ local layersSize = map:getLayersSize()
 tilesCreated = 0
 map:drawMapAt(0, 0, aTileset)
 
+
+aLayer = map:getFirstLayerByName("platforms")
+--aLayer:printToAscii()
+
+
 local lastx = 0
 local delta = -3
 
@@ -67,7 +72,7 @@ function update(enterFrame)
     currentTime = socket.gettime()
     diff = currentTime - lastTime
     if diff >= intervalForFps then
-        map:drawMapAt(lastx, 0, aTileset)
+        map:drawMapAt(lastx, 0, 0, aTileset)
         lastx = lastx + delta
 
         if lastx <= -1280 then
