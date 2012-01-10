@@ -32,10 +32,10 @@ RNPhysics.createBodyFromImage(box)
 RNPhysics.createBodyFromImage(ball, { shape = "circle" })
 RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
 RNPhysics.createBodyFromImage(floor, "static")
-box.name="box"
-ball.name="ball"
-triangle.name="triangle"
-floor.name="floor"
+box.name = "box"
+ball.name = "ball"
+triangle.name = "triangle"
+floor.name = "floor"
 box.restitution = 0.5
 ball.restitution = 0.3
 triangle.restitution = 0.3
