@@ -19,6 +19,7 @@ function RNMap:new(o)
     o = o or {
         name = "",
         physicsIsStarted = false,
+		movePhysicsFirstCall=true,
         lastX = 0,
         lastY = 0
     }
@@ -139,7 +140,7 @@ function RNMap:drawMapAt(x, y, tileset)
     if self.physicsIsStarted == false then
         --for the first call
         self.physicsIsStarted = true
-        self:createPhysicBodiesFromObjecLayer()
+        self:createPhysicBodiesFromObjectLayer()
     end
 
     local deltax = self:getDelta(self.lastX, x)
@@ -168,10 +169,20 @@ function RNMap:getDelta(a, b)
 end
 
 function RNMap:movePhysics(deltax, deltay)
-    for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
-        RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
-        RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
-    end
+	if self.movePhysicsFirstCall==true then
+  		for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
+					if RNPhysics.bodylist[i].isFromObjectLayer==true then
+        				RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
+        				RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
+					end
+   		end
+		self.movePhysicsFirstCall=false
+	else
+    	for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
+        				RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
+        				RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
+   	 	end
+	end
 end
 
 
@@ -196,7 +207,7 @@ function splitString(pString, pPattern)
 end
 
 
-function RNMap:createPhysicBodiesFromObjecLayer()
+function RNMap:createPhysicBodiesFromObjectLayer()
     --[[
 
         check physicmap.xml
@@ -224,11 +235,11 @@ function RNMap:createPhysicBodiesFromObjecLayer()
 
     --]]
     for g = 0, table.getn(self.objectgroups), 1 do
-        aObjectGroup = self.objectgroups[g]
+        local aObjectGroup = self.objectgroups[g]
         --check each object
         if aObjectGroup ~= nil then
             for i = 0, aObjectGroup:getObjectsSize() - 1, 1 do
-                aObject = aObjectGroup:getObject(i)
+                local aObject = aObjectGroup:getObject(i)
 
 
 
@@ -258,13 +269,13 @@ function RNMap:createPhysicBodiesFromObjecLayer()
                     if aObject.properties ~= nil then
                         if aObject.properties.vertices ~= nil then
                             --save in vertices array the vertices to join in a body
-                            vertices = splitString(aObject.properties.vertices, ",")
-                            bodyVertices = {}
+                            local vertices = splitString(aObject.properties.vertices, ",")
+                            local bodyVertices = {}
                             --for each vertex in the array and for each object in the layer
                             for i = 1, table.getn(vertices), 1 do
                                 currentVertexName = vertices[i]
                                 for i = 0, aObjectGroup:getObjectsSize() - 1 do
-                                    aVertex = aObjectGroup:getObject(i)
+                                    local aVertex = aObjectGroup:getObject(i)
                                     --if they match
                                     if aVertex.name == currentVertexName then
                                         --we create a local object to add to bodyVertices
@@ -276,14 +287,14 @@ function RNMap:createPhysicBodiesFromObjecLayer()
                                 end
                             end
                             --now that we have bodyVertices we can create a shape based on vertices
-                            Vshape = {}
+                            local Vshape = {}
                             for k = 1, table.getn(bodyVertices), 1 do
                                 Vshape[k - 1 + k] = bodyVertices[k].x
                                 Vshape[k - 1 + k + 1] = bodyVertices[k].y
                             end
 
                             --we need a fake object to call the creation
-                            fakeMapObject = {}
+                            local fakeMapObject = {}
                             fakeMapObject.x = 0
                             fakeMapObject.y = 0
                             fakeMapObject.height = 0
@@ -299,11 +310,3 @@ function RNMap:createPhysicBodiesFromObjecLayer()
     end
 end
 
-
-function RNMap:getDelta(a, b)
-    if (a > b) then
-        return a - b
-    else
-        return b - a
-    end
-end

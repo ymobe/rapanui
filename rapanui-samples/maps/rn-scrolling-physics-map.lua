@@ -43,8 +43,7 @@ require("socket")
 RNPhysics.start()
 
 
-local background = RNFactory.createImage("rapanui-samples/maps/platformbck.png")
-background:setLevel(-1)
+
 
 local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platformmapphysics.tmx")
 
@@ -55,7 +54,7 @@ aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
 local layersSize = map:getLayersSize()
 
 tilesCreated = 0
-map:drawMapAt(0, 0, aTileset)
+map:drawMapAt(0,0, aTileset)
 
 
 local lastx = 0
@@ -93,3 +92,8 @@ function update(enterFrame)
 end
 
 RNListeners:addEventListener("enterFrame", update)
+
+
+
+--Debug Draw if you want
+--RNPhysics.setDebugDraw(RNFactory.screen)
