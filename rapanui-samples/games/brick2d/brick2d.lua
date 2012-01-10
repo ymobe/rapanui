@@ -126,7 +126,7 @@ function update(enterFrame)
     end
 
     if (ball.y > paddle.y + 20) then
-        trn:run(ball, { type = "alpha", alpha = 0, time = 500  })
+        trn:run(ball, { type = "alpha", alpha = 0, time = 500 })
     end
 
     if (ball.y > 480) then
