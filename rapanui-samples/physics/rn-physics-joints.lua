@@ -26,10 +26,10 @@ floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 16
 --starts simulation
 RNPhysics.start()
 
-tempJoint=nil
+tempJoint = nil
 --set images as physics objects
 RNPhysics.createBodyFromImage(box)
-RNPhysics.createBodyFromImage(ball, { shape = "circle"})
+RNPhysics.createBodyFromImage(ball, { shape = "circle" })
 RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
 RNPhysics.createBodyFromImage(floor, "static")
 box.restitution = 0.5
@@ -125,7 +125,7 @@ end
 
 RNListeners:addEventListener("touch",touchH)
 
-]]--
+]] --
 
 --[[
 
