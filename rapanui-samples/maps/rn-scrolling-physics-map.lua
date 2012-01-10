@@ -38,7 +38,7 @@ require("socket")
 
 --socket.gettime()
 
-------start physic simulation
+------ start physic simulation
 
 RNPhysics.start()
 
@@ -54,7 +54,7 @@ aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
 local layersSize = map:getLayersSize()
 
 tilesCreated = 0
-map:drawMapAt(0,0, aTileset)
+map:drawMapAt(0, 0, aTileset)
 
 
 local lastx = 0
@@ -87,7 +87,6 @@ function update(enterFrame)
             delta = delta * -1
         end
         lastTime = currentTime
-
     end
 end
 
