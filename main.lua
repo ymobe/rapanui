@@ -90,7 +90,7 @@ require("RNDirector")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 --require("rapanui-samples/maps/rn-tileset")
 --require("rapanui-samples/maps/rn-physics-map")
---require("rapanui-samples/maps/rn-scrolling-physics-map")
+require("rapanui-samples/maps/rn-scrolling-physics-map")
 
 --require("tilemapgridtest")
 --require("tilemapQuadDeckGridtest")

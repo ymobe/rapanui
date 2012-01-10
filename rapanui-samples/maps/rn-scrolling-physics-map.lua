@@ -88,16 +88,8 @@ function update(enterFrame)
             delta = delta * -1
         end
         lastTime = currentTime
-        
-		--move physics (manually for now)
-		map:movePhysics(delta,0)
-        
+
     end
 end
 
 RNListeners:addEventListener("enterFrame", update)
-
-
-
---Debug Draw if you want
---RNPhysics.setDebugDraw(RNFactory.screen)
