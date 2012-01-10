@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------------------------------------------------
---
--- RapaNui
+
 --
 -- by Ymobe ltd  (http://ymobe.co.uk)
 --
@@ -542,9 +541,13 @@ function setDebugDraw(screen)
 
     local layerfordebug = screen.layer
     len = table.getn(screen.sprites)
-    for i = 1, len, 1 do
-        screen.sprites[i].visible = false
+    for i,sprite in pairs(screen.sprites) do
+       --sprite.visible = false
+       --in general, assigning visibility doesnt work at all
     end
+    --for i = 1, len, 1 do
+      -- screen.sprites[i].visible = false;
+    --end
     layerfordebug:setBox2DWorld(world)
 end
 

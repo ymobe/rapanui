@@ -17,11 +17,11 @@
 
 
 --add images
-background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
-box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 160; box.y = 80;
-box2 = RNFactory.createImage("RapaNui-samples/physics/box.png"); box2.x = 230; box2.y = 80;
-box3 = RNFactory.createImage("RapaNui-samples/physics/box.png"); box3.x = 80; box3.y = 80; box3.rotation = 190
-floor = RNFactory.createImage("RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
+background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
+box = RNFactory.createImage("rapanui-samples/physics/box.png"); box.x = 160; box.y = 80;
+box2 = RNFactory.createImage("rapanui-samples/physics/box.png"); box2.x = 230; box2.y = 80;
+box3 = RNFactory.createImage("rapanui-samples/physics/box.png"); box3.x = 80; box3.y = 80; box3.rotation = 190
+floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
 
 --starts simulation
 RNPhysics.start()
