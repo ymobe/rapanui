@@ -17,14 +17,14 @@
 
 
 
-director=RNDirector:new()
+director = RNDirector:new()
 
 
 director:addScene("rapanui-samples/director/scene1")
 director:addScene("rapanui-samples/director/scene2")
 
 --check if they are inside the director
-for i,v in ipairs(director.scenes) do print(i,v) end
+for i, v in ipairs(director.scenes) do print(i, v) end
 
 --Set director's time
 director:setTime(1000)
@@ -56,7 +56,7 @@ director:setTime(1000)
 
 
 --SLIDE TO LEFT IN TEST
-director:showScene("rapanui-samples/director/scene1","slidetoleft")
+director:showScene("rapanui-samples/director/scene1", "slidetoleft")
 
 
 --SLIDE TO LEFT OUT TEST
