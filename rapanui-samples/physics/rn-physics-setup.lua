@@ -45,8 +45,8 @@ RNPhysics.setTimeToSleep(1)
 print(RNPhysics.getAngularSleepTolerance())
 print(RNPhysics.getLinearSleepTolerance())
 print(RNPhysics.getTimeToSleep())
- 	
- 	
+
+
 
 --set images as physics objects
 RNPhysics.createBodyFromImage(box)
