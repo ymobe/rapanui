@@ -426,7 +426,7 @@ function RNObject:loadCopyRect(src, params)
     local tmpEight = params.srcYMax - params.srcYMin
 
     self.image:init(tmpWidth, tmpEight)
-    
+
     self.image:copyRect(image, params.srcXMin, params.srcYMin, params.srcXMax, params.srcYMax, params.destXMin, params.destYMin, params.destXMax, params.destYMax, params.filter)
 
     -- self.image.
@@ -874,12 +874,12 @@ end
 
 function RNObject:setVisible(value)
     if self.isPhysical == false then
-       if self.prop ~= nil then
-          --print(self,self.prop,typeof(value))          
-           self.prop:setVisible(value)
+        if self.prop ~= nil then
+            --print(self,self.prop,typeof(value))
+            self.prop:setVisible(value)
         end
     else
-        if self.prop ~= nil  then
+        if self.prop ~= nil then
             self.prop:setVisible(value)
             if value == true then
                 self.prop:setParent(self.physicObject.body)
