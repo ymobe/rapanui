@@ -69,11 +69,15 @@ require("RNDirector")
 --require("rapanui-samples/physics/rn-physics-collisionhandling")
 --require("rapanui-samples/physics/rn-physics-touchtest")
 --require("rapanui-samples/physics/rn-physics-animation")
+--physics setup throws an error
+--PANIC: unprotected error in call to Lua API (./RNPhysics.lua:68: attempt to call method 'setAngularSleepTolerance' (a nil value))
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
 
 -- RapaNui sample games:
 
+
+--bricks works, not enough time to fix the other games
 --require("rapanui-samples/games/brick2d/brick2d")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
@@ -86,7 +90,7 @@ require("RNDirector")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 --require("rapanui-samples/maps/rn-tileset")
 --require("rapanui-samples/maps/rn-physics-map")
-require("rapanui-samples/maps/rn-scrolling-physics-map")
+--require("rapanui-samples/maps/rn-scrolling-physics-map")
 
 --require("tilemapgridtest")
 --require("tilemapQuadDeckGridtest")
