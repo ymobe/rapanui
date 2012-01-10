@@ -19,7 +19,7 @@ function RNMap:new(o)
     o = o or {
         name = "",
         physicsIsStarted = false,
-		movePhysicsFirstCall=true,
+        movePhysicsFirstCall = true,
         lastX = 0,
         lastY = 0
     }
@@ -169,20 +169,20 @@ function RNMap:getDelta(a, b)
 end
 
 function RNMap:movePhysics(deltax, deltay)
-	if self.movePhysicsFirstCall==true then
-  		for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
-					if RNPhysics.bodylist[i].isFromObjectLayer==true then
-        				RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
-        				RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
-					end
-   		end
-		self.movePhysicsFirstCall=false
-	else
-    	for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
-        				RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
-        				RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
-   	 	end
-	end
+    if self.movePhysicsFirstCall == true then
+        for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
+            if RNPhysics.bodylist[i].isFromObjectLayer == true then
+                RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
+                RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
+            end
+        end
+        self.movePhysicsFirstCall = false
+    else
+        for i = 1, table.getn(RNPhysics.getBodyList()), 1 do
+            RNPhysics.bodylist[i].x = RNPhysics.bodylist[i].x + deltax
+            RNPhysics.bodylist[i].y = RNPhysics.bodylist[i].y + deltay
+        end
+    end
 end
 
 
