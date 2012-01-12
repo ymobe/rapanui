@@ -15,8 +15,9 @@
 
 local RNWrappedTimedAction = {}
 
-
+local R
 function RNWrappedTimedAction:new(o)
+if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -41,22 +42,16 @@ function RNWrappedTimedAction:isToCall()
     end
 
     if self.lastTimeCheck == 0 then
-        self.lastTimeCheck = os.time()
+        self.lastTimeCheck = R.socket.gettime() * 1000
     end
 
-    if os.time() - self.lastTimeCheck > self.delay then
-        self.lastTimeCheck = os.time()
+
+    if R.socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
+        self.lastTimeCheck = R.socket.gettime() * 1000
         return true
     else
         return false
     end
-    
-    --[[if socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
-        self.lastTimeCheck = socket.gettime() * 1000
-        return true
-    else
-        return false
-    end --]]
 end
 
 function RNWrappedTimedAction:getFunction()

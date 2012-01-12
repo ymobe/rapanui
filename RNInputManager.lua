@@ -331,7 +331,7 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
                 lastLevelValue = value:getTarget():getLevel()
                 lastlistener = value
                 prev.target = event.target
-               -- prev.target.awake = false --temp fix
+               --prev.target.awake = false --temp fix
             end
         end
 

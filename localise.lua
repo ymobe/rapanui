@@ -18,7 +18,7 @@ RN.Unit = require("RN/RNUnit")
 RN.WrappedEventListener = require("RN/RNWrappedEventListener")
 RN.WrappedTimedAction = require("RN/RNWrappedTimedAction")
 RN.Event = require("RN/RNEvent")
---RN.socket = require("socket")
+RN.socket = require("socket")
 RN.Factory = require("RN/RNFactory")
 RN.InputManager = require("RN/RNInputManager")
 

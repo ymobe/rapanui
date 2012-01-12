@@ -91,8 +91,7 @@ local coll = collectgarbage
 local unloadScene = function ( moduleName )
 	if moduleName ~= "main" and type( package.loaded[moduleName] ) == "table" then
 		package.loaded[moduleName] = nil
-		local collect = function() coll() end
-		R.MainThread.addTimedAction(TIME/10, collect)
+		R.MainThread.addTimedAction(TIME/10, coll)
 	end
 end
 
