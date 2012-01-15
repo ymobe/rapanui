@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 
 module(..., package.seeall)
@@ -308,9 +307,9 @@ end
 
 
 
-------------------------- Physics Joint Methods----------------------------
+-- Physics Joint Methods
 
---- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
+-- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
 function RNJoint:getJointAngle()
     if self.type == "pivot" then
         return self.joint:getJointAngle()
@@ -578,8 +577,6 @@ function RNJoint:setTarget(xx, yy)
 end
 
 
-
------------------------- remove-----------------------------------------------------------
 function RNJoint:remove()
 
     self.joint:destroy()

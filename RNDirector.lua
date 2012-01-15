@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --global vars
 --global time for transitions
@@ -96,7 +95,7 @@ function RNDirector:hideCurrentScene(effect)
 end
 
 
-------------------------- pop effect -------------------------------------------------------------
+-- pop effect
 function RNDirector:popIn()
 
     if CURRENT_SCENE ~= nil then
@@ -111,7 +110,7 @@ function RNDirector:popIn()
 end
 
 
-------------------------- slide effect -----------------------------------------------------------
+-- slide effect
 function RNDirector:slideout(xx, yy)
 
     --start slide
@@ -160,7 +159,7 @@ function slideEnd()
 end
 
 
----------------------------- crossfade effect----------------------------------------------------
+-- crossfade effect
 function RNDirector:crossFade()
 
     if CURRENT_SCENE_GROUP ~= nil then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
@@ -194,7 +193,7 @@ end
 
 
 
----------------------------- fade effect---------------------------------------------------------
+-- fade effect
 function RNDirector:fade()
 
     if CURRENT_SCENE_GROUP ~= nill then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP

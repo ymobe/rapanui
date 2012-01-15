@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -11,7 +11,7 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 require("RNInputManager")
 require("RNUtil")
@@ -1198,7 +1198,7 @@ function RNObject:setAngle(Angle)
 end
 
 --
--- physic bodies common working methods--------------------------------------------
+-- physic bodies common working methods
 --
 
 --body:applyForce(number forceX, number forceY [, number pointX, number pointY ] )

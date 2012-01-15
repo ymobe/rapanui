@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --Collision callbacks handling
 
@@ -42,7 +41,7 @@ triangle.restitution = 0.3
 
 
 
------------------------- global collision handling------------------------------------------
+-- global collision handling
 
 
 --how to do collision handling:
@@ -61,7 +60,7 @@ end
 RNPhysics.addEventListener("collision", onCollide)
 
 
--------------------------- local collision handling----------------------------------------
+-- local collision handling
 
 --create a function for collision's callbacks
 function onLocalCollide(self, event)

@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 RNMapTileset = {}
 
@@ -57,7 +56,7 @@ function RNMapTileset:setBlankTileId(id)
     self.blankTileId = id
 end
 
--- returns the properties configured in the tileset for the given tile with id
+-- eturns the properties configured in the tileset for the given tile with id
 function RNMapTileset:getPropertyValueForTile(id, property)
     if self.tilesproperties ~= nil and self.tilesproperties[id - 1] ~= nil then
         return self.tilesproperties[id - 1][property]
@@ -133,7 +132,6 @@ function RNMapTileset:getTileDeck2D()
     if self.tileDeck == nil then
         self.tileDeck = MOAITileDeck2D.new()
         self.tileDeck:setTexture(self.image.source)
-        print("cols, rows", self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
         self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
         self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
     end

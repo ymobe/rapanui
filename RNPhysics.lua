@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 
 --
 -- by Ymobe ltd  (http://ymobe.co.uk)
@@ -9,8 +9,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 module(..., package.seeall)
 
 require("RNBody")
@@ -37,8 +36,8 @@ collisionHandlerName = nil
 
 
 
------------------------------------------------------------------------
--- world settings-------------------------------------------------------
+
+-- world settings
 function start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
@@ -135,8 +134,8 @@ function getBodyList()
     return bodylist
 end
 
--------------------------------------------------------------------
--- bodies section---------------------------------------------------
+
+-- bodies section
 function createBodyFromImage(image, ...)
 
     --[[ We need x,y,h,w,name and prop from image . The name and image are stored
@@ -518,22 +517,7 @@ function createBodyFromMapObject(mapObject, ...)
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-------------------------------------------------------------------
--- debug draw section----------------------------------------------
-
+-- debug draw section
 
 --we need the layer from RNScene received
 --keep it in mind for future changes
@@ -565,9 +549,9 @@ end
 
 
 
----------------------------------------------------------------------
 
------------------------ COLLISION HANDLER-----------------------------------------
+
+-- COLLISION HANDLER
 function addEventListener(Type, funct)
     if (Type == "collision") then
         collisionHandlerName = funct
@@ -595,7 +579,7 @@ end
 
 
 
----------------------------------- GLOBAL COLLISION HANDLER------------------------------------------------
+-- GLOBAL COLLISION HANDLER
 function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
@@ -677,7 +661,7 @@ end
 
 
 
-------------------------- LOCAL COLLISION HANDLER-------------------------------------------------------
+-- LOCAL COLLISION HANDLER
 function LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
@@ -780,8 +764,8 @@ end
 
 
 
-------------------------------------------------------------------------------------
----------------------------- JOINTS------------------------------------------------
+
+-- JOINTS
 function createJoint(type, ...)
 
     local joint, bodyA, bodyB, anchorX, anchorY, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, axisA, axisB, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, ratio, targetX, targetY, frequency, damping, maxForce, maxTorque, maxLengthA, maxLengthB, jointA, jointB, frequencyHz, dampingRatio

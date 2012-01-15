@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 module(..., package.seeall)
 
 
@@ -40,9 +39,8 @@ function load(map, filename)
     local mapLua = dofile(filename)
     --print_r(mapLua)
 
-    -------------
+
     -- map     --
-    -------------
 
     for key, value in pairs(mapLua) do
         if type(value) ~= "table" then
@@ -56,9 +54,8 @@ function load(map, filename)
         map.propertiesSize = size
     end
 
-    -------------
     -- tileset --
-    -------------
+
     if mapLua.tilesets then
 
         for key, value in pairs(mapLua.tilesets) do
@@ -102,9 +99,7 @@ function load(map, filename)
         end
     end
 
-    -------------
     -- layers  --
-    -------------
 
     if mapLua.layers then
         for key, value in pairs(mapLua.layers) do
@@ -141,9 +136,7 @@ function load(map, filename)
 
                 map.layersSize = map.layersSize + 1
 
-                --------------------
                 -- object layers  --
-                --------------------
 
             elseif value.type == "objectgroup" then
 

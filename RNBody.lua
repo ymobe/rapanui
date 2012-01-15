@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 
 module(..., package.seeall)
@@ -246,7 +245,7 @@ end
 
 
 
------------------ collision handling----------------------------------------
+-- collision handling
 function RNBody:addEventListener(Type)
     if (Type == "collision") then
         flist = self.fixturelist
@@ -262,7 +261,7 @@ function RNBody:addEventListener(Type)
 end
 
 
-------------------- WORKING METHODS----------------------------------------
+-- WORKING METHODS
 
 --if it's awake (returns boolean)
 
@@ -370,7 +369,7 @@ end
 
 
 
------ Additional working accessible proprieties and methods from MOAIbox2d (check moai documentation)
+-- Additional working accessible proprieties and methods from MOAIbox2d (check moai documentation)
 
 --body:getAngle()
 function RNBody:getAngle()
@@ -418,7 +417,7 @@ end
 
 
 
----------------------- Customized Transformation methods--------------------------------------
+-- Customized Transformation methods
 function RNBody:setAngle(Angle)
     local posx, posy = self:getWorldCenter()
     self:setTransform(posx, posy, Angle)
@@ -453,7 +452,7 @@ end
 
 
 
------- physic bodies common working methods--------------------------------------------
+-- physic bodies common working methods
 
 
 

@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -11,8 +11,6 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
-------------------------------------------------------------------------------------------------------------------------
---
 -- Tiles of the map from:
 --
 -- gfxlib
@@ -24,8 +22,7 @@
 --
 --
 -- gfxlib is under Common Public License (http://www.opensource.org/licenses/cpl1.0.php)
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 require("RNMapFactory")
 require("RNMap")
