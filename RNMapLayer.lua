@@ -126,7 +126,7 @@ end
 
 function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.grid = MOAIGrid.new()
-    self.grid:setRepeat ( true )
+    self.grid:setRepeat ( false )
 
     self.grid:setSize(self:getCols(), self:getRows(), tileset:getTileWidth(), tileset:getTileHeight(), 0, 0, tileset:getTileWidth(), tileset:getTileHeight())
 
