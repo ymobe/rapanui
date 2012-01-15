@@ -126,6 +126,7 @@ end
 
 function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.grid = MOAIGrid.new()
+    self.grid:setRepeat ( true )
 
     self.grid:setSize(self:getCols(), self:getRows(), tileset:getTileWidth(), tileset:getTileHeight(), 0, 0, tileset:getTileWidth(), tileset:getTileHeight())
 
@@ -146,7 +147,6 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.prop = MOAIProp2D.new()
     self.prop:setDeck(tileset:getTileDeck2D())
     self.prop:setGrid(self.grid)
-    self.prop:setRepeat(false)
     self.screen:addRNObject(self)
 
     self.prop:setLoc(0, 0)
