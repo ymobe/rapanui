@@ -14,7 +14,7 @@
 
 
 
-module(..., package.seeall)
+--module(..., package.seeall)
 
 --[[
 	  
@@ -25,13 +25,13 @@ module(..., package.seeall)
 
 ]] --
 
-
+local M = {}
 local sceneGroup = RNGroup:new()
 
 
 
 --init Scene
-function onCreate()
+function M.onCreate()
     --add things to sceneGroup
     local background = RNFactory.createImage("images/background-purple.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
     local tile1a = RNFactory.createImage("images/tile1.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 240;
@@ -43,11 +43,11 @@ end
 
 
 
-function onEnd()
+function M.onEnd()
     for i = 1, table.getn(sceneGroup.displayObjects), 1 do
         sceneGroup.displayObjects[1]:remove();
     end
 end
 
-
+return M
 

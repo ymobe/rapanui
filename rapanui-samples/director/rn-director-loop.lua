@@ -49,8 +49,8 @@ function updateCounter()
   if counter == 60 then
     state = state + 1
     tran = tran + 1
-    if tran == 7 then
-      tran = 1
+    if tran > 7 then
+      tran = 0
     end
     counter = 0
     perform()

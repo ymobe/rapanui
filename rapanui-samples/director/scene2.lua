@@ -37,6 +37,7 @@ function onCreate()
     local tile1a = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 240;
     local tile1b = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1b.x = 100; tile1b.y = 140;
     local tile1c = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1c.x = 260; tile1c.y = 240;
+    local square = RNFactory.newRect(500,500,200,200, { parentGroup = sceneGroup })
     --return sceneGroup
     return sceneGroup
 end
