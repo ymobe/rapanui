@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 --   _____                   _   _       _
 --  |  __ \                 | \ | |     (_)
@@ -6,9 +6,9 @@
 --  |  _  // _` | '_ \ / _` | . ` | | | | |
 --  | | \ \ (_| | |_) | (_| | |\  | |_| | |
 --  |_|  \_\__,_| .__/ \__,_|_| \_|\__,_|_|
---  Anddrew     | |
+--              | |
 --              |_|
---   
+--
 -- RapaNui
 --
 -- by Ymobe ltd  (http://ymobe.co.uk)
@@ -19,39 +19,56 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-
->>How to use RapaNui.
-
-In your project folder, make a folder titled "RN", this is where you will extract/download Rapanui to.
-In your main.lua file, put this at the top:
 
 
-RN = require("RN/localise")
-local R = RN
-R.init()
+How to test RapaNui in Moai distribution for Mac iOS:
 
+1) under your moai dir find the dir "samples" create a new dir "RapaNui"
+2) copy all the file of RapaNui (including sub subdirectories) in the new [YOUR_MOAI_DIR]/samples/RapaNui
 
-In all subsequent files, (scenes etc) put:
-	
-local R = RN
+in Moai's xcode ios SampleMoai project:
 
-I hope using locals will make Rapanui perform faster. Functions are now called using (example):
+1) find the file named "moai-target" (should be under Resources -> build -> moai-target)
+2) change the content to "../../samples/RapaNui"
 
-R.Factory.createImage()
-    instead of 
-RNFactory.createImage()
+now run the project
 
 
 
-Project Setup:
+How to test RapaNui in Moai distribution for Windows:
 
-PROJECT FOLDER
-|--main.lua
-|--other assets
-|--run.bat or run.sh
-|--RN
-   |--RNFactory.lua
-   |--RNPhysics.lua
-   |--Etc
+1)download or clone RapaNui as is.
+
+2)Find these files in the Moai distribution:
+- moai.exe from Moai's bin folder
+- config.lua from Moai's samples\config folder 
+
+3)Now create .bat file in the RapaNui root directory.
+Use the paths of those files and set the lua file to run.
+
+Example .bat file (in this example Moai distribution is under C:\moai-sdk directory):
+
+"C:\moai-sdk\bin\win32\moai.exe"
+"C:\moai-sdk\samples\config\config.lua" 
+"main.lua"
+
+4)Now run the .bat file you've just created.
+
+
+
+To change the demo of RapaNui
+
+1) find and edit the main.lua under [YOUR_MOAI_DIR]/samples/RapaNui/main.lua
+2) comment current sample with "--"
+3) uncomment the sample you want to test.
+4) run the project
+
+
+
+How to use RapaNui in your project:
+
+1) copy all the files of the root dir of the distribution into your project and add a lua require
+   in your app's scripts.
+
+enjoy,
+The RapaNui team
