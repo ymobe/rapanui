@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -11,14 +11,18 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local TOP_LEFTMODE = 1
-local CENTEREDMODE = 2
+require("RNInputManager")
+require("RNUtil")
 
-local RNObject = {}
 
-local R
+TOP_LEFT_MODE = 1
+CENTERED_MODE = 2
+
+RNObject = {}
+
+
 local function fieldChangedListener(self, key, value)
 
     getmetatable(self).__object[key] = value
@@ -274,8 +278,7 @@ end
 
 
 function RNObject:new(o)
-if not R then R = RN end
-    local displayobject = R.Object:innerNew(o)
+    local displayobject = RNObject:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
 end
@@ -500,24 +503,24 @@ function RNObject:loadImage(image,size)
 	if size then
 		self.originalWidth, self.originalHeight = size[1],size[2]
 	else
-		self.originalWidth, self.originalHeight = self.image:getSize()
+    self.originalWidth, self.originalHeight = self.image:getSize()
 	end
 
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
     self.pow2Widht, self.pow2Height = self.image:getSize()
+
     self.prop = MOAIProp2D.new()
 
     local u = self.originalWidth / self.pow2Widht
     local v = self.originalHeight / self.pow2Height
 
-    self.gfxQuad:setUVRect(0, 0, u,v)
+    self.gfxQuad:setUVRect(0, 0, u, v)
 
 
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
-
     self.prop:setPriority(1)
 end
 
@@ -656,7 +659,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    R.Listeners:addEventListener("enterFrame", self)
+    RNListeners:addEventListener("enterFrame", self)
 end
 
 function RNObject:enterFrame(event)
@@ -935,6 +938,7 @@ end
 function RNObject:setVisible(value)
     if self.isPhysical == false then
         if self.prop ~= nil then
+            --print(self,self.prop,typeof(value))
             self.prop:setVisible(value)
         end
     else
@@ -954,8 +958,8 @@ function RNObject:getVisible()
 end
 
 
-function RNObject:TOP_LEFTMODE()
-    return TOP_LEFTMODE
+function RNObject:TOP_LEFT_MODE()
+    return TOP_LEFT_MODE
 end
 
 function RNObject:getSDType()
@@ -1012,7 +1016,7 @@ function RNObject:addEventListener(eventName, func)
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
-        R.InputManager.addListenerToEvent(eventName, func, self)
+        RNInputManager.addListenerToEvent(eventName, func, self)
     end
 end
 
@@ -1256,7 +1260,7 @@ function RNObject:setAngle(Angle)
 end
 
 --
--- physic bodies common working methods--------------------------------------------
+-- physic bodies common working methods
 --
 
 --body:applyForce(number forceX, number forceY [, number pointX, number pointY ] )
@@ -1299,5 +1303,3 @@ function RNObject:setMassData(mass, I, centerX, centerY)
         self.physicObject:setMassData(mass)
     end
 end
-
-return RNObject

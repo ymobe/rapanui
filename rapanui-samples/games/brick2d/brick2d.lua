@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,16 +10,15 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 BALL_START_X = 50
 BALL_START_Y = 200
 
-paddle = RNFactory.createImage("RapaNui-samples/games/brick2d/paddle.png")
+paddle = RNFactory.createImage("rapanui-samples/games/brick2d/paddle.png")
 paddle.y = 400
 
-ball = RNFactory.createImage("RapaNui-samples/games/brick2d/ball.png")
+ball = RNFactory.createImage("rapanui-samples/games/brick2d/ball.png")
 ball.x = BALL_START_X
 ball.y = BALL_START_Y
 
@@ -55,7 +54,7 @@ function initBricks()
 
     for col = 0, 5, 1 do
         for row = 0, 4, 1 do
-            local aBrick = RNFactory.createImage("RapaNui-samples/games/brick2d/brick" .. color .. ".png")
+            local aBrick = RNFactory.createImage("rapanui-samples/games/brick2d/brick" .. color .. ".png")
             aBrick.y = 50 + padding + (row * 10 + padding * row)
             aBrick.x = 25 + padding + (col * 40 + padding * col)
             bricks[string.format("%s%s", row, col)] = aBrick
@@ -126,7 +125,7 @@ function update(enterFrame)
     end
 
     if (ball.y > paddle.y + 20) then
-        trn:run(ball, { type = "alpha", alpha = 0, time = 500  })
+        trn:run(ball, { type = "alpha", alpha = 0, time = 500 })
     end
 
     if (ball.y > 480) then

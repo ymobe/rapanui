@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,27 +10,23 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --RNDirector test , remove comments to test effects.
 
 
 
-director=RNDirector:new()
+director = RNDirector:new()
 
 
 director:addScene("rapanui-samples/director/scene1")
 director:addScene("rapanui-samples/director/scene2")
 
 --check if they are inside the director
-for i,v in ipairs(director.scenes) do print(i,v) end
-
+for i, v in ipairs(director.scenes) do print(i, v) end
 
 --Set director's time
 director:setTime(1000)
-
-
 
 
 --POP TEST
@@ -39,46 +35,37 @@ director:setTime(1000)
 --director:showScene("rapanui-samples/director/scene1","pop")
 
 
-
-
 --POP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","pop")
-
-
+--director:showScene("rapanui-samples/director/scene2","pop")
 
 
 --FADE IN TEST
 --director:showScene("rapanui-samples/director/scene1","fade")
 
 
-
-
 --FADE OUT TEST
 --director:showScene("rapanui-samples/director/scene2","pop")
---director:hideScene("rapanui-samples/director/scene2","fade")
-
+--director:hideCurrentScene("fade")
 
 
 --FADE CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","fade")
+--director:showScene("rapanui-samples/director/scene2","fade")
 
 
 --SLIDE TO LEFT IN TEST
---director:showScene("rapanui-samples/director/scene1","slidetoleft")
+director:showScene("rapanui-samples/director/scene1", "slidetoleft")
 
 
 --SLIDE TO LEFT OUT TEST
 --director:showScene("rapanui-samples/director/scene2","pop")
---director:hideScene("rapanui-samples/director/scene2","slidetoleft")
-
+--director:hideCurrentScene("slidetoleft")
 
 
 --SLIDE TO LEFT CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetoleft")
-
+--director:showScene("rapanui-samples/director/scene2","slidetoleft")
 
 
 --SLIDE TO RIGHT IN TEST
@@ -87,12 +74,12 @@ director:setTime(1000)
 
 --SLIDE TO RIGHT OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetoright")
+--director:hideCurrentScene("slidetoright")
 
 
 --SLIDE TO RIGHT CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetoright")
+--director:showScene("rapanui-samples/director/scene2","slidetoright")
 
 
 --SLIDE TO TOP IN TEST
@@ -101,11 +88,12 @@ director:setTime(1000)
 
 --SLIDE TO TOP OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetotop")
+--director:hideCurrentScene("slidetotop")
+
 
 --SLIDE TO TOP CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetotop")
+--director:showScene("rapanui-samples/director/scene2","slidetotop")
 
 
 --SLIDE TO BOTTOM IN TEST
@@ -114,9 +102,9 @@ director:setTime(1000)
 
 --SLIDE TO BOTTOM OUT TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:hideScene("rapanui-samples/director/scene1","slidetobottom")
+--director:hideCurrentScene("slidetobottom")
+
 
 --SLIDE TO BOTTOM CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
---director:changeScene("rapanui-samples/director/scene2","slidetobottom")
-
+--director:showScene("rapanui-samples/director/scene2","slidetobottom")

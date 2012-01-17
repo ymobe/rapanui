@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,47 +10,51 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 
 
 module(..., package.seeall)
-local l = require("localise")
+
 --[[
 	  
 	  SCENES MUST HAVE 
-	  1)a mainGroup where all instances are inserted
+	  1)a sceneGroup where all instances are inserted
 	  2)onCreate function in which we create everything
 	  3)onEnd function in which we clean the instance
 
-]]--
+]] --
 
 
-mainGroup=l.RNGroup:new()
+local sceneGroup = RNGroup:new()
 
 
 
 --init Scene
 function onCreate()
-	--add things to mainGroup
-	background = l.RNFactory.createImage("RN/images/background-green.png",{parentGroup=mainGroup});background.x=160;background.y=240;
-	tile1a = l.RNFactory.createImage("RN/images/tile4.png",{parentGroup=mainGroup});tile1a.x=160;tile1a.y=240;
-	tile1b = l.RNFactory.createImage("RN/images/tile4.png",{parentGroup=mainGroup});tile1b.x=100;tile1b.y=140;
-	tile1c = l.RNFactory.createImage("RN/images/tile4.png",{parentGroup=mainGroup});tile1c.x=260;tile1c.y=240;
-	--retul.RN mainGroup	
-	return mainGroup	
+    --add things to sceneGroup
+    local background = RNFactory.createImage("images/background-green.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
+    local tile1a = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 320;
+    local tile1b = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1b.x = 100; tile1b.y = 140;
+    local tile1c = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1c.x = 260; tile1c.y = 340;
+    --  for i = 1, table.getn(RNFactory.sceneGroup.displayObjects), 1 do
+    --      RNFactory.sceneGroup:removeChild(1);
+    --   end
+    --sceneGroup:insert(background)
+    -- sceneGroup:insert(tile1a)
+    --sceneGroup:insert(tile1b)
+    --sceneGroup:insert(tile1c)
+    --return sceneGroup
+    return sceneGroup
 end
 
 
 
 function onEnd()
-	for i=1,table.getn(mainGroup.displayObjects),1 do
-		mainGroup.displayObjects[1]:remove();
-	end
+    for i = 1, table.getn(sceneGroup.displayObjects), 1 do
+        sceneGroup.displayObjects[1]:remove();
+    end
 end
-
-
 
 
 

@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,10 +10,11 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-local R = RN
-background = R.Factory.createImage("RN/images/background-purple.png")
+]]
+
+background = RNFactory.createImage("images/background-purple.png")
+
+
 
 --display.newAnim(filename,sizex,sizey[,posx,posy,scaleX,scaleY])
 --size is the size of each frame;scale is the size of the rect containing the animation.
@@ -40,7 +41,7 @@ end
 
 --physical animation with many sequences
 --newAnim(file,sizeX,sizeY[,posx,posy,scaleX,scaleY])
-char = R.Factory.createAnim("RN/images/char.png", 42, 32, 100, 200, 0.27, 0.5)
+char = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5)
 --newSequence(name,frameOrder,speed,repeatTimes,onStopFunction)
 char:newSequence("walkFront", { 7, 8, 9 }, 6, 10, onEndS1)
 char:newSequence("walkBack", { 1, 2, 3 }, 6, 10, onEndS2)
@@ -52,7 +53,7 @@ char:play("walkFront")
 
 
 --simple animation which plays the default sequence
-char2 = R.Factory.createAnim("RN/images/char2.png", 42, 32)
+char2 = RNFactory.createAnim("images/char2.png", 42, 32)
 char2.x = 100; char2.y = 100; char2.rotation = 30;
 char2.scalex = 1; char2.scaley = 2
 char2.frame = 1

@@ -12,60 +12,75 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ------------------------------------------------------------------------------------------------------------------------
+module(..., package.seeall)
 
-local M = {}
+local config = require("config")
+require("RNInputManager")
+require("RNObject")
+require("RNRectangle")
+require("RNText")
+require("RNGroup")
+require("RNScreen")
+require("RNUtil")
 
-M.contentCenterX = nil
-M.contentCenterY = nil
-M.contentHeight = nil
-M.contentWidth = nil
-M.contentScaleX = nil
-M.contentScaleY = nil
-M.screenOriginX = nil
-M.screenOriginY = nil
-M.statusBarHeight = nil
-M.viewableContentHeight = nil
-M.viewableContentWidth = nil
-M.HiddenStatusBar = "HiddenStatusBar"
-M.CenterReferencePoint = "CenterReferencePoint"
-M.stageWidth = 0
-M.stageHeight = 0
+contentCenterX = nil
+contentCenterY = nil
+contentHeight = nil
+contentWidth = nil
+contentScaleX = nil
+contentScaleY = nil
+contentWidth = nil
+screenOriginX = nil
+screenOriginY = nil
+statusBarHeight = nil
+viewableContentHeight = nil
+viewableContentWidth = nil
+HiddenStatusBar = "HiddenStatusBar"
+CenterReferencePoint = "CenterReferencePoint"
 
-local R
-function M.init(PW, PH, SW, SH , name)
-	if not R then R = RN end
-	M.screen = R.Screen:new()
+screen = RNScreen:new()
 
-	M.groups = {}
-	M.groups_size = 0
-	-- extra method call to setup the underlying system
+groups = {}
+groups_size = 0
 
-	mainGroup = R.Group:new()
+mainGroup = RNGroup:new()
 
+stageWidth = 0
+stageHeight = 0
+
+function init(PW, PH, SW, SH , name)
 
     if name == nil then
         name = "mainwindow"
     end
 
     MOAISim.openWindow(name, SW, SH)
-    M.screen:initWith(PW, PH, SW, SH )
+    screen:initWith(PW, PH, SW, SH )
 
-	M.stageWidth = PW
-	M.stageHeight = PH
+	stageWidth = PW
+	stageHeight = PH
 
-    M.contentWidth = PW
-    M.contentHeight = PH
-	  
-	R.InputManager.setGlobalRNScreen(M.screen)
-	R.InputManager.init()
+    contentWidth = PW
+    contentHeight = PH  
+
+
+    RNInputManager.setGlobalRNScreen(screen)
 end
 
-function M.showDebugLines()
-    MOAIDebugLines.setStyle(MOAIDebugLines.PROPMODEL_BOUNDS, 2, 1, 1, 1)
+-- extra method call to setup the underlying system
+init(config.PW, config.PH, config.SW, config.SH, config.name)
+
+function showDebugLines()
+    MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_WORLD_BOUNDS, 2, 0.75, 0.75, 0.75)
 end
 
-function M.createImage(filename, params)
+function getCurrentScreen()
+    return screen
+end
+
+
+function createImage(filename, params)
 
     local parentGroup, left, top
 
@@ -96,9 +111,9 @@ function M.createImage(filename, params)
     end
 
 
-    local image = R.Object:new()
+    local image = RNObject:new()
     image:initWith(filename,size)
-    M.screen:addRNObject(image)
+    screen:addRNObject(image)
     image.x = image.originalWidth *.5 + left
     image.y = image.originalHeight *.5 + top
 
@@ -109,7 +124,7 @@ function M.createImage(filename, params)
     return image
 end
 
-function M.createImageFromMoaiImage(moaiImage, params)
+function createImageFromMoaiImage(moaiImage, params)
 
     local parentGroup, left, top
 
@@ -137,9 +152,9 @@ function M.createImageFromMoaiImage(moaiImage, params)
     end
 
 
-    local image = R.Object:new()
+    local image = RNObject:new()
     image:initWithMoaiImage(moaiImage)
-    M.screen:addRNObject(image)
+    screen:addRNObject(image)
     image.x = image.originalWidth *.5 + left
     image.y = image.originalHeight *.5 + top
 
@@ -151,19 +166,19 @@ function M.createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
-function M.createMoaiImage(filename)
+function createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
     return image
 end
 
-function M.createBlankMoaiImage(width, height)
+function createBlankMoaiImage(width, height)
     local image = MOAIImage.new()
     image:init(width, height)
     return image
 end
 
-function M.createCopyRect(moaiimage, params)
+function createCopyRect(moaiimage, params)
 
     local parentGroup, left, top
 
@@ -191,9 +206,9 @@ function M.createCopyRect(moaiimage, params)
     end
 
 
-    local image = R.Object:new()
+    local image = RNObject:new()
     image:initCopyRect(moaiimage, params)
-    M.screen:addRNObject(image)
+    screen:addRNObject(image)
     image.x = image.originalWidth *.5 + left
     image.y = image.originalHeight *.5 + top
 
@@ -205,7 +220,7 @@ function M.createCopyRect(moaiimage, params)
     return image
 end
 
-function M.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
+function createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     if scaleX == nil then
         scaleX = 1
@@ -225,9 +240,9 @@ function M.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     local parentGroup = mainGroup
 
-    local image = R.Object:new()
+    local image = RNObject:new()
     image:initAnimWith(filename, sx, sy, scaleX, scaleY)
-    M.screen:addRNObject(image)
+    screen:addRNObject(image)
     image.x = image.originalWidth *.5 + left
     image.y = image.originalHeight *.5 + top
 
@@ -238,7 +253,7 @@ function M.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
     return image
 end
 
-function M.createText(text, params)
+function createText(text, params)
 
     local top, left, size, font, height, width, alignment
 
@@ -277,14 +292,14 @@ function M.createText(text, params)
         end
     end
 
-    local RNText = R.Text:new()
+    local RNText = RNText:new()
     RNText:initWithText(text, font, size, left, top, width, height, alignment)
-    M.screen:addRNObject(RNText)
+    screen:addRNObject(RNText)
     mainGroup:insert(RNText)
     return RNText
 end
 
-function M.newRect(x1,y1,x2,y2, params)
+function newRect(x1,y1,x2,y2, params)
     local parentGroup, top, left
     local rgb = {225,225,225}
     
@@ -293,9 +308,9 @@ function M.newRect(x1,y1,x2,y2, params)
          rgb = params.rgb or rgb
     end
 	
-	local shape = R.Object:new()
+	local shape = RNObject:new()
     shape:initWithRect(x1,y1,x2,y2,rgb)
-    M.screen:addRNObject(shape)
+    screen:addRNObject(shape)
     shape.x = shape.originalWidth *.5 + x1
     shape.y = shape.originalHeight *.5 + y1
     shape.rotation = 0
@@ -306,7 +321,7 @@ function M.newRect(x1,y1,x2,y2, params)
     return shape
 end
 
-function M.newCircle(x,y,r, params)
+function newCircle(x,y,r, params)
     local parentGroup, top, left
     local rgb = {225,225,225}
 
@@ -319,9 +334,9 @@ function M.newCircle(x,y,r, params)
         end
     end
 	
-	local shape = R.Object:new()
+	local shape = RNObject:new()
     shape:initWithCircle(x,y,r,rgb)
-    M.screen:addRNObject(shape)
+    screen:addRNObject(shape)
     shape.x = x
     shape.y = y
     shape.rotation = 0
@@ -331,7 +346,3 @@ function M.newCircle(x,y,r, params)
     end
     return shape
 end
-
-
-
-return M

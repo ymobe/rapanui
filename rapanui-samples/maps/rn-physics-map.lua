@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,18 +10,14 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-
-
-------start physic simulation
+-- start physic simulation
 
 RNPhysics.start()
 
 
---same as rn map autodraw
-
+--same as rn map basic map
 -- tiles by Daniel Cook (http://www.lostgarden.com)
 
 require("RNMapFactory")
@@ -38,7 +34,7 @@ map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/physicmap.t
 
 aTileset = map:getTileset(0)
 
-aTileset:updateImageSource("rapanui-samples/maps/platformtiles.png")
+aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
 
 
 local layersSize = map:getLayersSize()
@@ -50,6 +46,7 @@ local layers = map:getLayers()
 memestatus()
 
 map:drawMapAt(0, 0, aTileset)
+
 
 memestatus()
 

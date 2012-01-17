@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,13 +10,16 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local TOP_LEFTMODE = 1
-local CENTEREDMODE = 2
+require("RNInputManager")
+require("RNUtil")
 
-local RNRectangle = {}
+
+TOP_LEFT_MODE = 1
+CENTERED_MODE = 2
+
+RNRectangle = {}
 
 
 local function fieldChangedListener(self, key, value)
@@ -263,8 +266,8 @@ function RNRectangle:getVisible()
 end
 
 
-function RNRectangle:TOP_LEFTMODE()
-    return TOP_LEFTMODE
+function RNRectangle:TOP_LEFT_MODE()
+    return TOP_LEFT_MODE
 end
 
 function RNRectangle:setLocation(x, y)

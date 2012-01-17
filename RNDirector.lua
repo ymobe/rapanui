@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,28 +10,27 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --global vars
-local TIME
-local POP_SCENE
-local POP_SCENE_GROUP
+--global time for transitions
+local TIME = 800
+--other globals
 local CURRENT_SCENE
+local NEXT_SCENE
+local NEXT_SCENE_GROUP
+local CURRENT_SCENE_NAME
 local CURRENT_SCENE_GROUP
-local OLD_SCENE
-local OLD_SCENE_GROUP
-local trn
-local width, height
+local DIRECTOR
+local TRANSITIONING = false
+local trn = RNTransition:new()
 
-local RNDirector = {}
-local R
+
 -- Create a new RNDirector Object
+RNDirector = {}
+
 function RNDirector:new(o)
-	if not R then R = RN end
-	width, height = R.Factory.contentWidth, R.Factory.contentHeight
-	trn = R.Transition:new()
-	TIME = 800 --default
+
     o = o or {
         name = "",
         scenes = {}
@@ -39,190 +38,224 @@ function RNDirector:new(o)
 
     setmetatable(o, self)
     self.__index = self
+    DIRECTOR = self
     return o
 end
 
+function RNDirector:isTransitioning()
+    return TRANSITIONING
+end
+
+--add a scene to Director and set it to invisible . scene must be an instance of RNGroup
+function RNDirector:addScene(scene)
+    local len = table.getn(self.scenes)
+    self.scenes[len + 1] = scene
+end
+
+
 --sets the time of transitions
 function RNDirector:setTime(value)
-	TIME=value
+    TIME = value
 end
 
 
 --Functions to show/hide  a scene with the given effect
+function RNDirector:showScene(name, effect)
 
-local function getab(effect)
-	local a,b = 0,0
-		if effect=="slidetoleft" then
-			a,b = width,0  
-		elseif effect=="slidetoright" then
-			a,b = -width,0
-		elseif effect=="slidetotop" then
-			a,b = 0,height
-		elseif effect=="slidetobottom" then
-			a,b = 0,-height
-		end
-	return a,b
-end
-function RNDirector:showScene(name,effect)
-local name = "../"..name
-	if effect=="pop" or effect==nil then
-		self:popIn(name)	
-	elseif effect=="fade" then
-	    self:fadeIn(name)
-	else	
-		local a,b = getab(effect)
-		self:slideIn(name,a,b)
-	end
-end
+    if name ~= nil then
+        NEXT_SCENE = require(name)
+    else
+        NEXT_SCENE = nil
+    end
 
-function RNDirector:hideScene(name,effect)
-local name = "../"..name
-	if effect=="pop" or effect==nil then
-		onOut()
-	elseif effect=="fade" then
-		onOut()
-	else	
-		local a,b = getab(effect)
-		self:slideOut(a,b)
-	end
+    if TRANSITIONING == false then
+        TRANSITIONING = true
+        if effect == "slidetoleft" then
+            self:slideout(config.width, 0)
+        elseif effect == "slidetoright" then
+            self:slideout(-config.width, 0)
+        elseif effect == "slidetotop" then
+            self:slideout(0, config.height)
+        elseif effect == "slidetobottom" then
+            self:slideout(0, -config.height)
+        elseif effect == "pop" then
+            self:popIn()
+        elseif effect == "fade" then
+            self:fade()
+        elseif effect == "crossfade" then
+            self:crossFade()
+        else
+            self:popIn()
+        end
+    end
 end
 
-local coll = collectgarbage
-local unloadScene = function ( moduleName )
-	if moduleName ~= "main" and type( package.loaded[moduleName] ) == "table" then
-		package.loaded[moduleName] = nil
-		R.MainThread.addTimedAction(TIME/10, coll)
-	end
-end
-
---function for changing a scene to another one
-
-function RNDirector:changeScene(sceneToGo,effect)
-OLD_SCENE=CURRENT_SCENE
-OLD_SCENE_GROUP=CURRENT_SCENE_GROUP
-local sceneToGo = "../"..sceneToGo
-	unloadScene(sceneToGo)
-	if effect=="pop" or effect==nil then
-		onChangeOut()
-		self:popIn(sceneToGo)   
-	elseif effect=="fade" then
-	    self:fadeOutChange()
-	    self:fadeIn(sceneToGo)
-	else	
-		local a,b = getab(effect)
-		self:slideOutChange(a,b)
-		self:slideIn(sceneToGo,a,b)
-	end
-end
-
-function RNDirector:openPopUp(sceneToGo,effect)
-local sceneToGo = "../"..sceneToGo
-	POP_SCENE=require(sceneToGo)
-	POP_SCENE_GROUP=POP_SCENE.onCreate() 
-end
-
-function RNDirector:closePopUp(sceneToGo,effect)
-	for i=1,table.getn(POP_SCENE_GROUP.displayObjects),1 do
-		POP_SCENE_GROUP.displayObjects[1]:remove();
-	end
-end
--------------------------pop effect-------------------------------------------------------------
-
-function RNDirector:popIn(name)
-	CURRENT_SCENE=require(name)
-	CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
-end
-
-function ended()
-	for i=1,table.getn(OLD_SCENE_GROUP.displayObjects),1 do
-		OLD_SCENE_GROUP.displayObjects[1]:remove();
-	end
-end
-
-function onOut()
-	CURRENT_SCENE.onEnd()
-	ended()	
-end
-
-function onChangeOut()
-    OLD_SCENE.onEnd()
-	ended()	
-end
-
-function RNDirector:fadeIn(name)
-	CURRENT_SCENE=require(name)
-	CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()
-CURRENT_SCENE_GROUP.visible=false	
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=1,onComplete=startFadeIn})
-	end
-	
+function RNDirector:hideCurrentScene(effect)
+    self:showScene(nil, effect)
 end
 
 
-function RNDirector:fadeOut()
---fade the scene out with a transition, then calls a function to reset scene
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=onOut})
-	end
+-- pop effect
+function RNDirector:popIn()
+
+    if CURRENT_SCENE ~= nil then
+        CURRENT_SCENE.onEnd()
+    end
+
+    if NEXT_SCENE ~= nil then
+        CURRENT_SCENE_GROUP = NEXT_SCENE.onCreate()
+        CURRENT_SCENE = NEXT_SCENE
+    end
+    TRANSITIONING = false
 end
 
 
+-- slide effect
+function RNDirector:slideout(xx, yy)
 
+    --start slide
+    if CURRENT_SCENE_GROUP ~= nill then
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then --call transition end callback only for last element
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+            end
+        end
+    end
 
-function startFadeIn()
---now we have a hidden scene with alpha value to 0 we can start show it and fade it in!
-CURRENT_SCENE_GROUP.visible=true
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=1,time=TIME})
-	end
+    -- if next scene has a value go for transition
+    if NEXT_SCENE ~= nil then
+        -- change the current scene group
+        NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+        NEXT_SCENE_GROUP.x = xx
+        NEXT_SCENE_GROUP.y = yy
+        --start slide
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            if CURRENT_SCENE_GROUP == nil and i == table.getn(NEXT_SCENE_GROUP.displayObjects) then --if CURRENT_SCENE nil we have to call endSlide on last element transition
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
+            else
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "move", x = NEXT_SCENE_GROUP.displayObjects[i].x - xx, y = NEXT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME })
+            end
+        end
+    end
 end
 
 
+function slideEnd()
+
+    if CURRENT_SCENE ~= nil then
+        CURRENT_SCENE.onEnd()
+    end
+
+    if NEXT_SCENE ~= nil then
+        NEXT_SCENE_GROUP.x = 0
+        NEXT_SCENE_GROUP.y = 0
+        CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
+        CURRENT_SCENE = NEXT_SCENE
+    end
+    TRANSITIONING = false
+    collectgarbage("collect")
+end
 
 
-function RNDirector:fadeOutChange()
---fade the scene out with a transition, then calls a function to reset scene
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="alpha",alpha=0,time=self.TIME,onComplete=onChangeOut})
-	end
+-- crossfade effect
+function RNDirector:crossFade()
+
+    if CURRENT_SCENE_GROUP ~= nil then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
+
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if NEXT_SCENE == nil and i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME, onComplete = DIRECTOR.endFade })
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = TIME })
+            end
+        end
+    end
+
+    if NEXT_SCENE ~= nil then
+
+        NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
+        end
+
+        for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(NEXT_SCENE_GROUP.displayObjects) then
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME, onComplete = DIRECTOR.endFade })
+            else
+                trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = TIME })
+            end
+        end
+    end
 end
 
 
 
-----------------------------Slide effect---------------------------------------------------------
+-- fade effect
+function RNDirector:fade()
 
-function RNDirector:slideIn(name,xx,yy)
---set up a scene to start slide in
-		CURRENT_SCENE=require(name)
-		CURRENT_SCENE_GROUP=CURRENT_SCENE.onCreate()	
-		CURRENT_SCENE_GROUP.x=xx
-		CURRENT_SCENE_GROUP.y=yy
---start slide
-	local function onEndSlideIn()
-		CURRENT_SCENE_GROUP.x=0
-		CURRENT_SCENE_GROUP.y=0
-	end
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onEndSlideIn})
-	end	
-
+    if CURRENT_SCENE_GROUP ~= nill then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
+        for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
+            if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
+                if NEXT_SCENE ~= nil then
+                    trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.startFadeInNext })
+                else
+                    trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.endFade })
+                end
+            else
+                trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 0, time = DIRECTOR:timeToRun() })
+            end
+        end
+    else
+        -- if we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP then call fadeIn on the next scene
+        DIRECTOR:startFadeInNext()
+    end
 end
 
 
-function RNDirector:slideOut(xx,yy)
---start slide
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onOut})
-	end	
+function RNDirector:timeToRun()
+    -- used for fading, if one of NEXT or CURRENT is missing we have to do the transition with on at full lenght
+    if CURRENT_SCENE == nil or NEXT_SCENE == nil then
+        return TIME
+    else
+        --if we have both NEXT and CURRENT each group have to run own transition at half time so the whole animation lasts the full lenght
+        return TIME / 2
+    end
 end
 
 
-function RNDirector:slideOutChange(xx,yy)
---start slide
-	for i=1,table.getn(CURRENT_SCENE_GROUP.displayObjects),1 do
-		trn:run(CURRENT_SCENE_GROUP.displayObjects[i],{type="move",x=CURRENT_SCENE_GROUP.displayObjects[i].x-xx,y=CURRENT_SCENE_GROUP.displayObjects[i].y-yy,time=TIME,onComplete=onChangeOut})
-	end	
+function RNDirector:startFadeInNext()
+
+    NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
+    for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+        NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
+    end
+
+    for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
+        if i == table.getn(NEXT_SCENE_GROUP.displayObjects) then
+            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = DIRECTOR:timeToRun(), onComplete = DIRECTOR.endFade })
+        else
+            trn:run(NEXT_SCENE_GROUP.displayObjects[i], { type = "alpha", alpha = 1, time = DIRECTOR:timeToRun() })
+        end
+    end
 end
 
-return RNDirector
+
+function RNDirector:endFade()
+
+    print("ON END FADE!")
+    if CURRENT_SCENE ~= nil then
+        CURRENT_SCENE.onEnd()
+    end
+
+    if NEXT_SCENE ~= nil then
+        CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
+        CURRENT_SCENE = NEXT_SCENE
+    end
+
+    TRANSITIONING = false
+    collectgarbage("collect")
+end

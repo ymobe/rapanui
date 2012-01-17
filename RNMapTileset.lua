@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,13 +10,11 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 RNMapTileset = {}
-local R
+
 function RNMapTileset:new(o)
-	if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -51,14 +49,14 @@ function RNMapTileset:getBlankTileId()
     if self.blankTileId ~= nil then
         return self.blankTileId
     end
-    return "0"
+    return 0
 end
 
 function RNMapTileset:setBlankTileId(id)
     self.blankTileId = id
 end
 
--- returns the properties configured in the tileset for the given tile with id
+-- eturns the properties configured in the tileset for the given tile with id
 function RNMapTileset:getPropertyValueForTile(id, property)
     if self.tilesproperties ~= nil and self.tilesproperties[id - 1] ~= nil then
         return self.tilesproperties[id - 1][property]
@@ -79,7 +77,7 @@ function RNMapTileset:getTileImage(tileid)
 
     if self.image.source ~= nil then
         if self.srcMoaiImage == nil then
-            local src = R.Factory.createMoaiImage(self.image.source)
+            local src = RNFactory.createMoaiImage(self.image.source)
             local width, height = src:getSize()
             self.image.width = width
             self.image.height = height
@@ -123,12 +121,38 @@ function RNMapTileset:getTileImage(tileid)
             destYMin = 0
         }
 
-        return R.Factory.createCopyRect(self.srcMoaiImage, params)
+        return RNFactory.createCopyRect(self.srcMoaiImage, params)
     end
 end
 
+
+
+
+function RNMapTileset:getTileDeck2D()
+    if self.tileDeck == nil then
+        self.tileDeck = MOAITileDeck2D.new()
+        self.tileDeck:setTexture(self.image.source)
+        self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
+        self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
+    end
+
+    return self.tileDeck
+end
+
 function RNMapTileset:updateImageSource(image)
+
+    -- check the new size of the image and update the width height
     self.image.source = image
+    local moaiimage = MOAIImage.new()
+    moaiimage:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    self.image.width, self.image.height = moaiimage:getSize()
+
+    if self.tileDeck ~= nil then
+        self.tileDeck = MOAITileDeck2D.new()
+        self.tileDeck:setTexture(self.image.source)
+        self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
+        self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
+    end
 end
 
 function RNMapTileset:getImage()

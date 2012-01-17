@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,12 +10,8 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-
-local M = {}
-
-function M.print_r(t)
+]]
+function print_r(t)
     local print_r_cache = {}
     local function sub_print_r(t, indent)
         if (print_r_cache[tostring(t)]) then
@@ -53,23 +49,23 @@ end
 
 	local collect = collectgarbage
 	local lastCheck = {sysMem = 0}
-function M.checkMem(say)
+function memestatus()
     collect()
     local sysMem = collect("count") * .001
 	if say == true or lastCheck.sysMem ~= sysMem then
 		lastCheck.sysMem = sysMem
 		print ("Mem: " .. math.floor(sysMem*1000)*.001 .. "MB \t")
 	end
+
+
 end
-
-
 
 
 -- source http://lua-users.org/wiki/SimpleLuaClasses
 
 -- class.lua
 -- Compatible with Lua 5.1 (not 5.0).
-function M.class(base, init)
+function class(base, init)
     local c = {} -- a new class instance
     if not init and type(base) == 'function' then
         init = base
@@ -113,9 +109,7 @@ function M.class(base, init)
     return c
 end
 
-function M.round(num, idp)
+function round(num, idp)
   local mult = 10^(idp or 0)
   return math.floor(num * mult + 0.5) / mult
 end
-
-return M

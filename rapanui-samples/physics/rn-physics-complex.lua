@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,18 +10,21 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --The floor we create has two different fixtures with different properties!
 
 
 --add images
-background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
-box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 170; box.y = 80;
-ball = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball.x = 240; ball.y = 80;
-triangle = RNFactory.createImage("RapaNui-samples/physics/poly.png"); triangle.x = 80; triangle.y = 80; triangle.rotation = 190
-floor = RNFactory.createImage("RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
+background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
+box = RNFactory.createImage("rapanui-samples/physics/box.png");
+box.x = 170; box.y = 80;
+ball = RNFactory.createImage("rapanui-samples/physics/ball.png");
+ball.x = 240; ball.y = 80;
+triangle = RNFactory.createImage("rapanui-samples/physics/poly.png");
+triangle.x = 80; triangle.y = 80; triangle.rotation = 190;
+floor = RNFactory.createImage("rapanui-samples/physics/floor.png");
+floor.x = 160; floor.y = 400;
 
 --starts simulation
 RNPhysics.start()
@@ -40,6 +43,7 @@ triangle.restitution = 0.3
 
 
 --set debud draw on screen
+--for i,v in ipairs(RNFactory.screen.sprites) do print(i,v) end
 RNPhysics.setDebugDraw(RNFactory.screen)
 
 

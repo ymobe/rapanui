@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,11 +10,10 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local RNRuntime = {}
-local R
+RNRuntime = {}
+
 function RNRuntime:new(o)
     o = o or {
         name = ""
@@ -27,22 +26,22 @@ function RNRuntime:new(o)
 end
 
 function RNRuntime:addEventListener(eventName, listener)
-if not R then R = RN end
+
     if eventName == "enterFrame" then
 
 
         if type(listener) == "table" then
-            R.MainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
-            R.MainThread.startMainThread()
+            RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
+            RNMainThread.startMainThread()
         end
 
         if type(listener) == "function" then
-            R.MainThread.getMainThread():addEnterFrame(listener)
-            R.MainThread.startMainThread()
+            RNMainThread.getMainThread():addEnterFrame(listener)
+            RNMainThread.startMainThread()
         end
 
     elseif eventName == "touch" then
-        R.InputManager.addGlobalListenerToEvent(eventName, listener)
+        RNInputManager.addGlobalListenerToEvent(eventName, listener)
     end
 end
 
@@ -50,5 +49,4 @@ function RNRuntime:removeEventListener(eventname, func)
 end
 
 
-local RNListeners = RNRuntime:new()
-return RNListeners
+RNListeners = RNRuntime:new()

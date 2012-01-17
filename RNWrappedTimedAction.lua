@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,14 +10,13 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local RNWrappedTimedAction = {}
+RNWrappedTimedAction = {}
+require"socket"
 
-local R
+
 function RNWrappedTimedAction:new(o)
-if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -42,12 +41,12 @@ function RNWrappedTimedAction:isToCall()
     end
 
     if self.lastTimeCheck == 0 then
-        self.lastTimeCheck = R.socket.gettime() * 1000
+        self.lastTimeCheck = socket.gettime() * 1000
     end
 
 
-    if R.socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
-        self.lastTimeCheck = R.socket.gettime() * 1000
+    if socket.gettime() * 1000 - self.lastTimeCheck > self.delay then
+        self.lastTimeCheck = socket.gettime() * 1000
         return true
     else
         return false
@@ -90,10 +89,8 @@ function RNWrappedTimedAction:call()
 		if  self.arg then
 			func ( unpack ( self.arg ))
 		else
-			func ()
+        func()
 		end
     end
     self.exectuions = self.exectuions + 1
 end
-
-return RNWrappedTimedAction

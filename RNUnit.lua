@@ -1,6 +1,19 @@
-local RNUnit = {}
+--[[
+--
+-- RapaNui
+--
+-- by Ymobe ltd  (http://ymobe.co.uk)
+--
+-- LICENSE:
+--
+-- RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
+-- CPAL is an Open Source Initiative approved
+-- license based on the Mozilla Public License, with the added requirement that you attribute
+-- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
+]]
+module(..., package.seeall)
 
-function RNUnit.assertEquals(expected, actual, message)
+function assertEquals(expected, actual, message)
 
     local fullMessage = "expected and actual are different"
 
@@ -27,7 +40,7 @@ function RNUnit.assertEquals(expected, actual, message)
     assert(actual == expected, fullMessage)
 end
 
-function RNUnit.assertNil(actual, message)
+function assertNil(actual, message)
 
     local fullMessage = "actual should be nil"
 
@@ -37,7 +50,7 @@ function RNUnit.assertNil(actual, message)
     assert(actual == nil, fullMessage)
 end
 
-function RNUnit.assertNotNil(actual, message)
+function assertNotNil(actual, message)
 
     local fullMessage = "actual should not be nil"
 

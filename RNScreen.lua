@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,17 +10,16 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local RNScreen = {}
+RNScreen = {}
 
 function RNScreen:new(o)
 
     o = o or {
         name = "",
         sprites = {},
-        numSprites=0,
+        numSprites = 0,
         width = 0,
         height = 0,
         spriteIndex = 0,
@@ -44,12 +43,12 @@ function RNScreen:setName(name)
     self.name = name
 end
 
-function RNScreen:initWith(width, height, SW, SH)
-    self.width = width
-    self.height = height
+function RNScreen:initWith(PW, PH, SW, SH)
+    self.width = PW
+    self.height = PH
     self.viewport = MOAIViewport.new()
     self.viewport:setSize( SW, SH)
-    self.viewport:setScale(width, -height)
+    self.viewport:setScale(PW, -PH)
     self.viewport:setOffset(-1, 1)
     self.layer = MOAILayer2D.new()
     self.layer:setViewport(self.viewport)
@@ -64,7 +63,7 @@ function RNScreen:addRNObject(object, mode)
 
     --self.images[self.images_size] = object
 
-   -- self.images_size = self.images_size + 1
+    -- self.images_size = self.images_size + 1
 
     object:setLocatingMode(mode)
     self.layer:insertProp(object:getProp())
@@ -79,27 +78,24 @@ end
 
 function RNScreen:removeRNObject(object)
     self.layer:removeProp(object:getProp())
-    id=object.idInScreen
+    id = object.idInScreen
     len = table.getn(self.sprites)
     ind = id
     for i = 1, len, 1 do
         if (i == ind) then
             for k = ind + 1, len, 1 do
-				self.sprites[k - 1] = self.sprites[k]
-				self.sprites[k].idInScreen = k - 1
-			end
+                self.sprites[k - 1] = self.sprites[k]
+                self.sprites[k].idInScreen = k - 1
+            end
             self.sprites[len] = nil
         end
     end
     --refresh other objects id
     for i, v in ipairs(self.sprites) do v.idInScreen = i end
     --
-    self.numSprites=table.getn(self.sprites)
-     
+    self.numSprites = table.getn(self.sprites)
 end
 
 function RNScreen:getImages()
     return self.images
 end
-
-return RNScreen

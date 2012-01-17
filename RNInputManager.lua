@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,30 +10,34 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
+
+module(..., package.seeall)
+require("RNUtil")
+require("RNEvent")
+require("RNWrappedEventListener")
 
 -- types of touches:
 
 -- TOUCH_DOWN
--- TOUCHMOVE
+-- TOUCH_MOVE
 -- TOUCH_UP
 -- TOUCH_CANCEL
 
 
-local CURRENT_TARGET_LEVEL_DEFAULT = 99999999999999
-local CURRENT_TARGET_LEVEL = CURRENT_TARGET_LEVEL_DEFAULT
+CURRENT_TARGET_LEVEL_DEFAULT = 99999999999999
+CURRENT_TARGET_LEVEL = CURRENT_TARGET_LEVEL_DEFAULT
 
-local RNInputManager = {}
 
-local DRAGGING = false
-local DRAGGED_TARGET_LISTENER = nil
-local LAST_xSTART = nil
-local LAST_ySTART = nil
-local isTOUCHING = false
-local layer
-local R
+
+DRAGGING = false
+DRAGGED_TARGET_LISTENER = nil
+LAST_xSTART = nil
+LAST_ySTART = nil
+isTOUCHING = false
+
 function RNInputManager:new(o)
+
     o = o or {
         name = "RNInputManager",
         listeners = {},
@@ -56,19 +60,19 @@ function RNInputManager:new(o)
     return o
 end
 
-local innerInputManager = RNInputManager:new()
+
+innerInputManager = RNInputManager:new()
 
 
-function RNInputManager.init()
-if not R then R = RN end
-layer = R.Factory.screen
+function init()
     if MOAIInputMgr.device.pointer then
         -- mouse input
-        MOAIInputMgr.device.pointer:setCallback(RNInputManager.onPointer)
-        MOAIInputMgr.device.mouseLeft:setCallback(RNInputManager.onClick)
+        MOAIInputMgr.device.pointer:setCallback(onPointer)
+        MOAIInputMgr.device.mouseLeft:setCallback(onClick)
     else
-        MOAIInputMgr.device.touch:setCallback(RNInputManager.onEvent)
+        MOAIInputMgr.device.touch:setCallback(onEvent)
     end
+
     RNInputManager.addListener(innerInputManager)
 end
 
@@ -92,7 +96,7 @@ function RNInputManager:setPointerY(y)
 end
 
 
-function RNInputManager.setGlobalRNScreen(RNScreen)
+function setGlobalRNScreen(RNScreen)
     innerInputManager:setScreen(RNScreen)
 end
 
@@ -107,16 +111,16 @@ function RNInputManager:getScreen()
 end
 
 
-function RNInputManager.addListener(listener)
+function addListener(listener)
     innerInputManager:addListenerToList(listener)
 end
 
 
-function RNInputManager.addListenerToEvent(eventName, func, object)
+function addListenerToEvent(eventName, func, object)
     innerInputManager:innerAddListenerToEvent(eventName, func, object)
 end
 
-function RNInputManager.addGlobalListenerToEvent(eventName, func, object)
+function addGlobalListenerToEvent(eventName, func, object)
     innerInputManager:innerAddGlobalListenerToEvent(eventName, func)
 end
 
@@ -131,11 +135,12 @@ end
 
 
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
+
     local listeners = self.events[eventName]
 
     if listeners ~= nil then
         local listenrsSize = self.eventsSize[eventName]
-        local aListener = R.WrappedEventListener:new()
+        local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
         aListener:setTarget(object)
         listeners[listenrsSize] = aListener
@@ -144,10 +149,12 @@ function RNInputManager:innerAddListenerToEvent(eventName, func, object)
 end
 
 function RNInputManager:innerAddGlobalListenerToEvent(eventName, func)
+
     local globallisteners = self.globalevents[eventName]
+
     if globallisteners ~= nil then
         local globallistenrsSize = self.globaleventsSize[eventName]
-        local aListener = R.WrappedEventListener:new()
+        local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
         globallisteners[globallistenrsSize] = aListener
         self.globaleventsSize[eventName] = globallistenrsSize + 1
@@ -164,46 +171,46 @@ function RNInputManager:getListeners()
     return self.listeners
 end
 
-function RNInputManager.onPointer(x, y)
+function onPointer(x, y)
     innerInputManager:setPointerX(x)
     innerInputManager:setPointerY(y)
     if isTOUCHING == true then
-        RNInputManager.onEvent(MOAITouchSensor.TOUCHMOVE, -1, x, y, 0)
+        onEvent(MOAITouchSensor.TOUCH_MOVE, -1, x, y, 0)
     end
 end
 
 
-function RNInputManager.onClick(down)
+function onClick(down)
     if down then
         local x = innerInputManager:getPointerX()
         local y = innerInputManager:getPointerY()
-        RNInputManager.onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
+        onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
         isTOUCHING = true
     else
         local x = innerInputManager:getPointerX()
         local y = innerInputManager:getPointerY()
-        RNInputManager.onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
+        onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
         isTOUCHING = false
     end
 end
 
 
-function RNInputManager.setOnTouchDown(func)
+function setOnTouchDown(func)
     innerInputManager:setGlobalOnTouchDown(func)
 end
 
 
-function RNInputManager.setOnTouchMove(func)
+function setOnTouchMove(func)
     innerInputManager:setGlobalOnTouchMove(func)
 end
 
 
-function RNInputManager.setOnTouchUp(func)
+function setOnTouchUp(func)
     innerInputManager:setGlobalOnTouchUp(func)
 end
 
 
-function RNInputManager.setOnTouchCancel(func)
+function setOnTouchCancel(func)
     innerInputManager:setGlobalOnTouchCancel(func)
 end
 
@@ -274,12 +281,12 @@ function RNInputManager:onTouchCancel(x, y, source)
     end
 end
 
-local prev = {}
 
-function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
-    local event = R.Event:new()
 
-    local x, y = layer.layer:wndToWorld ( x, y )
+function onEvent(eventType, idx, x, y, tapCount)
+    local event = RNEvent:new()
+
+    local x, y = RNFactory.screen.layer:wndToWorld ( x, y )
     event.x, event.y = x, y
 
     local listeners
@@ -302,6 +309,7 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
     end
 
     if (eventType == MOAITouchSensor.TOUCH_UP) then
+
         event.phase = "ended"
 		event.down = false
         event.xStart = LAST_xSTART
@@ -330,8 +338,6 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
                 event.target = value:getTarget()
                 lastLevelValue = value:getTarget():getLevel()
                 lastlistener = value
-                prev.target = event.target
-               --prev.target.awake = false --temp fix
             end
         end
 
@@ -362,9 +368,13 @@ function RNInputManager.onEvent(eventType, idx, x, y, tapCount)
             local breakHere = value:call(event)
         end
     end
-    if event.phase == "ended" and prev.target then
-       prev.target.awake = true
-       prev.target = nil
-    end
+    if event.target and event.target.physicObject then
+    	if event.phase == "ended" then
+			event.target.awake = true
+    	else
+			event.target.awake = false
+		end
+	end
 end
-return RNInputManager
+
+RNInputManager.init()

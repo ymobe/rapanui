@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,16 +10,18 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
+
+require("RNWrappedTimedAction")
+require("RNUtil")
+
+
 RNThread = {}
 
-local thread = MOAIThread.new()
+thread = MOAIThread.new()
 
-local main_thread_started = false
-local R
+main_thread_started = false
 function RNThread:new(o)
-	if not R then R = RN end
     o = o or {
         name = ""
     }
@@ -32,21 +34,18 @@ end
 
 
 
-function RNThread:runFunction(delay, func, iterations, arg)
-if not R then R = RN end
-    local wrappedTimedAction = R.WrappedTimedAction:new()
+function RNThread:runFunction(delay, func, iterations)
+    local wrappedTimedAction = RNWrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction:setDelay(delay)
     wrappedTimedAction:setIterations(iterations)
-    wrappedTimedAction:setArg(arg)
 
     self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
 end
 
 function RNThread:addEnterFrame(func, source)
-	if not R then R = RN end
-    local wrappedTimedAction = R.WrappedTimedAction:new()
+    local wrappedTimedAction = RNWrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
     wrappedTimedAction.event = {}
     wrappedTimedAction.event.source = source
@@ -76,4 +75,3 @@ function RNThread:start()
     end
 end
 
-return RNThread

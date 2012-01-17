@@ -15,7 +15,7 @@
 local M = {}
 
 local landscape = true
-local device = "iPad" 
+local device = "iPadreal" 
 
 
 local sizes = {}

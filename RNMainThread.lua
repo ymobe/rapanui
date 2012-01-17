@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,28 +10,29 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-local M = {}
-local rnThread = RNThread:new()
+]]
 
-function M.addTimedAction(delay, func, iterations, ...)
-local iterations = iterations
-if not iterations then iterations = 1 end 
-    rnThread:runFunction(delay, func, iterations, arg)
+module(..., package.seeall)
+
+require("RNThread")
+
+rnThread = RNThread:new()
+
+function addTimedAction(delay, func, iterations)
+    rnThread:runFunction(delay, func, iterations)
     rnThread:start()
 end
 
-function M.getMainThread()
+function getMainThread()
     return rnThread
 end
 
-function M.startMainThread()
+function startMainThread()
     rnThread:start()
 end
 
 
-function M.performWithDelay ( delay, func, repeats, ... )
+function performWithDelay ( delay, func, repeats, ... )
   local t = MOAITimer.new ()
   t:setSpan (delay/100)
   t:setListener ( MOAITimer.EVENT_TIMER_LOOP,
@@ -50,6 +51,3 @@ function M.performWithDelay ( delay, func, repeats, ... )
   )
   t:start ()
 end
-
-
-return M

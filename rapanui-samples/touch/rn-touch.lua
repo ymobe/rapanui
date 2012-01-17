@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,15 +10,14 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-local R = RN
-sprite1 = R.Factory.createImage("RN/images/tile1.png")
+]]
 
-back = R.Factory.createImage("RN/images/background-purple.png")
+sprite1 = RNFactory.createImage("images/tile1.png")
+
+back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
-local w, h = R.Factory.stageWidth, R.Factory.stageHeight
+local w, h = RNFactory.stageWidth, RNFactory.stageHeight
 
 function onTouchEvent(event)
 
@@ -33,4 +32,4 @@ function onTouchEvent(event)
     end
 end
 
- R.Listeners:addEventListener("touch", onTouchEvent)
+RNListeners:addEventListener("touch", onTouchEvent)

@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,8 +10,7 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 -- tiles by Daniel Cook (http://www.lostgarden.com)
 
@@ -21,14 +20,14 @@ require("RNMapLayer")
 require("RNMapObject")
 require("RNMapObjectGroup")
 require("RNMapTileset")
+require("RNUtil")
 
 
-
-map = RNMapFactory.loadMap(RNMapFactory.TILED, "RN/rapanui-samples/maps/demomap.tmx")
+map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/demomap.tmx")
 
 aTileset = map:getTileset(0)
 
-aTileset:updateImageSource("RN/rapanui-samples/maps/tilesetdemo.png")
+aTileset:updateImageSource("rapanui-samples/maps/tilesetdemo.png")
 
 for i = 0, 6 do
     aTile = aTileset:getTileImage(i)

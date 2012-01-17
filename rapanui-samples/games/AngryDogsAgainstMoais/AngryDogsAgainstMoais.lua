@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,13 +10,10 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 -- Angry Dogs Against Moais!
 -- start simulation
-
-local R = RN
-R.Physics.start()
+RNPhysics.start()
 
 
 --global vars
@@ -24,17 +21,17 @@ canMove = false
 lastx = 0
 moaisDestroyed = 0
 shots = 0
-startX=0
-startY=0
+startX = 0
+startY = 0
 
 --groups
-gameGroup = R.Group:new()
+gameGroup = RNGroup:new()
 gameGroup.x = 0; gameGroup.y = 0;
 
 
 --create images
-background = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/grass.png")
-bounding = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/grass.png"); bounding.x = 0; bounding.y = 0;
+background = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/grass.png")
+bounding = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/grass.png"); bounding.x = 0; bounding.y = 0;
 gameGroup:insert(background)
 gameGroup:insert(bounding)
 
@@ -44,7 +41,7 @@ fixture1 = { shape = { -50, -50, 0, -50, 0, 530, -50, 530 }, friction = 1 }
 fixture2 = { shape = { 320 + 3000, -50, 370 + 3000, -50, 370 + 3000, 530, 320 + 3000, 530 }, friction = 1 }
 fixture3 = { shape = { -50, 480, 370 + 3000, 480, 370 + 3000, 530, -50, 530 }, friction = 1 }
 fixture4 = { shape = { -50, -50, 370 + 3000, -50, 370 + 3000, 0, -50, 0 }, friction = 1 }
-R.Physics.createBodyFromImage(bounding, "static", fixture1, fixture2, fixture3, fixture4)
+RNPhysics.createBodyFromImage(bounding, "static", fixture1, fixture2, fixture3, fixture4)
 bounding.visible = false
 
 --local collision handling of moais objects
@@ -63,30 +60,30 @@ end
 
 function create_level()
     --creating dog
-    dog = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/dog.png"); dog.x = 100; dog.y = 400;
-    R.Physics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
+    dog = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/dog.png"); dog.x = 100; dog.y = 400;
+    RNPhysics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
     gameGroup:insert(dog)
     dog.name = "dog"
     lastx = dog.x
     --starting obstacle
-    local obstacle = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+    local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
     obstacle.x = 100; obstacle.y = 500; obstacle.rotation = 90
-    R.Physics.createBodyFromImage(obstacle, "static")
+    RNPhysics.createBodyFromImage(obstacle, "static")
     gameGroup:insert(obstacle)
     obstacle.name = "obstacle"
     --creating obstacles
     for j = 1, 3, 1 do
         for i = 1, 3, 1 do
-            local obstacle = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+            local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
             obstacle.x = 1000 + i * 100; obstacle.y = 500 - j * 130; obstacle.rotation = 90
-            R.Physics.createBodyFromImage(obstacle, { density = 1 })
+            RNPhysics.createBodyFromImage(obstacle, { density = 1 })
             gameGroup:insert(obstacle)
             obstacle.name = "obstacle"
         end
         for i = 1, 2, 1 do
-            local obstacle = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+            local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
             obstacle.x = 1050 + i * 100; obstacle.y = 440 - j * 130; obstacle.rotation = 0
-            R.Physics.createBodyFromImage(obstacle, { density = 1 })
+            RNPhysics.createBodyFromImage(obstacle, { density = 1 })
             gameGroup:insert(obstacle)
             obstacle.name = "obstacle"
         end
@@ -94,9 +91,9 @@ function create_level()
     --creating moais
     for j = 1, 3, 1 do
         for i = 1, 2, 1 do
-            local moais = R.Factory.createAnim("RN/RapaNui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 0.5, 0.5);
+            local moais = RNFactory.createAnim("RapaNui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 0.5, 0.5);
             moais.x = 1050 + i * 100; moais.y = 500 - j * 130; moais.rotation = 0
-            R.Physics.createBodyFromImage(moais, { shape = { -18, -30, 18, -30, 18, 30, -18, 30 }, restitution = 0.4, density = 0.1 })
+            RNPhysics.createBodyFromImage(moais, { shape = { -18, -30, 18, -30, 18, 30, -18, 30 }, restitution = 0.4, density = 0.1 })
             gameGroup:insert(moais)
             moais.collision = onMoaiCollide
             moais:addEventListener("collision")
@@ -105,13 +102,13 @@ function create_level()
     end
 
     --create texts
-    label = R.Factory.createText("Shots: ", { size = 10, top = 420, left = -60, width = 200, height = 50 })
-    score = R.Factory.createText("0", { size = 10, top = 420, left = 100, width = 30, height = 50 })
-    label2 = R.Factory.createText("Moais Destroyed: ", { size = 10, top = 440, left = -50, width = 300, height = 50 })
-    lev = R.Factory.createText("0", { size = 10, top = 440, left = 200, width = 30, height = 50 })
+    label = RNFactory.createText("Shots: ", { size = 10, top = 420, left = -60, width = 200, height = 50 })
+    score = RNFactory.createText("0", { size = 10, top = 420, left = 100, width = 30, height = 50 })
+    label2 = RNFactory.createText("Moais Destroyed: ", { size = 10, top = 440, left = -50, width = 300, height = 50 })
+    lev = RNFactory.createText("0", { size = 10, top = 440, left = 200, width = 30, height = 50 })
 
     --create restart button
-    button = R.Factory.createImage("RN/RapaNui-samples/games/AngryDogsAgainstMoais/restButt.png"); button.x = 160;
+    button = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/restButt.png"); button.x = 160;
 end
 
 
@@ -125,42 +122,41 @@ end
 
 --handling touch
 function screen_touch(event)
-local xx = event.x
-local yy = event.y
-local fx = event.x - dog.x
-local fy = event.y - dog.y
-local distance
+    local xx = event.x
+    local yy = event.y
+    local fx = event.x - dog.x
+    local fy = event.y - dog.y
+    local distance
 
 
-if event.phase=="began" then
-	--restart button
-    if (event.y < 50) then
-        relocateBall()
-        removeAll()
-        create_level()
+    if event.phase == "began" then
+        --restart button
+        if (event.y < 50) then
+            relocateBall()
+            removeAll()
+            create_level()
+        end
+        --sets the starting touch point
+        if event.y > 50 then
+            startX = event.x
+            startY = event.y
+            print("got start point, now drag and drop")
+        end
     end
-    --sets the starting touch point
-	if event.y>50 then
-	startX=event.x
-	startY=event.y
-	print("got start point, now drag and drop")
-	end
-    
-end
-if event.phase=="ended" then
-	--shot the dog
-	print("drop received, shooting...go dog, go!")
-    distance = math.sqrt(math.pow(event.x - startX, 2) + math.pow(event.y - startY, 2))
-    if canMove == true then
-        dog:applyForce(fx * 2000, fy * 2000, dog.x, dog.y)
-        shots = shots + 1
-        score:setText("" .. shots)
+    if event.phase == "ended" then
+        --shot the dog
+        print("drop received, shooting...go dog, go!")
+        distance = math.sqrt(math.pow(event.x - startX, 2) + math.pow(event.y - startY, 2))
+        if canMove == true then
+            dog:applyForce(fx * 2000, fy * 2000, dog.x, dog.y)
+            shots = shots + 1
+            score:setText("" .. shots)
+        end
     end
-end
 end
 
 --add touch listener
-R.Listeners:addEventListener("touch", screen_touch)
+RNListeners:addEventListener("touch", screen_touch)
 
 
 
@@ -209,12 +205,12 @@ function Step()
 end
 
 --add EnterFrame listener
-R.Listeners:addEventListener("enterFrame", Step)
+RNListeners:addEventListener("enterFrame", Step)
 
 
 
 --Debud Draw it if you want
---R.Physics.setDebugDraw(R.Factory.screen)
+--RNPhysics.setDebugDraw(RNFactory.screen)
 
 --bring the ball back to start
 function relocateBall()
@@ -234,7 +230,7 @@ end
 
 --remove only level objects
 function removeAll()
-    blist = R.Physics.getBodyList()
+    blist = RNPhysics.getBodyList()
     toRemoveList = {}
     for i = 1, table.getn(blist), 1 do
         print(blist[i].name)

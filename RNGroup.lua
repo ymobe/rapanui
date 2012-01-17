@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,10 +10,9 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
-local RNGroup = {}
+RNGroup = {}
 
 local function fieldChangedListener(self, key, value)
 
@@ -32,7 +31,7 @@ local function fieldChangedListener(self, key, value)
             deltax = -deltax
         end
 
-        for i = 1, self.numChildren,1 do
+        for i = 1, self.numChildren, 1 do
             local anObject = self.displayObjects[i]
             anObject.x = anObject.x + deltax
         end
@@ -51,7 +50,7 @@ local function fieldChangedListener(self, key, value)
             deltay = -deltay
         end
 
-        for i = 1, self.numChildren,1 do
+        for i = 1, self.numChildren, 1 do
             local anObject = self.displayObjects[i]
             anObject.y = anObject.y + deltay
         end
@@ -82,9 +81,7 @@ local function fieldAccessListener(self, key)
     return getmetatable(self).__object[key]
 end
 
-local R
 function RNGroup:new(o)
-if not R then R = RN end
     local displayobject = RNGroup:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     proxy.displayObjects = {}
@@ -142,16 +139,16 @@ function RNGroup:removeChild(id)
     for i = 1, len, 1 do
         if (i == ind) then
             for k = ind + 1, len, 1 do
-				self.displayObjects[k - 1] = self.displayObjects[k]
-				self.displayObjects[k].idInGroup = k - 1
-			end
+                self.displayObjects[k - 1] = self.displayObjects[k]
+                self.displayObjects[k].idInGroup = k - 1
+            end
             self.displayObjects[len] = nil
         end
     end
     --refresh other objects id
     for i, v in ipairs(self.displayObjects) do v.idInGroup = i end
     --
-    self.numChildren=table.getn(self.displayObjects)
+    self.numChildren = table.getn(self.displayObjects)
 end
 
 function RNGroup:inserLevel(level)
@@ -225,5 +222,3 @@ function RNGroup:getDelta01(a, b)
         return -1 * (b - a)
     end
 end
-
-return RNGroup

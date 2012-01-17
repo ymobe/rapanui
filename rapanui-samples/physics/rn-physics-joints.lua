@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,26 +10,25 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
+]]
 
 --Joint creation sample
 
 
 --add images
-background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
-box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 170; box.y = 80;
-ball = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball.x = 240; ball.y = 80;
-triangle = RNFactory.createImage("RapaNui-samples/physics/poly.png"); triangle.x = 80; triangle.y = 80; triangle.rotation = 190
-floor = RNFactory.createImage("RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
+background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
+box = RNFactory.createImage("rapanui-samples/physics/box.png"); box.x = 170; box.y = 80;
+ball = RNFactory.createImage("rapanui-samples/physics/ball.png"); ball.x = 240; ball.y = 80;
+triangle = RNFactory.createImage("rapanui-samples/physics/poly.png"); triangle.x = 80; triangle.y = 80; triangle.rotation = 190
+floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
 
 --starts simulation
 RNPhysics.start()
 
-tempJoint=nil
+tempJoint = nil
 --set images as physics objects
 RNPhysics.createBodyFromImage(box)
-RNPhysics.createBodyFromImage(ball, { shape = "circle"})
+RNPhysics.createBodyFromImage(ball, { shape = "circle" })
 RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
 RNPhysics.createBodyFromImage(floor, "static")
 box.restitution = 0.5
@@ -74,7 +73,11 @@ j7 = RNPhysics.createJoint("pulley", box, triangle, 100, 100, 200, 100, box:getX
 --j10= RNPhysics.createJoint("rope",box,triangle,10,box.x,box.y,triangle.x,triangle.y)
 
 --remove joint tutorial
-j1:remove()
+--Remove Join doesnt work, it throws an exception:
+--PANIC: unprotected error in call to Lua API (error loading module 'RNObject' from file './RNObject.lua':
+--	./RNObject.lua:880: ')' expected (to close '(' at line 879) near 'self')
+
+--j1:remove()
 
 
 
@@ -121,7 +124,7 @@ end
 
 RNListeners:addEventListener("touch",touchH)
 
-]]--
+]] --
 
 --[[
 

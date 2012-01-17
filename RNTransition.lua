@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+--[[
 --
 -- RapaNui
 --
@@ -10,15 +10,16 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
---
-------------------------------------------------------------------------------------------------------------------------
-local MOVE = "move"
-local ROTATE = "rotate"
-local SCALE = "scale"
-local ALPHA = "alpha"
+]]
+require("RNUtil")
+
+MOVE = "move"
+ROTATE = "rotate"
+SCALE = "scale"
+ALPHA = "alpha"
 
 -- Create a New Transition Object
-local RNTransition = {}
+RNTransition = {}
 
 function RNTransition:new(o)
     o = o or {
@@ -29,7 +30,7 @@ function RNTransition:new(o)
     return o
 end
 
-local mainSprite = nil
+mainSprite = nil
 
 function RNTransition:run(target, params)
 
@@ -67,13 +68,13 @@ function RNTransition:run(target, params)
     end
 
     if (params.time ~= nil) then
-        time = params.time *.001
+        time = params.time / 1000
     else
         time = 1
     end
 
     if (params.delay ~= nil) then
-        delay = params.delay *.001
+        delay = params.delay / 1000
     else
         delay = 0
     end
@@ -143,4 +144,3 @@ function RNTransition:getDelta(a, b)
         return b - a
     end
 end
-return RNTransition

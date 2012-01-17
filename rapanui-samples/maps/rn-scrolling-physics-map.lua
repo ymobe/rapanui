@@ -33,12 +33,12 @@ require("RNMapTileset")
 require("RNUtil")
 require("socket")
 
---socket.gettime()
+-- start physic simulation
 
-local background = RNFactory.createImage("rapanui-samples/maps/platformbck.png")
-background:setLevel(-1)
+RNPhysics.start()
 
-local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platformmap.tmx")
+
+local map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/platformmapphysics.tmx")
 
 aTileset = map:getTileset(0)
 
@@ -48,10 +48,6 @@ local layersSize = map:getLayersSize()
 
 tilesCreated = 0
 map:drawMapAt(0, 0, aTileset)
-
-
-aLayer = map:getFirstLayerByName("platforms")
---aLayer:printToAscii()
 
 
 local lastx = 0
@@ -65,11 +61,15 @@ print(intervalForFps)
 local currentTime = socket.gettime()
 local diff = currentTime - lastTime
 
+
+
+
+
 function update(enterFrame)
     currentTime = socket.gettime()
     diff = currentTime - lastTime
     if diff >= intervalForFps then
-        map:drawMapAt(lastx, 0, 0, aTileset)
+        map:drawMapAt(lastx, 0, aTileset)
         lastx = lastx + delta
 
         if lastx <= -1280 then
@@ -84,3 +84,8 @@ function update(enterFrame)
 end
 
 RNListeners:addEventListener("enterFrame", update)
+
+
+
+--Debug Draw if you want
+--RNPhysics.setDebugDraw(RNFactory.screen)

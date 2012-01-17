@@ -13,6 +13,11 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
+
+module(..., package.seeall)
+
+
+
 local function fieldChangedListener(self, key, value)
 
     getmetatable(self).__object[key] = value
@@ -150,11 +155,9 @@ end
 
 -- Create a new proxy 
 
-local RNBody = {}
-local R
+
 function RNBody:new(o)
-	if not R then R = RN end
-    local physicObject = R.Body:innerNew(o)
+    local physicObject = RNBody:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = physicObject })
     return proxy, physicObject
 end
@@ -253,7 +256,7 @@ function RNBody:addEventListener(Type)
 
             --sets the fixture for callbacks
             currentfixture = flist[i].fixture
-            currentfixture:setCollisionHandler(R.Physics.LocalCollisionHandling, MOAIBox2DArbiter.ALL)
+            currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, MOAIBox2DArbiter.ALL)
         end
     end
 end
@@ -501,5 +504,3 @@ function RNBody:setMassData(mass,I,centerX,centerY )
 	    self.body:setMassData(mass)
 	end
 end
-
-return RNBody

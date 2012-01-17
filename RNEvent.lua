@@ -13,7 +13,7 @@
 --
 ------------------------------------------------------------------------------------------------------------------------
 
-local RNEvent = {}
+RNEvent = {}
 
 function RNEvent:new(o)
     o = o or {
@@ -26,5 +26,3 @@ function RNEvent:new(o)
     self.phase = ""
     return o
 end
-
-return RNEvent

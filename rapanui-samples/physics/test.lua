@@ -1,13 +1,13 @@
 --- -sets the sprites
-background = RNFactory.createImage("RapaNui-samples/physics/background-purple.png")
-box = RNFactory.createImage("RapaNui-samples/physics/box.png"); box.x = 160; box.y = 80;
-ball = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball.x = 210; ball.y = 0;
-ball2 = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball2.x = 150; ball2.y = 0;
-poly = RNFactory.createImage("RapaNui-samples/physics/poly.png"); poly.x = 100; poly.y = 0;
-bpoly = RNFactory.createImage("RapaNui-samples/physics/poly.png"); bpoly.x = 210; bpoly.y = -100;
-floor = RNFactory.createImage("RapaNui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
-box2 = RNFactory.createImage("RapaNui-samples/physics/box.png"); box2.x = 50; box2.y = 400;
-ball3 = RNFactory.createImage("RapaNui-samples/physics/ball.png"); ball3.x = 10; ball3.y = -60;
+background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
+box = RNFactory.createImage("rapanui-samples/physics/box.png"); box.x = 160; box.y = 80;
+ball = RNFactory.createImage("rapanui-samples/physics/ball.png"); ball.x = 210; ball.y = 0;
+ball2 = RNFactory.createImage("rapanui-samples/physics/ball.png"); ball2.x = 150; ball2.y = 0;
+poly = RNFactory.createImage("rapanui-samples/physics/poly.png"); poly.x = 100; poly.y = 0;
+bpoly = RNFactory.createImage("rapanui-samples/physics/poly.png"); bpoly.x = 210; bpoly.y = -100;
+floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 160; floor.y = 400;
+box2 = RNFactory.createImage("rapanui-samples/physics/box.png"); box2.x = 50; box2.y = 400;
+ball3 = RNFactory.createImage("rapanui-samples/physics/ball.png"); ball3.x = 10; ball3.y = -60;
 ----- setting up the physic world
 
 RNPhysics.start()
