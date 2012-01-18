@@ -41,6 +41,10 @@ local function fieldChangedListener(self, key, value)
     if key ~= nil and key == "filter" then
         self:setFilter(value)
     end
+    if key ~= nil and key == "name" then
+        self.name=value
+        self.pe_fixture_id=value
+    end
 
 end
 

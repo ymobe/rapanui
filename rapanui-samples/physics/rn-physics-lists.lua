@@ -103,6 +103,13 @@ print(joint.joint)
 --since it is a complex body, we should use something like
 floor.fixture[2].sensor = true
 
+--accessing fixtures (a better way to)
+box.fixture[1].name="testFixture"
+--get name from fixture
+print(box.fixture[1].name)
+--get fixture from name
+print(box:getFixtureByName("testFixture"))
+
 
 --[[
 
