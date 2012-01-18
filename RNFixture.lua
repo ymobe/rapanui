@@ -120,7 +120,7 @@ function RNFixture:setDensity(value)
 end
 
 function RNFixture:setFilter(value)
-    --value should be a table {categoryBits,maskBitsgroupIndex}
+    --value should be a table {categoryBits,maskBits,groupIndex}
     if self.fixture ~= nil then self.fixture:setFilter(value) end
 end
 
