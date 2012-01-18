@@ -107,8 +107,8 @@ floor.fixture[2].sensor = true
 box.fixture[1].name="testFixture"
 --get name from fixture
 print(box.fixture[1].name)
---get fixture from name
-print(box:getFixtureByName("testFixture"))
+--get fixture list from name (a table with all the fixture with the given name is returned)
+print(box:getFixtureListByName("testFixture")[1])
 
 
 --[[

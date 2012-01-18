@@ -1243,10 +1243,12 @@ function RNObject:setMassData(mass, I, centerX, centerY)
 end
 
 -- getting fixture method
-function RNObject:getFixtureByName(name)
+function RNObject:getFixtureListByName(name)
+    local tmpFixtureList={}
     for i,v in ipairs(self.fixture) do
         if name==v.name then
-            return self.fixture[i]
+            tmpFixtureList[table.getn(tmpFixtureList)+1]=v
         end
     end
+    return tmpFixtureList
 end
