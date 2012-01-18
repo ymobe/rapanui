@@ -1241,3 +1241,12 @@ function RNObject:setMassData(mass, I, centerX, centerY)
         self.physicObject:setMassData(mass)
     end
 end
+
+-- getting fixture method
+function RNObject:getFixtureByName(name)
+    for i,v in ipairs(self.fixture) do
+        if name==v.name then
+            return self.fixture[i]
+        end
+    end
+end
