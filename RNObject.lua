@@ -1,3 +1,5 @@
+--- This is the core object of the RapaNui framework. It wraps Moai props2d and chanche the UV maps so the orgin 0,0 of screen is on TOP LEFT
+-- @author Stefano Linguerri
 --[[
 --
 -- RapaNui
@@ -12,7 +14,6 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ]]
-
 require("RNInputManager")
 require("RNUtil")
 
@@ -21,7 +22,6 @@ TOP_LEFT_MODE = 1
 CENTERED_MODE = 2
 
 RNObject = {}
-
 
 local function fieldChangedListener(self, key, value)
 
@@ -276,7 +276,7 @@ end
 
 -- Create a new proxy for RNObject Object
 
-
+--- Create a new RNObject
 function RNObject:new(o)
     local displayobject = RNObject:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
@@ -452,6 +452,8 @@ function RNObject:loadCopyRect(src, params)
 end
 
 
+--- Initializes the object with the given image path
+-- @param image the path of the image to use
 function RNObject:initWith(image)
     self.visible = true
     self.childrenSize = 0
@@ -978,13 +980,29 @@ function RNObject:isInRange(x, y)
     return false
 end
 
-function RNObject:onTouchDown(x, y, source)
+function RNObject:isListening()
+    return self.onTouchDownListener ~= nil or self.onTouchMoveListener ~= nil or self.onTouchUpListener ~= nil or self.onTouchDownListener ~= nil
+end
 
-    x = x + self.originalWidth / 2
-    y = y + self.originalHeight / 2
+function RNObject:onEvent(event)
 
-    if self.visible and self.onTouchDownListener ~= nil and x >= self.x and x <= self.x + self.originalWidth and y >= self.y and y <= self.y + self.originalHeight then
-        self.onTouchDownListener(x, y, source)
+    if event.phase == "began" and self.visible and self.onTouchDownListener ~= nil then
+        self.onTouchDownListener(event)
+        return true
+    end
+
+    if event.phase == "moved" and self.visible and self.onTouchMoveListener ~= nil then
+        self.onTouchMoveListener(event)
+        return true
+    end
+
+    if event.phase == "ended" and self.visible and self.onTouchUpListener ~= nil then
+        self.onTouchUpListener(event)
+        return true
+    end
+
+    if event.phase == "cancelled" and self.visible and self.onTouchUpListener ~= nil then
+        self.onTouchUpListener(event)
         return true
     end
 end
@@ -1015,13 +1033,15 @@ function RNObject:setOnTouchDown(func)
 end
 
 function RNObject:setOnTouchMove(func)
+    self.onTouchMoveListener = func
 end
 
 function RNObject:setOnTouchUp(func)
-    self.onOnTouchUpListener = func
+    self.onTouchUpListener = func
 end
 
 function RNObject:setOnTouchCancel(func)
+    self.onTouchCancelListener = func
 end
 
 function RNObject:getTranslatedLocation(x, y)

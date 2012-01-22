@@ -12,6 +12,13 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
+--MOAIDebugLines.setStyle ( MOAIDebugLines.PARTITION_CELLS, 2, 1, 1, 1 )
+--MOAIDebugLines.setStyle ( MOAIDebugLines.PARTITION_PADDED_CELLS, 1, 0.5, 0.5, 0.5 )
+--MOAIDebugLines.setStyle ( MOAIDebugLines.PROP_WORLD_BOUNDS, 2, 0.75, 0.75, 0.75 )
+
+
+
+
 require("RNUtil")
 require("RNThread")
 require("RNGroup")
@@ -55,6 +62,7 @@ require("RNDirector")
 -- Touch
 
 --require("rapanui-samples/touch/rn-touch")
+require("rapanui-samples/touch/rn-touch-buttons")
 
 -- RapaNui Physics demos:
 
@@ -81,7 +89,7 @@ require("RNDirector")
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
-require("rapanui-samples/maps/rn-scrolling-map")
+--require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
 --require("rapanui-samples/maps/rn-physics-map")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")

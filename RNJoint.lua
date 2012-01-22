@@ -307,9 +307,9 @@ end
 
 
 
--- Physics Joint Methods
+------------------------- Physics Joint Methods----------------------------
 
--- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
+--- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
 function RNJoint:getJointAngle()
     if self.type == "pivot" then
         return self.joint:getJointAngle()
@@ -577,6 +577,8 @@ function RNJoint:setTarget(xx, yy)
 end
 
 
+
+------------------------ remove-----------------------------------------------------------
 function RNJoint:remove()
 
     self.joint:destroy()

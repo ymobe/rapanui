@@ -44,6 +44,8 @@ groups_size = 0
 
 mainGroup = RNGroup:new()
 
+
+
 stageWidth = 0
 stageHeight = 0
 
