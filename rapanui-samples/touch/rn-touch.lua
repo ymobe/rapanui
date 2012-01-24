@@ -20,7 +20,6 @@ back:sendToBottom()
 local w, h = RNFactory.stageWidth, RNFactory.stageHeight
 
 function onTouchEvent(event)
-
     if event.phase == "began" then
         sprite1.x = event.x
         sprite1.y = event.y

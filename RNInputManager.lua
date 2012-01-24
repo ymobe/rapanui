@@ -309,9 +309,14 @@ function onEvent(eventType, idx, x, y, tapCount)
         return
     end
 
+
+
+
+
     local target
 
     if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+        event.phase = "began"
         if currenTarget ~= nil then
             LAST_xSTART = x
             LAST_ySTART = y
@@ -323,6 +328,7 @@ function onEvent(eventType, idx, x, y, tapCount)
     end
 
     if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+        event.phase = "moved"
         if DRAGGED_TARGET ~= nil then
             event.target = DRAGGED_TARGET
             DRAGGED_TARGET:onEvent(event)
@@ -330,6 +336,7 @@ function onEvent(eventType, idx, x, y, tapCount)
     end
 
     if (eventType == MOAITouchSensor.TOUCH_UP) then
+        event.phase = "ended"
         if DRAGGED_TARGET ~= nil then
             event.xStart = LAST_xSTART
             event.yStart = LAST_ySTART
@@ -342,6 +349,7 @@ function onEvent(eventType, idx, x, y, tapCount)
     end
 
     if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+        event.phase = "cancelled"
         if DRAGGED_TARGET ~= nil then
             event.target = DRAGGED_TARGET
             DRAGGED_TARGET:onEvent(event)
