@@ -462,6 +462,7 @@ function RNObject:initWith(image)
     self:loadImage(image)
 end
 
+
 function RNObject:initWithMoaiImage(moaiImage)
     self.visible = true
     self.childrenSize = 0
@@ -541,9 +542,11 @@ function RNObject:setIDInGroup(id)
     self.idInGroup = id
 end
 
+
 function RNObject:setIDInScreen(id)
     self.idInScreen = id
 end
+
 
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
@@ -1038,6 +1041,11 @@ end
 function RNObject:setParentGroup(group)
     self.parentGroup = group
 end
+
+function RNObject:getType()
+    return "RNObject"
+end
+
 
 function RNObject:setAllFixture(field, value)
 

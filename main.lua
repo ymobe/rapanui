@@ -31,7 +31,7 @@ require("RNDirector")
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -54,7 +54,8 @@ require("RNDirector")
 
 -- Touch
 
-require("rapanui-samples/touch/rn-touch")
+--require("rapanui-samples/touch/rn-touch-buttons")
+--require("rapanui-samples/touch/rn-touch")
 
 -- RapaNui Physics demos:
 
@@ -88,3 +89,4 @@ require("rapanui-samples/touch/rn-touch")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+

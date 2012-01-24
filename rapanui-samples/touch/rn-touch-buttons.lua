@@ -17,7 +17,6 @@ text = RNFactory.createText("Touch on buttons", { size = 9, top = 400, left = 5,
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
-
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
 buttonTwo = RNFactory.createImage("images/tile2.png", { top = 50, left = 150 })
 
@@ -32,7 +31,7 @@ function button1Moved(event)
 end
 
 function button1UP(event)
-    text:setText("Button one touchup")
+    text:setText("Button one touch up")
 end
 
 buttonOne:setOnTouchDown(button1TouchDown)
@@ -49,7 +48,7 @@ function button2Moved(event)
 end
 
 function button2Up(event)
-    text:setText("Button two touchup")
+    text:setText("Button two touch up")
 end
 
 buttonTwo:setOnTouchDown(button2TouchDown)
