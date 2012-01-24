@@ -305,7 +305,10 @@ function onEvent(eventType, idx, x, y, tapCount)
         end
     end
 
-    if currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil then
+    --check if the target has value and if has function isListening
+    if (currenTarget ~= nil and currenTarget.isListening == nil) or
+            -- or if currenTarget has a valid value and if is listening on at least one event
+            (currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil) then
         return
     end
 
