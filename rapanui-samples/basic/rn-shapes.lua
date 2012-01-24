@@ -14,10 +14,14 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-anImage = RNFactory.createImage("images/image2.png")
+background:sendToBottom()
 
-anImage = RNFactory.createImage("images/image3.png", { top = 130, left = 130 })
+rect = RNFactory.createRect(20, 50, 70, 50, { rgb = { 190, 120, 190 } })
 
-anImage = RNFactory.createImage("images/image4.png", { top = 194, left = 194 })
+rect.rotation = 30
 
-anImage:setAlpha(0.5)
+circle = RNFactory.createCircle(0, 0, 30 ,{ rgb = { 100, 120, 100 } })
+
+circle.x = 50
+circle.y = 150
+circle:setAlpha(0.5)

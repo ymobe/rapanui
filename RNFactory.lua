@@ -298,3 +298,51 @@ function createText(text, params)
     mainGroup:insert(RNText)
     return RNText
 end
+
+function createRect(x, y, width, height, params)
+    local parentGroup, top, left
+    local rgb = { 225, 225, 225 }
+
+    if params then
+        parentGroup = params.parentGroup or mainGroups
+        rgb = params.rgb or rgb
+    end
+
+    local shape = RNObject:new()
+    shape:initWithRect(width, height, rgb)
+    screen:addRNObject(shape)
+    shape.x = shape.originalWidth * .5 + x
+    shape.y = shape.originalHeight * .5 + y
+    shape.rotation = 0
+
+    if parentGroup ~= nil then
+        parentGroup:insert(shape)
+    end
+    return shape
+end
+
+function createCircle(x, y, r, params)
+    local parentGroup, top, left
+    local rgb = { 225, 225, 225 }
+
+    if params then
+        if type(params) == "table" then
+            parentGroup = params.parentGroup or mainGroups
+            top = params.top or 0
+            left = params.left or 0
+            rgb = params.rgb or rgb
+        end
+    end
+
+    local shape = RNObject:new()
+    shape:initWithCircle(x, y, r, rgb)
+    screen:addRNObject(shape)
+    shape.x = x
+    shape.y = y
+    shape.rotation = 0
+
+    if parentGroup ~= nil then
+        parentGroup:insert(shape)
+    end
+    return shape
+end

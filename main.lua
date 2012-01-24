@@ -35,6 +35,7 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
+--require("rapanui-samples/basic/rn-shapes")
 
 -- Groups
 --require("rapanui-samples/groups/rn-groups")
