@@ -25,3 +25,22 @@ function RNEvent:new(o)
     self.phase = ""
     return o
 end
+
+function RNEvent:initWithEventType(eventType)
+
+    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+        self.phase = "began"
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+        self.phase = "moved"
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_UP) then
+        self.phase = "ended"
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+        self.phase = "cancelled"
+    end
+end

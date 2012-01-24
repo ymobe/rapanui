@@ -12,6 +12,8 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
+
+
 RNScreen = {}
 
 function RNScreen:new(o)
@@ -52,6 +54,12 @@ function RNScreen:initWith(width, height)
     self.viewport:setOffset(-1, 1)
     self.layer = MOAILayer2D.new()
     self.layer:setViewport(self.viewport)
+
+    self.mainPartition = MOAIPartition.new()
+
+    self.layer:setPartition(self.mainPartition)
+    self.layer:showDebugLines()
+
     MOAISim.pushRenderPass(self.layer)
 end
 
@@ -61,19 +69,19 @@ function RNScreen:addRNObject(object, mode)
         return
     end
 
-    --self.images[self.images_size] = object
-
-    -- self.images_size = self.images_size + 1
 
     object:setLocatingMode(mode)
-    self.layer:insertProp(object:getProp())
+
+    self.mainPartition:insertProp(object:getProp())
     object:setParentScene(self)
     object:updateLocation()
-    --self.sprites[self.spriteIndex] = object
-    --self.spriteIndex = self.spriteIndex + 1
+
     self.numSprites = self.numSprites + 1
     self.sprites[self.numSprites] = object
     object:setIDInScreen(self.numSprites)
+
+    object:getProp().rnObjectId = self.numSprites
+    print(object:getProp().rnObjectId)
 end
 
 function RNScreen:removeRNObject(object)
@@ -94,6 +102,18 @@ function RNScreen:removeRNObject(object)
     for i, v in ipairs(self.sprites) do v.idInScreen = i end
     --
     self.numSprites = table.getn(self.sprites)
+end
+
+function RNScreen:getPropWithHighestLevelOn(x, y)
+    return self.mainPartition:propForPoint(x, y)
+end
+
+function RNScreen:getRNObjectWithHighestLevelOn(x, y)
+    if self:getPropWithHighestLevelOn(x, y) ~= nil then
+        return self.sprites[self:getPropWithHighestLevelOn(x, y).rnObjectId]
+    else
+        return nil
+    end
 end
 
 function RNScreen:getImages()

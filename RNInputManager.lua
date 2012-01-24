@@ -31,7 +31,7 @@ CURRENT_TARGET_LEVEL = CURRENT_TARGET_LEVEL_DEFAULT
 
 
 DRAGGING = false
-DRAGGED_TARGET_LISTENER = nil
+DRAGGED_TARGET = nil
 LAST_xSTART = nil
 LAST_ySTART = nil
 isTOUCHING = false
@@ -112,6 +112,7 @@ end
 
 
 function addListener(listener)
+
     innerInputManager:addListenerToList(listener)
 end
 
@@ -135,6 +136,8 @@ end
 
 
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
+
+
 
     local listeners = self.events[eventName]
 
@@ -283,88 +286,68 @@ end
 
 
 
-function onEvent(eventType, idx, x, y, tapCount)
 
+function onEvent(eventType, idx, x, y, tapCount)
+    local screen = RNFactory.getCurrentScreen()
+
+    local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
     local event = RNEvent:new()
+    event:initWithEventType(eventType)
 
     event.x = x
     event.y = y
 
-    local listeners
-    local target
-
-
-    local listeners = innerInputManager:getListenersToEvent("touch")
     local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
-
-    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
-        event.phase = "began"
-        LAST_xSTART = x
-        LAST_ySTART = y
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
-        event.phase = "moved"
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_UP) then
-
-        event.phase = "ended"
-        event.xStart = LAST_xSTART
-        event.yStart = LAST_ySTART
-
-        local lastLevelValue = -99999999999999
-
-        DRAGGED_TARGET_LISTENER = nil
-        DRAGGING = false
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
-        event.phase = "cancelled"
-        DRAGGED_TARGET_LISTENER = nil
-        DRAGGING = false
-    end
-
-    if event.phase == "began" then
-
-        local lastLevelValue = -99999999999999
-        local lastlistener
-
-        for key, value in pairs(listeners) do
-
-            if value:isToCall(x, y) and value:getTarget():getLevel() >= lastLevelValue then
-                event.target = value:getTarget()
-                lastLevelValue = value:getTarget():getLevel()
-                lastlistener = value
-            end
-        end
-
-        DRAGGED_TARGET_LISTENER = lastlistener
-        DRAGGING = true
-    end
-
-    if listeners ~= nil and DRAGGING ~= true then
-        for key, value in pairs(listeners) do
-            event.target = value:getTarget()
-            if value:isToCall(x, y) then
-                local breakHere = value:call(event)
-                if breakHere then
-                end
-            end
-        end
-    else
-        if DRAGGED_TARGET_LISTENER ~= nil then
-            event.target = DRAGGED_TARGET_LISTENER:getTarget()
-            local breakHere = DRAGGED_TARGET_LISTENER:call(event)
-            if breakHere then
-            end
-        end
-    end
 
     if globallisteners ~= nil then
         for key, value in pairs(globallisteners) do
             local breakHere = value:call(event)
         end
+    end
+
+    if currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil then
+        return
+    end
+
+    local target
+
+    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+        if currenTarget ~= nil then
+            LAST_xSTART = x
+            LAST_ySTART = y
+            DRAGGED_TARGET = currenTarget
+            event.target = currenTarget
+            DRAGGING = true
+            DRAGGED_TARGET:onEvent(event)
+        end
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+        if DRAGGED_TARGET ~= nil then
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+        end
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_UP) then
+        if DRAGGED_TARGET ~= nil then
+            event.xStart = LAST_xSTART
+            event.yStart = LAST_ySTART
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+        end
+
+        DRAGGED_TARGET = nil
+        DRAGGING = false
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+        if DRAGGED_TARGET ~= nil then
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+            DRAGGED_TARGET = nil
+        end
+        DRAGGING = false
     end
 end
 

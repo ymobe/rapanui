@@ -54,7 +54,7 @@ require("RNDirector")
 
 -- Touch
 
---require("rapanui-samples/touch/rn-touch")
+require("rapanui-samples/touch/rn-touch")
 
 -- RapaNui Physics demos:
 
@@ -81,7 +81,7 @@ require("RNDirector")
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
-require("rapanui-samples/maps/rn-scrolling-map")
+--require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
 --require("rapanui-samples/maps/rn-physics-map")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
