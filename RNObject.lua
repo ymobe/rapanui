@@ -1017,8 +1017,6 @@ function RNObject:onTouchMove(x, y, source)
     end
 end
 
-
-
 function RNObject:setOnTouchDown(func)
     self.onTouchDownListener = func
 end
