@@ -137,7 +137,7 @@ end
 
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
 
-    print("adding object function for ", eventName)
+
 
     local listeners = self.events[eventName]
 
@@ -289,21 +289,27 @@ end
 function onEvent(eventType, idx, x, y, tapCount)
     local screen = RNFactory.getCurrentScreen()
 
-
     local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
-
-    if currenTarget:isListening() == false and DRAGGED_TARGET == nil then
-        return
-    end
-
     local event = RNEvent:new()
 
     event.x = x
     event.y = y
 
-    local target
 
     local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
+    if globallisteners ~= nil then
+        for key, value in pairs(globallisteners) do
+            local breakHere = value:call(event)
+        end
+    end
+
+
+    if currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil then
+        return
+    end
+
+
+    local target
 
     if (eventType == MOAITouchSensor.TOUCH_DOWN) then
         event.phase = "began"
@@ -346,12 +352,6 @@ function onEvent(eventType, idx, x, y, tapCount)
             DRAGGED_TARGET = nil
         end
         DRAGGING = false
-    end
-
-    if globallisteners ~= nil then
-        for key, value in pairs(globallisteners) do
-            local breakHere = value:call(event)
-        end
     end
 end
 

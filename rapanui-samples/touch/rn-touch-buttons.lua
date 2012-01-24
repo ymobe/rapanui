@@ -14,45 +14,44 @@
 
 text = RNFactory.createText("Touch on buttons", { size = 9, top = 400, left = 5, width = 250, height = 50 })
 
-
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
-local w, h = RNFactory.stageWidth, RNFactory.stageHeight
 
+buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
+buttonTwo = RNFactory.createImage("images/tile2.png", { top = 50, left = 150 })
 
-anImage = RNFactory.createImage("images/tile1.png", { top = 130, left = 130 })
-
-anImage.name = "DEMO!"
-
+--buttonOne.name = "DEMO!"
 
 function button1TouchDown(event)
-    print("Button one touch down!")
+    text:setText("Button one touch down!")
 end
 
 function button1Moved(event)
-    print("Button one moved")
+    text:setText("Button one moved!")
 end
 
-function button1Cancelled(event)
-    print("Button one cancelled")
+function button1UP(event)
+    text:setText("Button one touchup")
 end
 
-anImage:setOnTouchDown(button1TouchDown)
-anImage:setOnTouchMove(button1Moved)
-anImage:setOnTouchUp(button1Cancelled)
-
---RNInputManager.addListenerToEvent("touch", anImage.onTouchDown, anImage)
+buttonOne:setOnTouchDown(button1TouchDown)
+buttonOne:setOnTouchMove(button1Moved)
+buttonOne:setOnTouchUp(button1UP)
 
 
---function onTouchEvent(event)
+function button2TouchDown(event)
+    text:setText("Button two touch down!")
+end
 
+function button2Moved(event)
+    text:setText("Button two moved!")
+end
 
---    if event.targetProp ~= nil then
---       print("found prop under touch")
---    else
---      text:setText("No button on x: " .. event.x .. " y: " .. event.y)
---    end
---end
+function button2Up(event)
+    text:setText("Button two touchup")
+end
 
---RNListeners:addEventListener("touch", onTouchEvent)
+buttonTwo:setOnTouchDown(button2TouchDown)
+buttonTwo:setOnTouchMove(button2Moved)
+buttonTwo:setOnTouchUp(button2Up)
