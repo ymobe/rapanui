@@ -309,10 +309,6 @@ function onEvent(eventType, idx, x, y, tapCount)
         return
     end
 
-
-
-
-
     local target
 
     if (eventType == MOAITouchSensor.TOUCH_DOWN) then
