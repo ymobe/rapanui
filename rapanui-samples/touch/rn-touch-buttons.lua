@@ -20,8 +20,6 @@ back:sendToBottom()
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
 buttonTwo = RNFactory.createImage("images/tile2.png", { top = 50, left = 150 })
 
---buttonOne.name = "DEMO!"
-
 function button1TouchDown(event)
     text:setText("Button one touch down!")
 end
