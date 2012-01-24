@@ -81,7 +81,6 @@ function RNScreen:addRNObject(object, mode)
     object:setIDInScreen(self.numSprites)
 
     object:getProp().rnObjectId = self.numSprites
-    print(object:getProp().rnObjectId)
 end
 
 function RNScreen:removeRNObject(object)
