@@ -41,6 +41,11 @@ local function fieldChangedListener(self, key, value)
     if key ~= nil and key == "filter" then
         self:setFilter(value)
     end
+    if key ~= nil and key == "name" then
+        self.name=value
+        self.pe_fixture_id=value
+    end
+
 end
 
 
@@ -53,6 +58,9 @@ local function fieldAccessListener(self, key)
         object.key = object:getSomething()
     end
     --]]
+    if key ~= nil and key == "name" then
+        object.name = object:getName()
+    end
 
 
     return getmetatable(self).__object[key]
@@ -85,6 +93,7 @@ function RNFixture:innerNew(o)
         radius = 0,
         parentBody = nil,
         indexinlist = 0,
+        pe_fixture_id="",
     }
     setmetatable(o, self)
     self.__index = self
@@ -111,7 +120,7 @@ function RNFixture:setDensity(value)
 end
 
 function RNFixture:setFilter(value)
-    --value should be a table {categoryBits,maskBitsgroupIndex}
+    --value should be a table {categoryBits,maskBits,groupIndex}
     if self.fixture ~= nil then self.fixture:setFilter(value) end
 end
 
@@ -127,3 +136,6 @@ function RNFixture:setSensor(value)
     if self.fixture ~= nil then self.fixture:setSensor(value) end
 end
 
+function RNFixture:getName()
+    return self.pe_fixture_id
+end
