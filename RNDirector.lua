@@ -245,8 +245,6 @@ end
 
 
 function RNDirector:endFade()
-
-    print("ON END FADE!")
     if CURRENT_SCENE ~= nil then
         CURRENT_SCENE.onEnd()
     end
