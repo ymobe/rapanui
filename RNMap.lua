@@ -205,6 +205,12 @@ function splitString(pString, pPattern)
     return Table
 end
 
+function RNMap:setpAlpha(value)
+    for key, layer in pairs(self.layers) do
+        layer:setpAlpha(value)
+    end
+end
+
 
 function RNMap:createPhysicBodiesFromObjectLayer()
     --[[

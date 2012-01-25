@@ -83,9 +83,11 @@ require("rapanui-samples/basic/rn-images")
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
+--require("rapanui-samples/maps/rn-basic-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
 --require("rapanui-samples/maps/rn-physics-map")
+--require("rapanui-samples/maps/rn-physics-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")

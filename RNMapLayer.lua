@@ -125,7 +125,7 @@ end
 
 function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.grid = MOAIGrid.new()
-    self.grid:setRepeat ( false )
+    self.grid:setRepeat(false)
 
     self.grid:setSize(self:getCols(), self:getRows(), tileset:getTileWidth(), tileset:getTileHeight(), 0, 0, tileset:getTileWidth(), tileset:getTileHeight())
 
@@ -151,6 +151,15 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.prop:setLoc(0, 0)
 
     self:drawPhysics(x, y, tileset)
+end
+
+function RNMapLayer:setpAlpha(value)
+    self.alpha = value
+    self.prop:setColor(value, value, value, value, 0)
+
+    for key, physicobj in pairs(self.imagesToBePhysical) do
+        physicobj.image:setAlpha(value)
+    end
 end
 
 
@@ -214,7 +223,7 @@ function RNMapLayer:drawPhysics(x, y, tileset)
                 local mgroupIndex = tileset:getPropertyValueForTile(tileIdx, "groupIndex")
                 local mtype = tileset:getPropertyValueForTile(tileIdx, "type")
                 local mshape = tileset:getPropertyValueForTile(tileIdx, "shape")
-                obj = {}
+                local obj = {}
                 obj.image = mimage
                 obj.restitution = mrestitution
                 obj.density = mdensity
