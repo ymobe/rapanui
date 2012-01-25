@@ -31,7 +31,7 @@ require("RNDirector")
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -64,6 +64,8 @@ require("rapanui-samples/basic/rn-images")
 
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
+require("rapanui-samples/touch/rn-buttons-animated")
+
 
 -- RapaNui Physics demos:
 

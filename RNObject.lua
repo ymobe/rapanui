@@ -699,8 +699,8 @@ function RNObject:enterFrame(event)
             self.frame = nextSequenceFrame
             --the counter goes back to 0
             self.animCounter = 0
-            --if we have repeated the sequence enough
-            if rightSequence.timeRepeated == rightSequence.repeatTimes * rightSequence.speed then
+            --if we have repeated the sequence enough (-1 to stop on the last frame)
+            if rightSequence.timeRepeated == table.getn(rightSequence.frameOrder)*rightSequence.repeatTimes-1 then
                 self.pause = true
                 if rightSequence.onStop ~= nil then
                     local funct = rightSequence.onStop
