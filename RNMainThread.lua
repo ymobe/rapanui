@@ -19,8 +19,17 @@ require("RNThread")
 rnThread = RNThread:new()
 
 function addTimedAction(delay, func, iterations)
-    rnThread:runFunction(delay, func, iterations)
+    local actionid = rnThread:runFunction(delay, func, iterations)
     rnThread:start()
+    return actionid
+end
+
+function suspendAction(actionid)
+    rnThread:suspendAction(actionid)
+end
+
+function resumeAction(actionId)
+    rnThread:resumeAction(actionId)
 end
 
 function getMainThread()

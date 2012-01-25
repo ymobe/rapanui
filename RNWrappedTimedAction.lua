@@ -24,6 +24,7 @@ function RNWrappedTimedAction:new(o)
     self.__index = self
     self.wrappedFunction = nil
     self.delay = 0
+    self.runMe = true
     self.lastTimeCheck = 0
     self.iterations = -1
     self.exectuions = 0
@@ -31,6 +32,10 @@ function RNWrappedTimedAction:new(o)
 end
 
 function RNWrappedTimedAction:isToCall()
+
+    if self.runMe == false then
+        return false
+    end
 
     if self.iterations == -1 and self.delay == -1 then
         return true
@@ -51,6 +56,14 @@ function RNWrappedTimedAction:isToCall()
     else
         return false
     end
+end
+
+function RNWrappedTimedAction:suspend()
+    self.runMe = false
+end
+
+function RNWrappedTimedAction:resume()
+    self.runMe = true
 end
 
 function RNWrappedTimedAction:getFunction()

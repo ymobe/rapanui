@@ -33,7 +33,6 @@ function RNThread:new(o)
 end
 
 
-
 function RNThread:runFunction(delay, func, iterations)
     local wrappedTimedAction = RNWrappedTimedAction:new()
     wrappedTimedAction:setFunction(func)
@@ -42,6 +41,18 @@ function RNThread:runFunction(delay, func, iterations)
 
     self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
+    return self.wrappedFunctionSize
+end
+
+
+function RNThread:resumeAction(actionid)
+    local wrappedAction = self.wrappedFunctions[actionid - 1]
+    wrappedAction:resume()
+end
+
+function RNThread:suspendAction(actionid)
+    local wrappedAction = self.wrappedFunctions[actionid - 1]
+    wrappedAction:suspend()
 end
 
 function RNThread:addEnterFrame(func, source)
@@ -55,6 +66,7 @@ function RNThread:addEnterFrame(func, source)
     self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
 end
+
 
 function RNThread:start()
     if main_thread_started == false then

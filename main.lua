@@ -38,12 +38,19 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-shapes")
 
 -- Groups
+
 --require("rapanui-samples/groups/rn-groups")
 
 -- Director
 --require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-loop")
+
+-- Timer
+
+--require("rapanui-samples/timer/rn-timer")
+--require("rapanui-samples/timer/rn-timer-stop")
+
 
 -- Transition
 
