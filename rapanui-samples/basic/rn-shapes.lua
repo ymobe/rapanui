@@ -20,7 +20,7 @@ rect = RNFactory.createRect(20, 50, 70, 50, { rgb = { 190, 120, 190 } })
 
 rect.rotation = 30
 
-circle = RNFactory.createCircle(0, 0, 30 ,{ rgb = { 100, 120, 100 } })
+circle = RNFactory.createCircle(0, 0, 30, { rgb = { 100, 120, 100 } })
 
 circle.x = 50
 circle.y = 150

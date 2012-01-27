@@ -21,15 +21,15 @@
 --newAnim(file,sizeX,sizeY[,posx,posy,scaleX,scaleY])
 button1 = RNFactory.createAnim("images/rapanui_circles.png", 64, 64, 100, 200, 1, 1)
 --buggy:we have to call those flips functions for now to buttons to work
-button1:flipHorizzontal()
+button1:flipHorizontal()
 button1:flipVertical()
 --newSequence(name,frameOrder,speed,repeatTimes,onStopFunction)
-button1:newSequence("default", { 1,2,3,4,3,2 },12,-1)
-button1:newSequence("down", { 5,6,7,8 },12,-1)
-button1:newSequence("moved", { 9,10,11,12,11,10 },12,-1)
+button1:newSequence("default", { 1, 2, 3, 4, 3, 2 }, 12, -1)
+button1:newSequence("down", { 5, 6, 7, 8 }, 12, -1)
+button1:newSequence("moved", { 9, 10, 11, 12, 11, 10 }, 12, -1)
 button1:play("default")
 --flag
-isMoved=false
+isMoved = false
 
 
 
@@ -41,19 +41,19 @@ end
 
 function button1Moved(event)
     print("moved")
-    if isMoved==false then
+    if isMoved == false then
         button1:play("moved")
-        isMoved=true
+        isMoved = true
     else
-        button1.x=event.x
-        button1.y=event.y
+        button1.x = event.x
+        button1.y = event.y
     end
 end
 
 function button1UP(event)
     print("up")
     button1:play("default")
-    isMoved=false
+    isMoved = false
 end
 
 

@@ -104,13 +104,13 @@ print(joint.joint)
 floor.fixture[2].sensor = true
 
 --accessing fixtures (a better way to)
-box.fixture[1].name="testFixture"
+box.fixture[1].name = "testFixture"
 --get name from fixture
 print(box.fixture[1].name)
 --get fixture list from name (a table with all the fixture with the given name is returned)
 print(box:getFixtureListByName("testFixture")[1])
 --how to change a property for all the fixtures with the same name
-box:changeFixturesProperty("testFixture","restitution",0.4)
+box:changeFixturesProperty("testFixture", "restitution", 0.4)
 print(box.fixture[1].restitution)
 
 --[[

@@ -57,7 +57,7 @@ char2 = RNFactory.createAnim("images/char2.png", 42, 32)
 char2.x = 100; char2.y = 100; char2.rotation = 30;
 char2.scalex = 1; char2.scaley = 2
 char2.frame = 1
-char2:flipHorizzontal()
+char2:flipHorizontal()
 char2:flipVertical()
 --here default sequence will be used
 char2:play() --plays the default sequence

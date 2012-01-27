@@ -700,7 +700,7 @@ function RNObject:enterFrame(event)
             --the counter goes back to 0
             self.animCounter = 0
             --if we have repeated the sequence enough (-1 to stop on the last frame)
-            if rightSequence.timeRepeated == table.getn(rightSequence.frameOrder)*rightSequence.repeatTimes-1 then
+            if rightSequence.timeRepeated == table.getn(rightSequence.frameOrder) * rightSequence.repeatTimes - 1 then
                 self.pause = true
                 if rightSequence.onStop ~= nil then
                     local funct = rightSequence.onStop
@@ -797,7 +797,7 @@ function RNObject:removeSequence(name)
     end
 end
 
-function RNObject:flipHorizzontal()
+function RNObject:flipHorizontal()
     self.scalex = -1
 end
 
