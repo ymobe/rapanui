@@ -42,10 +42,9 @@ local function fieldChangedListener(self, key, value)
         self:setFilter(value)
     end
     if key ~= nil and key == "name" then
-        self.name=value
-        self.pe_fixture_id=value
+        self.name = value
+        self.pe_fixture_id = value
     end
-
 end
 
 
@@ -93,7 +92,7 @@ function RNFixture:innerNew(o)
         radius = 0,
         parentBody = nil,
         indexinlist = 0,
-        pe_fixture_id="",
+        pe_fixture_id = "",
     }
     setmetatable(o, self)
     self.__index = self

@@ -77,7 +77,7 @@ ektorChar.scalex = 2
 ektorChar.scaley = 2
 
 
-ektorChar:flipHorizzontal()
+ektorChar:flipHorizontal()
 ektorChar:flipVertical()
 
 ektorChar:play()

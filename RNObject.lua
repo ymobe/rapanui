@@ -646,7 +646,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     local oW = self.originalWidth
     local oH = self.originalHeight
 
-    self.tileDeck:setRect(sx * scaleX, sy * scaleY, -sx * scaleX, -sy * scaleY)
+    self.tileDeck:setRect(-sx * scaleX, sy * scaleY, sx * scaleX, -sy * scaleY)
     self.originalWidth = sx * scaleX * 2
     self.originalHeight = sy * scaleY * 2
     self.scaleX = scaleX
@@ -797,7 +797,7 @@ function RNObject:removeSequence(name)
     end
 end
 
-function RNObject:flipHorizzontal()
+function RNObject:flipHorizontal()
     self.scalex = -1
 end
 
