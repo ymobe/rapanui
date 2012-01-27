@@ -277,8 +277,8 @@ end
 -- Create a new proxy for RNObject Object
 
 --- Create a new RNObject
-function RNObject:new(o)
-    local displayobject = RNObject:innerNew(o)
+function RNObject:new()
+    local displayobject = RNObject:innerNew(nil)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
 end
@@ -700,7 +700,7 @@ function RNObject:enterFrame(event)
             --the counter goes back to 0
             self.animCounter = 0
             --if we have repeated the sequence enough (-1 to stop on the last frame)
-            if rightSequence.timeRepeated == table.getn(rightSequence.frameOrder)*rightSequence.repeatTimes-1 then
+            if rightSequence.timeRepeated == table.getn(rightSequence.frameOrder) * rightSequence.repeatTimes - 1 then
                 self.pause = true
                 if rightSequence.onStop ~= nil then
                     local funct = rightSequence.onStop
