@@ -56,9 +56,7 @@ function RNScreen:initWith(width, height)
     self.layer:setViewport(self.viewport)
 
     self.mainPartition = MOAIPartition.new()
-
     self.layer:setPartition(self.mainPartition)
-    self.layer:showDebugLines()
 
     MOAISim.pushRenderPass(self.layer)
 end

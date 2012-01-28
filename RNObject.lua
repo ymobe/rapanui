@@ -365,7 +365,8 @@ function RNObject:innerNew(o)
     return o
 end
 
-
+--- Crete a new RNObject doing aCopyRect from the source image
+---
 function RNObject:initCopyRect(src, params)
     self.visible = true
     self.childrenSize = 0
@@ -603,6 +604,10 @@ end
 
 function RNObject:setIDInGroup(id)
     self.idInGroup = id
+end
+
+function RNObject:getIDInGroup()
+    return self.idInGroup
 end
 
 

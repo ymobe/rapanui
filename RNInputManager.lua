@@ -288,6 +288,7 @@ end
 
 
 function onEvent(eventType, idx, x, y, tapCount)
+
     local screen = RNFactory.getCurrentScreen()
 
     local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);

@@ -46,7 +46,7 @@ print("anImageTest1 x: " .. anImageTest1.x .. " y: " .. anImageTest1.y)
 --print_r(group.displayObjects)
 --print_r(group2.displayObjects)
 
-print("group one size: " .. group.numChildren)
+print("group one size: " .. group:getSize())
 
 
 

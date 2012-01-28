@@ -111,6 +111,7 @@ function RNGroup:setScreen(screen)
     self.screen = screen
 end
 
+
 function RNGroup:insert(object, resetTransform)
 
     if resetTransform == true then
@@ -178,11 +179,17 @@ end
 function RNGroup:setReferencePoint(referencePoint)
 end
 
+function RNGroup:getSize()
+    return self.numChildren
+end
+
 function RNGroup:setFocus(value)
 end
 
 function RNGroup:remove(value)
+    self:removeChild(value:getIDInGroup())
 end
+
 
 function RNGroup:removeSelf()
 end

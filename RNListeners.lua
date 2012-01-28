@@ -29,7 +29,6 @@ function RNRuntime:addEventListener(eventName, listener)
 
     if eventName == "enterFrame" then
 
-
         if type(listener) == "table" then
             RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
             RNMainThread.startMainThread()

@@ -14,17 +14,88 @@
 
 RNMap = {}
 
+local function fieldChangedListener(self, key, value)
+
+    getmetatable(self).__object[key] = value
+    self = getmetatable(self).__object
+
+    if key ~= nil and key == "x" then
+
+        local tileset = self.tilesets[0]
+        local tmpX = value
+        local tmpY = self.mapy
+
+        local tileset = self.tilesets[0]
+
+        self:drawMapAt(tmpX, tmpY, tileset)
+    end
+
+    if key ~= nil and key == "y" then
+
+        local tmpX = self.mapx
+        local tmpY = value
+
+        local tileset = self.tilesets[0]
+
+        self:drawMapAt(tmpX, tmpY, tileset)
+    end
+
+    if key ~= nil and key == "rotation" then
+        self:getProp():setRot(value)
+    end
+
+    if key ~= nil and key == "visible" then
+        self:setVisible(value)
+    end
+    if key ~= nil and key == "isVisible" then
+        self:setVisible(value)
+    end
+
+    --if key == "isFocus" and value == true then
+    --    -- TODO: implement focus handling
+    -- end
+end
+
+
+local function fieldAccessListener(self, key)
+    if getmetatable(self).__object[key] == nil then
+        getmetatable(self).__object[key] = {}
+    end
+
+    if key ~= nil and key == "x" then
+        return getmetatable(self).__object["mapx"]
+    end
+
+    if key ~= nil and key == "y" then
+        return getmetatable(self).__object["mapy"]
+    end
+
+    return getmetatable(self).__object[key]
+end
+
 function RNMap:new(o)
+    local displayobject = RNMap:innerNew()
+    local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
+
+    return proxy, displayobject
+end
+
+function RNMap:innerNew(o)
     o = o or {
         name = "",
+        visible = true,
+        x = 0,
+        y = 0,
+        mapx = 0, -- To avoid recursive call with properties listener
+        mapy = 0, -- To avoid recursive call with properties listener
         physicsIsStarted = false,
         movePhysicsFirstCall = true,
         lastX = 0,
         lastY = 0
     }
+
     setmetatable(o, self)
     self.__index = self
-    self.objects = {}
     return o
 end
 
@@ -85,6 +156,26 @@ function RNMap:getProperties()
     return self.properties
 end
 
+function RNMap:setLevel(level)
+    for key, value in pairs(self.layers) do
+        value:setLevel(level)
+    end
+end
+
+
+function RNMap:setParentGroup(value)
+    self.parentGroup = value
+end
+
+function RNMap:setIDInGroup(id)
+    self.idInGroup = id
+end
+
+function RNMap:getIDInGroup()
+    return self.idInGroup
+end
+
+
 function RNMap:getProperty(key)
     if self.propertiesSize > 0 then
         for lkey, lvalue in pairs(self.properties) do
@@ -126,9 +217,8 @@ end
 
 function RNMap:drawMapAt(x, y, tileset)
 
-
-    self.x = x
-    self.y = y
+    self.mapx = x -- To avoid recursive call with properties listener
+    self.mapy = y -- To avoid recursive call with properties listener
 
     for i = 0, self:getLayersSize() - 1 do
         local layer = self.layers[i]
@@ -155,8 +245,8 @@ function RNMap:drawMapAt(x, y, tileset)
 
     self:movePhysics(deltax, deltay)
 
-    self.lastX = self.x
-    self.lastY = self.y
+    self.lastX = self.mapx
+    self.lastY = self.mapy
 end
 
 function RNMap:getDelta(a, b)

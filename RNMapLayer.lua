@@ -122,6 +122,9 @@ function RNMapLayer:getProperty(key)
     return nil
 end
 
+function RNMapLayer:setLevel(level)
+    self.prop:setPriority(level)
+end
 
 function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.grid = MOAIGrid.new()
@@ -168,6 +171,7 @@ function RNMapLayer:drawLayerAt(x, y, tileset, drawmode)
         self:initLayer(x, y, tileset, drawmode)
     end
 
+
     self.prop:setLoc(x, y)
 end
 
@@ -179,6 +183,7 @@ function RNMapLayer:isRenderedTile(row, col)
         --  print("tile at row:", row, "col:", col, "exists")
         return true
     else
+
         --    print("tile at row:", row, "col:", col, "isNew")
         return false
     end
@@ -186,7 +191,6 @@ end
 
 
 function RNMapLayer:drawPhysics(x, y, tileset)
-
 
     for col = 0, self:getCols() - 1 do
         local rowTiles = ""
@@ -196,6 +200,7 @@ function RNMapLayer:drawPhysics(x, y, tileset)
 
             local tileX = x + tileset:getTileWidth() * col
             local tileY = y + tileset:getTileHeight() * row
+
 
 
             local tileIsPhysical = tileset:getPropertyValueForTile(tileIdx, "isPhysical")

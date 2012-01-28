@@ -18,7 +18,13 @@ back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
+
+
 buttonTwo = RNFactory.createImage("images/tile2.png", { top = 50, left = 150 })
+
+buttonTwo.rotation = 30
+
+
 
 function button1TouchDown(event)
     text:setText("Button one touch down!")
