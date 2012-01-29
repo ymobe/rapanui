@@ -43,6 +43,7 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/groups/rn-map-group")
 
 -- Director
+
 --require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-loop")
@@ -51,6 +52,7 @@ require("rapanui-samples/basic/rn-images")
 
 --require("rapanui-samples/timer/rn-timer")
 --require("rapanui-samples/timer/rn-timer-stop")
+--require("rapanui-samples/timer/rn-timer-remove")
 
 
 -- Transition
@@ -67,6 +69,10 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-buttons-animated")
 
+-- listeners
+
+--require("rapanui-samples/listeners/rn-listener-trouch-remove")
+--require("rapanui-samples/listeners/rn-listener-enterFrame-remove")
 
 -- RapaNui Physics demos:
 
