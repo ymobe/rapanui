@@ -27,24 +27,33 @@ end
 
 function RNRuntime:addEventListener(eventName, listener)
 
+    local listenerId
+
     if eventName == "enterFrame" then
 
         if type(listener) == "table" then
-            RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
+            listenerId = RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
             RNMainThread.startMainThread()
         end
 
         if type(listener) == "function" then
-            RNMainThread.getMainThread():addEnterFrame(listener)
+            listenerId = RNMainThread.getMainThread():addEnterFrame(listener)
             RNMainThread.startMainThread()
         end
 
     elseif eventName == "touch" then
-        RNInputManager.addGlobalListenerToEvent(eventName, listener)
+        listenerId = RNInputManager.addGlobalListenerToEvent(eventName, listener)
     end
+
+    return listenerId
 end
 
-function RNRuntime:removeEventListener(eventname, func)
+function RNRuntime:removeEventListener(eventName, id)
+    if eventName == "enterFrame" then
+        RNMainThread.getMainThread():removeAction(id)
+    elseif eventName == "touch" then
+        RNInputManager.removeGlobalListenerToEvent(eventName, id)
+    end
 end
 
 

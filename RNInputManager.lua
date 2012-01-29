@@ -122,7 +122,11 @@ function addListenerToEvent(eventName, func, object)
 end
 
 function addGlobalListenerToEvent(eventName, func, object)
-    innerInputManager:innerAddGlobalListenerToEvent(eventName, func)
+    return innerInputManager:innerAddGlobalListenerToEvent(eventName, func)
+end
+
+function removeGlobalListenerToEvent(eventName, id)
+    return innerInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
 end
 
 
@@ -135,9 +139,17 @@ function RNInputManager:getGlobalListenersToEvent(eventName)
 end
 
 
+function RNInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
+
+    local globallisteners = self.globalevents[eventName]
+
+    if globallisteners ~= nil then
+        local globallistenrsSize = self.globaleventsSize[eventName]
+        globallisteners[globallistenrsSize-1] = nil
+    end
+end
+
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
-
-
 
     local listeners = self.events[eventName]
 
@@ -161,7 +173,10 @@ function RNInputManager:innerAddGlobalListenerToEvent(eventName, func)
         aListener:setFunction(func)
         globallisteners[globallistenrsSize] = aListener
         self.globaleventsSize[eventName] = globallistenrsSize + 1
+        return self.globaleventsSize[eventName]
     end
+
+    return listenerId
 end
 
 

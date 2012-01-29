@@ -31,4 +31,5 @@ function onTouchEvent(event)
     end
 end
 
-RNListeners:addEventListener("touch", onTouchEvent)
+local listenerId = RNListeners:addEventListener("touch", onTouchEvent)
+print("Listener ID", listenerId)

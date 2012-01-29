@@ -103,7 +103,7 @@ function load(map, filename)
 
     if mapLua.layers then
         for key, value in pairs(mapLua.layers) do
-            print("layertype -----> ", value.type)
+
             if value.type == "tilelayer" then
                 map.layers[map.layersSize] = RNMapLayer:new()
 

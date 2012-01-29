@@ -32,6 +32,10 @@ function resumeAction(actionId)
     rnThread:resumeAction(actionId)
 end
 
+function removeAction(actionid)
+    rnThread:removeAction(actionid)
+end
+
 function getMainThread()
     return rnThread
 end

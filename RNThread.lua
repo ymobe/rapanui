@@ -50,6 +50,11 @@ function RNThread:resumeAction(actionid)
     wrappedAction:resume()
 end
 
+function RNThread:removeAction(actionid)
+    self.wrappedFunctions[actionid - 1] = nil
+end
+
+
 function RNThread:suspendAction(actionid)
     local wrappedAction = self.wrappedFunctions[actionid - 1]
     wrappedAction:suspend()
@@ -65,6 +70,7 @@ function RNThread:addEnterFrame(func, source)
 
     self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
+    return self.wrappedFunctionSize
 end
 
 
@@ -76,7 +82,7 @@ function RNThread:start()
                 for i = 0, self.wrappedFunctionSize - 1 do
 
                     local wrappedTimedAction = self.wrappedFunctions[i]
-                    if wrappedTimedAction:isToCall() then
+                    if wrappedTimedAction ~= nil and wrappedTimedAction:isToCall() then
                         wrappedTimedAction:call()
                     end
                 end
