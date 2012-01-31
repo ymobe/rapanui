@@ -18,7 +18,8 @@ require"socket"
 
 function RNWrappedEventListener:new(o)
     o = o or {
-        name = ""
+        name = "",
+        scheduleRemove =false
     }
     setmetatable(o, self)
     self.__index = self
@@ -36,6 +37,14 @@ end
 
 function RNWrappedEventListener:getTarget()
     return self.target
+end
+
+function RNWrappedEventListener:scheduleForRemoval()
+    self.scheduleRemove = true
+end
+
+function RNWrappedEventListener:isToRemove()
+    return self.scheduleRemove
 end
 
 function RNWrappedEventListener:setFunction(func)
