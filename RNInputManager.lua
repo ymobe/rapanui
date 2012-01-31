@@ -145,7 +145,8 @@ function RNInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
 
     if globallisteners ~= nil then
         local globallistenrsSize = self.globaleventsSize[eventName]
-        globallisteners[globallistenrsSize-1] = nil
+        local aListener = globallisteners[globallistenrsSize - 1]
+        aListener:scheduleForRemoval()
     end
 end
 
@@ -317,7 +318,11 @@ function onEvent(eventType, idx, x, y, tapCount)
 
     if globallisteners ~= nil then
         for key, value in pairs(globallisteners) do
-            local breakHere = value:call(event)
+            if not value:isToRemove() then
+                local breakHere = value:call(event)
+            else
+                globallisteners[key] = nil
+            end
         end
     end
 
