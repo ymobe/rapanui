@@ -37,8 +37,6 @@ function load(map, filename)
 
     --local mapLua = require(filename)
     local mapLua = dofile(filename)
-    --print_r(mapLua)
-
 
     -- map     --
 
@@ -89,7 +87,6 @@ function load(map, filename)
                         map.tilesets[map.tilesetsSize].tilesproperties[aTileValue.id] = {}
                     end
 
-                    --print_r(aTileValue.properties)
                     local size = loadProperties(map.tilesets[map.tilesetsSize].tilesproperties[aTileValue.id], aTileValue.properties)
                     map.tilesets[map.tilesetsSize].tilespropertiesSize = size
                 end

@@ -215,6 +215,10 @@ function RNMap:getFirstObjectGroupByName(name)
 end
 
 
+function RNMap:getLoc()
+    return self.mapx, self.mapy
+end
+
 function RNMap:drawMapAt(x, y, tileset)
 
     self.mapx = x -- To avoid recursive call with properties listener
@@ -275,6 +279,10 @@ function RNMap:movePhysics(deltax, deltay)
 end
 
 
+function RNMap:getType()
+    return "RNMap"
+end
+
 
 function splitString(pString, pPattern)
     local Table = {}
@@ -299,6 +307,17 @@ function RNMap:setpAlpha(value)
     for key, layer in pairs(self.layers) do
         layer:setpAlpha(value)
     end
+end
+
+function RNMap:getAllProps()
+    local props = {}
+
+    for key, layer in pairs(self.layers) do
+        table.insert(props, layer:getProp())
+    end
+
+
+    return props
 end
 
 

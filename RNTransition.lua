@@ -91,12 +91,21 @@ function RNTransition:run(target, params)
         mode = params.mode
     end
 
+    local action
 
     if (type == MOVE) then
-        local px, py = target:getProp():getLoc();
+        local px, py
+
+        if target:getType() == "RNObject" then
+            px, py = target:getProp():getLoc()
+        elseif target:getType() == "RNMap" then
+            px, py = target:getLoc();
+        end
+
 
         local deltax = self:getDelta(px, toX)
         local deltay = self:getDelta(py, toY)
+
 
         if (toX < px) then
             deltax = (-1) * deltax
@@ -106,34 +115,59 @@ function RNTransition:run(target, params)
             deltay = (-1) * deltay
         end
 
-        local action = target:getProp():moveLoc(deltax, deltay, time)
-
-        if (params.onComplete ~= nil) then
-            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        if target:getType() == "RNObject" then
+            action = target:getProp():moveLoc(deltax, deltay, time)
+        elseif target:getType() == "RNMap" then
+            for key, prop in pairs(target:getAllProps()) do
+                action = prop:moveLoc(deltax, deltay, time)
+            end
         end
     end
 
+
+
     if (type == ROTATE) then
-        local action = target:getProp():moveRot(angle, time)
-        if (params.onComplete ~= nil) then
-            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        if target:getType() == "RNObject" then
+            action = target:getProp():moveRot(angle, time)
+        elseif target:getType() == "RNMap" then
+            for key, prop in pairs(target:getAllProps()) do
+                action = prop:moveRot(angle, time)
+            end
         end
     end
 
     if (type == ALPHA) then
-        action = target:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
-
-        if (params.onComplete ~= nil) then
-            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        if target:getType() == "RNObject" then
+            action = target:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
+        elseif target:getType() == "RNMap" then
+            for key, prop in pairs(target:getAllProps()) do
+                action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
+            end
         end
     end
 
 
     if (type == SCALE) then
-        action = target:getProp():moveScl(xScale, yScale, time, mode)
-        if (params.onComplete ~= nil) then
-            action:setListener(MOAIAction.EVENT_STOP, function() params.onComplete(target) end)
+        if target:getType() == "RNObject" then
+            action = target:getProp():moveScl(xScale, yScale, time, mode)
+        elseif target:getType() == "RNMap" then
+            for key, prop in pairs(target:getAllProps()) do
+                action = prop:moveScl(xScale, yScale, time, mode)
+            end
         end
+    end
+
+    if (params.onComplete ~= nil and action ~= nil) then
+        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY) params.onComplete(target) end)
+    elseif (action ~= nil) then
+        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY) end)
+    end
+end
+
+function RNTransition:updateMapLoc(target, x, y)
+    if target:getType() == "RNMap" then
+        target.mapx = x
+        target.mapy = y
     end
 end
 

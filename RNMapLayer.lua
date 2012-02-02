@@ -126,6 +126,10 @@ function RNMapLayer:setLevel(level)
     self.prop:setPriority(level)
 end
 
+function RNMapLayer:getProp()
+    return self.prop
+end
+
 function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self.grid = MOAIGrid.new()
     self.grid:setRepeat(false)
