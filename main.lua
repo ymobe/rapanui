@@ -62,6 +62,12 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/transition/rn-transition-move")
 --require("rapanui-samples/transition/rn-transition-rotate")
 --require("rapanui-samples/transition/rn-transition-scale")
+--require("rapanui-samples/transition/rn-transition-map-alpha")
+--require("rapanui-samples/transition/rn-transition-map-rotate")
+--require("rapanui-samples/transition/rn-transition-map-scale")
+--require("rapanui-samples/transition/rn-transition-map-move")
+--require("rapanui-samples/transition/rn-transition-map-physics-alpha")
+
 
 -- Touch
 
@@ -71,7 +77,7 @@ require("rapanui-samples/basic/rn-images")
 
 -- listeners
 
---require("rapanui-samples/listeners/rn-listener-trouch-remove")
+--require("rapanui-samples/listeners/rn-listener-touch-remove")
 --require("rapanui-samples/listeners/rn-listener-enterFrame-remove")
 
 -- RapaNui Physics demos:
