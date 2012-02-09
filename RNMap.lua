@@ -303,9 +303,9 @@ function splitString(pString, pPattern)
     return Table
 end
 
-function RNMap:setpAlpha(value)
+function RNMap:setAlpha(value)
     for key, layer in pairs(self.layers) do
-        layer:setpAlpha(value)
+        layer:setAlpha(value)
     end
 end
 
