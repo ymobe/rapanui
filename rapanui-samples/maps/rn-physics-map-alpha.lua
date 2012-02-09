@@ -47,7 +47,7 @@ memestatus()
 
 map:drawMapAt(0, 0, aTileset)
 
-map:setpAlpha(0.5)
+map:setAlpha(0.5)
 
 memestatus()
 
