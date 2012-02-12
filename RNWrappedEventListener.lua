@@ -19,7 +19,7 @@ require"socket"
 function RNWrappedEventListener:new(o)
     o = o or {
         name = "",
-        scheduleRemove =false
+        scheduleRemove = false
     }
     setmetatable(o, self)
     self.__index = self

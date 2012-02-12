@@ -121,8 +121,8 @@ function addListenerToEvent(eventName, func, object)
     innerInputManager:innerAddListenerToEvent(eventName, func, object)
 end
 
-function addGlobalListenerToEvent(eventName, func, object)
-    return innerInputManager:innerAddGlobalListenerToEvent(eventName, func)
+function addGlobalListenerToEvent(eventName, func, name)
+    return innerInputManager:innerAddGlobalListenerToEvent(eventName, func, name)
 end
 
 function removeGlobalListenerToEvent(eventName, id)
@@ -145,7 +145,7 @@ function RNInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
 
     if globallisteners ~= nil then
         local globallistenrsSize = self.globaleventsSize[eventName]
-        local aListener = globallisteners[globallistenrsSize - 1]
+        local aListener = globallisteners[id - 1]
         aListener:scheduleForRemoval()
     end
 end
@@ -164,7 +164,7 @@ function RNInputManager:innerAddListenerToEvent(eventName, func, object)
     end
 end
 
-function RNInputManager:innerAddGlobalListenerToEvent(eventName, func)
+function RNInputManager:innerAddGlobalListenerToEvent(eventName, func, name)
 
     local globallisteners = self.globalevents[eventName]
 
@@ -172,6 +172,7 @@ function RNInputManager:innerAddGlobalListenerToEvent(eventName, func)
         local globallistenrsSize = self.globaleventsSize[eventName]
         local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
+        aListener.name = name
         globallisteners[globallistenrsSize] = aListener
         self.globaleventsSize[eventName] = globallistenrsSize + 1
         return self.globaleventsSize[eventName]
@@ -317,8 +318,9 @@ function onEvent(eventType, idx, x, y, tapCount)
     local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
 
     if globallisteners ~= nil then
+
         for key, value in pairs(globallisteners) do
-            if not value:isToRemove() then
+            if value ~= nil and value:isToRemove() ~= true then
                 local breakHere = value:call(event)
             else
                 globallisteners[key] = nil

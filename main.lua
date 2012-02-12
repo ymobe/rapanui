@@ -62,17 +62,19 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/transition/rn-transition-move")
 --require("rapanui-samples/transition/rn-transition-rotate")
 --require("rapanui-samples/transition/rn-transition-scale")
+
+--NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
 --require("rapanui-samples/transition/rn-transition-map-rotate")
 --require("rapanui-samples/transition/rn-transition-map-scale")
 --require("rapanui-samples/transition/rn-transition-map-move")
---require("rapanui-samples/transition/rn-transition-map-physics-alpha")
 
 
 -- Touch
 
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
+--NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
 
 -- listeners

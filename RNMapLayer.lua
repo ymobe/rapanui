@@ -160,12 +160,13 @@ function RNMapLayer:initLayer(x, y, tileset, drawmode)
     self:drawPhysics(x, y, tileset)
 end
 
-function RNMapLayer:setpAlpha(value)
+function RNMapLayer:setAlpha(value)
     self.alpha = value
     self.prop:setColor(value, value, value, value, 0)
-
-    for key, physicobj in pairs(self.imagesToBePhysical) do
-        physicobj.image:setAlpha(value)
+    if self.imagesToBePhysical ~= nil then
+        for key, physicobj in pairs(self.imagesToBePhysical) do
+            physicobj.image:setAlpha(value)
+        end
     end
 end
 

@@ -25,7 +25,7 @@ function RNRuntime:new(o)
     return o
 end
 
-function RNRuntime:addEventListener(eventName, listener)
+function RNRuntime:addEventListener(eventName, listener, name)
 
     local listenerId
 
@@ -42,7 +42,7 @@ function RNRuntime:addEventListener(eventName, listener)
         end
 
     elseif eventName == "touch" then
-        listenerId = RNInputManager.addGlobalListenerToEvent(eventName, listener)
+        listenerId = RNInputManager.addGlobalListenerToEvent(eventName, listener, name)
     end
 
     return listenerId
