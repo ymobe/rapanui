@@ -12,14 +12,6 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
--- start physic simulation
-
-RNPhysics.start()
-
-
---same as rn map basic map
--- tiles by Daniel Cook (http://www.lostgarden.com)
-
 require("RNMapFactory")
 require("RNMap")
 require("RNMapLayer")
@@ -29,33 +21,20 @@ require("RNMapTileset")
 require("RNUtil")
 
 
-map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/physicmap.tmx")
 
-
+map = RNMapFactory.loadMap(RNMapFactory.TILED,"rapanui-samples/maps/rpgmap.tmx")
 aTileset = map:getTileset(0)
-
-aTileset:updateImageSource("rapanui-samples/maps/platformtileset.png")
-
-
-local layersSize = map:getLayersSize()
-
-print("Layers", layersSize)
-local layers = map:getLayers()
-
-
-memestatus()
-
+aTileset:updateImageSource("rapanui-samples/maps/rpgtileset.png")
 map:drawMapAt(0, 0, aTileset)
 
-map:setAlpha(0.5)
+trn = RNTransition:new()
 
-memestatus()
+function first()
+    trn:run(map, { type = "rotate", time = 1500, angle = 360, onComplete = second })
+end
 
+function second()
+    trn:run(map, { type = "rotate", time = 1500, angle = -360, onComplete = first })
+end
 
-
---Debug Draw if you want
---RNPhysics.setDebugDraw(RNFactory.screen)
-
-
-
-
+first()

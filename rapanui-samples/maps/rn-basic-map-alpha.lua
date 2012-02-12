@@ -28,4 +28,4 @@ aTileset = map:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/maps/rpgtileset.png")
 
 map:drawMapAt(0, 0, aTileset)
-map:setpAlpha(0.5)
+map:setAlpha(0.5)
