@@ -1324,3 +1324,48 @@ function RNObject:setMassData(mass, I, centerX, centerY)
         self.physicObject:setMassData(mass)
     end
 end
+
+--fixture methods
+
+function RNObject:getFixtureListByName(name)
+    local tmpFixtureList = {}
+    for i, v in ipairs(self.fixture) do
+        if name == v.name then
+            tmpFixtureList[table.getn(tmpFixtureList) + 1] = v
+        end
+    end
+    return tmpFixtureList
+end
+
+
+function RNObject:changeFixturesProperty(name, property, value)
+    for i, v in ipairs(self:getFixtureListByName(name)) do
+        if property == "restitution" then
+            v.restitution = value
+        end
+
+        if property == "density" then
+
+            v.density = value
+        end
+
+        if property == "friction" then
+
+            v.friction = value
+        end
+
+        if property == "sensor" then
+
+            v.sensor = value
+        end
+
+        if property == "filter" then
+            v.filter = value
+        end
+
+        if property == "name" then
+
+            v.name = value
+        end
+    end
+end

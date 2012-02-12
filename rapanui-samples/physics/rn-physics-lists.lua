@@ -61,16 +61,16 @@ print(RNPhysics.getBodyList)
 --Global joint list
 print(RNPhysics.jointlist)
 --Local Joint list
-print(box.jointlist)
+print(box.physicObject.jointlist)
 
 
 --Local FixtureList
-print(box.fixturelist)
+print(box.physicObject.fixturelist)
 
 
 --Indexes in lists! The place occupied in the lists!
 --bodies
-print(box.indexinlist)
+print(box.physicObject.indexinlist)
 --fixtures
 print(box.physicObject.fixturelist[1].indexinlist)
 --joints
@@ -84,7 +84,7 @@ print(joint.indexinbodyBlist)
 --image - body
 print(box.physicObject)
 --body - image
-print(box.physicObject.image)
+print(box.physicObject.sprite)
 --image -  fixture
 print(box.fixture)
 --is the same as
