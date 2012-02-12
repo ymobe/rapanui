@@ -307,6 +307,8 @@ end
 function onEvent(eventType, idx, x, y, tapCount)
 
     local screen = RNFactory.getCurrentScreen()
+    
+    local x , y = RNFactory.screen.layer:wndToWorld(x, y)
 
     local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
     local event = RNEvent:new()
