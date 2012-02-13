@@ -58,11 +58,18 @@ function RNDirector:setTime(value)
     TIME = value
 end
 
+local coll = collectgarbage
+local unloadScene = function ( moduleName )
+	if moduleName ~= "main" and type( package.loaded[moduleName] ) == "table" then
+		package.loaded[moduleName] = nil
+		coll()
+	end
+end
 
 --Functions to show/hide  a scene with the given effect
 function RNDirector:showScene(name, effect)
-
     if name ~= nil then
+        unloadScene(name) -- clean this
         NEXT_SCENE = require(name)
     else
         NEXT_SCENE = nil
@@ -71,13 +78,13 @@ function RNDirector:showScene(name, effect)
     if TRANSITIONING == false then
         TRANSITIONING = true
         if effect == "slidetoleft" then
-            self:slideout(config.width, 0)
+            self:slideout(config.PW, 0)
         elseif effect == "slidetoright" then
-            self:slideout(-config.width, 0)
+            self:slideout(-config.PW, 0)
         elseif effect == "slidetotop" then
-            self:slideout(0, config.height)
+            self:slideout(0, config.PH)
         elseif effect == "slidetobottom" then
-            self:slideout(0, -config.height)
+            self:slideout(0, -config.PH)
         elseif effect == "pop" then
             self:popIn()
         elseif effect == "fade" then

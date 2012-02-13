@@ -49,29 +49,29 @@ mainGroup = RNGroup:new()
 stageWidth = 0
 stageHeight = 0
 
-function init(width, height, name)
+function init(PW, PH, SW, SH , name)
 
     if name == nil then
         name = "mainwindow"
     end
 
     --  width, height from the SDConfig.lua
+    
+    MOAISim.openWindow(name, SW, SH)
+    screen:initWith(PW, PH, SW, SH )
 
-    MOAISim.openWindow(name, width, height) --960-by-640
-    screen:initWith(width, height)
+	stageWidth = PW
+	stageHeight = PH
 
-    stageWidth = width
-    stageHeight = height
-
-    contentWidth = width
-    contentHeight = height
+    contentWidth = PW
+    contentHeight = PH  
 
 
     RNInputManager.setGlobalRNScreen(screen)
 end
 
 -- extra method call to setup the underlying system
-init(config.width, config.height)
+init(config.PW, config.PH, config.SW, config.SH, config.name)
 
 function showDebugLines()
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
@@ -104,6 +104,9 @@ function createImage(filename, params)
         else
             parentGroup = mainGroup
         end
+		if (params.size ~= nil) then
+            size = params.size
+        end
     end
 
     if (parentGroup == nil) then
@@ -112,7 +115,7 @@ function createImage(filename, params)
 
 
     local image = RNObject:new()
-    image:initWith(filename)
+    image:initWith(filename,size)
     screen:addRNObject(image)
     image.x = image.originalWidth / 2 + left
     image.y = image.originalHeight / 2 + top
@@ -301,7 +304,7 @@ end
 
 function createRect(x, y, width, height, params)
     local parentGroup, top, left
-    local rgb = { 225, 225, 225 }
+    local rgb = { 255, 255, 255 }
 
     if params then
         parentGroup = params.parentGroup or mainGroups
@@ -323,7 +326,7 @@ end
 
 function createCircle(x, y, r, params)
     local parentGroup, top, left
-    local rgb = { 225, 225, 225 }
+    local rgb = { 255, 255, 255 }
 
     if params then
         if type(params) == "table" then

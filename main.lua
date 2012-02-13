@@ -11,6 +11,15 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
+local oprint=print
+function print (...)
+	local prnt = ""
+	for i = 1,#arg do
+		if arg[i] == nil then arg[i] = "not defined" end --difference between "nil" and nil.
+		prnt = prnt .. tostring(arg[i]) .. "\t"
+	end
+return io.stdout:write ( string.format (prnt.."\n" ))
+end
 
 require("RNUtil")
 require("RNThread")
@@ -19,9 +28,12 @@ require("RNFactory")
 require("RNListeners")
 require("RNTransition")
 require("RNMainThread")
-require("RNPhysics")
 require("RNDirector")
-
+local demo = 2
+if demo ~= 1 then
+	require("lua/main")
+else
+require("RNPhysics")
 -- RapaNui demos:
 
 -- Anim
@@ -116,4 +128,4 @@ require("rapanui-samples/basic/rn-images")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
-
+end
