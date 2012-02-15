@@ -312,7 +312,7 @@ function onEvent(eventType, idx, x, y, tapCount)
     local event = RNEvent:new()
     event:initWithEventType(eventType)
 
-    local x, y = RNFactory.screen.layer:wndToWorld ( x, y )
+    local x, y = RNFactory.screen.layer:wndToWorld(x, y)
     event.x, event.y = x, y
 
     local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")

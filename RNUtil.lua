@@ -46,15 +46,15 @@ function print_r(t)
     print()
 end
 
-	local collect = collectgarbage
-	local lastCheck = {sysMem = 0}
+local collect = collectgarbage
+local lastCheck = { sysMem = 0 }
 function memestatus(say)
     collect()
     local sysMem = collect("count") * .001
-	if say == true or lastCheck.sysMem ~= sysMem then
-		lastCheck.sysMem = sysMem
-		print ("Mem: " .. math.floor(sysMem*1000)*.001 .. "MB \t")
-	end
+    if say == true or lastCheck.sysMem ~= sysMem then
+        lastCheck.sysMem = sysMem
+        print("Mem: " .. math.floor(sysMem * 1000) * .001 .. "MB \t")
+    end
 end
 
 

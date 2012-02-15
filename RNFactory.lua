@@ -49,22 +49,22 @@ mainGroup = RNGroup:new()
 stageWidth = 0
 stageHeight = 0
 
-function init(PW, PH, SW, SH , name)
+function init(PW, PH, SW, SH, name)
 
     if name == nil then
         name = "mainwindow"
     end
 
     --  width, height from the SDConfig.lua
-    
-    MOAISim.openWindow(name, SW, SH)
-    screen:initWith(PW, PH, SW, SH )
 
-	stageWidth = PW
-	stageHeight = PH
+    MOAISim.openWindow(name, SW, SH)
+    screen:initWith(PW, PH, SW, SH)
+
+    stageWidth = PW
+    stageHeight = PH
 
     contentWidth = PW
-    contentHeight = PH  
+    contentHeight = PH
 
 
     RNInputManager.setGlobalRNScreen(screen)
@@ -104,7 +104,7 @@ function createImage(filename, params)
         else
             parentGroup = mainGroup
         end
-		if (params.size ~= nil) then
+        if (params.size ~= nil) then
             size = params.size
         end
     end
@@ -115,7 +115,7 @@ function createImage(filename, params)
 
 
     local image = RNObject:new()
-    image:initWith(filename,size)
+    image:initWith(filename, size)
     screen:addRNObject(image)
     image.x = image.originalWidth / 2 + left
     image.y = image.originalHeight / 2 + top

@@ -59,11 +59,11 @@ function RNDirector:setTime(value)
 end
 
 local coll = collectgarbage
-local unloadScene = function ( moduleName )
-	if moduleName ~= "main" and type( package.loaded[moduleName] ) == "table" then
-		package.loaded[moduleName] = nil
-		coll()
-	end
+local unloadScene = function(moduleName)
+    if moduleName ~= "main" and type(package.loaded[moduleName]) == "table" then
+        package.loaded[moduleName] = nil
+        coll()
+    end
 end
 
 --Functions to show/hide  a scene with the given effect
