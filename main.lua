@@ -10,16 +10,17 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
-]]
-local oprint = print
+--]]
+
+--[[
 function print(...)
-    local prnt = ""
+    local toPrint = ""
     for i = 1, #arg do
         if arg[i] == nil then arg[i] = "not defined" end --difference between "nil" and nil.
-        prnt = prnt .. tostring(arg[i]) .. "\t"
+        toPrint = toPrint .. tostring(arg[i]) .. "\t"
     end
-    return io.stdout:write(string.format(prnt .. "\n"))
-end
+    return io.stdout:write(string.format(toPrint .. "\n"))
+end      --]]
 
 require("RNUtil")
 require("RNThread")
@@ -29,8 +30,9 @@ require("RNListeners")
 require("RNTransition")
 require("RNMainThread")
 require("RNDirector")
+require ("RNPhysics")
 
-require("RNPhysics")
+
 -- RapaNui demos:
 
 -- Anim
@@ -105,6 +107,8 @@ require("RNPhysics")
 --require("rapanui-samples/physics/rn-physics-animation")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
+--require("rapanui-samples/physics/test")
+
 
 -- RapaNui sample games:
 
@@ -124,5 +128,5 @@ require("RNPhysics")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
---require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
