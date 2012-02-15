@@ -11,14 +11,13 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
-local oprint=print
-function dprint (...)
-	local prnt = ""
+function print (...)
+	local toPrint = ""
 	for i = 1,#arg do
 		if arg[i] == nil then arg[i] = "not defined" end --difference between "nil" and nil.
-		prnt = prnt .. tostring(arg[i]) .. "\t"
+		toPrint = toPrint .. tostring(arg[i]) .. "\t"
 	end
-return io.stdout:write ( string.format (prnt.."\n" ))
+return io.stdout:write ( string.format (toPrint.."\n" ))
 end
 
 require("RNUtil")
@@ -30,10 +29,10 @@ require("RNTransition")
 require("RNMainThread")
 require("RNDirector")
 require("RNPhysics")
-local demo = 2
-if demo ~= 1 then
-	require("lua/main")
-else
+
+
+require("lua/main") --your code goes in lua dir.
+
 -- RapaNui demos:
 
 -- Anim
@@ -43,7 +42,7 @@ else
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -75,10 +74,18 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/transition/rn-transition-rotate")
 --require("rapanui-samples/transition/rn-transition-scale")
 
+--NOTE: now only works on simple 2D maps, still buggy with physics maps
+--require("rapanui-samples/transition/rn-transition-map-alpha")
+--require("rapanui-samples/transition/rn-transition-map-rotate")
+--require("rapanui-samples/transition/rn-transition-map-scale")
+--require("rapanui-samples/transition/rn-transition-map-move")
+
+
 -- Touch
 
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
+--NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
 
 -- listeners
@@ -100,6 +107,8 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/physics/rn-physics-animation")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
+--require("rapanui-samples/physics/test")
+
 
 -- RapaNui sample games:
 
@@ -120,4 +129,3 @@ require("rapanui-samples/basic/rn-images")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
-end
