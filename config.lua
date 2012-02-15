@@ -23,4 +23,4 @@ sizes["iPhone3G"] = { 320, 480, 320, 480 }
 sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 }  -- 3G screen ratio upscaled to 500x750
 
 landscape = false
-device = "iPhone3G_500_750"
+device = "iPhone3G"
