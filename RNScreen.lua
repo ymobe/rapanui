@@ -67,7 +67,6 @@ function RNScreen:addRNObject(object, mode)
         return
     end
 
-
     object:setLocatingMode(mode)
 
     self.mainPartition:insertProp(object:getProp())
@@ -95,6 +94,7 @@ function RNScreen:removeRNObject(object)
             self.sprites[len] = nil
         end
     end
+
     --refresh other objects id
     for i, v in ipairs(self.sprites) do v.idInScreen = i end
     --

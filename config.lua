@@ -14,32 +14,13 @@
 
 module(..., package.seeall)
 
--- Preset for some devices you can add as many as you want
-local sizes = {}
+sizes = {}
 
+-- Preset for some devices you can add as many as you want
 sizes["iPadDev"] = { 768, 1024, 384, 512 } -- shrunk for easier viewing
 sizes["iPad"] = { 768, 1024, 768, 1024 } -- 1:1 pixel iPad
-sizes["custom"] = { 400, 500, 400, 500,} -- 1:1 pixel iPad
 sizes["iPhone3G"] = { 320, 480, 320, 480 }
-sizes["iPhone3G2X"] = { 320, 480, 640, 960 }
+sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 }  -- 3G screen ratio upscaled to 500x750
 
-
-local landscape = false
-
-local device = "iPhone3G"
-
-
-local screenX, screenY = MOAIEnvironment.getScreenSize()
-
-if screenX ~= 0 then --if physical screen
-    width, height, screenWidth, screenHeight = screenX, screenY, screenX, screenY
-else
-    width, height, screenWidth, screenHeight = sizes[device][1], sizes[device][2], sizes[device][3], sizes[device][4]
-end
-
-if landscape == true then -- flip Widths and Hieghts
-    width, height = height, width
-    screenWidth, screenHeight = screenHeight, screenWidth
-end
-
-landscape, device, sizes, screenX, screenY = nil
+landscape = false
+device = "iPhone3G_500_750"

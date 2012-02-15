@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
 
---[[
+--[[ Uncommet to override the default print() function
 function print(...)
     local toPrint = ""
     for i = 1, #arg do
@@ -83,7 +83,7 @@ require ("RNPhysics")
 
 -- Touch
 
---require("rapanui-samples/touch/rn-touch-buttons")
+require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
@@ -128,5 +128,5 @@ require ("RNPhysics")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
-require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+--require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 

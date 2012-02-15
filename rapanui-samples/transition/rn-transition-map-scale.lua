@@ -22,7 +22,7 @@ require("RNUtil")
 
 
 
-map = RNMapFactory.loadMap(RNMapFactory.TILED,"rapanui-samples/maps/rpgmap.tmx")
+map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/rpgmap.tmx")
 aTileset = map:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/maps/rpgtileset.png")
 map:drawMapAt(0, 0, aTileset)
