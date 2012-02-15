@@ -10,9 +10,9 @@
 -- CPAL is an Open Source Initiative approved
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
-]]
+--]]
 local oprint=print
-function print (...)
+function dprint (...)
 	local prnt = ""
 	for i = 1,#arg do
 		if arg[i] == nil then arg[i] = "not defined" end --difference between "nil" and nil.
@@ -29,11 +29,11 @@ require("RNListeners")
 require("RNTransition")
 require("RNMainThread")
 require("RNDirector")
+require("RNPhysics")
 local demo = 2
 if demo ~= 1 then
 	require("lua/main")
 else
-require("RNPhysics")
 -- RapaNui demos:
 
 -- Anim
