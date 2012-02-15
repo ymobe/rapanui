@@ -104,9 +104,6 @@ function createImage(filename, params)
         else
             parentGroup = mainGroup
         end
-		if (params.size ~= nil) then
-            size = params.size
-        end
     end
 
     if (parentGroup == nil) then
@@ -115,7 +112,7 @@ function createImage(filename, params)
 
 
     local image = RNObject:new()
-    image:initWith(filename,size)
+    image:initWith(filename)
     screen:addRNObject(image)
     image.x = image.originalWidth / 2 + left
     image.y = image.originalHeight / 2 + top
