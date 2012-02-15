@@ -96,6 +96,8 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/physics/rn-physics-animation")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
+--require("rapanui-samples/physics/test")
+
 
 -- RapaNui sample games:
 
