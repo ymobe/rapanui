@@ -37,6 +37,7 @@ viewableContentWidth = nil
 HiddenStatusBar = "HiddenStatusBar"
 CenterReferencePoint = "CenterReferencePoint"
 
+
 screen = RNScreen:new()
 
 groups = {}
@@ -44,12 +45,26 @@ groups_size = 0
 
 mainGroup = RNGroup:new()
 
-
-
 stageWidth = 0
 stageHeight = 0
 
-function init(width, height, screenWidth, screenHeight, name)
+function init()
+
+    local width, height, screenWidth, screenHeight
+    local screenX, screenY = MOAIEnvironment.getScreenSize()
+
+    if screenX ~= 0 then --if physical screen
+        width, height, screenWidth, screenHeight = screenX, screenY, screenX, screenY
+    else
+        width, height, screenWidth, screenHeight = config.sizes[config.device][1], config.sizes[config.device][2], config.sizes[config.device][3], config.sizes[config.device][4]
+    end
+
+    if config.landscape == true then -- flip Widths and Hieghts
+        width, height = height, width
+        screenWidth, screenHeight = screenHeight, screenWidth
+    end
+
+    landscape, device, sizes, screenX, screenY = nil
 
 
     if name == nil then
@@ -67,12 +82,11 @@ function init(width, height, screenWidth, screenHeight, name)
     contentWidth = width
     contentHeight = height
 
-
     RNInputManager.setGlobalRNScreen(screen)
 end
 
 -- extra method call to setup the underlying system
-init(config.width, config.height, config.screenWidth, config.screenHeight, config.name)
+init()
 
 function showDebugLines()
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
