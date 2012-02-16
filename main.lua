@@ -42,7 +42,7 @@ require ("RNPhysics")
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -80,12 +80,11 @@ require ("RNPhysics")
 --require("rapanui-samples/transition/rn-transition-map-scale")
 --require("rapanui-samples/transition/rn-transition-map-move")
 
-
 -- Touch
 
-require("rapanui-samples/touch/rn-touch-buttons")
+--require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
---NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in dev branch
+--NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in moai dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
 
 -- listeners

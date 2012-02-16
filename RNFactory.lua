@@ -47,21 +47,23 @@ mainGroup = RNGroup:new()
 
 stageWidth = 0
 stageHeight = 0
+width = 0
+height = 0
 
 function init()
 
-    local width, height, screenWidth, screenHeight
+    local lwidth, lheight, screenlwidth, screenHeight
     local screenX, screenY = MOAIEnvironment.getScreenSize()
 
     if screenX ~= 0 then --if physical screen
-        width, height, screenWidth, screenHeight = screenX, screenY, screenX, screenY
+        lwidth, lheight, screenlwidth, screenHeight = screenX, screenY, screenX, screenY
     else
-        width, height, screenWidth, screenHeight = config.sizes[config.device][1], config.sizes[config.device][2], config.sizes[config.device][3], config.sizes[config.device][4]
+        lwidth, lheight, screenlwidth, screenHeight = config.sizes[config.device][1], config.sizes[config.device][2], config.sizes[config.device][3], config.sizes[config.device][4]
     end
 
-    if config.landscape == true then -- flip Widths and Hieghts
-        width, height = height, width
-        screenWidth, screenHeight = screenHeight, screenWidth
+    if config.landscape == true then -- flip lwidths and Hieghts
+        lwidth, lheight = lheight, lwidth
+        screenlwidth, screenHeight = screenHeight, screenlwidth
     end
 
     landscape, device, sizes, screenX, screenY = nil
@@ -71,16 +73,16 @@ function init()
         name = "mainwindow"
     end
 
-    --  width, height from the SDConfig.lua
+    --  lwidth, lheight from the SDConfig.lua
 
-    MOAISim.openWindow(name, screenWidth, screenHeight)
-    screen:initWith(width, height, screenWidth, screenHeight)
+    MOAISim.openWindow(name, screenlwidth, screenHeight)
+    screen:initWith(lwidth, lheight, screenlwidth, screenHeight)
 
-    stageWidth = width
-    stageHeight = height
+    width = lwidth
+    height = lheight
 
-    contentWidth = width
-    contentHeight = height
+    contentlwidth = lwidth
+    contentHeight = lheight
 
     RNInputManager.setGlobalRNScreen(screen)
 end
