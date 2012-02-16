@@ -43,18 +43,8 @@ print("Layers", layersSize)
 local layers = map:getLayers()
 
 
-memestatus()
-
 map:drawMapAt(0, 0, aTileset)
-
-
-memestatus()
-
 
 
 --Debug Draw if you want
 --RNPhysics.setDebugDraw(RNFactory.screen)
-
-
-
-

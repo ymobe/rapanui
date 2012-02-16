@@ -43,14 +43,9 @@ print("Layers", layersSize)
 local layers = map:getLayers()
 
 
-memestatus()
-
 map:drawMapAt(0, 0, aTileset)
 
 map:setAlpha(0.5)
-
-memestatus()
-
 
 
 --Debug Draw if you want
