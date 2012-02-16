@@ -221,9 +221,11 @@ function createBodyFromImage(image, ...)
             if (tempFixture.shape == nil) and (tempFixture.radius == nil) then tempFixture.shape = "rectangle" elseif (tempFixture.shape == nil) and (tempFixture.radius ~= nil) then tempFixture.shape = "circle" end
             if (tempFixture.filter.categoryBits == nil) then tempFixture.filter.categoryBits = 1 end
             if (tempFixture.radius == nil) then tempFixture.radius = h / 2 end
+            if (tempFixture.center==nil)then tempFixture.center={x=0,y=0} end
+
             --adds the fixture shape to the body
             if (tempFixture.shape == "circle") then
-                fixture = body:addCircle(0, 0, tempFixture.radius)
+                fixture = body:addCircle(tempFixture.center.x, tempFixture.center.y, tempFixture.radius)
             elseif (tempFixture.shape == "rectangle") then
                 fixture = body:addRect(-w / 2, -h / 2, w / 2, h / 2)
             else
@@ -239,7 +241,7 @@ function createBodyFromImage(image, ...)
 
 
             --gives RNFixture a name
-            tempFixture.name = image.name
+            if tempFixture.pe_fixture_id ==nil then tempFixture.name = image.name else tempFixture.name=tempFixture.pe_fixture_id end
 
             --the fixture now stores the body which is connect+ed to
             tempFixture.parentBody = RNBody
@@ -280,7 +282,7 @@ function createBodyFromImage(image, ...)
         RNBody.fixturelist[1] = tempFixture
 
         --gives RNFixture a name
-        tempFixture.name = image.name
+        if tempFixture.pe_fixture_id ==nil then tempFixture.name = image.name else tempFixture.name=tempFixture.pe_fixture_id end
 
 
         --if has been set a listener for collision(so the other fixtures have been set for

@@ -107,6 +107,7 @@ require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/physics/rn-physics-animation")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
+--require("rapanui-samples/physics/rn-physics-physicsEditor")
 --require("rapanui-samples/physics/test")
 
 

@@ -16,7 +16,7 @@
 
 
 --add images
-background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
+--background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
 box = RNFactory.createImage("rapanui-samples/physics/box.png");
 box.x = 170; box.y = 80;
 ball = RNFactory.createImage("rapanui-samples/physics/ball.png");
@@ -31,12 +31,23 @@ RNPhysics.start()
 
 
 --set images as physics objects
+--simple box
 RNPhysics.createBodyFromImage(box)
-RNPhysics.createBodyFromImage(ball, { shape = "circle" })
+--simple triangle
 RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, restitution = 0.3, friction = 0.1 })
+--dual fixtured floor with a sensor triangle fixture.
+--(fixtures in the same body can have different sensor attributes)
 RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, restitution = 0, sensor = false, shape = { -128, -16, 128, -16, 128, 16, -128, 16 } }, { density = 1, friction = 0.3, restitution = 0.5, sensor = true, shape = { -32, 32 - 100, 32, 32 - 100, 0, 64 - 100 } })
 
+--triple fixtured ball
+--we can also set the radius and the center fox a circled fixture
+RNPhysics.createBodyFromImage(ball, { shape = "circle" }, { shape = "circle",radius=8,center={x=0,y=-50} }, { shape = "circle",radius=16,center={x=0,y=-100} })
+
+
+
+
 box.restitution = 0.5
+ball.rotation=-15
 ball.restitution = 0.3
 triangle.restitution = 0.3
 
