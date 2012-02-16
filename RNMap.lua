@@ -253,6 +253,19 @@ function RNMap:drawMapAt(x, y, tileset)
     self.lastY = self.mapy
 end
 
+function RNMap:remove()
+
+    --  self.scene:removeRNObject(self)
+    --TODO remove physical
+    --print("remove", self.idInGroup)
+    --self.parentGroup:removeChild(self.idInGroup)
+
+    for i = 0, self:getLayersSize() - 1 do
+        local layer = self.layers[i]
+        layer:remove()
+    end
+end
+
 function RNMap:getDelta(a, b)
     if (a > b) then
         return a - b

@@ -130,3 +130,9 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
+-- Mem Tests
+-- require("test/maptest.lua")
+
+
+
+

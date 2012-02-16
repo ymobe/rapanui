@@ -41,13 +41,13 @@ RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, re
 
 --triple fixtured ball
 --we can also set the radius and the center fox a circled fixture
-RNPhysics.createBodyFromImage(ball, { shape = "circle" }, { shape = "circle",radius=8,center={x=0,y=-50} }, { shape = "circle",radius=16,center={x=0,y=-100} })
+RNPhysics.createBodyFromImage(ball, { shape = "circle" }, { shape = "circle", radius = 8, center = { x = 0, y = -50 } }, { shape = "circle", radius = 16, center = { x = 0, y = -100 } })
 
 
 
 
 box.restitution = 0.5
-ball.rotation=-15
+ball.rotation = -15
 ball.restitution = 0.3
 triangle.restitution = 0.3
 

@@ -34,6 +34,7 @@ end
 
 
 function RNMapLayer:setIDInScreen(id)
+    self.idInScreen = id
 end
 
 
@@ -192,6 +193,11 @@ function RNMapLayer:isRenderedTile(row, col)
         --    print("tile at row:", row, "col:", col, "isNew")
         return false
     end
+end
+
+
+function RNMapLayer:remove()
+    self.scene:removeRNObject(self)
 end
 
 

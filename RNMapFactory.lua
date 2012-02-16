@@ -25,9 +25,7 @@ MAP_DRAW_MODE_TESSELLATED = "Tessellated"
 
 function loadMap(type, filename, drawmode)
 
-
     local map = RNMap:new()
-
 
     if type == TILED then
         RNTiledMapParser.load(map, filename)

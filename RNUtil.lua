@@ -11,6 +11,9 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
+module(..., package.seeall)
+
+
 function print_r(t)
     local print_r_cache = {}
     local function sub_print_r(t, indent)
