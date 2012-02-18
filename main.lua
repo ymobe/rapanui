@@ -131,7 +131,7 @@ require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
 -- Mem Tests
-require("rapanui-samples/test/maptest")
+--require("rapanui-samples/test/maptest")
 
 
 
