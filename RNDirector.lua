@@ -24,7 +24,7 @@ local CURRENT_SCENE_GROUP
 local DIRECTOR
 local TRANSITIONING = false
 local trn = RNTransition:new()
-
+local collectgarbage = collectgarbage
 
 -- Create a new RNDirector Object
 RNDirector = {}
@@ -58,11 +58,11 @@ function RNDirector:setTime(value)
     TIME = value
 end
 
-local coll = collectgarbage
+
 local unloadScene = function(moduleName)
     if moduleName ~= "main" and type(package.loaded[moduleName]) == "table" then
         package.loaded[moduleName] = nil
-        coll()
+        collectgarbage()
     end
 end
 
@@ -72,7 +72,6 @@ function RNDirector:showScene(name, effect, onEndListener)
     if onEndListener ~= nil then
         local aListener = RNWrappedEventListener:new()
         aListener:setFunction(onEndListener)
-        aListener:setTarget(DIRECTOR)
         DIRECTOR.onEndListener = aListener
     end
 
@@ -123,8 +122,15 @@ function RNDirector:popIn()
     end
 
     TRANSITIONING = false
+    DIRECTOR:callOnEndListener()
+end
+
+function RNDirector:callOnEndListener()
+
     if DIRECTOR.onEndListener ~= nil then
-        DIRECTOR.onEndListener:call({})
+        local event = RNEvent:new()
+        event.target = DIRECTOR
+        DIRECTOR.onEndListener:call(event)
         DIRECTOR.onEndListener = nil
     end
 end
@@ -175,10 +181,7 @@ function slideEnd()
         CURRENT_SCENE = NEXT_SCENE
     end
     TRANSITIONING = false
-    if DIRECTOR.onEndListener ~= nil then
-        DIRECTOR.onEndListener:call({})
-        DIRECTOR.onEndListener = nil
-    end
+    DIRECTOR:callOnEndListener()
     collectgarbage("collect")
 end
 
@@ -279,9 +282,7 @@ function RNDirector:endFade()
     end
 
     TRANSITIONING = false
-    if DIRECTOR.onEndListener ~= nil then
-        DIRECTOR.onEndListener:call({})
-        DIRECTOR.onEndListener = nil
-    end
+    DIRECTOR:callOnEndListener()
     collectgarbage("collect")
 end
+
