@@ -15,8 +15,6 @@
 --
 ]]
 require("RNInputManager")
-require("RNUtil")
-
 
 TOP_LEFT_MODE = 1
 CENTERED_MODE = 2

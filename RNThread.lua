@@ -13,8 +13,6 @@
 ]]
 
 require("RNWrappedTimedAction")
-require("RNUtil")
-
 
 RNThread = {}
 

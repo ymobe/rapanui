@@ -11,7 +11,6 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
-require("RNUtil")
 
 MOVE = "move"
 ROTATE = "rotate"

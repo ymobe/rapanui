@@ -32,6 +32,7 @@ require("RNMainThread")
 require("RNDirector")
 require ("RNPhysics")
 
+print_r({})
 
 -- RapaNui demos:
 
@@ -57,6 +58,7 @@ require ("RNPhysics")
 
 --require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/director/rn-director-touch")
+require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
 
 -- Timer
@@ -82,7 +84,7 @@ require ("RNPhysics")
 
 -- Touch
 
-require("rapanui-samples/touch/rn-touch-buttons")
+--require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in moai dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
