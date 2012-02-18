@@ -59,7 +59,9 @@ function RNWrappedEventListener:isToCall(x, y)
 end
 
 function RNWrappedEventListener:call(event)
+    print("called")
     local func = self.wrappedFunction
+
     if event ~= nil and func ~= nil then
         func(event)
     else

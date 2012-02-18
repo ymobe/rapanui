@@ -67,7 +67,15 @@ local unloadScene = function(moduleName)
 end
 
 --Functions to show/hide  a scene with the given effect
-function RNDirector:showScene(name, effect)
+function RNDirector:showScene(name, effect, onEndListener)
+
+    if onEndListener ~= nil then
+        local aListener = RNWrappedEventListener:new()
+        aListener:setFunction(onEndListener)
+        aListener:setTarget(DIRECTOR)
+        DIRECTOR.onEndListener = aListener
+    end
+
     if name ~= nil then
         unloadScene(name) -- clean this
         NEXT_SCENE = require(name)
@@ -113,7 +121,12 @@ function RNDirector:popIn()
         CURRENT_SCENE_GROUP = NEXT_SCENE.onCreate()
         CURRENT_SCENE = NEXT_SCENE
     end
+
     TRANSITIONING = false
+    if DIRECTOR.onEndListener ~= nil then
+        DIRECTOR.onEndListener:call({})
+        DIRECTOR.onEndListener = nil
+    end
 end
 
 
@@ -162,6 +175,10 @@ function slideEnd()
         CURRENT_SCENE = NEXT_SCENE
     end
     TRANSITIONING = false
+    if DIRECTOR.onEndListener ~= nil then
+        DIRECTOR.onEndListener:call({})
+        DIRECTOR.onEndListener = nil
+    end
     collectgarbage("collect")
 end
 
@@ -262,5 +279,9 @@ function RNDirector:endFade()
     end
 
     TRANSITIONING = false
+    if DIRECTOR.onEndListener ~= nil then
+        DIRECTOR.onEndListener:call({})
+        DIRECTOR.onEndListener = nil
+    end
     collectgarbage("collect")
 end
