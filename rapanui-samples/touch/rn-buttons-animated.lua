@@ -15,6 +15,10 @@
 
 
 --simple demo, a little bit buggy to show how to create a dragable animated button
+back = RNFactory.createImage("images/background-purple.png")
+back:sendToBottom()
+
+text = RNFactory.createText("Touch on button and drag it", { size = 9, top = 100, left = 5, width = 250, height = 50 })
 
 
 --physical animation with many sequences
@@ -35,12 +39,12 @@ isMoved = false
 
 --handle local touch listeners
 function button1TouchDown(event)
-    print("down")
+    text:setText("touch down")
     button1:play("down")
 end
 
 function button1Moved(event)
-    print("moved")
+    text:setText("touch moved")
     if isMoved == false then
         button1:play("moved")
         isMoved = true
@@ -51,7 +55,7 @@ function button1Moved(event)
 end
 
 function button1UP(event)
-    print("up")
+    text:setText("touch up")
     button1:play("default")
     isMoved = false
 end
