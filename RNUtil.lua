@@ -12,7 +12,6 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-
 function print_r(t)
     local print_r_cache = {}
     local function sub_print_r(t, indent)

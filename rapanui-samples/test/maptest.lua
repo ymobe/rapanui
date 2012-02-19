@@ -27,7 +27,8 @@ for i = 0, 100 do
     aTileset:updateImageSource("rapanui-samples/maps/rpgtileset.png")
 
     map:drawMapAt(0, 0, aTileset)
-    RNUtil.memestatus(true)
+    memestatus(true)
+    print_r(map)
     map:remove()
     collectgarbage("collect")
 end
