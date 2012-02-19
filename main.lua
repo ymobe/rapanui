@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
 
---[[ Uncomment to override the default print() function
+---[[ Uncomment to override the default print() function
 function print(...)
     local toPrint = ""
     for i = 1, #arg do
@@ -32,6 +32,8 @@ require("RNMainThread")
 require("RNDirector")
 require ("RNPhysics")
 
+
+require("lua/main")
 -- RapaNui demos:
 
 -- Anim
@@ -41,7 +43,7 @@ require ("RNPhysics")
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
