@@ -48,6 +48,7 @@ require("lua/main")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
+--require("rapanui-samples/basic/rn-shapes-penColor")
 
 -- Groups
 
