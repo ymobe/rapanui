@@ -7,8 +7,6 @@ rapanui-samples/.DS_Store
 rapanui-samples/games/.DS_Store
 rapanui-samples/maps/reference.tmx
 rapanui-samples/maps/rn-map-spike.lua
-rapanui-samples/maps/testMap.tmx
-rapanui-samples/maps/testmap.lua
 rapanui.iml
 rapanui.ipr
 rapanui.iws
