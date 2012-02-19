@@ -32,8 +32,6 @@ require("RNMainThread")
 require("RNDirector")
 require ("RNPhysics")
 
-print_r({})
-
 -- RapaNui demos:
 
 -- Anim
@@ -43,7 +41,7 @@ print_r({})
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -58,7 +56,7 @@ print_r({})
 
 --require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/director/rn-director-touch")
-require("rapanui-samples/director/rn-director-touch-listener")
+--require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
 
 -- Timer
@@ -114,7 +112,6 @@ require("rapanui-samples/director/rn-director-touch-listener")
 
 -- RapaNui sample games:
 
---bricks works, not enough time to fix the other games
 --require("rapanui-samples/games/brick2d/brick2d")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
@@ -128,13 +125,10 @@ require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/maps/rn-physics-map")
 --require("rapanui-samples/maps/rn-physics-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
+
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
 -- Mem Tests
 --require("rapanui-samples/test/maptest")
-
-
-
-
