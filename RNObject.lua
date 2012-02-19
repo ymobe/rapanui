@@ -26,97 +26,96 @@ local function fieldChangedListener(self, key, value)
     getmetatable(self).__object[key] = value
     self = getmetatable(self).__object
 
-    if key ~= nil then
-if key == "visible" then
-     self:setVisible(value)
-     elseif key == "isVisible" then
-     self:setVisible(value)
-     end
+    if self key ~= nil then
+		if key == "visible" then
+         self:setVisible(value)
+     	elseif key == "isVisible" then
+         self:setVisible(value)
+     	end
     
-     if self.isAnim == true then
+     	if self.isAnim == true then
+    		if key == "sizex" then
+         		self:setTileSizeX(value)
+     		elseif key == "sizey" then
+         		self:setTileSizeY(value)
+     		end
+     		if key == "scalex" then
+         		self:setTileScaleX(value)
+     		elseif key == "scaley" then
+         		self:setTileScaleY(value)
+     		elseif key == "frame" then
+         		self.prop:setIndex(value)
+     		end
+     	end
     
-     if key == "sizex" then
-     self:setTileSizeX(value)
-     elseif key == "sizey" then
-     self:setTileSizeY(value)
-     end
-     if key == "scalex" then
-     self:setTileScaleX(value)
-     elseif key == "scaley" then
-     self:setTileScaleY(value)
-     elseif key == "frame" then
-     self.prop:setIndex(value)
-     end
-     end
-    
-     if self.isPhysical == false then
-     if key == "x" then
-     local tmpX = self.currentRefX + value
-     local tmpY = self.y
-    
-     if (self:getProp() ~= nil) then
-     self:getProp():setLoc(tmpX, tmpY);
-     end
-     elseif key == "y" then
-     local tmpX = self.x
-     local tmpY = self.currentRefY + value
-    
-     if (self:getProp() ~= nil) then
-     self:getProp():setLoc(tmpX, tmpY);
-     end
-     elseif key == "rotation" then
-     self:getProp():setRot(value)
-     elseif key == "isFocus" and value == true then
-     -- TODO: implement focus handling
-     end
-     else
-     if key == "name" then
-     self.physicObject.name = value
-     elseif key == "rotation" then
-     self.physicObject:setAngle(value)
-     elseif key == "collision" then
-     self.physicObject.collision = value
-     elseif key == "x" then
-     self.physicObject:setX(value)
-     elseif key == "y" then
-     self.physicObject:setY(value)
-     elseif key == "awake" then
-     self.physicObject:setAwake(value)
-     elseif key == "active" then
-     self.physicObject:setActive(value)
-     elseif key == "bullet" then
-     self.physicObject:setBullet(value)
-     elseif key == "fixedRotation" then
-     self.physicObject:setFixedRotation(value)
-     elseif key == "angularVelocity" then
-     self.physicObject:setAngularVelocity(value)
-     elseif key == "angularDamping" then
-     self.physicObject:setAngularDamping(value)
-     elseif key == "linearVelocityX" then
-     self.physicObject:setLinearVelocity(value, self.linearVelocityY)
-     elseif key == "linearVelocityY" then
-     self.physicObject:setLinearVelocity(self.linearVelocityX, value)
-     elseif key == "linearDamping" then
-     self.physicObject:setLinearDamping(value)
-     elseif key == "isSensor" then
-     self.physicObject:setSensor(value)
-     elseif key == "isSleepingAllowed" then
-     print("isSleepingAllowed not available at the moment")
-     elseif key == "bodyType" then
-     print("bodyType not available at the moment")
-     elseif key == "restitution" then
-     self:setAllFixture("restitution", value)
-     elseif key == "friction" then
-     self:setAllFixture("friction", value)
-     elseif key == "density" then
-     self:setAllFixture("density", value)
-     elseif key == "filter" then
-     self:setAllFixture("filter", value)
-     elseif key == "sensor" then
-     self:setAllFixture("sensor", value)
-     end
-     end
-end
+     	if self.isPhysical == false then
+    	 	if key == "x" then
+    			local tmpX =     self.currentRefX + value
+    			local tmpY =     self.y
+    		
+    			if (self:getProp() ~= nil) then
+    		    self:getProp():setLoc(tmpX, tmpY);
+    			end
+    		elseif key == "y" then
+    			local tmpX =     self.x
+    			local tmpY =     self.currentRefY + value
+    			
+    			if (self:getProp() ~= nil) then
+    			    self:getProp():setLoc(tmpX, tmpY);
+    			end
+    		elseif key == "rotation" then
+    			 self:getProp():setRot(value)
+    		elseif key == "isFocus" and value == true then
+    			-- TODO: implement focus handling
+    		end
+    	 else
+    		if key == "name" then
+    		    self.physicObject.name = value
+    		elseif key == "rotation" then
+    		    self.physicObject:setAngle(value)
+    		elseif key == "collision" then
+    		    self.physicObject.collision = value
+    		elseif key == "x" then
+    		    self.physicObject:setX(value)
+    		elseif key == "y" then
+    		    self.physicObject:setY(value)
+    		elseif key == "awake" then
+    		    self.physicObject:setAwake(value)
+    		elseif key == "active" then
+    		    self.physicObject:setActive(value)
+    		elseif key == "bullet" then
+    		    self.physicObject:setBullet(value)
+    		elseif key == "fixedRotation" then
+    		    self.physicObject:setFixedRotation(value)
+    		elseif key == "angularVelocity" then
+    		    self.physicObject:setAngularVelocity(value)
+    		elseif key == "angularDamping" then
+    		    self.physicObject:setAngularDamping(value)
+    		elseif key == "linearVelocityX" then
+    		    self.physicObject:setLinearVelocity(value,self.linearVelocityY)
+    		elseif key == "linearVelocityY" then
+    		    self.physicObject:setLinearVelocity(self.linearVelocityX, value)
+    		elseif key == "linearDamping" then
+    		    self.physicObject:setLinearDamping(value)
+    		elseif key == "isSensor" then
+    		    self.physicObject:setSensor(value)
+    		elseif key == "isSleepingAllowed" then
+    			print("isSleepingAllowed not available at the moment")
+    		elseif key == "bodyType" then
+    			print("bodyType not available at the moment")
+    		elseif key == "restitution" then
+    		    self:setAllFixture("restitution", value)
+    		elseif key == "friction" then
+    		    self:setAllFixture("friction", value)
+    		elseif key == "density" then
+    		    self:setAllFixture("density", value)
+    		elseif key == "filter" then
+    		    self:setAllFixture("filter", value)
+    		elseif key == "sensor" then
+    		    self:setAllFixture("sensor", value)
+    		end
+     	end
+	end
 end
 
 
@@ -124,65 +123,63 @@ local function fieldAccessListener(self, key)
 
     local object = getmetatable(self).__object
 
-if key ~= nil then
-     if key == "isVisible" then
-     object.isVisible = object.visible
-     end
-    
-     if object.isAnim == true then
-    
-     if key == "frame" then
-     object.frame = object.prop:getIndex()
-     end
-     end
-    
-if object.isPhysical == true then
-    
-     if key == "rotation" then
-     object.rotation = object.physicObject:getAngle()
-     elseif key == "x" then
-     object.x = object.physicObject:getX()
-     elseif key == "y" then
-     object.y = object.physicObject:getY()
-     elseif key == "collision" then
-     object.collision = object.physicObject.collision
-     elseif key == "isAwake" then
-     object.isAwake = object.physicObject:isAwake()
-     elseif key == "isBodyActive" then
-     object.isActive = object.physicObject:isActive()
-     elseif key == "isBullet" then
-     object.isBullet = object.physicObject:isBullet()
-     elseif key == "isFixedRotation" then
-     object.isFixedRotation = object.physicObject:isFixedRotation()
-     elseif key == "angularVelocity" then
-     object.angularVelocity = object.physicObject:getAngularVelocity()
-     elseif key == "angularDamping" then
-     object.angularDamping = object.physicObject:getAngularDamping()
-     elseif key == "linearVelocityX" then
-     object.linearVelocityX, object.linearVelocityY = object.physicObject:getLinearVelocity()
-     elseif key == "linearVelocityY" then
-     object.linearVelocityX, object.linearVelocityY = object.physicObject:getLinearVelocity()
-     elseif key == "linearDamping" then
-     object.linearDamping = object.physicObject:getLinearDamping()
-     elseif key == "isSleepingAllowed" then
-     print("isSleepingAllowed not available at the moment")
-     elseif key == "bodyType" then
-     print("bodyType not available at the moment")
-     elseif key == "fixture" then
-     object.fixture = object.physicObject.fixturelist
-     elseif key == "restitution" then
-     object.restitution = object.fixture[1].restitution
-     elseif key == "friction" then
-     object.friction = object.fixture[1].friction
-     elseif key == "filter" then
-     object.filter = object.fixture[1].filter
-     elseif key == "density" then
-     object.density = object.fixture[1].density
-     elseif key == "sensor" then
-     object.sensor = object.fixture[1].sensor
-     end
-     end
-end
+	if key ~= nil then
+	     if key == "isVisible" then
+	     	object.isVisible = object.visible
+	     end
+	    
+	     if object.isAnim == true then
+	   	 	if key == "frame" then
+	     		object.frame = object.prop:getIndex()
+	     	end
+	     end
+	    
+		if object.isPhysical == true then
+	    	f key == "rotation" then
+	    		object.rotation = object.physicObject:getAngle()
+	    	elseif key == "x" then
+	    		object.x = object.physicObject:getX()
+	    	elseif key == "y" then
+	    		object.y = object.physicObject:getY()
+	    	elseif key == "collision" then
+	    		object.collision = object.physicObject.collision
+	    	elseif key == "isAwake" then
+	    		object.isAwake = object.physicObject:isAwake()
+	    	elseif key == "isBodyActive" then
+	    		object.isActive = object.physicObject:isActive()
+	    	elseif key == "isBullet" then
+	    		object.isBullet = object.physicObject:isBullet()
+	    	elseif key == "isFixedRotation" then
+	    		object.isFixedRotation = object.physicObject:isFixedRotation()
+	    	elseif key == "angularVelocity" then
+	    		object.angularVelocity = object.physicObject:getAngularVelocity()
+	    	elseif key == "angularDamping" then
+	    		object.angularDamping = object.physicObject:getAngularDamping()
+	    	elseif key == "linearVelocityX" then
+	    		object.linearVelocityX, object.linearVelocityY = object.physicObject:getLinearVelocity()
+	    	elseif key == "linearVelocityY" then
+	    		object.linearVelocityX, object.linearVelocityY = object.physicObject:getLinearVelocity()
+	    	elseif key == "linearDamping" then
+	    		object.linearDamping = object.physicObject:getLinearDamping()
+	    	elseif key == "isSleepingAllowed" then
+	    		print("isSleepingAllowed not available at the moment")
+	    	elseif key == "bodyType" then
+	    		print("bodyType not available at the moment")
+	    	elseif key == "fixture" then
+	    		object.fixture = object.physicObject.fixturelist
+	    	elseif key == "restitution" then
+	    		object.restitution = object.fixture[1].restitution
+	    	elseif key == "friction" then
+	    		object.friction = object.fixture[1].friction
+	    	elseif key == "filter" then
+	    		object.filter = object.fixture[1].filter
+	    	elseif key == "density" then
+	    		object.density = object.fixture[1].density
+	    	elseif key == "sensor" then
+	    		object.sensor = object.fixture[1].sensor
+	    	end
+	     end
+	end
     return getmetatable(self).__object[key]
 end
 
