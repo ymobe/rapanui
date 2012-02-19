@@ -44,7 +44,6 @@ groups = {}
 groups_size = 0
 
 mainGroup = RNGroup:new()
-
 stageWidth = 0
 stageHeight = 0
 width = 0
@@ -319,11 +318,10 @@ function createText(text, params)
 end
 
 function createRect(x, y, width, height, params)
-    local parentGroup, top, left
+    local parentGroup = mainGroup
     local rgb = { 255, 255, 255 }
-
     if params then
-        parentGroup = params.parentGroup or mainGroups
+        parentGroup = params.parentGroup or parentGroup
         rgb = params.rgb or rgb
     end
 
@@ -334,19 +332,18 @@ function createRect(x, y, width, height, params)
     shape.y = shape.originalHeight * .5 + y
     shape.rotation = 0
 
-    if parentGroup ~= nil then
-        parentGroup:insert(shape)
-    end
+    parentGroup:insert(shape)
     return shape
 end
 
 function createCircle(x, y, r, params)
-    local parentGroup, top, left
+    local parentGroup = mainGroup
+	local top, left
     local rgb = { 255, 255, 255 }
 
     if params then
         if type(params) == "table" then
-            parentGroup = params.parentGroup or mainGroups
+            parentGroup = params.parentGroup or parentGroup
             top = params.top or 0
             left = params.left or 0
             rgb = params.rgb or rgb
