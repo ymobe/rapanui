@@ -544,8 +544,11 @@ function RNObject:loadRect(width, height, rgb)
     local x = width * .5
     local y = height * .5
 
+    self.shapeR, self.shapeG, self.shapeB = rgb[1] * 0.00392, rgb[2] * 0.00392, rgb[3] * 0.00392
+
     local function onDraw()
-        MOAIGfxDevice.setPenColor(rgb[1] * 0.00392, rgb[2] * 0.00392, rgb[3] * 0.00392, self.alpha)
+
+        MOAIGfxDevice.setPenColor(self.shapeR, self.shapeG, self.shapeB, self.alpha)
         MOAIDraw.fillRect(-x, -y, x, y)
     end
 
@@ -562,11 +565,21 @@ function RNObject:loadRect(width, height, rgb)
     self.prop:setPriority(1)
 end
 
+function RNObject:setPenColor(r, g, b, alpha)
+    self.shapeR, self.shapeG, self.shapeB = r * 0.00392, g * 0.00392, b * 0.00392
+    if alpha ~= nil then
+        self.alpha = alpha
+    end
+end
+
 
 function RNObject:loadCircle(x, y, r, rgb)
     self.name = "shape"
+
+    self.shapeR, self.shapeG, self.shapeB = rgb[1] * 0.00392, rgb[2] * 0.00392, rgb[3] * 0.00392
+
     local function onDraw()
-        MOAIGfxDevice.setPenColor(rgb[1] * 0.00392, rgb[2] * 0.00392, rgb[3] * 0.00392, self.alpha)
+        MOAIGfxDevice.setPenColor(self.shapeR, self.shapeG, self.shapeB, 0.5)
         MOAIDraw.fillCircle(0, 0, r, 32)
     end
 
