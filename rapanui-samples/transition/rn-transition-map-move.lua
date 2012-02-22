@@ -12,13 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
+
 
 map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/rpgmap.tmx")
 aTileset = map:getTileset(0)

@@ -1,11 +1,3 @@
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
-require("RNUnit")
 
 RNUnit.assertEquals(2, map:getTilesetSize(), "Wrong tileset size")
 RNUnit.assertEquals(6, map:getLayersSize(), "Wrong layers size")

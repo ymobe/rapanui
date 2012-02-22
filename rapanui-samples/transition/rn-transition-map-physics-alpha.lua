@@ -13,13 +13,6 @@
 ]]
 
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
 
 -- start physic simulation
 RNPhysics.start()

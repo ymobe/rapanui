@@ -12,13 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
+
 
 
 

@@ -41,14 +41,18 @@ local scene2 = "rapanui-samples/director/scene2"
 local sceneToShow = scene1
 
 function onTouchEvent(event)
+    print("touch", event.phase, director:isTransitioning())
     if event.phase == "began" and director:isTransitioning() == false then
+        print("Transition go!")
         if sceneToShow == scene1 then
             sceneToShow = scene2
         else
             sceneToShow = scene1
         end
 
-        director:showScene(sceneToShow, getRandomTransition())
+        transition = getRandomTransition()
+        print("transition with", transition)
+        director:showScene(sceneToShow, transition)
     end
 end
 

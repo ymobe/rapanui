@@ -14,13 +14,7 @@
 
 -- tiles by Daniel Cook (http://www.lostgarden.com)
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
+
 
 mapOne = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/groups/mapone.tmx")
 aTileset = mapOne:getTileset(0)

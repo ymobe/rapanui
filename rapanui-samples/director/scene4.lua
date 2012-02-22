@@ -13,9 +13,6 @@
 ]]
 
 
-
-module(..., package.seeall)
-
 --[[
 	  
 	  SCENES MUST HAVE 
@@ -28,10 +25,11 @@ module(..., package.seeall)
 
 local sceneGroup = RNGroup:new()
 
+aScene = {}
 
 
 --init Scene
-function onCreate()
+function aScene.onCreate()
     --add things to sceneGroup
     local background = RNFactory.createImage("images/background-green.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
     local tile1a = RNFactory.createImage("images/tile4.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 320;
@@ -49,12 +47,12 @@ function onCreate()
 end
 
 
-
-function onEnd()
+function aScene.onEnd()
     for i = 1, table.getn(sceneGroup.displayObjects), 1 do
         sceneGroup.displayObjects[1]:remove();
     end
 end
 
+return aScene
 
 

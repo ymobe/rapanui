@@ -24,13 +24,6 @@
 -- gfxlib is under Common Public License (http://www.opensource.org/licenses/cpl1.0.php)
 ]]
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
 require("socket")
 
 --socket.gettime()
