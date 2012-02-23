@@ -135,3 +135,5 @@ end
 function RNFixture:getName()
     return self.pe_fixture_id
 end
+
+return RNFixture

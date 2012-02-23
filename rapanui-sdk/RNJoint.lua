@@ -13,8 +13,8 @@
 ]]
 
 
-module(..., package.seeall)
 
+RNJoint = {}
 
 local function fieldChangedListener(self, key, value)
 
@@ -246,7 +246,7 @@ end
 
 -- Create a new proxy for RNObject Object
 
-RNJoint = {}
+
 
 function RNJoint:new(o)
     local physicJoint = RNJoint:innerNew()
@@ -634,3 +634,5 @@ function RNJoint:remove()
         end
     end
 end
+
+return RNJoint

@@ -26,7 +26,7 @@ function RNTiledMapParser.printAttributes(attributes, indent)
 end
 
 function RNTiledMapParser.load(map, filename)
-    print("PARSE")
+
     local xml = MOAIXmlParser.parseFile(filename)
 
     map.layersSize = 0

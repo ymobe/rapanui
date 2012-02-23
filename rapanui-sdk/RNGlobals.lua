@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-module(..., package.seeall)
+
 
 SWAP = 1
 SLIDE_TO_LEFT = 2

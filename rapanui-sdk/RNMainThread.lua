@@ -12,34 +12,34 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-module(..., package.seeall)
+RNMainThread = {}
 
-require("rapanui-sdk/RNThread")
+RNMainThread.rnThread = RNThread:new()
 
-rnThread = RNThread:new()
-
-function addTimedAction(delay, func, iterations)
-    local actionid = rnThread:runFunction(delay, func, iterations)
-    rnThread:start()
+function RNMainThread.addTimedAction(delay, func, iterations)
+    local actionid = RNMainThread.rnThread:runFunction(delay, func, iterations)
+    RNMainThread.rnThread:start()
     return actionid
 end
 
-function suspendAction(actionid)
-    rnThread:suspendAction(actionid)
+function RNMainThread.suspendAction(actionid)
+    RNMainThread.rnThread:suspendAction(actionid)
 end
 
-function resumeAction(actionId)
-    rnThread:resumeAction(actionId)
+function RNMainThread.resumeAction(actionId)
+    RNMainThread.rnThread:resumeAction(actionId)
 end
 
-function removeAction(actionid)
-    rnThread:removeAction(actionid)
+function RNMainThread.removeAction(actionid)
+    RNMainThread.rnThread:removeAction(actionid)
 end
 
-function getMainThread()
-    return rnThread
+function RNMainThread.getMainThread()
+    return RNMainThread.rnThread
 end
 
-function startMainThread()
-    rnThread:start()
+function RNMainThread.startMainThread()
+    RNMainThread.rnThread:start()
 end
+
+return RNMainThread

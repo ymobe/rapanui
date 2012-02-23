@@ -12,19 +12,42 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-RNUtil = require("rapanui-sdk/RNUtil")
-RNUnit = require("rapanui-sdk/RNUnit")
-RNThread = require("rapanui-sdk/RNThread")
-RNGroup = require("rapanui-sdk/RNGroup")
-RNFactory = require("rapanui-sdk/RNFactory")
+RNObject = require("rapanui-sdk/RNObject")
+--require("rapanui-sdk/RNRectangle")
+RNText = require("rapanui-sdk/RNText")
+--require("rapanui-sdk/RNGroup")
+RNEvent = require("rapanui-sdk/RNEvent")
+RNScreen = require("rapanui-sdk/RNScreen")
+RNWrappedEventListener = require("rapanui-sdk/RNWrappedEventListener")
+--require("rapanui-sdk/RNUtil")
+
+-- Touch Listeners requires
+
 RNListeners = require("rapanui-sdk/RNListeners")
-RNTransition = require("rapanui-sdk/RNTransition")
-RNMainThread = require("rapanui-sdk/RNMainThread")
-RNDirector = require("rapanui-sdk/RNDirector")
-RNPhysics = require("rapanui-sdk/RNPhysics")
 RNInputManager = require("rapanui-sdk/RNInputManager")
 
-RNMapFactory = require("rapanui-sdk/RNMapFactory")
+RNUtil = require("rapanui-sdk/RNUtil")
+RNUnit = require("rapanui-sdk/RNUnit")
+RNGroup = require("rapanui-sdk/RNGroup")
+RNTransition = require("rapanui-sdk/RNTransition")
+RNPhysics = require("rapanui-sdk/RNPhysics")
+
+RNBody = require("rapanui-sdk/RNBody")
+RNJoint = require("rapanui-sdk/RNJoint")
+RNFixture = require("rapanui-sdk/RNFixture")
+
+
+-- Threds requires
+
+RNThread = require("rapanui-sdk/RNThread")
+RNMainThread = require("rapanui-sdk/RNMainThread")
+
+-- Director requires
+
+RNDirector = require("rapanui-sdk/RNDirector")
+
+-- Maps requires
+
 RNMap = require("rapanui-sdk/RNMap")
 RNMapLayer = require("rapanui-sdk/RNMapLayer")
 RNMapObject = require("rapanui-sdk/RNMapObject")
@@ -32,3 +55,6 @@ RNMapObjectGroup = require("rapanui-sdk/RNMapObjectGroup")
 RNMapTileset = require("rapanui-sdk/RNMapTileset")
 RNTiledMapParser = require("rapanui-sdk/RNTiledMapParser")
 RNTiledLuaMapParser = require("rapanui-sdk/RNTiledLuaMapParser")
+
+RNMapFactory = require("rapanui-sdk/RNMapFactory")
+RNFactory = require("rapanui-sdk/RNFactory")

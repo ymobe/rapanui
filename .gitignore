@@ -1,8 +1,10 @@
+.gitignore
 lua/
 *.DS_Store
 docs
 copyrect.lua
 moai-config.lua
+sample-spike
 rapanui-samples/.DS_Store
 rapanui-samples/games/.DS_Store
 rapanui-samples/maps/reference.tmx
@@ -13,3 +15,10 @@ rapanui.iws
 runrapanui.sh
 testCopyRect.sh
 testmap.sh
+.idea/
+Doxyfile
+DoxyfileEXAMPLE
+doc/
+rapanui-sdk/RNDirector_edit.lua
+run.sh
+tmp/

@@ -116,3 +116,5 @@ end
 function RNScreen:getImages()
     return self.images
 end
+
+return RNScreen

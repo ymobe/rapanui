@@ -1380,3 +1380,5 @@ function RNObject:changeFixturesProperty(name, property, value)
         end
     end
 end
+
+return RNObject

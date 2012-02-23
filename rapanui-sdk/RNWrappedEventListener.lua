@@ -12,8 +12,8 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-RNWrappedEventListener = {}
 require"socket"
+RNWrappedEventListener = {}
 
 
 function RNWrappedEventListener:new(o)
@@ -68,3 +68,5 @@ function RNWrappedEventListener:call(event)
         print("[WARN] RNWrappedEventListener: Event was nil")
     end
 end
+
+return RNWrappedEventListener

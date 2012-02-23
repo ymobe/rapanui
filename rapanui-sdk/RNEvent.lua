@@ -44,3 +44,5 @@ function RNEvent:initWithEventType(eventType)
         self.phase = "cancelled"
     end
 end
+
+return RNEvent

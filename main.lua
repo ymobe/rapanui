@@ -12,6 +12,8 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
 
+require("rapanui-sdk/rapanui")
+
 --[[ Uncomment to override the default print() function
 function print(...)
     local toPrint = ""
@@ -22,15 +24,7 @@ function print(...)
     return io.stdout:write(string.format(toPrint .. "\n"))
 end      --]]
 
-require("RNUtil")
-require("RNThread")
-require("RNGroup")
-require("RNFactory")
-require("RNListeners")
-require("RNTransition")
-require("RNMainThread")
-require("RNDirector")
-require ("RNPhysics")
+
 
 -- RapaNui demos:
 

@@ -10,35 +10,23 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
-module(..., package.seeall)
 
-require("rapanui-sdk/RNBody")
-require("rapanui-sdk/RNJoint")
-require("rapanui-sdk/RNFixture")
+RNPhysics = {}
 
-
-world = nil
-units = nil
-bodylist = {}
-jointlist = {}
+RNPhysics.world = nil
+RNPhysics.units = nil
+RNPhysics.bodylist = {}
+RNPhysics.jointlist = {}
 --if a collision listeners exists
 --with this we can decide whether a fixture should be set for giving callback for collision
 --if during his creation (true) or when the user sets a listener(see addEventListener function)
-collisionListenerExists = false
+RNPhysics.collisionListenerExists = false
 --collision funcion's name
-collisionHandlerName = nil
-
-
-
-
-
-
-
-
+RNPhysics.collisionHandlerName = nil
 
 
 -- world settings
-function start(value)
+function RNPhysics.start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
     end
@@ -49,42 +37,45 @@ function start(value)
 end
 
 
-function setTimeToSleep(value)
-    if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep() end
+function RNPhysics.setTimeToSleep(value)
+    if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep()
+    end
 end
 
 
 
 
-function setLinearSleepTolerance()
-    if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance() end
+function RNPhysics.setLinearSleepTolerance()
+    if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance()
+    end
 end
 
 
 
 
-function setAngularSleepTolerance()
-    if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance() end
+function RNPhysics.setAngularSleepTolerance()
+    if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance()
+    end
 end
 
 
 
 
-function getAngularSleepTolerance()
+function RNPhysics.getAngularSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
 
 
 
-function getLinearSleepTolerance()
+function RNPhysics.getLinearSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
 
 
 
-function getTimeToSleep()
+function RNPhysics.getTimeToSleep()
     return world:getAngularSleepTolerance()
 end
 
@@ -92,51 +83,51 @@ end
 
 
 
-function stop()
+function RNPhysics.stop()
     world:stop()
 end
 
 
-function setGravity(xx, yy)
+function RNPhysics.setGravity(xx, yy)
     world:setGravity(xx, yy)
 end
 
-function getGravity()
+function RNPhysics.getGravity()
     local x, y = world:getGravity()
     return x, y
 end
 
 --change this after initialization won't fit sprites to bodies
-function setMeters(meters)
+function RNPhysics.setMeters(meters)
     world:setUnitsToMeters(meters / 1000)
     units = meters
 end
 
 
-function setIterations(velocity, position)
+function RNPhysics.setIterations(velocity, position)
     world:setIterations(velocity, position)
 end
 
-function getMeters()
+function RNPhysics.getMeters()
     return units
 end
 
-function setAutoClearForces(boolean)
+function RNPhysics.setAutoClearForces(boolean)
     world:setAutoClearForces(boolean)
 end
 
-function getAutoClearForces()
+function RNPhysics.getAutoClearForces()
     return world:getAutoClearForces()
 end
 
 
-function getBodyList()
-    return bodylist
+function RNPhysics.getBodyList()
+    return RNPhysics.bodylist
 end
 
 
 -- bodies section
-function createBodyFromImage(image, ...)
+function RNPhysics.createBodyFromImage(image, ...)
 
     --[[ We need x,y,h,w,name and prop from image . The name and image are stored
          in RNBody and the prop is used in RNBody:removeSelf()
@@ -170,7 +161,8 @@ function createBodyFromImage(image, ...)
     end
 
     --how many fixtures have been received? (according to if the type has been received)
-    if (typeGiven == true) then fixturesReceived = arg.n - 1 else fixturesReceived = arg.n end
+    if (typeGiven == true) then fixturesReceived = arg.n - 1 else fixturesReceived = arg.n
+    end
 
 
     --adds bodies to the world
@@ -180,9 +172,12 @@ function createBodyFromImage(image, ...)
   the image. --]]
 
     --checks for body type
-    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC) end
-    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC) end
-    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC) end
+    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC)
+    end
+    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC)
+    end
+    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC)
+    end
 
 
     --get some image proprieties
@@ -194,7 +189,7 @@ function createBodyFromImage(image, ...)
 
 
     --creates the RNPhysics object
-    local RNBody = RNBody:new()
+    local aRNBody = RNBody:new()
 
     --brings the image to the origin in centered mode
     image:setX(0)
@@ -213,15 +208,24 @@ function createBodyFromImage(image, ...)
             --we create a fixture (a table) with the fixture/table received
             local tempFixture = RNFixture:new(arg[i])
             --sets default parameters if they aren't given
-            if (tempFixture.density == nil) then tempFixture.density = 1 end
-            if (tempFixture.friction == nil) then tempFixture.friction = 0.3 end
-            if (tempFixture.restitution == nil) then tempFixture.restitution = 0 end
-            if (tempFixture.filter == nil) then tempFixture.filter = { categoryBits = nil, maskBits = nil, groupIndex = nil } end
-            if (tempFixture.sensor == nil) then tempFixture.sensor = false end
-            if (tempFixture.shape == nil) and (tempFixture.radius == nil) then tempFixture.shape = "rectangle" elseif (tempFixture.shape == nil) and (tempFixture.radius ~= nil) then tempFixture.shape = "circle" end
-            if (tempFixture.filter.categoryBits == nil) then tempFixture.filter.categoryBits = 1 end
-            if (tempFixture.radius == nil) then tempFixture.radius = h / 2 end
-            if (tempFixture.center == nil) then tempFixture.center = { x = 0, y = 0 } end
+            if (tempFixture.density == nil) then tempFixture.density = 1
+            end
+            if (tempFixture.friction == nil) then tempFixture.friction = 0.3
+            end
+            if (tempFixture.restitution == nil) then tempFixture.restitution = 0
+            end
+            if (tempFixture.filter == nil) then tempFixture.filter = { categoryBits = nil, maskBits = nil, groupIndex = nil }
+            end
+            if (tempFixture.sensor == nil) then tempFixture.sensor = false
+            end
+            if (tempFixture.shape == nil) and (tempFixture.radius == nil) then tempFixture.shape = "rectangle" elseif (tempFixture.shape == nil) and (tempFixture.radius ~= nil) then tempFixture.shape = "circle"
+            end
+            if (tempFixture.filter.categoryBits == nil) then tempFixture.filter.categoryBits = 1
+            end
+            if (tempFixture.radius == nil) then tempFixture.radius = h / 2
+            end
+            if (tempFixture.center == nil) then tempFixture.center = { x = 0, y = 0 }
+            end
 
             --adds the fixture shape to the body
             if (tempFixture.shape == "circle") then
@@ -241,24 +245,28 @@ function createBodyFromImage(image, ...)
 
 
             --gives RNFixture a name
-            if tempFixture.pe_fixture_id == nil then tempFixture.name = image.name else tempFixture.name = tempFixture.pe_fixture_id end
+            if tempFixture.pe_fixture_id == nil then tempFixture.name = image.name else tempFixture.name = tempFixture.pe_fixture_id
+            end
 
             --the fixture now stores the body which is connect+ed to
-            tempFixture.parentBody = RNBody
+            tempFixture.parentBody = aRNBody
             --this fixture should stay in the i place in the fixturelist (or in the i-1 place if the Type
             --has been specified). ex: if this is the first fixture received if typeGiven is false -->i=1
             --But  if typeGiven is true --> i=2! But this fixture is the first, so it should be the first
             --in the list. and so this fixture will be the
             --number i in the list if typeGiven is false and the number i-1 if it's true.
-            if (typeGiven == true) then tempFixture.indexinlist = i - 1 else tempFixture.indexinlist = i end
+            if (typeGiven == true) then tempFixture.indexinlist = i - 1 else tempFixture.indexinlist = i
+            end
             --and its native box2d fixture
             tempFixture.fixture = fixture
             --update the RNBody.fixturelist (check the comment 4 lines above)
-            if (typeGiven == true) then RNBody.fixturelist[i - 1] = tempFixture else RNBody.fixturelist[i] = tempFixture end
+            if (typeGiven == true) then aRNBody.fixturelist[i - 1] = tempFixture else aRNBody.fixturelist[i] = tempFixture
+            end
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL) end
+            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+            end
         end --end arg for
 
     elseif (fixturesReceived == 0) then --else arg[1]~=nil
@@ -275,28 +283,30 @@ function createBodyFromImage(image, ...)
         tempFixture = RNFixture:new(proprieties)
         fixture:setFilter(tempFixture.filter.categoryBits, tempFixture.filter.maskBits, tempFixture.filter.groupIndex)
         --stores in the tempFixture table the RNBody which is connected to
-        tempFixture.parentBody = RNBody
+        tempFixture.parentBody = aRNBody
         tempFixture.indexinlist = 1
         --and update this RNBody.fixturelist (1 because this will be the
         --only whon fixture in this RNBody)
-        RNBody.fixturelist[1] = tempFixture
+        aRNBody.fixturelist[1] = tempFixture
 
         --gives RNFixture a name
-        if tempFixture.pe_fixture_id == nil then tempFixture.name = image.name else tempFixture.name = tempFixture.pe_fixture_id end
+        if tempFixture.pe_fixture_id == nil then tempFixture.name = image.name else tempFixture.name = tempFixture.pe_fixture_id
+        end
 
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL) end
+        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+        end
     end --end if arg>0
 
 
 
 
-    --adds the body to the bodylist
-    len = table.getn(bodylist)
-    bodylist[len + 1] = RNBody
-    RNBody.indexinlist = len + 1
+    --adds the body to the RNPhysics.bodylist
+    len = table.getn(RNPhysics.bodylist)
+    RNPhysics.bodylist[len + 1] = aRNBody
+    aRNBody.indexinlist = len + 1
 
 
 
@@ -311,29 +321,29 @@ function createBodyFromImage(image, ...)
     bprop:setParent(body)
 
     --stores proprieties in RNPhysics object
-    RNBody.sprite = image
-    RNBody.body = body
-    RNBody.type = Type
-    RNBody.name = image.name
-    RNBody.parentList = bodylist
-    RNBody.collision = nil
+    aRNBody.sprite = image
+    aRNBody.body = body
+    aRNBody.type = Type
+    aRNBody.name = image.name
+    aRNBody.parentList = RNPhysics.bodylist
+    aRNBody.collision = nil
 
 
     --traslate body to sprite position
-    RNBody.x = xx
-    RNBody.y = yy
-    RNBody.rotation = angle
+    aRNBody.x = xx
+    aRNBody.y = yy
+    aRNBody.rotation = angle
 
 
     --sets display object physic fields
 
     image.isPhysical = true
-    image.physicObject = RNBody
-    image.fixture = RNBody.fixturelist
+    image.physicObject = aRNBody
+    image.fixture = aRNBody.fixturelist
 
 
 
-    return RNBody
+    return aRNBody
 end
 
 
@@ -342,7 +352,7 @@ end
 
 
 
-function createBodyFromMapObject(mapObject, ...)
+function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
 
     local Type, typeGiven, fixturesReceived --type,if type is given as first optional argumen,how many fixtures have been received
@@ -372,7 +382,8 @@ function createBodyFromMapObject(mapObject, ...)
     end
 
     --how many fixtures have been received? (according to if the type has been received)
-    if (typeGiven == true) then fixturesReceived = arg.n - 1 else fixturesReceived = arg.n end
+    if (typeGiven == true) then fixturesReceived = arg.n - 1 else fixturesReceived = arg.n
+    end
 
 
     --adds bodies to the world
@@ -382,9 +393,12 @@ function createBodyFromMapObject(mapObject, ...)
   the image. --]]
 
     --checks for body type
-    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC) end
-    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC) end
-    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC) end
+    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC)
+    end
+    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC)
+    end
+    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC)
+    end
 
 
     --get some image proprieties
@@ -410,14 +424,22 @@ function createBodyFromMapObject(mapObject, ...)
             --we create a fixture (a table) with the fixture/table received
             local tempFixture = RNFixture:new(arg[i])
             --sets default parameters if they aren't given
-            if (tempFixture.density == nil) then tempFixture.density = 1 end
-            if (tempFixture.friction == nil) then tempFixture.friction = 0.3 end
-            if (tempFixture.restitution == nil) then tempFixture.restitution = 0 end
-            if (tempFixture.filter == nil) then tempFixture.filter = { categoryBits = nil, maskBits = nil, groupIndex = nil } end
-            if (tempFixture.sensor == nil) then tempFixture.sensor = false end
-            if (tempFixture.shape == nil) and (tempFixture.radius == nil) then tempFixture.shape = "rectangle" elseif (tempFixture.shape == nil) and (tempFixture.radius ~= nil) then tempFixture.shape = "circle" end
-            if (tempFixture.filter.categoryBits == nil) then tempFixture.filter.categoryBits = 1 end
-            if (tempFixture.radius == nil) then tempFixture.radius = h / 2 end
+            if (tempFixture.density == nil) then tempFixture.density = 1
+            end
+            if (tempFixture.friction == nil) then tempFixture.friction = 0.3
+            end
+            if (tempFixture.restitution == nil) then tempFixture.restitution = 0
+            end
+            if (tempFixture.filter == nil) then tempFixture.filter = { categoryBits = nil, maskBits = nil, groupIndex = nil }
+            end
+            if (tempFixture.sensor == nil) then tempFixture.sensor = false
+            end
+            if (tempFixture.shape == nil) and (tempFixture.radius == nil) then tempFixture.shape = "rectangle" elseif (tempFixture.shape == nil) and (tempFixture.radius ~= nil) then tempFixture.shape = "circle"
+            end
+            if (tempFixture.filter.categoryBits == nil) then tempFixture.filter.categoryBits = 1
+            end
+            if (tempFixture.radius == nil) then tempFixture.radius = h / 2
+            end
             --adds the fixture shape to the body
             if (tempFixture.shape == "circle") then
                 fixture = body:addCircle(0, 0, tempFixture.radius)
@@ -445,15 +467,18 @@ function createBodyFromMapObject(mapObject, ...)
             --But  if typeGiven is true --> i=2! But this fixture is the first, so it should be the first
             --in the list. and so this fixture will be the
             --number i in the list if typeGiven is false and the number i-1 if it's true.
-            if (typeGiven == true) then tempFixture.indexinlist = i - 1 else tempFixture.indexinlist = i end
+            if (typeGiven == true) then tempFixture.indexinlist = i - 1 else tempFixture.indexinlist = i
+            end
             --and its native box2d fixture
             tempFixture.fixture = fixture
             --update the RNBody.fixturelist (check the comment 4 lines above)
-            if (typeGiven == true) then RNBody.fixturelist[i - 1] = tempFixture else RNBody.fixturelist[i] = tempFixture end
+            if (typeGiven == true) then RNBody.fixturelist[i - 1] = tempFixture else RNBody.fixturelist[i] = tempFixture
+            end
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL) end
+            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+            end
         end --end arg for
 
     elseif (fixturesReceived == 0) then --else arg[1]~=nil
@@ -482,15 +507,16 @@ function createBodyFromMapObject(mapObject, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL) end
+        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+        end
     end --end if arg>0
 
 
 
 
-    --adds the body to the bodylist
-    len = table.getn(bodylist)
-    bodylist[len + 1] = RNBody
+    --adds the body to the RNPhysics.bodylist
+    len = table.getn(RNPhysics.bodylist)
+    RNPhysics.bodylist[len + 1] = RNBody
     RNBody.indexinlist = len + 1
 
 
@@ -504,7 +530,7 @@ function createBodyFromMapObject(mapObject, ...)
     RNBody.body = body
     RNBody.type = Type
     RNBody.name = mapObject.name
-    RNBody.parentList = bodylist
+    RNBody.parentList = RNPhysics.bodylist
     RNBody.collision = nil
 
 
@@ -523,7 +549,7 @@ end
 
 --we need the layer from RNScene received
 --keep it in mind for future changes
-function setDebugDraw(screen)
+function RNPhysics.setDebugDraw(screen)
 
     local layerfordebug = screen.layer
     len = table.getn(screen.sprites)
@@ -538,29 +564,14 @@ function setDebugDraw(screen)
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- COLLISION HANDLER
-function addEventListener(Type, funct)
+function RNPhysics.addEventListener(Type, funct)
     if (Type == "collision") then
         collisionHandlerName = funct
         --
-        blist = bodylist
+        blist = RNPhysics.bodylist
         len = table.getn(blist)
-        --for each body in bodylist
+        --for each body in RNPhysics.bodylist
         for i = 1, len, 1 do
             currentbody = blist[i]
             --and for each fixture in that body
@@ -569,7 +580,7 @@ function addEventListener(Type, funct)
             for k = 1, flistlen, 1 do
                 --sets the fixture for callbacks
                 currentfixture = flist[k].fixture
-                currentfixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+                currentfixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
             end
         end
         collisionListenerExists = true
@@ -582,7 +593,7 @@ end
 
 
 -- GLOBAL COLLISION HANDLER
-function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
+function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
     local blist, len, flist, flistlen, currentbody, currentfixture, body1, body2, currentphase, fixture1, fixture2, currentEvent
@@ -607,10 +618,10 @@ function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
     end
 
     --checks for which fixtures in which bodies are colliding
-    blist = bodylist
+    blist = RNPhysics.bodylist
     len = table.getn(blist)
     --finds fixtureA name:
-    --for each body in bodylist
+    --for each body in RNPhysics.bodylist
     for i = 1, len, 1 do
         currentbody = blist[i]
         --and for each fixture in that body
@@ -621,12 +632,13 @@ function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
             --if the fixture is the right one envolved in this collision
             --stores in body1 the envolved fixture's parent RNBody.
             --and in fixture1 the tempFixture table of the fixture envolved.
-            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k] end
+            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k]
+            end
         end
     end
 
     --finds fixtureB name:
-    --for each body in bodylist
+    --for each body in RNPhysics.bodylist
     for i = 1, len, 1 do
         currentbody = blist[i]
         --and for each fixture in that body
@@ -637,7 +649,8 @@ function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
             --if the fixture is the right one envolved in this collision
             --stores in body2 the envolved fixture's parent RNBody.
             --and in fixture2 the tempFixture table of the fixture envolved.
-            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k] end
+            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k]
+            end
         end
     end
 
@@ -649,14 +662,15 @@ function CollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
 
-    --if there is a function set for callback we sent it the event table
+    --if there is a function RNPhysics.set for callback we sent it the event table
     --and if objects aren't nil
     if (body1 ~= nil) and (body2 ~= nil) then
         currentEvent.object1 = body1.sprite
         currentEvent.object2 = body2.sprite
         if (collisionHandlerName ~= nil) then
             local funct = collisionHandlerName
-            if (funct ~= nil) then funct(currentEvent) end
+            if (funct ~= nil) then funct(currentEvent)
+            end
         end
     end
 end
@@ -664,7 +678,7 @@ end
 
 
 -- LOCAL COLLISION HANDLER
-function LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
+function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
     local blist, len, flist, flistlen, currentbody, currentfixture, body1, body2, currentphase, fixture1, fixture2, currentEvent
@@ -689,10 +703,10 @@ function LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
     end
 
     --checks for which fixtures in which bodies are colliding
-    blist = bodylist
+    blist = RNPhysics.bodylist
     len = table.getn(blist)
     --finds fixtureA name:
-    --for each body in bodylist
+    --for each body in RNPhysics.bodylist
     for i = 1, len, 1 do
         currentbody = blist[i]
         --and for each fixture in that body
@@ -703,12 +717,13 @@ function LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
             --if the fixture is the right one envolved in this collision
             --stores in body1 the envolved fixture's parent RNBody.
             --and in fixture1 the tempFixture table of the fixture envolved.
-            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k] end
+            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k]
+            end
         end
     end
 
     --finds fixtureB name:
-    --for each body in bodylist
+    --for each body in RNPhysics.bodylist
     for i = 1, len, 1 do
         currentbody = blist[i]
         --and for each fixture in that body
@@ -719,22 +734,25 @@ function LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
             --if the fixture is the right one envolved in this collision
             --stores in body2 the envolved fixture's parent RNBody.
             --and in fixture2 the tempFixture table of the fixture envolved.
-            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k] end
+            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k]
+            end
         end
     end
 
     --stores in the event table some things to pass to callback funcions
     currentEvent.phase = currentphase
-    if body1 ~= nil then currentEvent.object1 = body1.sprite end
-    if body2 ~= nil then currentEvent.object2 = body2.sprite end
+    if body1 ~= nil then currentEvent.object1 = body1.sprite
+    end
+    if body2 ~= nil then currentEvent.object2 = body2.sprite
+    end
     currentEvent.fixture1 = fixture1
     currentEvent.fixture2 = fixture2
     --we check the bodies for local collision handling set
-    blist = bodylist
+    blist = RNPhysics.bodylist
     len = table.getn(blist)
-    --we create the event to send to the function stored in RNBody.collision
+    --we create the event to send to the function RNPhysics.stored in RNBody.collision
     localEvent = { phase = currentphase, self = nil, other = nil, selfFixture = nil, otherFixture = nil, force = currentEvent.force, friction = currentEvent.friction }
-    --for each body in bodylist
+    --for each body in RNPhysics.bodylist
     for i = 1, len, 1 do
         --if the body is involved in this collision
         if (blist[i] == body1) then
@@ -768,7 +786,7 @@ end
 
 
 -- JOINTS
-function createJoint(type, ...)
+function RNPhysics.createJoint(type, ...)
 
     local joint, bodyA, bodyB, anchorX, anchorY, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, axisA, axisB, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, ratio, targetX, targetY, frequency, damping, maxForce, maxTorque, maxLengthA, maxLengthB, jointA, jointB, frequencyHz, dampingRatio
 
@@ -793,8 +811,10 @@ function createJoint(type, ...)
         anchorB_Y = arg[6]
         frequency = arg[7]
         damping = arg[8]
-        if (frequency == nil) then frequency = 30 end
-        if (damping == nil) then damping = 0 end
+        if (frequency == nil) then frequency = 30
+        end
+        if (damping == nil) then damping = 0
+        end
         joint = world:addDistanceJoint(bodyA.body, bodyB.body, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, frequency, damping)
     end
 
@@ -819,8 +839,10 @@ function createJoint(type, ...)
         anchorY = arg[4]
         maxForce = arg[5]
         maxTorque = arg[6]
-        if (maxForce == nil) then maxForce = 1000000 end
-        if (maxTorque == nil) then maxTorque = 1000000 end
+        if (maxForce == nil) then maxForce = 1000000
+        end
+        if (maxTorque == nil) then maxTorque = 1000000
+        end
         joint = world:addFrictionJoint(bodyA.body, bodyB.body, anchorX, anchorY, maxForce, maxTorque)
     end
 
@@ -862,8 +884,10 @@ function createJoint(type, ...)
         ratio = arg[11]
         maxLengthA = arg[12]
         maxLengthB = arg[13]
-        if (maxLengthA == nil) then maxLengthA = 100 end
-        if (maxLengthB == nil) then maxLengthB = 100 end
+        if (maxLengthA == nil) then maxLengthA = 100
+        end
+        if (maxLengthB == nil) then maxLengthB = 100
+        end
         joint = world:addPulleyJoint(bodyA.body, bodyB.body, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, ratio, maxLengthA, maxLengthB)
     end
 
@@ -886,8 +910,10 @@ function createJoint(type, ...)
         maxForce = arg[5]
         frequency = arg[6]
         dampingRatio = arg[7]
-        if (frequency == nil) then frequency = 30 end
-        if (dampingRatio == nil) then dampingRatio = 0.2 end
+        if (frequency == nil) then frequency = 30
+        end
+        if (dampingRatio == nil) then dampingRatio = 0.2
+        end
 
         joint = world:addMouseJoint(bodyA.body, bodyB.body, world, targetX, targetY, maxForce, frequencyHz, dampingRatio)
     end
@@ -895,7 +921,7 @@ function createJoint(type, ...)
 
     --rope joint
     --(type,bodyA,bodyB,maxLength,[,anchorAX,anchorAY,anchorBX,anchorBY])
-    --function addRopeJoint ( MOAIBox2DWorld self, MOAIBox2DBody bodyA, MOAIBox2DBody bodyB, number maxLength [, number anchorAX, number anchorAY, number anchorBX, number anchorBY ] )
+    --function RNPhysics.addRopeJoint ( MOAIBox2DWorld self, MOAIBox2DBody bodyA, MOAIBox2DBody bodyB, number maxLength [, number anchorAX, number anchorAY, number anchorBX, number anchorBY ] )
     if (type == "rope") then
         bodyA = arg[1].physicObject
         bodyB = arg[2].physicObject
@@ -904,10 +930,14 @@ function createJoint(type, ...)
         anchorAY = arg[5]
         anchorBX = arg[6]
         anchorBY = arg[7]
-        if (anchorAX == nil) then anchorAX = bodyA.x end
-        if (anchorAY == nil) then anchorAY = bodyA.y end
-        if (anchorBX == nil) then anchorBX = bodyB.x end
-        if (anchorBY == nil) then anchorBY = bodyB.y end
+        if (anchorAX == nil) then anchorAX = bodyA.x
+        end
+        if (anchorAY == nil) then anchorAY = bodyA.y
+        end
+        if (anchorBX == nil) then anchorBX = bodyB.x
+        end
+        if (anchorBY == nil) then anchorBY = bodyB.y
+        end
 
         joint = world:addRopeJoint(bodyA, bodyB, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
     end
@@ -918,7 +948,7 @@ function createJoint(type, ...)
     RNJoint.type = type
     RNJoint.bodyA = bodyA
     RNJoint.bodyB = bodyB
-    RNJoint.parentList = jointlist
+    RNJoint.parentList = RNPhysics.jointlist
     --set specific proprieties for specific types of joint
     if (type == "pulley") then
         RNJoint.ratio = ratio
@@ -929,19 +959,19 @@ function createJoint(type, ...)
     end
 
 
-    --add RNJoint to RNPhysics jointlist
-    len = table.getn(jointlist)
-    jointlist[len + 1] = RNJoint
+    --add RNJoint to RNPhysics RNPhysics.jointlist
+    len = table.getn(RNPhysics.jointlist)
+    RNPhysics.jointlist[len + 1] = RNJoint
     RNJoint.indexingloballist = len + 1
 
     if type ~= "gear" then
-        --add RNJoint to bodyA.jointlist
+        --add RNJoint to bodyA.RNPhysics.jointlist
         len = table.getn(bodyA.jointlist)
         bodyA.jointlist[len + 1] = RNJoint
         RNJoint.indexinbodyAlist = len + 1
 
         if type ~= "mouse" then
-            --add RNJoint to bodyB.jointlist
+            --add RNJoint to bodyB.RNPhysics.jointlist
             len = table.getn(bodyB.jointlist)
             bodyB.jointlist[len + 1] = RNJoint
             RNJoint.indexinbodyBlist = len + 1
@@ -951,4 +981,6 @@ function createJoint(type, ...)
 
     return RNJoint
 end
+
+return RNPhysics
 

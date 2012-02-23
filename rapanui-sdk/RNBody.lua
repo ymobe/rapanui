@@ -12,11 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
--- Create a new proxy
-
 RNBody = {}
-
-
 
 
 local function fieldChangedListener(self, key, value)
@@ -148,9 +144,6 @@ local function fieldAccessListener(self, key)
         print("bodyType not available at the moment")
     end
 
-
-
-
     return getmetatable(self).__object[key]
 end
 
@@ -215,8 +208,9 @@ function RNBody:remove()
     self.sprite.prop:setDeck(nil)
     --
     --remove this RNBody from body list and refresh the list fields.
-    len = table.getn(self.parentList)
-    ind = self.indexinlist
+
+    local len = table.getn(self.parentList)
+    local ind = self.indexinlist
     for i = 1, len, 1 do
         if (i == ind) then
             for k = ind + 1, len, 1 do self.parentList[k - 1] = self.parentList[k] self.parentList[k].indexinlist = k - 1 end

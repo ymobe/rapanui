@@ -16,12 +16,12 @@
 
 RNFactory = {}
 
-require("rapanui-sdk/RNObject")
-require("rapanui-sdk/RNRectangle")
-require("rapanui-sdk/RNText")
-require("rapanui-sdk/RNGroup")
-require("rapanui-sdk/RNScreen")
-require("rapanui-sdk/RNUtil")
+--require("rapanui-sdk/RNObject")
+--require("rapanui-sdk/RNRectangle")
+--require("rapanui-sdk/RNText")
+--require("rapanui-sdk/RNGroup")
+--require("rapanui-sdk/RNScreen")
+--require("rapanui-sdk/RNUtil")
 require("config")
 
 contentCenterX = nil

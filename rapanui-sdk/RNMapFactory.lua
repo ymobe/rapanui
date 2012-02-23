@@ -24,20 +24,16 @@ MAP_DRAW_MODE_TESSELLATED = "Tessellated"
 
 function RNMapFactory.loadMap(type, filename, drawmode)
 
-    print("before", type)
-
     local map = RNMap:new()
 
     if type == RNMapFactory.TILED then
-        print("callit")
+
         RNTiledMapParser.load(map, filename)
     end
 
     if type == RNMapFactory.TILEDLUA then
         RNTiledLuaMapParser.load(map, filename)
     end
-
-    print_r(map)
 
     map:init(RNFactory.getCurrentScreen())
 
