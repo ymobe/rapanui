@@ -124,6 +124,3 @@ require("rapanui-samples/basic/rn-images")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
-
--- Mem Tests
---require("rapanui-samples/test/maptest")
