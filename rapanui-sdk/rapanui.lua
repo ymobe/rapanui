@@ -11,15 +11,17 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
+config = require("config")
+
 
 RNObject = require("rapanui-sdk/RNObject")
---require("rapanui-sdk/RNRectangle")
+
 RNText = require("rapanui-sdk/RNText")
---require("rapanui-sdk/RNGroup")
+
 RNEvent = require("rapanui-sdk/RNEvent")
 RNScreen = require("rapanui-sdk/RNScreen")
 RNWrappedEventListener = require("rapanui-sdk/RNWrappedEventListener")
---require("rapanui-sdk/RNUtil")
+
 
 -- Touch Listeners requires
 

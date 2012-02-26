@@ -12,10 +12,6 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
---require("rapanui-sdk/RNUtil")
---require("rapanui-sdk/RNEvent")
---require("rapanui-sdk/RNWrappedEventListener")
-
 -- types of touches:
 
 -- TOUCH_DOWN

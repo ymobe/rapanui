@@ -12,17 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-
-
 RNFactory = {}
-
---require("rapanui-sdk/RNObject")
---require("rapanui-sdk/RNRectangle")
---require("rapanui-sdk/RNText")
---require("rapanui-sdk/RNGroup")
---require("rapanui-sdk/RNScreen")
---require("rapanui-sdk/RNUtil")
-require("config")
 
 contentCenterX = nil
 contentCenterY = nil
@@ -38,7 +28,6 @@ viewableContentHeight = nil
 viewableContentWidth = nil
 HiddenStatusBar = "HiddenStatusBar"
 CenterReferencePoint = "CenterReferencePoint"
-
 
 RNFactory.screen = RNScreen:new()
 
