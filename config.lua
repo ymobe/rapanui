@@ -12,9 +12,10 @@
 --width Moai (http://getmoai.com/) and  RapaNui in the credits of your program.
 ]]
 
-module(..., package.seeall)
+--module(..., package.seeall)
 
-sizes = {}
+config = {}
+config.sizes = {}
 
 -- Preset for some devices you can add as many as you want
 -- WARNING
@@ -22,10 +23,12 @@ sizes = {}
 -- there are bugs on RNObject placement and on touch input x,y coords so try to stay in your computer resolution
 --
 
-sizes["iPadDev"] = { 768, 1024, 384, 512 } -- shrunk for easier viewing
-sizes["iPad"] = { 768, 1024, 768, 1024 } -- 1:1 pixel iPad
-sizes["iPhone3G"] = { 320, 480, 320, 480 }
-sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 }  -- 3G screen ratio upscaled to 500x750
+config.sizes["iPadDev"] = { 768, 1024, 384, 512 } -- shrunk for easier viewing
+config.sizes["iPad"] = { 768, 1024, 768, 1024 } -- 1:1 pixel iPad
+config.sizes["iPhone3G"] = { 320, 480, 320, 480 }
+config.sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 }  -- 3G screen ratio upscaled to 500x750
 
-landscape = false
-device = "iPhone3G"
+config.landscape = false
+config.device = "iPhone3G"
+
+return config
