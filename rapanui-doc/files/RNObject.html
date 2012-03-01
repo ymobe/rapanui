@@ -1,0 +1,2363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+<h1>Modules</h1>
+<ul>
+
+	<li>
+		<a href="../modules/lfs.html">lfs</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li>
+		<a href="../files/RNBody.html">RNBody.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNDirector.html">RNDirector.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNEvent.html">RNEvent.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNFactory.html">RNFactory.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNFixture.html">RNFixture.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNGlobals.html">RNGlobals.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNGroup.html">RNGroup.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNInputManager.html">RNInputManager.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNJoint.html">RNJoint.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNListeners.html">RNListeners.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNLogger.html">RNLogger.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMainThread.html">RNMainThread.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMap.html">RNMap.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMapFactory.html">RNMapFactory.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMapLayer.html">RNMapLayer.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMapObject.html">RNMapObject.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMapObjectGroup.html">RNMapObjectGroup.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNMapTileset.html">RNMapTileset.lua</a>
+	</li>
+
+	<li><strong>RNObject.lua</strong></li>
+	
+	<li>
+		<a href="../files/RNPhysics.html">RNPhysics.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNRectangle.html">RNRectangle.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNScreen.html">RNScreen.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNText.html">RNText.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNThread.html">RNThread.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNTiledLuaMapParser.html">RNTiledLuaMapParser.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNTiledMapParser.html">RNTiledMapParser.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNTransition.html">RNTransition.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNUnit.html">RNUnit.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNUtil.html">RNUtil.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNWrappedEventListener.html">RNWrappedEventListener.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/RNWrappedTimedAction.html">RNWrappedTimedAction.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/rapanui.html">rapanui.lua</a>
+	</li>
+
+	<li>
+		<a href="../files/testdoc.html">testdoc.lua</a>
+	</li>
+
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>RNObject.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:applyAngularImpulse">RNObject:applyAngularImpulse</a>&nbsp;(value)</td>
+	<td class="summary">applis on current physic RNObject the given angular impulse </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:applyForce">RNObject:applyForce</a>&nbsp;(forceX, forceY, pointX, pointY)</td>
+	<td class="summary">applis on current physic RNObject the given force effect </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:applyLinearImpulse">RNObject:applyLinearImpulse</a>&nbsp;(impulseX, impulseY, pointX, pointY)</td>
+	<td class="summary">applis on current physic RNObject the given linear impulse </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:applyTorque">RNObject:applyTorque</a>&nbsp;(value)</td>
+	<td class="summary">applis on current physic RNObject the given torque effect </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:bringToFront">RNObject:bringToFront</a>&nbsp;()</td>
+	<td class="summary">set the level of current RNObject to the highest value in the group it belongs to: this sends it on the top of the RNObject stack </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:changeFixturesProperty">RNObject:changeFixturesProperty</a>&nbsp;(name, property, value)</td>
+	<td class="summary">changes current physic RNObject fixtures properties with given name </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:flipHorizontal">RNObject:flipHorizontal</a>&nbsp;()</td>
+	<td class="summary">flip current image Horizontally </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:flipVertical">RNObject:flipVertical</a>&nbsp;()</td>
+	<td class="summary">flip current image Vertically </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getAlpha">RNObject:getAlpha</a>&nbsp;()</td>
+	<td class="summary">returns current RNObject alpha value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getAngle">RNObject:getAngle</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject Angle </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getAngularDamping">RNObject:getAngularDamping</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject angular damping </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getAngularVelocity">RNObject:getAngularVelocity</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject angular velocity </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getFixtureListByName">RNObject:getFixtureListByName</a>&nbsp;(name)</td>
+	<td class="summary">returns current physic RNObject fixtures with given name </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getIDInGroup">RNObject:getIDInGroup</a>&nbsp;()</td>
+	<td class="summary">Return the id of RNObject in the group it belongs to </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getInertia">RNObject:getInertia</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject inertia </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getLevel">RNObject:getLevel</a>&nbsp;()</td>
+	<td class="summary">return the level "Z" axis of the current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getLinearDamping">RNObject:getLinearDamping</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject linear damping </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getLinearVelocity">RNObject:getLinearVelocity</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject linear velocity </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getLocalCenter">RNObject:getLocalCenter</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject local center </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getLocation">RNObject:getLocation</a>&nbsp;()</td>
+	<td class="summary">returns current RNObject location </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getMass">RNObject:getMass</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject mass </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getPosition">RNObject:getPosition</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getProp">RNObject:getProp</a>&nbsp;()</td>
+	<td class="summary">return the underlying MOAIProp2D </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getVisible">RNObject:getVisible</a>&nbsp;()</td>
+	<td class="summary">returns the visibility of current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getWorldCenter">RNObject:getWorldCenter</a>&nbsp;()</td>
+	<td class="summary">returns current physic RNObject world center </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getX">RNObject:getX</a>&nbsp;()</td>
+	<td class="summary">returns current RNObject x value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:getY">RNObject:getY</a>&nbsp;()</td>
+	<td class="summary">returns current RNObject y value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:initBlank">RNObject:initBlank</a>&nbsp;(width, height)</td>
+	<td class="summary">Creates a new RNObject RNObject with a blank image </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:initWith">RNObject:initWith</a>&nbsp;(image)</td>
+	<td class="summary">Initializes the object with the given image path </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:initWithMoaiImage">RNObject:initWithMoaiImage</a>&nbsp;(moaiImage)</td>
+	<td class="summary">Initializes the object with the given </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:isActive">RNObject:isActive</a>&nbsp;()</td>
+	<td class="summary">returns if current physic RNObject is Active </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:isAwake">RNObject:isAwake</a>&nbsp;()</td>
+	<td class="summary">returns if current physic RNObject is Awake </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:isBullet">RNObject:isBullet</a>&nbsp;()</td>
+	<td class="summary">returns if current physic RNObject is Bullet </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:isFixedRotation">RNObject:isFixedRotation</a>&nbsp;()</td>
+	<td class="summary">returns if current physic RNObject has FixedRotation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:isInRange">RNObject:isInRange</a>&nbsp;(x, y)</td>
+	<td class="summary">returns if the given (x,y) coords are inside the RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:loadAnim">RNObject:loadAnim</a>&nbsp;(image, sx, sy, scaleX, scaleY)</td>
+	<td class="summary">Creates a new RNObject with animation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:loadCircle">RNObject:loadCircle</a>&nbsp;(x, y, r, rgb)</td>
+	<td class="summary">Create a new RNObject with circle shape </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:loadCopyRect">RNObject:loadCopyRect</a>&nbsp;(src, params)</td>
+	<td class="summary">Creates a new RNObject doing a Copy Rect from the source image </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:loadRect">RNObject:loadRect</a>&nbsp;(width, height, rgb)</td>
+	<td class="summary">Create a new RNObject with a rectangle shape </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:new">RNObject:new</a>&nbsp;()</td>
+	<td class="summary">Create a new RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:newSequence">RNObject:newSequence</a>&nbsp;(name, frameOrder, speed, repeatTimes, onStop)</td>
+	<td class="summary">Creates a new sequence animation on the current RNObject animation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:play">RNObject:play</a>&nbsp;(sequenceName, speed, repeatTimes, onStop)</td>
+	<td class="summary">Starts playng the current RNObject animation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:putOver">RNObject:putOver</a>&nbsp;(object)</td>
+	<td class="summary">set the level of current RNObject to one more than target RNObject level </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:remove">RNObject:remove</a>&nbsp;()</td>
+	<td class="summary">remove current RNObject and let this be removable by garbage collector </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:removeSequence">RNObject:removeSequence</a>&nbsp;(name)</td>
+	<td class="summary">Remove the sequence with the given name from RNObject animation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:resetMassData">RNObject:resetMassData</a>&nbsp;()</td>
+	<td class="summary">resets current physic RNObject massdata </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:sendToBottom">RNObject:sendToBottom</a>&nbsp;()</td>
+	<td class="summary">set the level of current RNObject to the lowest value in the group it belongs to: this sends it on the bottom of the RNObject stack </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setActive">RNObject:setActive</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject as Active </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setAlpha">RNObject:setAlpha</a>&nbsp;(value, alpha)</td>
+	<td class="summary">sets RNObject alpha value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setAngle">RNObject:setAngle</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject angle </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setAngularDamping">RNObject:setAngularDamping</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject angular damping </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setAngularVelocity">RNObject:setAngularVelocity</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject angular velocity </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setAwake">RNObject:setAwake</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject as Awake </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setBullet">RNObject:setBullet</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject as Bullet: a bullet body is under continuous collision checking </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setFixedRotation">RNObject:setFixedRotation</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject FixedRotation, prevents the body from rotation (true or false) </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setLevel">RNObject:setLevel</a>&nbsp;(value)</td>
+	<td class="summary">set the level "Z" axis of the current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setLinearDamping">RNObject:setLinearDamping</a>&nbsp;(value)</td>
+	<td class="summary">sets current physic RNObject linear damping </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setLinearVelocity">RNObject:setLinearVelocity</a>&nbsp;(valuex, valuey)</td>
+	<td class="summary">sets current physic RNObject linear velocity </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setLocation">RNObject:setLocation</a>&nbsp;(x, y)</td>
+	<td class="summary">sets the loation (x,y) for the current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setMassData">RNObject:setMassData</a>&nbsp;(mass, I, centerX, centerY)</td>
+	<td class="summary">sets current physic RNObject mass </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setMassData">RNObject:setMassData</a>&nbsp;(mass, I, centerX, centerY)</td>
+	<td class="summary">sets current physic RNObject mass </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setPenColor">RNObject:setPenColor</a>&nbsp;(r, g, b, alpha)</td>
+	<td class="summary">Set the pen color for the shape </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setSensor">RNObject:setSensor</a>&nbsp;(value)</td>
+	<td class="summary">sets all fixture of current physic RNObject as sensors </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setTransform">RNObject:setTransform</a>&nbsp;(positionX, positionY, angle)</td>
+	<td class="summary">sets current physic RNObject transform </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setVisible">RNObject:setVisible</a>&nbsp;(value)</td>
+	<td class="summary">sets the visibility of current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setX">RNObject:setX</a>&nbsp;(x)</td>
+	<td class="summary">sets the x for the current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:setY">RNObject:setY</a>&nbsp;(y)</td>
+	<td class="summary">sets the y for the current RNObject </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:stop">RNObject:stop</a>&nbsp;()</td>
+	<td class="summary">Stops the current RNObject animation </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNObject:togglePause">RNObject:togglePause</a>&nbsp;()</td>
+	<td class="summary">Pauses the current RNObject animation </td>
+	</tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="RNObject:applyAngularImpulse"></a><strong>RNObject:applyAngularImpulse</strong>&nbsp;(value)</dt>
+<dd>
+applis on current physic RNObject the given angular impulse
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:applyForce"></a><strong>RNObject:applyForce</strong>&nbsp;(forceX, forceY, pointX, pointY)</dt>
+<dd>
+applis on current physic RNObject the given force effect
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  forceX: number
+	</li>
+	
+	<li>
+	  forceY: number
+	</li>
+	
+	<li>
+	  pointX: number
+	</li>
+	
+	<li>
+	  pointY: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:applyLinearImpulse"></a><strong>RNObject:applyLinearImpulse</strong>&nbsp;(impulseX, impulseY, pointX, pointY)</dt>
+<dd>
+applis on current physic RNObject the given linear impulse
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  impulseX: number
+	</li>
+	
+	<li>
+	  impulseY: number
+	</li>
+	
+	<li>
+	  pointX: number
+	</li>
+	
+	<li>
+	  pointY: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:applyTorque"></a><strong>RNObject:applyTorque</strong>&nbsp;(value)</dt>
+<dd>
+applis on current physic RNObject the given torque effect
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:bringToFront"></a><strong>RNObject:bringToFront</strong>&nbsp;()</dt>
+<dd>
+set the level of current RNObject to the highest value in the group it belongs to: this sends it on the top of the RNObject stack
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:changeFixturesProperty"></a><strong>RNObject:changeFixturesProperty</strong>&nbsp;(name, property, value)</dt>
+<dd>
+changes current physic RNObject fixtures properties with given name
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  name: string, fixture name
+	</li>
+	
+	<li>
+	  property: string, fixture's property name
+	</li>
+	
+	<li>
+	  value: number/string, fixture's property value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="">
+		RNFixture
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:flipHorizontal"></a><strong>RNObject:flipHorizontal</strong>&nbsp;()</dt>
+<dd>
+flip current image Horizontally
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:flipVertical"></a><strong>RNObject:flipVertical</strong>&nbsp;()</dt>
+<dd>
+flip current image Vertically
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getAlpha"></a><strong>RNObject:getAlpha</strong>&nbsp;()</dt>
+<dd>
+returns current RNObject alpha value
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+alpha number value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getAngle"></a><strong>RNObject:getAngle</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject Angle
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+Angle number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getAngularDamping"></a><strong>RNObject:getAngularDamping</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject angular damping
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+AngularDamping number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getAngularVelocity"></a><strong>RNObject:getAngularVelocity</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject angular velocity
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+AngularVelocity number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getFixtureListByName"></a><strong>RNObject:getFixtureListByName</strong>&nbsp;(name)</dt>
+<dd>
+returns current physic RNObject fixtures with given name
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  name: string
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+table list of all the RNFixture
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="">
+		RNFixture
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getIDInGroup"></a><strong>RNObject:getIDInGroup</strong>&nbsp;()</dt>
+<dd>
+Return the id of RNObject in the group it belongs to
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+id id in the group
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getInertia"></a><strong>RNObject:getInertia</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject inertia
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+inertia number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getLevel"></a><strong>RNObject:getLevel</strong>&nbsp;()</dt>
+<dd>
+return the level "Z" axis of the current RNObject
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+level number value of the current RNObject level
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getLinearDamping"></a><strong>RNObject:getLinearDamping</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject linear damping
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+LinearDamping number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getLinearVelocity"></a><strong>RNObject:getLinearVelocity</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject linear velocity
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+valuex,valuey numbers
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getLocalCenter"></a><strong>RNObject:getLocalCenter</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject local center
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+localcenter
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getLocation"></a><strong>RNObject:getLocation</strong>&nbsp;()</dt>
+<dd>
+returns current RNObject location
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+x,y the x y number values
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getMass"></a><strong>RNObject:getMass</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject mass
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+mass number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getPosition"></a><strong>RNObject:getPosition</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject position
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+postion
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getProp"></a><strong>RNObject:getProp</strong>&nbsp;()</dt>
+<dd>
+return the underlying MOAIProp2D
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+MOAIProp2D
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getVisible"></a><strong>RNObject:getVisible</strong>&nbsp;()</dt>
+<dd>
+returns the visibility of current RNObject
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+value boolean for visibility
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getWorldCenter"></a><strong>RNObject:getWorldCenter</strong>&nbsp;()</dt>
+<dd>
+returns current physic RNObject world center
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+world center
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getX"></a><strong>RNObject:getX</strong>&nbsp;()</dt>
+<dd>
+returns current RNObject x value
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+x number value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:getY"></a><strong>RNObject:getY</strong>&nbsp;()</dt>
+<dd>
+returns current RNObject y value
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+y number value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:initBlank"></a><strong>RNObject:initBlank</strong>&nbsp;(width, height)</dt>
+<dd>
+Creates a new RNObject RNObject with a blank image
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  width: width
+	</li>
+	
+	<li>
+	  height: height
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:initWith"></a><strong>RNObject:initWith</strong>&nbsp;(image)</dt>
+<dd>
+Initializes the object with the given image path
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  image: the path of the image to use
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:initWithMoaiImage"></a><strong>RNObject:initWithMoaiImage</strong>&nbsp;(moaiImage)</dt>
+<dd>
+Initializes the object with the given
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  moaiImage: the MOAIImage
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:isActive"></a><strong>RNObject:isActive</strong>&nbsp;()</dt>
+<dd>
+returns if current physic RNObject is Active
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+isActive boolean value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:isAwake"></a><strong>RNObject:isAwake</strong>&nbsp;()</dt>
+<dd>
+returns if current physic RNObject is Awake
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+isAwake boolean value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:isBullet"></a><strong>RNObject:isBullet</strong>&nbsp;()</dt>
+<dd>
+returns if current physic RNObject is Bullet
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+isBullet boolean value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:isFixedRotation"></a><strong>RNObject:isFixedRotation</strong>&nbsp;()</dt>
+<dd>
+returns if current physic RNObject has FixedRotation
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+isFixedRotation boolean value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:isInRange"></a><strong>RNObject:isInRange</strong>&nbsp;(x, y)</dt>
+<dd>
+returns if the given (x,y) coords are inside the RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  x: number value
+	</li>
+	
+	<li>
+	  y: number value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:loadAnim"></a><strong>RNObject:loadAnim</strong>&nbsp;(image, sx, sy, scaleX, scaleY)</dt>
+<dd>
+Creates a new RNObject with animation
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  image: 
+	</li>
+	
+	<li>
+	  sx: 
+	</li>
+	
+	<li>
+	  sy: 
+	</li>
+	
+	<li>
+	  scaleX: 
+	</li>
+	
+	<li>
+	  scaleY: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:loadCircle"></a><strong>RNObject:loadCircle</strong>&nbsp;(x, y, r, rgb)</dt>
+<dd>
+Create a new RNObject with circle shape
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  x: x position of the circle center
+	</li>
+	
+	<li>
+	  y: y position of the circle center
+	</li>
+	
+	<li>
+	  r: radius of the circle
+	</li>
+	
+	<li>
+	  rgb: a table with {r=numebr, g=number, b=number}
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:loadCopyRect"></a><strong>RNObject:loadCopyRect</strong>&nbsp;(src, params)</dt>
+<dd>
+Creates a new RNObject doing a Copy Rect from the source image
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  src: source image
+	</li>
+	
+	<li>
+	  params: table containing {srcXMin, srcYMin, srcXMax, srcYMax, destXMin, destYMin, destXMax, destYMax ,filter}
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+{srcXMin, srcYMin, srcXMax, srcYMax, destXMin, destYMin, destXMax, destYMax ,filter}
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:loadRect"></a><strong>RNObject:loadRect</strong>&nbsp;(width, height, rgb)</dt>
+<dd>
+Create a new RNObject with a rectangle shape
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  width: rectangle width
+	</li>
+	
+	<li>
+	  height: rectangle height
+	</li>
+	
+	<li>
+	  rgb: a table with {r=numebr, g=number, b=number}
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:new"></a><strong>RNObject:new</strong>&nbsp;()</dt>
+<dd>
+Create a new RNObject
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:newSequence"></a><strong>RNObject:newSequence</strong>&nbsp;(name, frameOrder, speed, repeatTimes, onStop)</dt>
+<dd>
+Creates a new sequence animation on the current RNObject animation
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  name: name of the new animation
+	</li>
+	
+	<li>
+	  frameOrder: table with the number of the frames like {1,2,3, ...}
+	</li>
+	
+	<li>
+	  speed: time of each frame
+	</li>
+	
+	<li>
+	  repeatTimes: time the sequence is repeated
+	</li>
+	
+	<li>
+	  onStop: callback function to call at the end of animation
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:play"></a><strong>RNObject:play</strong>&nbsp;(sequenceName, speed, repeatTimes, onStop)</dt>
+<dd>
+Starts playng the current RNObject animation
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  sequenceName: the name of the anim sequence to play
+	</li>
+	
+	<li>
+	  speed: time for each frame
+	</li>
+	
+	<li>
+	  repeatTimes: time to repeat the sequences
+	</li>
+	
+	<li>
+	  onStop: callback function to call at the end of animation
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:putOver"></a><strong>RNObject:putOver</strong>&nbsp;(object)</dt>
+<dd>
+set the level of current RNObject to one more than target RNObject level
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  object: the target RNObject on which the current RNObject should be put over
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:remove"></a><strong>RNObject:remove</strong>&nbsp;()</dt>
+<dd>
+remove current RNObject and let this be removable by garbage collector
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:removeSequence"></a><strong>RNObject:removeSequence</strong>&nbsp;(name)</dt>
+<dd>
+Remove the sequence with the given name from RNObject animation
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  name: name of the animation sequence to remove.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:resetMassData"></a><strong>RNObject:resetMassData</strong>&nbsp;()</dt>
+<dd>
+resets current physic RNObject massdata
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:sendToBottom"></a><strong>RNObject:sendToBottom</strong>&nbsp;()</dt>
+<dd>
+set the level of current RNObject to the lowest value in the group it belongs to: this sends it on the bottom of the RNObject stack
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setActive"></a><strong>RNObject:setActive</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject as Active
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setAlpha"></a><strong>RNObject:setAlpha</strong>&nbsp;(value, alpha)</dt>
+<dd>
+sets RNObject alpha value
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: 
+	</li>
+	
+	<li>
+	  alpha: number value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setAngle"></a><strong>RNObject:setAngle</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject angle
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setAngularDamping"></a><strong>RNObject:setAngularDamping</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject angular damping
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setAngularVelocity"></a><strong>RNObject:setAngularVelocity</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject angular velocity
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setAwake"></a><strong>RNObject:setAwake</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject as Awake
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setBullet"></a><strong>RNObject:setBullet</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject as Bullet: a bullet body is under continuous collision checking
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setFixedRotation"></a><strong>RNObject:setFixedRotation</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject FixedRotation, prevents the body from rotation (true or false)
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setLevel"></a><strong>RNObject:setLevel</strong>&nbsp;(value)</dt>
+<dd>
+set the level "Z" axis of the current RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setLinearDamping"></a><strong>RNObject:setLinearDamping</strong>&nbsp;(value)</dt>
+<dd>
+sets current physic RNObject linear damping
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setLinearVelocity"></a><strong>RNObject:setLinearVelocity</strong>&nbsp;(valuex, valuey)</dt>
+<dd>
+sets current physic RNObject linear velocity
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  valuex: number
+	</li>
+	
+	<li>
+	  valuey: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setLocation"></a><strong>RNObject:setLocation</strong>&nbsp;(x, y)</dt>
+<dd>
+sets the loation (x,y) for the current RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  x: number value
+	</li>
+	
+	<li>
+	  y: number value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setMassData"></a><strong>RNObject:setMassData</strong>&nbsp;(mass, I, centerX, centerY)</dt>
+<dd>
+sets current physic RNObject mass
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  mass: number
+	</li>
+	
+	<li>
+	  I: 
+	</li>
+	
+	<li>
+	  centerX: number
+	</li>
+	
+	<li>
+	  centerY: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setMassData"></a><strong>RNObject:setMassData</strong>&nbsp;(mass, I, centerX, centerY)</dt>
+<dd>
+sets current physic RNObject mass
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  mass: number
+	</li>
+	
+	<li>
+	  I: 
+	</li>
+	
+	<li>
+	  centerX: number
+	</li>
+	
+	<li>
+	  centerY: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setPenColor"></a><strong>RNObject:setPenColor</strong>&nbsp;(r, g, b, alpha)</dt>
+<dd>
+Set the pen color for the shape
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  r: red value for color
+	</li>
+	
+	<li>
+	  g: green value for color
+	</li>
+	
+	<li>
+	  b: blue value for color
+	</li>
+	
+	<li>
+	  alpha: alpha value for color
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/RNObject.html#RNObject:loadCircle">
+		RNObject:loadCircle
+	</a>
+	
+	<li><a href="../files/RNObject.html#RNObject:loadRect">
+		RNObject:loadRect
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setSensor"></a><strong>RNObject:setSensor</strong>&nbsp;(value)</dt>
+<dd>
+sets all fixture of current physic RNObject as sensors
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setTransform"></a><strong>RNObject:setTransform</strong>&nbsp;(positionX, positionY, angle)</dt>
+<dd>
+sets current physic RNObject transform
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  positionX: number
+	</li>
+	
+	<li>
+	  positionY: number
+	</li>
+	
+	<li>
+	  angle: number
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setVisible"></a><strong>RNObject:setVisible</strong>&nbsp;(value)</dt>
+<dd>
+sets the visibility of current RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: boolean for visibility
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setX"></a><strong>RNObject:setX</strong>&nbsp;(x)</dt>
+<dd>
+sets the x for the current RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  x: number value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:setY"></a><strong>RNObject:setY</strong>&nbsp;(y)</dt>
+<dd>
+sets the y for the current RNObject
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  y: number value
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:stop"></a><strong>RNObject:stop</strong>&nbsp;()</dt>
+<dd>
+Stops the current RNObject animation
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNObject:togglePause"></a><strong>RNObject:togglePause</strong>&nbsp;()</dt>
+<dd>
+Pauses the current RNObject animation
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>
