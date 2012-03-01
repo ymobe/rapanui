@@ -14,6 +14,7 @@
 
 RNEvent = {}
 
+--- Creates a new RNEvent
 function RNEvent:new()
     local o = {
         name = ""
@@ -26,6 +27,13 @@ function RNEvent:new()
     return o
 end
 
+
+--- init the event with given eventType
+-- @param eventType string: currently this events are supported: <br>
+-- began <br>
+-- moved <br>
+-- ended <br>
+-- cancelled <br>
 function RNEvent:initWithEventType(eventType)
 
     if (eventType == MOAITouchSensor.TOUCH_DOWN) then

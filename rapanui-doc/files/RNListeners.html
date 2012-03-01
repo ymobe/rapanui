@@ -31,15 +31,6 @@
 
 <!-- Module list -->
 
-<h1>Modules</h1>
-<ul>
-
-	<li>
-		<a href="../modules/lfs.html">lfs</a>
-	</li>
-
-</ul>
-
 
 
 <!-- File list -->
@@ -196,6 +187,26 @@
 
 
 
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#RNRuntime:addEventListener">RNRuntime:addEventListener</a>&nbsp;(eventName, listener, name)</td>
+	<td class="summary">Adds a call back function associated to the given eventName </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNRuntime:new">RNRuntime:new</a>&nbsp;()</td>
+	<td class="summary">Create a new RNRuntime </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNRuntime:removeEventListener">RNRuntime:removeEventListener</a>&nbsp;(eventName, id)</td>
+	<td class="summary">Removes a call back function associated to the given eventName and id </td>
+	</tr>
+
+</table>
+
 
 
 
@@ -206,6 +217,95 @@
 
 
 
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="RNRuntime:addEventListener"></a><strong>RNRuntime:addEventListener</strong>&nbsp;(eventName, listener, name)</dt>
+<dd>
+Adds a call back function associated to the given eventName
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  eventName: string the event the listener is bound to
+	</li>
+	
+	<li>
+	  listener: function the function that will receive the call back
+	</li>
+	
+	<li>
+	  name: string a remainder name linked to the function mainly for debug purpose
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+the id associated with the given listener function
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNRuntime:new"></a><strong>RNRuntime:new</strong>&nbsp;()</dt>
+<dd>
+Create a new RNRuntime
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNRuntime:removeEventListener"></a><strong>RNRuntime:removeEventListener</strong>&nbsp;(eventName, id)</dt>
+<dd>
+Removes a call back function associated to the given eventName and id
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  eventName: string the event name
+	</li>
+	
+	<li>
+	  id: number id of the funciont
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
 
 
 

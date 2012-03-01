@@ -29,6 +29,7 @@ local trn = RNTransition:new()
 -- Create a new RNDirector Object
 RNDirector = {}
 
+--- Creates a new RNDirector
 function RNDirector:new()
 
     local o = {
@@ -42,18 +43,21 @@ function RNDirector:new()
     return o
 end
 
+--- Return if current RNDirector is transitiong from a scene to another
+-- @return boolean
 function RNDirector:isTransitioning()
     return TRANSITIONING
 end
 
 --add a scene to Director and set it to invisible . scene must be an instance of RNGroup
+--- add a scene to current RNDirector
 function RNDirector:addScene(scene)
     local len = table.getn(self.scenes)
     self.scenes[len + 1] = scene
 end
 
 
---sets the time of transitions
+--- sets the global time of transitions
 function RNDirector:setTime(value)
     TIME = value
 end
@@ -66,7 +70,17 @@ local unloadScene = function(moduleName)
     end
 end
 
---Functions to show/hide  a scene with the given effect
+--- Show the scene with given name effect and call the option listener at the end of transition
+-- @param name
+-- @param effect string: the effect to apply current the effects are: <br>
+-- slidetoleft <br>
+-- slidetoright <br>
+-- slidetotop <br>
+-- slidetobottom <br>
+-- pop <br>
+-- fade <br>
+-- crossfade <br>
+-- @param onEndListener function: the function will be called at the end of transition
 function RNDirector:showScene(name, effect, onEndListener)
 
     if onEndListener ~= nil then

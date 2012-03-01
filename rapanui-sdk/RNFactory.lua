@@ -1,4 +1,3 @@
-
 --[[
 --
 -- RapaNui
@@ -97,13 +96,12 @@ function RNFactory.getCurrentScreen()
 end
 
 --- creates an new RNObject image with given filename and params
--- @param filename string: the path fo the file
+-- @param filename string: the path of the file
 -- @param params table: the table with the params for the image see below: <br>
 -- {top=120} to set the distance from the top border of the screen<br>
 -- {left=120} to set the distance from the left border of the screen <br>
 -- {parentGroup=myGroup} to set the parent group of the new RNObject<br>
 -- @usage anImage = RNFactory.createImage("images/image3.png", { top = 130, left = 130 })
-
 function RNFactory.createImage(filename, params)
 
     local parentGroup, left, top
@@ -147,6 +145,13 @@ function RNFactory.createImage(filename, params)
     return image
 end
 
+--- creates an new RNObject image with given MOAIImage and params
+-- @param filename string: the path of the file
+-- @param params table: the table with the params for the image see below: <br>
+-- {top=120} to set the distance from the top border of the screen<br>
+-- {left=120} to set the distance from the left border of the screen <br>
+-- {parentGroup=myGroup} to set the parent group of the new RNObject<br>
+-- @see RNFactory.createMoaiImage
 function RNFactory.createImageFromMoaiImage(moaiImage, params)
 
     local parentGroup, left, top
@@ -189,6 +194,9 @@ function RNFactory.createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
+--- creates an new MOAIImage image from given filename
+-- @param filename string: the path of the file
+-- @return MOAIImage
 function RNFactory.createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
@@ -201,6 +209,22 @@ function RNFactory.createBlankMoaiImage(width, height)
     return image
 end
 
+--- creates an new RNObject image from given MOAIImage
+-- @param moaiimage MOAIImage: the path of the file
+-- @param params table: the table with the params for the image see below: <br>
+-- {top=120} to set the distance from the top border of the screen<br>
+-- {left=120} to set the distance from the left border of the screen <br>
+-- {parentGroup=myGroup} to set the parent group of the new RNObject<br>
+-- {srcXMin=10} source MOAIImage x start value<br>
+-- {srcYMin=10} source MOAIImage y start value<br>
+-- {srcXMax=10} source MOAIImage x end value<br>
+-- {srcYMax=10} source MOAIImage y end value<br>
+-- {destXMin=10} destination RNObject x start value<br>
+-- {destYMin=10} destination RNObject y start value<br>
+-- {destXMax=10} destination RNObject x end value<br>
+-- {destYMax=10} destination RNObject y end value<br>
+-- {filter} One of MOAIImage.FILTER_LINEAR, MOAIImage.FILTER_NEAREST<br>
+-- @return MOAIImage
 function RNFactory.createCopyRect(moaiimage, params)
 
     local parentGroup, left, top
@@ -245,16 +269,15 @@ end
 
 
 --- creates an new RNObject animation with given filename and params
--- @param filename string: the path fo the file
+-- @param filename string: the path of the file
 -- @param sx number frame pixel width
 -- @param sy number frame pixel height
 -- @param left number: set the distance from the left border of the screen
 -- @param top number : set the distance from the top border of the screen
 -- @param scaleX number: the scale x for the animation
 -- @param scaleY number: the scale y for the animation
--- @usage  liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1) <br>
+-- @usage <code> liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1) <br>         </code>
 -- will place a RNObject animation at x:=140,x=50 with scale 1:1 and widht=32 and height=32
-
 function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     if scaleX == nil then
@@ -292,11 +315,12 @@ end
 -- @param text string: the text to be shown
 -- @param params table: the table with the params for the RNText see below: <br>
 -- {top=120}<br>
+-- {font="arial-rounded"}<br>
 -- {left=120}<br>
 -- {size=}<br>
 -- {widht=}<br>
 -- {height=}<br>
--- {alignmentt=}<br>
+-- {alignment=}<br>
 -- @usage text1 = RNFactory.createText("Hello world!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 function RNFactory.createText(text, params)
 

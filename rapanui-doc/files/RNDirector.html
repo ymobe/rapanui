@@ -31,15 +31,6 @@
 
 <!-- Module list -->
 
-<h1>Modules</h1>
-<ul>
-
-	<li>
-		<a href="../modules/lfs.html">lfs</a>
-	</li>
-
-</ul>
-
 
 
 <!-- File list -->
@@ -196,6 +187,36 @@
 
 
 
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#RNDirector:addScene">RNDirector:addScene</a>&nbsp;(scene)</td>
+	<td class="summary">add a scene to current RNDirector </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNDirector:isTransitioning">RNDirector:isTransitioning</a>&nbsp;()</td>
+	<td class="summary">Return if current RNDirector is transitiong from a scene to another </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNDirector:new">RNDirector:new</a>&nbsp;()</td>
+	<td class="summary">Creates a new RNDirector </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNDirector:setTime">RNDirector:setTime</a>&nbsp;(value)</td>
+	<td class="summary">sets the global time of transitions </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNDirector:showScene">RNDirector:showScene</a>&nbsp;(name, effect, onEndListener)</td>
+	<td class="summary">Show the scene with given name effect and call the option listener at the end of transition </td>
+	</tr>
+
+</table>
+
 
 
 
@@ -206,6 +227,134 @@
 
 
 
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="RNDirector:addScene"></a><strong>RNDirector:addScene</strong>&nbsp;(scene)</dt>
+<dd>
+add a scene to current RNDirector
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  scene: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNDirector:isTransitioning"></a><strong>RNDirector:isTransitioning</strong>&nbsp;()</dt>
+<dd>
+Return if current RNDirector is transitiong from a scene to another
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+boolean
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNDirector:new"></a><strong>RNDirector:new</strong>&nbsp;()</dt>
+<dd>
+Creates a new RNDirector
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNDirector:setTime"></a><strong>RNDirector:setTime</strong>&nbsp;(value)</dt>
+<dd>
+sets the global time of transitions
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNDirector:showScene"></a><strong>RNDirector:showScene</strong>&nbsp;(name, effect, onEndListener)</dt>
+<dd>
+Show the scene with given name effect and call the option listener at the end of transition
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  name: 
+	</li>
+	
+	<li>
+	  effect: string: the effect to apply current the effects are: <br> slidetoleft <br> slidetoright <br> slidetotop <br> slidetobottom <br> pop <br> fade <br> crossfade <br>
+	</li>
+	
+	<li>
+	  onEndListener: function: the function will be called at the end of transition
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
 
 
 

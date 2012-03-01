@@ -14,6 +14,7 @@
 
 RNRuntime = {}
 
+--- Create a new RNRuntime
 function RNRuntime:new()
     local o = {
         name = ""
@@ -25,6 +26,11 @@ function RNRuntime:new()
     return o
 end
 
+--- Adds a call back function associated to the given eventName
+-- @param eventName string the event the listener is bound to
+-- @param listener function the function that will receive the call back
+-- @param name string a remainder name linked to the function mainly for debug purpose
+-- @return the id associated with the given listener function
 function RNRuntime:addEventListener(eventName, listener, name)
 
     local listenerId
@@ -47,6 +53,10 @@ function RNRuntime:addEventListener(eventName, listener, name)
 
     return listenerId
 end
+
+--- Removes a call back function associated to the given eventName and id
+-- @param eventName string the event name
+-- @param id number id of the funciont
 
 function RNRuntime:removeEventListener(eventName, id)
     if eventName == "enterFrame" then

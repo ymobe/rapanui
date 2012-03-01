@@ -43,14 +43,10 @@ function RNPhysics.setTimeToSleep(value)
 end
 
 
-
-
 function RNPhysics.setLinearSleepTolerance()
     if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance()
     end
 end
-
-
 
 
 function RNPhysics.setAngularSleepTolerance()
@@ -59,13 +55,9 @@ function RNPhysics.setAngularSleepTolerance()
 end
 
 
-
-
 function RNPhysics.getAngularSleepTolerance()
     return world:getAngularSleepTolerance()
 end
-
-
 
 
 function RNPhysics.getLinearSleepTolerance()
@@ -73,14 +65,9 @@ function RNPhysics.getLinearSleepTolerance()
 end
 
 
-
-
 function RNPhysics.getTimeToSleep()
     return world:getAngularSleepTolerance()
 end
-
-
-
 
 
 function RNPhysics.stop()
@@ -347,11 +334,6 @@ function RNPhysics.createBodyFromImage(image, ...)
 end
 
 
-
-
-
-
-
 function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
 
@@ -588,10 +570,6 @@ function RNPhysics.addEventListener(Type, funct)
 end
 
 
-
-
-
-
 -- GLOBAL COLLISION HANDLER
 function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
@@ -674,7 +652,6 @@ function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
         end
     end
 end
-
 
 
 -- LOCAL COLLISION HANDLER
@@ -776,13 +753,6 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
         end
     end
 end
-
-
-
-
-
-
-
 
 
 -- JOINTS

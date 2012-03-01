@@ -82,6 +82,8 @@ local function fieldAccessListener(self, key)
     return getmetatable(self).__object[key]
 end
 
+
+--- Creates a new RNGroup
 function RNGroup:new()
     local displayobject = RNGroup:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
@@ -95,6 +97,7 @@ function RNGroup:new()
     proxy.levels[1] = 1
     return proxy, displayobject
 end
+
 
 function RNGroup:innerNew()
     local o = {
@@ -135,6 +138,9 @@ function RNGroup:insert(object, resetTransform)
     object:setIDInGroup(self.numChildren)
 end
 
+
+--- Removes from current RNGroup the RNObject with given id
+-- @param id number RNObject id to remove from current group
 function RNGroup:removeChild(id)
     len = table.getn(self.displayObjects)
     ind = id
@@ -153,24 +159,35 @@ function RNGroup:removeChild(id)
     self.numChildren = table.getn(self.displayObjects)
 end
 
+
 function RNGroup:inserLevel(level)
     self.levels[level] = level
 end
 
+
+--- returns the lowest level among the RNObjects of the RNGroup
+-- @return level number
 function RNGroup:getLowestLevel()
     return math.min(unpack(self.levels))
 end
 
+
+--- returns the highest level among the RNObjects of the RNGroup
+-- @return level number
 function RNGroup:getHighestLevel()
     return math.max(unpack(self.levels))
 end
 
+
+--- set the lowest level on the given RNObject
 function RNGroup:sendToBottom(object)
     local level = self:getLowestLevel() - 1
     object:setLevel(level)
     self.levels[level] = level
 end
 
+
+--- set the highest level on the given RNObject
 function RNGroup:bringToFront(object)
     local level = self:getHighestLevel() + 1
     object:setLevel(level)
@@ -187,6 +204,8 @@ end
 function RNGroup:setFocus(value)
 end
 
+--- removes given RNObject from current group
+-- @param value RNObject
 function RNGroup:remove(value)
     self:removeChild(value:getIDInGroup())
 end
@@ -199,6 +218,8 @@ function RNGroup:addEventListener(event, button)
 end
 
 
+--- Sets the visibility for current RNGroup and all contained RNObject
+-- @param value boolean
 function RNGroup:setVisible(value)
     for i = 0, self.numChildren - 1 do
         local anObject = self.displayObjects[i]

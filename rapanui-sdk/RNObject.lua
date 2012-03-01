@@ -15,7 +15,7 @@
 
 --- This is the core object of the RapaNui framework. It wraps Moai props2d and chanche the UV maps so the orgin 0,0 of screen is on TOP LEFT
 -- @author Stefano Linguerri
--- @author
+-- @author Mattia Fortunati
 
 
 require("rapanui-sdk/RNInputManager")
@@ -469,7 +469,7 @@ function RNObject:initWith(image)
     self:loadImage(image)
 end
 
---- Initializes the object with the given
+--- Initializes the object with the given MOAIImage
 -- @param moaiImage the MOAIImage
 function RNObject:initWithMoaiImage(moaiImage)
     self.visible = true
@@ -1409,7 +1409,7 @@ end
 --
 
 --body:applyForce(number forceX, number forceY [, number pointX, number pointY ] )
---- applis on current physic RNObject the given force effect
+--- applies on current physic RNObject the given force effect
 -- @param forceX number
 -- @param forceY number
 -- @param pointX number
@@ -1419,14 +1419,14 @@ function RNObject:applyForce(forceX, forceY, pointX, pointY)
 end
 
 --body:applyTorque(number torque)
---- applis on current physic RNObject the given torque effect
+--- applies on current physic RNObject the given torque effect
 -- @param value number
 function RNObject:applyTorque(value)
     self.physicObject:applyTorque(value)
 end
 
 --body:applyLinearImpulse(number impulseX, number impulseY [, number pointX, number pointY ] )
---- applis on current physic RNObject the given linear impulse
+--- applies on current physic RNObject the given linear impulse
 -- @param impulseX number
 -- @param impulseY number
 -- @param pointX number
@@ -1436,7 +1436,7 @@ function RNObject:applyLinearImpulse(impulseX, impulseY, pointX, pointY)
 end
 
 --body:applyAngularImpulse( number impulse )
---- applis on current physic RNObject the given angular impulse
+--- applies on current physic RNObject the given angular impulse
 -- @param value number
 function RNObject:applyAngularImpulse(value)
     self.physicObject:applyAngularImpulse(value)

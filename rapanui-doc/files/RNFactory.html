@@ -31,15 +31,6 @@
 
 <!-- Module list -->
 
-<h1>Modules</h1>
-<ul>
-
-	<li>
-		<a href="../modules/lfs.html">lfs</a>
-	</li>
-
-</ul>
-
 
 
 <!-- File list -->
@@ -210,8 +201,23 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#RNFactory.createCopyRect">RNFactory.createCopyRect</a>&nbsp;(moaiimage, params)</td>
+	<td class="summary">creates an new RNObject image from given MOAIImage </td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#RNFactory.createImage">RNFactory.createImage</a>&nbsp;(filename, params)</td>
 	<td class="summary">creates an new RNObject image with given filename and params </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNFactory.createImageFromMoaiImage">RNFactory.createImageFromMoaiImage</a>&nbsp;(moaiImage, params, filename)</td>
+	<td class="summary">creates an new RNObject image with given MOAIImage and params </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#RNFactory.createMoaiImage">RNFactory.createMoaiImage</a>&nbsp;(filename)</td>
+	<td class="summary">creates an new MOAIImage image from given filename </td>
 	</tr>
 
 	<tr>
@@ -256,7 +262,7 @@ creates an new RNObject animation with given filename and params
 <ul>
 	
 	<li>
-	  filename: string: the path fo the file
+	  filename: string: the path of the file
 	</li>
 	
 	<li>
@@ -289,7 +295,7 @@ creates an new RNObject animation with given filename and params
 
 
 <h3>Usage:</h3>
-liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1) <br> will place a RNObject animation at x:=140,x=50 with scale 1:1 and widht=32 and height=32
+<code> liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1) <br>         </code> will place a RNObject animation at x:=140,x=50 with scale 1:1 and widht=32 and height=32
 
 
 
@@ -338,6 +344,39 @@ creates an new RNObject circle shape
 
 
 
+<dt><a name="RNFactory.createCopyRect"></a><strong>RNFactory.createCopyRect</strong>&nbsp;(moaiimage, params)</dt>
+<dd>
+creates an new RNObject image from given MOAIImage
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  moaiimage: MOAIImage: the path of the file
+	</li>
+	
+	<li>
+	  params: table: the table with the params for the image see below: <br> {top=120} to set the distance from the top border of the screen<br> {left=120} to set the distance from the left border of the screen <br> {parentGroup=myGroup} to set the parent group of the new RNObject<br> {srcXMin=10} source MOAIImage x start value<br> {srcYMin=10} source MOAIImage y start value<br> {srcXMax=10} source MOAIImage x end value<br> {srcYMax=10} source MOAIImage y end value<br> {destXMin=10} destination RNObject x start value<br> {destYMin=10} destination RNObject y start value<br> {destXMax=10} destination RNObject x end value<br> {destYMax=10} destination RNObject y end value<br> {filter} One of MOAIImage.FILTER_LINEAR, MOAIImage.FILTER_NEAREST<br>
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+MOAIImage
+
+
+
+</dd>
+
+
+
+
 <dt><a name="RNFactory.createImage"></a><strong>RNFactory.createImage</strong>&nbsp;(filename, params)</dt>
 <dd>
 creates an new RNObject image with given filename and params
@@ -347,7 +386,7 @@ creates an new RNObject image with given filename and params
 <ul>
 	
 	<li>
-	  filename: string: the path fo the file
+	  filename: string: the path of the file
 	</li>
 	
 	<li>
@@ -363,6 +402,78 @@ creates an new RNObject image with given filename and params
 anImage = RNFactory.createImage("images/image3.png", { top = 130, left = 130 })
 
 
+
+
+
+</dd>
+
+
+
+
+<dt><a name="RNFactory.createImageFromMoaiImage"></a><strong>RNFactory.createImageFromMoaiImage</strong>&nbsp;(moaiImage, params, filename)</dt>
+<dd>
+creates an new RNObject image with given MOAIImage and params
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  moaiImage: 
+	</li>
+	
+	<li>
+	  params: table: the table with the params for the image see below: <br> {top=120} to set the distance from the top border of the screen<br> {left=120} to set the distance from the left border of the screen <br> {parentGroup=myGroup} to set the parent group of the new RNObject<br>
+	</li>
+	
+	<li>
+	  filename: string: the path of the file
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/RNFactory.html#RNFactory.createMoaiImage">
+		RNFactory.createMoaiImage
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="RNFactory.createMoaiImage"></a><strong>RNFactory.createMoaiImage</strong>&nbsp;(filename)</dt>
+<dd>
+creates an new MOAIImage image from given filename
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  filename: string: the path of the file
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+MOAIImage
 
 
 
@@ -426,7 +537,7 @@ creates an new RNText with given text and params
 	</li>
 	
 	<li>
-	  params: table: the table with the params for the RNText see below: <br> {top=120}<br> {left=120}<br> {size=}<br> {widht=}<br> {height=}<br> {alignmentt=}<br>
+	  params: table: the table with the params for the RNText see below: <br> {top=120}<br> {font="arial-rounded"}<br> {left=120}<br> {size=}<br> {widht=}<br> {height=}<br> {alignment=}<br>
 	</li>
 	
 </ul>
