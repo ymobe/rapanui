@@ -35,7 +35,7 @@ end      --]]
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
