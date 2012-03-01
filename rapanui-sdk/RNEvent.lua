@@ -14,8 +14,8 @@
 
 RNEvent = {}
 
-function RNEvent:new(o)
-    o = o or {
+function RNEvent:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

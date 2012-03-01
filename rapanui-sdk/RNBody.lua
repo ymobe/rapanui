@@ -149,17 +149,17 @@ end
 
 
 
-function RNBody:new(o)
-    local physicObject = RNBody:innerNew(o)
+function RNBody:new()
+    local physicObject = RNBody:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = physicObject })
     return proxy, physicObject
 end
 
 
 
-function RNBody:innerNew(o)
+function RNBody:innerNew()
 
-    o = o or {
+    local o = {
         sprite = nil, --RNSprite
         body = nil, --physic Body
         type = nil, -- dynamic, static or kinematic

@@ -19,8 +19,8 @@ RNThread = {}
 thread = MOAIThread.new()
 
 main_thread_started = false
-function RNThread:new(o)
-    o = o or {
+function RNThread:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

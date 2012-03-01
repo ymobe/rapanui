@@ -37,9 +37,9 @@ isTOUCHING = false
 
 RNInputManager = {}
 
-function RNInputManager:new(o)
+function RNInputManager:new()
 
-    o = o or {
+    local o = {
         name = "RNInputManager",
         listeners = {},
         size = 0,

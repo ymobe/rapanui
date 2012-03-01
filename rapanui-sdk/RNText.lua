@@ -50,15 +50,15 @@ local function fieldChangedListenerRNText(self, key, value)
 end
 
 
-function RNText:innerNew(o)
-    o = o or {}
+function RNText:innerNew()
+    local o = {}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
 -- Create a new proxy for RNText Object
-function RNText:new(o)
+function RNText:new()
     local RNText = RNText:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListenerRNText, __index = RNText })
     return proxy

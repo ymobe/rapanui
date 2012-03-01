@@ -14,8 +14,8 @@
 
 RNMapTileset = {}
 
-function RNMapTileset:new(o)
-    o = o or {
+function RNMapTileset:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

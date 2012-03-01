@@ -248,7 +248,7 @@ end
 
 
 
-function RNJoint:new(o)
+function RNJoint:new()
     local physicJoint = RNJoint:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = physicJoint })
     return proxy, physicJoint
@@ -257,9 +257,9 @@ end
 
 
 
-function RNJoint:innerNew(o)
+function RNJoint:innerNew()
 
-    o = o or {
+    local o = {
         joint = nil, --box2d joint
         type = nil,
         bodyA = nil, --RNBody
@@ -308,9 +308,9 @@ end
 
 
 
-------------------------- Physics Joint Methods----------------------------
+-- Physics Joint Methods
 
---- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
+-- PIVOT / REVOLUTE  JOINT    and some PISTON / REVOLUTE JOINT and some WHEEL /LINE JOINT
 function RNJoint:getJointAngle()
     if self.type == "pivot" then
         return self.joint:getJointAngle()
@@ -577,9 +577,6 @@ function RNJoint:setTarget(xx, yy)
     end
 end
 
-
-
------------------------- remove-----------------------------------------------------------
 function RNJoint:remove()
 
     self.joint:destroy()

@@ -65,16 +65,16 @@ end
 
 
 
-function RNFixture:new(o)
-    local fixture = RNFixture:innerNew(o)
+function RNFixture:new()
+    local fixture = RNFixture:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = fixture })
     return proxy, physicObject
 end
 
 
-function RNFixture:innerNew(o)
+function RNFixture:innerNew()
 
-    o = o or {
+    local o = {
         name = "",
         myName = "",
         userdata = nil,

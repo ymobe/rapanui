@@ -14,8 +14,8 @@
 
 RNRuntime = {}
 
-function RNRuntime:new(o)
-    o = o or {
+function RNRuntime:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

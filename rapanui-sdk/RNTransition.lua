@@ -21,8 +21,8 @@ RNTransition.ALPHA = "alpha"
 
 -- Create a New Transition Object
 
-function RNTransition:new(o)
-    o = o or {
+function RNTransition:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

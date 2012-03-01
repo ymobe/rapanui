@@ -82,7 +82,7 @@ local function fieldAccessListener(self, key)
     return getmetatable(self).__object[key]
 end
 
-function RNGroup:new(o)
+function RNGroup:new()
     local displayobject = RNGroup:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     proxy.displayObjects = {}
@@ -96,8 +96,8 @@ function RNGroup:new(o)
     return proxy, displayobject
 end
 
-function RNGroup:innerNew(o)
-    o = o or {
+function RNGroup:innerNew()
+    local o = {
         name = "",
         visible = true,
     }

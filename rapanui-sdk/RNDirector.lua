@@ -29,9 +29,9 @@ local trn = RNTransition:new()
 -- Create a new RNDirector Object
 RNDirector = {}
 
-function RNDirector:new(o)
+function RNDirector:new()
 
-    o = o or {
+    local o = {
         name = "",
         scenes = {}
     }

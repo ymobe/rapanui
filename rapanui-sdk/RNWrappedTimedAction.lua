@@ -16,8 +16,8 @@ RNWrappedTimedAction = {}
 require"socket"
 
 
-function RNWrappedTimedAction:new(o)
-    o = o or {
+function RNWrappedTimedAction:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

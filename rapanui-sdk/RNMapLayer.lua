@@ -14,8 +14,8 @@
 
 RNMapLayer = {}
 
-function RNMapLayer:new(o)
-    o = o or {
+function RNMapLayer:new()
+    local o = {
         name = "",
         lastRenderedItems = {},
         lastRenderedBigTiles = {},

@@ -52,7 +52,7 @@ end
 -- Create a new proxy for RNRectangle Object
 
 
-function RNRectangle:new(o)
+function RNRectangle:new()
     local displayobject = RNRectangle:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
@@ -63,9 +63,9 @@ function RNRectangle:initWith(left, top, width, height)
 end
 
 -- Create a new RNRectangle Object
-function RNRectangle:innerNew(o)
+function RNRectangle:innerNew()
 
-    o = o or {
+    local o = {
         name = "",
         myName = nil,
         image = nil,

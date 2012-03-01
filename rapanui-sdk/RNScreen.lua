@@ -16,9 +16,9 @@
 
 RNScreen = {}
 
-function RNScreen:new(o)
+function RNScreen:new()
 
-    o = o or {
+    local o = {
         name = "",
         sprites = {},
         numSprites = 0,

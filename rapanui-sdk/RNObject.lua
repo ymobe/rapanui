@@ -1,5 +1,3 @@
---- This is the core object of the RapaNui framework. It wraps Moai props2d and chanche the UV maps so the orgin 0,0 of screen is on TOP LEFT
--- @author Stefano Linguerri
 --[[
 --
 -- RapaNui
@@ -14,6 +12,12 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --
 ]]
+
+--- This is the core object of the RapaNui framework. It wraps Moai props2d and chanche the UV maps so the orgin 0,0 of screen is on TOP LEFT
+-- @author Stefano Linguerri
+-- @author
+
+
 require("rapanui-sdk/RNInputManager")
 
 TOP_LEFT_MODE = 1
@@ -276,15 +280,15 @@ end
 
 --- Create a new RNObject
 function RNObject:new()
-    local displayobject = RNObject:innerNew(nil)
+    local displayobject = RNObject:innerNew()
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = displayobject })
     return proxy, displayobject
 end
 
 -- Create a new RNObject Object
-function RNObject:innerNew(o)
+function RNObject:innerNew()
 
-    o = o or {
+    local o = {
         name = "",
         myName = nil,
         image = nil,
@@ -334,7 +338,7 @@ function RNObject:innerNew(o)
         density = nil,
         filter = nil,
         sensor = nil,
-        --per l'anim
+        -- for anims
         scaleX = nil,
         scaleY = nil,
         sizex = nil,
@@ -363,8 +367,6 @@ function RNObject:innerNew(o)
     return o
 end
 
---- Crete a new RNObject doing aCopyRect from the source image
----
 function RNObject:initCopyRect(src, params)
     self.visible = true
     self.childrenSize = 0
@@ -373,7 +375,9 @@ function RNObject:initCopyRect(src, params)
     self:loadCopyRect(src, params)
 end
 
-
+--- Creates a new RNObject RNObject with a blank image
+-- @param width width
+-- @param height height
 function RNObject:initBlank(width, height)
 
     self.name = image
@@ -404,6 +408,10 @@ function RNObject:initBlank(width, height)
     self.prop:setPriority(1)
 end
 
+--- Creates a new RNObject doing a Copy Rect from the source image
+-- @param src source image
+-- @param params table containing {srcXMin, srcYMin, srcXMax, srcYMax, destXMin, destYMin, destXMax, destYMax ,filter}
+-- @usage {srcXMin, srcYMin, srcXMax, srcYMax, destXMin, destYMin, destXMax, destYMax ,filter}
 function RNObject:loadCopyRect(src, params)
 
     local image
@@ -461,7 +469,8 @@ function RNObject:initWith(image)
     self:loadImage(image)
 end
 
-
+--- Initializes the object with the given
+-- @param moaiImage the MOAIImage
 function RNObject:initWithMoaiImage(moaiImage)
     self.visible = true
     self.childrenSize = 0
@@ -538,7 +547,10 @@ function RNObject:initWithCircle(x, y, r, rgb)
     self:loadCircle(x, y, r, rgb)
 end
 
-
+--- Create a new RNObject with a rectangle shape
+-- @param width rectangle width
+-- @param height rectangle height
+-- @param rgb a table with {r=numebr, g=number, b=number}
 function RNObject:loadRect(width, height, rgb)
     self.name = "shape"
     local x = width * .5
@@ -565,6 +577,14 @@ function RNObject:loadRect(width, height, rgb)
     self.prop:setPriority(1)
 end
 
+
+--- Set the pen color for the shape
+-- @param r red value for color
+-- @param g green value for color
+-- @param b blue value for color
+-- @param alpha alpha value for color
+-- @see RNObject:loadCircle
+-- @see RNObject:loadRect
 function RNObject:setPenColor(r, g, b, alpha)
     self.shapeR, self.shapeG, self.shapeB = r * 0.00392, g * 0.00392, b * 0.00392
     if alpha ~= nil then
@@ -573,6 +593,11 @@ function RNObject:setPenColor(r, g, b, alpha)
 end
 
 
+--- Create a new RNObject with circle shape
+-- @param x x position of the circle center
+-- @param y y position of the circle center
+-- @param r radius of the circle
+-- @param rgb a table with {r=numebr, g=number, b=number}
 function RNObject:loadCircle(x, y, r, rgb)
     self.name = "shape"
 
@@ -617,6 +642,8 @@ function RNObject:setIDInGroup(id)
     self.idInGroup = id
 end
 
+--- Return the id of RNObject in the group it belongs to
+-- @return id id in the group
 function RNObject:getIDInGroup()
     return self.idInGroup
 end
@@ -626,7 +653,12 @@ function RNObject:setIDInScreen(id)
     self.idInScreen = id
 end
 
-
+--- Creates a new RNObject with animation
+-- @param image
+-- @param sx
+-- @param sy
+-- @param scaleX
+-- @param scaleY
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
 
@@ -727,12 +759,14 @@ function RNObject:enterFrame(event)
     end
 end
 
+--- Pauses the current RNObject animation
 function RNObject:togglePause()
     if self.isAnim == true then
         if self.pause == true then self.pause = false else self.pause = true end
     end
 end
 
+--- Stops the current RNObject animation
 function RNObject:stop()
     if self.isAnim == true then
         self.pause = true
@@ -749,6 +783,11 @@ function RNObject:stop()
     end
 end
 
+--- Starts playng the current RNObject animation
+-- @param sequenceName the name of the anim sequence to play
+-- @param speed time for each frame
+-- @param repeatTimes time to repeat the sequences
+-- @param onStop callback function to call at the end of animation
 function RNObject:play(sequenceName, speed, repeatTimes, onStop)
     if self.isAnim == true then
         if sequenceName == nil then sequenceName = "default" end
@@ -772,6 +811,12 @@ function RNObject:play(sequenceName, speed, repeatTimes, onStop)
     end
 end
 
+--- Creates a new sequence animation on the current RNObject animation
+-- @param name name of the new animation
+-- @param frameOrder table with the number of the frames like {1,2,3, ...}
+-- @param speed time of each frame
+-- @param repeatTimes time the sequence is repeated
+-- @param onStop callback function to call at the end of animation
 function RNObject:newSequence(name, frameOrder, speed, repeatTimes, onStop)
     if self.isAnim == true then
         local listn = table.getn(self.sequenceList)
@@ -791,6 +836,8 @@ function RNObject:newSequence(name, frameOrder, speed, repeatTimes, onStop)
     end
 end
 
+--- Remove the sequence with the given name from RNObject animation
+-- @param name name of the animation sequence to remove.
 function RNObject:removeSequence(name)
     if name ~= "default" then
         if self.isAnim == true then
@@ -813,10 +860,12 @@ function RNObject:removeSequence(name)
     end
 end
 
+--- flip current image Horizontally
 function RNObject:flipHorizontal()
     self.scalex = -1
 end
 
+--- flip current image Vertically
 function RNObject:flipVertical()
     self.scaley = -1
 end
@@ -833,23 +882,30 @@ function RNObject:setSize(Sx, Sy)
     self.tileDeck:setSize(Sx, Sy)
 end
 
+--- set the level "Z" axis of the current RNObject
 function RNObject:setLevel(value)
     self.prop:setPriority(value)
     self.parentGroup:inserLevel(self:getLevel())
 end
 
+--- return the level "Z" axis of the current RNObject
+-- @return level number value of the current RNObject level
 function RNObject:getLevel()
     return self.prop:getPriority()
 end
 
+--- set the level of current RNObject to the lowest value in the group it belongs to: this sends it on the bottom of the RNObject stack
 function RNObject:sendToBottom()
     self.parentGroup:sendToBottom(self)
 end
 
+--- set the level of current RNObject to the highest value in the group it belongs to: this sends it on the top of the RNObject stack
 function RNObject:bringToFront()
     self.parentGroup:bringToFront(self)
 end
 
+--- set the level of current RNObject to one more than target RNObject level
+-- @param object the target RNObject on which the current RNObject should be put over
 function RNObject:putOver(object)
     self.prop:setPriority(object:getLevel() + 1)
     self.parentGroup:inserLevel(self:getLevel())
@@ -894,6 +950,8 @@ function RNObject:getGfxQuad()
     return self.gfxQuad
 end
 
+--- return the underlying MOAIProp2D
+-- @return MOAIProp2D
 function RNObject:getProp()
     return self.prop
 end
@@ -914,11 +972,14 @@ function RNObject:getOriginalHeight()
     return self.originalHeight
 end
 
-
+--- returns current RNObject location
+-- @return x,y the x y number values
 function RNObject:getLocation()
     return self.x, self.y
 end
 
+--- returns current RNObject x value
+-- @return x number value
 function RNObject:getX()
     if self.isPhyisic == false then
         return self.x
@@ -927,6 +988,8 @@ function RNObject:getX()
     end
 end
 
+--- returns current RNObject y value
+-- @return y number value
 function RNObject:getY()
     if self.isPhyisic == false then
         return self.y
@@ -935,10 +998,14 @@ function RNObject:getY()
     end
 end
 
+--- returns current RNObject alpha value
+-- @return alpha number value
 function RNObject:getAlpha()
     return self.alpha
 end
 
+--- sets RNObject alpha value
+-- @param alpha number value
 function RNObject:setAlpha(value)
 
     self.alpha = value
@@ -957,6 +1024,8 @@ function RNObject:getLocatingMode()
     return self.locatingMode
 end
 
+--- sets the visibility of current RNObject
+-- @param value boolean for visibility
 function RNObject:setVisible(value)
     if self.isPhysical == false then
         if self.prop ~= nil then
@@ -975,6 +1044,8 @@ function RNObject:setVisible(value)
     end
 end
 
+--- returns the visibility of current RNObject
+-- @return value boolean for visibility
 function RNObject:getVisible()
     return self.visible
 end
@@ -988,6 +1059,9 @@ function RNObject:getSDType()
     return "RNObject"
 end
 
+--- sets the loation (x,y) for the current RNObject
+-- @param x number value
+-- @param y number value
 function RNObject:setLocation(x, y)
 
     local tmpX = x
@@ -1001,7 +1075,8 @@ function RNObject:setLocation(x, y)
     self.y = y
 end
 
-
+--- sets the y for the current RNObject
+-- @param y number value
 function RNObject:setY(y)
 
     if self.isPhysical == false then
@@ -1018,6 +1093,8 @@ function RNObject:setY(y)
     self.y = self.currentRefY + y
 end
 
+--- sets the x for the current RNObject
+-- @param x number value
 function RNObject:setX(x)
 
     if self.isPhysical == false then
@@ -1042,6 +1119,9 @@ function RNObject:addEventListener(eventName, func)
     end
 end
 
+--- returns if the given (x,y) coords are inside the RNObject
+-- @param x number value
+-- @param y number value
 function RNObject:isInRange(x, y)
 
     local buttonx = x
@@ -1145,6 +1225,8 @@ end
 --
 -- calls to phsyic object methods
 --
+
+--- remove current RNObject and let this be removable by garbage collector
 function RNObject:remove()
     self.scene:removeRNObject(self)
     --print_r(self.scene)
@@ -1157,93 +1239,106 @@ function RNObject:remove()
     self.parentGroup:removeChild(self.idInGroup)
 end
 
---if it's awake (returns boolean)
+--- returns if current physic RNObject is Awake
+-- @return isAwake boolean value
 function RNObject:isAwake()
     return self.physicObject:isAwake()
 end
 
---sets the body as awake (true or false)
+--- sets current physic RNObject as Awake
+-- @param value boolean value
 function RNObject:setAwake(value)
     self.physicObject:setAwake(value)
 end
 
-
---if it's active (returns boolean)
-
+--- returns if current physic RNObject is Active
+-- @return isActive boolean value
 function RNObject:isActive()
     return self.physicObject:isActive()
 end
 
---sets the body as active (true or false)
+--- sets current physic RNObject as Active
+-- @param value boolean value
 function RNObject:setActive(value)
     self.physicObject:setActive(value)
 end
 
-
---if it's bullet
+--- returns if current physic RNObject is Bullet
+-- @return isBullet boolean value
 function RNObject:isBullet()
     return self.physicObject:isBullet()
 end
 
-
---sets the body as bullet[a bullet body is under continuous collision checking] (true or false)
+--- sets current physic RNObject as Bullet: a bullet body is under continuous collision checking
+-- @param value boolean value
 function RNObject:setBullet(value)
     self.physicObject:setBullet(value)
 end
 
---if its rotation is fixed (returns boolean)
+--- returns if current physic RNObject has FixedRotation
+-- @return isFixedRotation boolean value
 function RNObject:isFixedRotation()
     return self.physicObject:isFixedRotation()
 end
 
---prevents the body from rotation (true or false)
+--- sets current physic RNObject FixedRotation, prevents the body from rotation (true or false)
+-- @param value boolean value
 function RNObject:setFixedRotation(value)
     self.physicObject:setFixedRotation(value)
 end
 
---gets the angular velocity
+--- returns current physic RNObject angular velocity
+-- @return AngularVelocity number
 function RNObject:getAngularVelocity()
     return self.physicObject:getAngularVelocity()
 end
 
---sets the angular velocity
+--- sets current physic RNObject angular velocity
+-- @param value
 function RNObject:setAngularVelocity(value)
     self.physicObject:setAngularVelocity(value)
 end
 
---gets the linear damping
+--- returns current physic RNObject linear damping
+-- @return LinearDamping number
 function RNObject:getLinearDamping()
     return self.physicObject:getLinearDamping()
 end
 
---sets the linear damping
+--- sets current physic RNObject linear damping
+-- @param value number
 function RNObject:setLinearDamping(value)
     self.physicObject:setLinearDamping(value)
 end
 
---gets the angular damping
+--- returns current physic RNObject angular damping
+-- @return AngularDamping number
 function RNObject:getAngularDamping()
     return self.physicObject:getAngularDamping()
 end
 
---sets the angular damping
+--- sets current physic RNObject angular damping
+-- @param value number
 function RNObject:setAngularDamping(value)
     self.physicObject:setAngularDamping(value)
 end
 
-
---gets the linear velocity
+--- returns current physic RNObject linear velocity
+-- @return valuex,valuey numbers
 function RNObject:getLinearVelocity()
     return self.physicObject:getLinearVelocity()
 end
 
---sets the linear velocity
+--- sets current physic RNObject linear velocity
+-- @param valuex number
+-- @param valuey number
 function RNObject:setLinearVelocity(valuex, valuey)
     self.physicObject:setLinearVelocity(valuex, valuey)
 end
 
 
---sets all fixture of this body as sensors
+--- sets all fixture of current physic RNObject as sensors
+-- @param value boolean
 function RNObject:setSensor(value)
     self.physicObject:setSensor(value)
 end
@@ -1252,43 +1347,61 @@ end
 -- Additional working accessible proprieties and methods from MOAIbox2d (check moai documentation)
 --
 --body:getAngle()
+--- returns current physic RNObject Angle
+-- @return Angle number
 function RNObject:getAngle()
     return self.physicObject:getAngle()
 end
 
 --body:getLocalCenter()
+--- returns current physic RNObject local center
+-- @return localcenter
 function RNObject:getLocalCenter()
     return self.physicObject:getLocalCenter()
 end
 
 --body:getPosition()
+--- returns current physic RNObject position
+-- @return postion
 function RNObject:getPosition()
     return self.physicObject:getPosition()
 end
 
 --body:getWorldCenter()
+--- returns current physic RNObject world center
+-- @return world center
 function RNObject:getWorldCenter()
     return self.physicObject:getWorldCenter()
 end
 
---body:resetMassData()
+--- resets current physic RNObject massdata
 function RNObject:resetMassData()
     self.physicObject:resetMassData()
 end
 
 --body:setMassData(number mass [, number I, number centerX, number centerY ])
+--- sets current physic RNObject massdata
+-- @param mass number
+-- @param I
+-- @param centerX number
+-- @param centerY number
 function RNObject:setMassData(mass, I, centerX, centerY)
     self.physicObject:setMassData(mass, I, centerX, centerY)
 end
 
-
 --body:setTransform([, number positionX, number positionY, number angle ])
+--- sets current physic RNObject transform
+-- @param positionX number
+-- @param positionY number
+-- @param angle number
 function RNObject:setTransform(positionX, positionY, angle)
     self.physicObject:setTransform(positionX, positionY, angle)
 end
 
-function RNObject:setAngle(Angle)
-    self.physicObject:setAngle(Angle)
+--- sets current physic RNObject angle
+-- @param value number
+function RNObject:setAngle(value)
+    self.physicObject:setAngle(value)
 end
 
 --
@@ -1296,38 +1409,58 @@ end
 --
 
 --body:applyForce(number forceX, number forceY [, number pointX, number pointY ] )
+--- applis on current physic RNObject the given force effect
+-- @param forceX number
+-- @param forceY number
+-- @param pointX number
+-- @param pointY number
 function RNObject:applyForce(forceX, forceY, pointX, pointY)
     self.physicObject:applyForce(forceX, forceY, pointX, pointY)
 end
 
 --body:applyTorque(number torque)
+--- applis on current physic RNObject the given torque effect
+-- @param value number
 function RNObject:applyTorque(value)
     self.physicObject:applyTorque(value)
 end
 
 --body:applyLinearImpulse(number impulseX, number impulseY [, number pointX, number pointY ] )
+--- applis on current physic RNObject the given linear impulse
+-- @param impulseX number
+-- @param impulseY number
+-- @param pointX number
+-- @param pointY number
 function RNObject:applyLinearImpulse(impulseX, impulseY, pointX, pointY)
     self.physicObject:applyLinearImpulse(impulseX, impulseY, pointX, pointY)
 end
 
 --body:applyAngularImpulse( number impulse )
+--- applis on current physic RNObject the given angular impulse
+-- @param value number
 function RNObject:applyAngularImpulse(value)
     self.physicObject:applyAngularImpulse(value)
 end
 
 
-
-
 -- additional methods from last update
-
+--- returns current physic RNObject inertia
+-- @return inertia number
 function RNObject:getInertia()
     return self.physicObject:getInertia()
 end
 
+--- returns current physic RNObject mass
+-- @return mass number
 function RNObject:getMass()
     return self.physicObject:getInertia()
 end
 
+--- sets current physic RNObject mass
+-- @param mass number
+-- @param I
+-- @param centerX number
+-- @param centerY number
 function RNObject:setMassData(mass, I, centerX, centerY)
     if I ~= nil then
         self.physicObject:setMassData(mass, I, centerX, centerY)
@@ -1337,7 +1470,10 @@ function RNObject:setMassData(mass, I, centerX, centerY)
 end
 
 --fixture methods
-
+--- returns current physic RNObject fixtures with given name
+-- @param name string
+-- @return table list of all the RNFixture
+-- @see RNFixture
 function RNObject:getFixtureListByName(name)
     local tmpFixtureList = {}
     for i, v in ipairs(self.fixture) do
@@ -1348,7 +1484,11 @@ function RNObject:getFixtureListByName(name)
     return tmpFixtureList
 end
 
-
+--- changes current physic RNObject fixtures properties with given name
+-- @param name string, fixture name
+-- @param property string, fixture's property name
+-- @param value number/string, fixture's property value
+-- @see RNFixture
 function RNObject:changeFixturesProperty(name, property, value)
     for i, v in ipairs(self:getFixtureListByName(name)) do
         if property == "restitution" then

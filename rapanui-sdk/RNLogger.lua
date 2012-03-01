@@ -15,9 +15,9 @@
 RNLogger = {}
 
 -- Create a new RNSprite Object
-function RNLogger:new(o)
+function RNLogger:new()
 
-    o = o or {
+    local o = {
         enabled = true
     }
     setmetatable(o, self)

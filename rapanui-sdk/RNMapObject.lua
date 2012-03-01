@@ -14,8 +14,8 @@
 
 RNMapObject = {}
 
-function RNMapObject:new(o)
-    o = o or {
+function RNMapObject:new()
+    local o = {
         name = ""
     }
     setmetatable(o, self)

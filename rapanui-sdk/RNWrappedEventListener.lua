@@ -16,8 +16,8 @@ require"socket"
 RNWrappedEventListener = {}
 
 
-function RNWrappedEventListener:new(o)
-    o = o or {
+function RNWrappedEventListener:new()
+    local o = {
         name = "",
         scheduleRemove = false
     }
