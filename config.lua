@@ -14,6 +14,9 @@
 
 --module(..., package.seeall)
 
+-- ad rapanui sdk path to The path used by require to search for a Lua loader. 
+package.path = package.path .. ";./rapanui-sdk/?.lua"
+
 config = {}
 config.sizes = {}
 

@@ -11,8 +11,10 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
+--package.path = package.path .. ";./rapanui-sdk/?.lua"
+--print(package.path)
 
-require("rapanui-sdk/rapanui")
+require("rapanui")
 
 --[[ Uncomment to override the default print() function
 function print(...)
@@ -35,7 +37,7 @@ end      --]]
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
