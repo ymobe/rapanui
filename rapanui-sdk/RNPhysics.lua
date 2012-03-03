@@ -25,7 +25,7 @@ RNPhysics.collisionListenerExists = false
 RNPhysics.collisionHandlerName = nil
 
 
--- world settings
+--- starts physics simulation
 function RNPhysics.start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
@@ -36,65 +36,75 @@ function RNPhysics.start(value)
     world:setUnitsToMeters(0.06)
 end
 
-
+--- sets the sleeping time of physics objects
 function RNPhysics.setTimeToSleep(value)
     if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep()
     end
 end
 
-
+--- sets the linear sleep tolerance
 function RNPhysics.setLinearSleepTolerance()
     if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance()
     end
 end
 
-
+--- sets the angular sleep tolerance
 function RNPhysics.setAngularSleepTolerance()
     if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance()
     end
 end
 
-
+--- gets the angular sleep tolerance
 function RNPhysics.getAngularSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
-
+--- gets the linear sleep tolerance
 function RNPhysics.getLinearSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
-
+--- gets the sleeping time
 function RNPhysics.getTimeToSleep()
     return world:getAngularSleepTolerance()
 end
 
-
+--- stops the physics simulation
 function RNPhysics.stop()
     world:stop()
 end
 
-
+--- sets the gravity
+-- @param xx float: x axis gravity
+-- @param yy float: y axis gravity
 function RNPhysics.setGravity(xx, yy)
     world:setGravity(xx, yy)
 end
 
+--- gets the gravity
+-- @return table: x and y
 function RNPhysics.getGravity()
     local x, y = world:getGravity()
     return x, y
 end
 
 --change this after initialization won't fit sprites to bodies
+--- sets meters to units
+-- @param meters float: meters per box2d units
 function RNPhysics.setMeters(meters)
     world:setUnitsToMeters(meters / 1000)
     units = meters
 end
 
-
+--- sets physics iterations (see box2d docs)
+-- @param velocity float
+-- @param position float
 function RNPhysics.setIterations(velocity, position)
     world:setIterations(velocity, position)
 end
 
+--- gets meters per units
+-- @return units float
 function RNPhysics.getMeters()
     return units
 end
@@ -107,13 +117,44 @@ function RNPhysics.getAutoClearForces()
     return world:getAutoClearForces()
 end
 
-
+--- gets the table list of the bodies in the physics world
+-- @return table
 function RNPhysics.getBodyList()
     return RNPhysics.bodylist
 end
 
 
 -- bodies section
+--- creates a physics body from the given RNObject
+-- @param image RNObject
+-- @param ... additional properties: here you can specify the object's type<br>
+-- and give tables for fixture's properties or just give tables for fixture's properties<br>
+-- but the type should be given as first attribute.<br>
+-- Example: RNPhysics.createBodyFromImage(image:RNObject,type:string,{properties table},{properties table},...) or <br>
+-- RNPhysics.createBodyFromImage(image:RNObject,{properties table},{properties table},...)  <br>
+-- type can be "static","dynamic" or "kinematic" ("dynamic" by default) <br>
+-- a property table should be like this:<br>
+-- { density=number:float, friction =number:float, restitution = number:float, filter =filterAttributes:table, sensor=value:boolean,radius=number:float shape =string or vertexInClockwiseOrder:table } <br>
+-- in which filter specifies categoryBits,maskBits,groupIndex like this:<br>
+-- filter={categoryBits=number,maskBits=number,groupIndex=number} <br>
+-- and shape can be <br>
+-- shape = "circle" , shape = "rectangle" or a table of vertex in clockwise order like:<br>
+-- shape = { -32, 32 - 100, 32, 32 - 100, 0, 64 - 100 } <br>
+-- but usually we don't need to specify everything!
+-- @usage RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, restitution = 0, sensor = false, shape = { -128, -16, 128, -16, 128, 16, -128, 16 } }, { density = 1, friction = 0.3, restitution = 0.5, sensor = false, shape = { -32, 32, 32, 32, 0, 64 } })
+-- @usage RNPhysics.createBodyFromImage(box, "kinematic")
+-- @usage RNPhysics.createBodyFromImage(box)
+-- @usage RNPhysics.createBodyFromImage(ball, "dynamic", { density = 1, friction = 0.3, restitution = 0.8, sensor = false, radius = 21 })
+-- @usage RNPhysics.createBodyFromImage(box,{ density = 1,restitution = 0.3}) <br>
+-- by default values are:
+-- type="dynamic"
+-- density=1
+-- friction=0.3
+-- restitution=0
+-- sensor=false
+-- radius= half of image size in box2d units
+-- shape="rectangle"
+-- filter={groupIndex=nil,categoryBits=1,maskBits=nil}
 function RNPhysics.createBodyFromImage(image, ...)
 
     --[[ We need x,y,h,w,name and prop from image . The name and image are stored
