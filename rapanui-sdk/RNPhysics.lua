@@ -25,7 +25,8 @@ RNPhysics.collisionListenerExists = false
 RNPhysics.collisionHandlerName = nil
 
 
--- world settings
+--- starts physics simulation
+-- @param value boolean:optional value not available at the moment
 function RNPhysics.start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
@@ -36,97 +37,131 @@ function RNPhysics.start(value)
     world:setUnitsToMeters(0.06)
 end
 
-
+--- sets the sleeping time of physics objects
+-- @param value number: time to sleep
 function RNPhysics.setTimeToSleep(value)
     if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep()
     end
 end
 
-
-
-
+--- sets the linear sleep tolerance
 function RNPhysics.setLinearSleepTolerance()
     if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance()
     end
 end
 
-
-
-
+--- sets the angular sleep tolerance
 function RNPhysics.setAngularSleepTolerance()
     if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance()
     end
 end
 
-
-
-
+--- gets the angular sleep tolerance
 function RNPhysics.getAngularSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
-
-
-
+--- gets the linear sleep tolerance
 function RNPhysics.getLinearSleepTolerance()
     return world:getAngularSleepTolerance()
 end
 
-
-
-
+--- gets the sleeping time
 function RNPhysics.getTimeToSleep()
     return world:getAngularSleepTolerance()
 end
 
-
-
-
-
+--- stops the physics simulation
 function RNPhysics.stop()
     world:stop()
 end
 
-
+--- sets the gravity
+-- @param xx float: x axis gravity
+-- @param yy float: y axis gravity
 function RNPhysics.setGravity(xx, yy)
     world:setGravity(xx, yy)
 end
 
+--- gets the gravity
+-- @return table: x and y
 function RNPhysics.getGravity()
     local x, y = world:getGravity()
     return x, y
 end
 
 --change this after initialization won't fit sprites to bodies
+--- sets meters to units
+-- @param meters float: meters per box2d units
 function RNPhysics.setMeters(meters)
     world:setUnitsToMeters(meters / 1000)
     units = meters
 end
 
-
+--- sets physics iterations (see box2d docs)
+-- @param velocity float
+-- @param position float
 function RNPhysics.setIterations(velocity, position)
     world:setIterations(velocity, position)
 end
 
+--- gets meters per units
+-- @return units float
 function RNPhysics.getMeters()
     return units
 end
 
+--- see box2d docs
+-- @param boolean boolean
 function RNPhysics.setAutoClearForces(boolean)
     world:setAutoClearForces(boolean)
 end
 
+--- see box2d docs
+-- @return value
 function RNPhysics.getAutoClearForces()
     return world:getAutoClearForces()
 end
 
-
+--- gets the table list of the bodies in the physics world
+-- @return table
 function RNPhysics.getBodyList()
     return RNPhysics.bodylist
 end
 
 
 -- bodies section
+--- creates a physics body from the given RNObject
+-- @param image RNObject
+-- @param ... additional properties: here you can specify the object's type<br>
+-- and give tables for fixture's properties or just give tables for fixture's properties<br>
+-- but the type should be given as first attribute.<br>
+-- Example:<code> RNPhysics.createBodyFromImage(image,"dynamic",{restitution=0},{restitution=0.2},...)</code> or <br>
+--<code> RNPhysics.createBodyFromImage(image,{restitution=0},{restitution=2},...)</code>  <br>
+-- image should be an RNObject,<br>
+-- type can be "static","dynamic" or "kinematic" ("dynamic" by default) <br>
+-- a property table should be like this:<br>
+-- <code>{ density=1, friction =0.3, restitution = 0, filter ={groupIndex=1}, sensor=false,radius=1 shape = "rectangle" }</code> <br>
+-- in which filter specifies categoryBits,maskBits,groupIndex like this:<br>
+-- <code>filter={categoryBits=1,maskBits=1,groupIndex=1}</code> <br>
+-- and shape can be <br>
+-- <code>shape = "circle" , shape = "rectangle"</code> or a table of vertex in clockwise order like:<br>
+-- <code>shape = { -32, 32 - 100, 32, 32 - 100, 0, 64 - 100 }</code> <br>
+-- but usually we don't need to specify everything!
+-- @usage <code> RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, restitution = 0, sensor = false, shape = { -128, -16, 128, -16, 128, 16, -128, 16 } }, { density = 1, friction = 0.3, restitution = 0.5, sensor = false, shape = { -32, 32, 32, 32, 0, 64 } })<br>
+-- RNPhysics.createBodyFromImage(box, "kinematic")<br>
+-- RNPhysics.createBodyFromImage(box)<br>
+-- RNPhysics.createBodyFromImage(ball, "dynamic", { density = 1, friction = 0.3, restitution = 0.8, sensor = false, radius = 21 })<br>
+-- RNPhysics.createBodyFromImage(box,{ density = 1,restitution = 0.3})</code> <br>
+-- by default values are: <br>
+-- type="dynamic"<br>
+-- density=1<br>
+-- friction=0.3 <br>
+-- restitution=0<br>
+-- sensor=false <br>
+-- radius= half of image size in box2d units<br>
+-- shape="rectangle"<br>
+-- filter={groupIndex=nil,categoryBits=1,maskBits=nil}<br>
 function RNPhysics.createBodyFromImage(image, ...)
 
     --[[ We need x,y,h,w,name and prop from image . The name and image are stored
@@ -347,11 +382,6 @@ function RNPhysics.createBodyFromImage(image, ...)
 end
 
 
-
-
-
-
-
 function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
 
@@ -549,6 +579,10 @@ end
 
 --we need the layer from RNScene received
 --keep it in mind for future changes
+
+--- Set the debug draw for the given screen (sprites drawn after this will be drawn over the debug draw image)
+-- @param screen screen: the RNFactory screen
+-- @usage RNPhysics.setDebugDraw(RNFactory.screen)
 function RNPhysics.setDebugDraw(screen)
 
     local layerfordebug = screen.layer
@@ -586,10 +620,6 @@ function RNPhysics.addEventListener(Type, funct)
         collisionListenerExists = true
     end
 end
-
-
-
-
 
 
 -- GLOBAL COLLISION HANDLER
@@ -674,7 +704,6 @@ function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
         end
     end
 end
-
 
 
 -- LOCAL COLLISION HANDLER
@@ -776,13 +805,6 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
         end
     end
 end
-
-
-
-
-
-
-
 
 
 -- JOINTS
