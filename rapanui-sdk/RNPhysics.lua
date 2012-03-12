@@ -300,7 +300,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+            if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
             end
         end --end arg for
 
@@ -331,7 +331,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+        if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
         end
     end --end if arg>0
 
