@@ -149,17 +149,17 @@ end
 
 
 
-function RNBody:new()
-    local physicObject = RNBody:innerNew()
+function RNBody:new(o)
+    local physicObject = RNBody:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = physicObject })
     return proxy, physicObject
 end
 
 
 
-function RNBody:innerNew()
+function RNBody:innerNew(o)
 
-    local o = {
+    o = o or {
         sprite = nil, --RNSprite
         body = nil, --physic Body
         type = nil, -- dynamic, static or kinematic
@@ -488,7 +488,7 @@ function RNBody:getInertia()
 end
 
 function RNBody:getMass()
-    return self.body:getInertia()
+    return self.body:getMass()
 end
 
 function RNBody:setMassData(mass, I, centerX, centerY)
