@@ -26,6 +26,7 @@ RNPhysics.collisionHandlerName = nil
 
 
 --- starts physics simulation
+-- @param value boolean:optional value not available at the moment
 function RNPhysics.start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
@@ -37,6 +38,7 @@ function RNPhysics.start(value)
 end
 
 --- sets the sleeping time of physics objects
+-- @param value number: time to sleep
 function RNPhysics.setTimeToSleep(value)
     if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep()
     end
@@ -109,10 +111,14 @@ function RNPhysics.getMeters()
     return units
 end
 
+--- see box2d docs
+-- @param boolean boolean
 function RNPhysics.setAutoClearForces(boolean)
     world:setAutoClearForces(boolean)
 end
 
+--- see box2d docs
+-- @return value
 function RNPhysics.getAutoClearForces()
     return world:getAutoClearForces()
 end
@@ -130,31 +136,33 @@ end
 -- @param ... additional properties: here you can specify the object's type<br>
 -- and give tables for fixture's properties or just give tables for fixture's properties<br>
 -- but the type should be given as first attribute.<br>
--- Example: RNPhysics.createBodyFromImage(image:RNObject,type:string,{properties table},{properties table},...) or <br>
--- RNPhysics.createBodyFromImage(image:RNObject,{properties table},{properties table},...)  <br>
+-- Example:<code> RNPhysics.createBodyFromImage(image,"dynamic",{restitution=0},{restitution=0.2},...)</code> or <br>
+--<code> RNPhysics.createBodyFromImage(image,{restitution=0},{restitution=2},...)</code>  <br>
+-- image should be an RNObject,<br>
 -- type can be "static","dynamic" or "kinematic" ("dynamic" by default) <br>
 -- a property table should be like this:<br>
--- { density=number:float, friction =number:float, restitution = number:float, filter =filterAttributes:table, sensor=value:boolean,radius=number:float shape =string or vertexInClockwiseOrder:table } <br>
+-- <code>{ density=1, friction =0.3, restitution = 0, filter ={groupIndex=1}, sensor=false,radius=1 shape = "rectangle" }</code> <br>
 -- in which filter specifies categoryBits,maskBits,groupIndex like this:<br>
--- filter={categoryBits=number,maskBits=number,groupIndex=number} <br>
+-- <code>filter={categoryBits=1,maskBits=1,groupIndex=1}</code> <br>
 -- and shape can be <br>
--- shape = "circle" , shape = "rectangle" or a table of vertex in clockwise order like:<br>
--- shape = { -32, 32 - 100, 32, 32 - 100, 0, 64 - 100 } <br>
+-- <code>shape = "circle" , shape = "rectangle"</code> or a table of vertex in clockwise order like:<br>
+-- <code>shape = { -32, 32 - 100, 32, 32 - 100, 0, 64 - 100 }</code> <br>
 -- but usually we don't need to specify everything!
--- @usage RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, restitution = 0, sensor = false, shape = { -128, -16, 128, -16, 128, 16, -128, 16 } }, { density = 1, friction = 0.3, restitution = 0.5, sensor = false, shape = { -32, 32, 32, 32, 0, 64 } })
--- @usage RNPhysics.createBodyFromImage(box, "kinematic")
--- @usage RNPhysics.createBodyFromImage(box)
--- @usage RNPhysics.createBodyFromImage(ball, "dynamic", { density = 1, friction = 0.3, restitution = 0.8, sensor = false, radius = 21 })
--- @usage RNPhysics.createBodyFromImage(box,{ density = 1,restitution = 0.3}) <br>
--- by default values are:
--- type="dynamic"
--- density=1
--- friction=0.3
--- restitution=0
--- sensor=false
--- radius= half of image size in box2d units
--- shape="rectangle"
--- filter={groupIndex=nil,categoryBits=1,maskBits=nil}
+-- @usage <code> RNPhysics.createBodyFromImage(floor, "static", { density = 1, friction = 0.3, restitution = 0, sensor = false, shape = { -128, -16, 128, -16, 128, 16, -128, 16 } }, { density = 1, friction = 0.3, restitution = 0.5, sensor = false, shape = { -32, 32, 32, 32, 0, 64 } })<br>
+-- RNPhysics.createBodyFromImage(box, "kinematic")<br>
+-- RNPhysics.createBodyFromImage(box)<br>
+-- RNPhysics.createBodyFromImage(ball, "dynamic", { density = 1, friction = 0.3, restitution = 0.8, sensor = false, radius = 21 })<br>
+-- RNPhysics.createBodyFromImage(box,{ density = 1,restitution = 0.3})</code> <br>
+-- by default values are: <br>
+-- type="dynamic"<br>
+-- density=1<br>
+-- friction=0.3 <br>
+-- restitution=0<br>
+-- sensor=false <br>
+-- radius= half of image size in box2d units<br>
+-- shape="rectangle"<br>
+-- filter={groupIndex=nil,categoryBits=1,maskBits=nil}<br>
+-- @return RNBody object
 function RNPhysics.createBodyFromImage(image, ...)
 
     --[[ We need x,y,h,w,name and prop from image . The name and image are stored
@@ -374,7 +382,11 @@ function RNPhysics.createBodyFromImage(image, ...)
     return aRNBody
 end
 
-
+--- creates a physics body from the given map object (used to create a fake object in RNMap)
+-- @param image RNObject
+-- @param ... additional properties: here you can specify the object's type
+-- @see RNPhysics.createBodyFromImage
+-- @return RNBody object
 function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
 
@@ -572,6 +584,10 @@ end
 
 --we need the layer from RNScene received
 --keep it in mind for future changes
+
+--- Set the debug draw for the given screen (sprites drawn after this will be drawn over the debug draw image)
+-- @param screen screen: the RNFactory screen
+-- @usage RNPhysics.setDebugDraw(RNFactory.screen)
 function RNPhysics.setDebugDraw(screen)
 
     local layerfordebug = screen.layer
@@ -994,4 +1010,3 @@ function RNPhysics.createJoint(type, ...)
 end
 
 return RNPhysics
-
