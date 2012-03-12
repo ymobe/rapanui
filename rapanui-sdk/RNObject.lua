@@ -1111,6 +1111,19 @@ function RNObject:setX(x)
     self.x = self.currentRefX + x
 end
 
+--- Sets an event listener for all the physics fixtures in this object
+-- @param eventName string: only "collision" available at the moment
+-- @param func function : the funcion receiving the callback<br>
+-- A table event will be received by the function containing:<br>
+-- event.phase: "begin","pre_solve","post_solve" or "end" indicating the collision phase <br>
+-- event.self,event.other: the objects (RNObjects instances) colliding<br>
+-- event.selfFixture,event.otherFixture: the fixtures (RNFixture instances) colliding<br>
+-- event.force: the collision impact force<br>
+-- event.friction: the collision friction force<br>
+-- @usage <code>function onLocalCollide(event) --[[handle collision here]]-- end<br>
+-- box.collision = onLocalCollide<br>
+-- box:addEventListener("collision")</code>
+-- @see RNPhysics.addEventListener
 function RNObject:addEventListener(eventName, func)
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")

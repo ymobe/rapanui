@@ -604,6 +604,19 @@ end
 
 
 -- COLLISION HANDLER
+--- Sets an event listener for all the fixtures in the physics world
+-- @param Type string: only "collision" available at the moment
+-- @param funct function : the funcion receiving the callback<br>
+-- A table event will be received by the function containing:<br>
+-- event.phase: "begin","pre_solve","post_solve" or "end" indicating the collision phase <br>
+-- event.object1,event.object2: the objects (RNObjects instances) colliding<br>
+-- event.fixture1,event.fixture2: the fixtures (RNFixture instances) colliding<br>
+-- event.force: the collision impact force<br>
+-- event.friction: the collision friction force<br>
+-- @usage <code>function onCollide(event) --[[handle events here]]-- end <br>
+-- RNPhysics.addEventListener("collision", onCollide)</code>
+-- @see RNObject:addEventListener
+
 function RNPhysics.addEventListener(Type, funct)
     if (Type == "collision") then
         collisionHandlerName = funct
@@ -626,8 +639,9 @@ function RNPhysics.addEventListener(Type, funct)
     end
 end
 
-
 -- GLOBAL COLLISION HANDLER
+--- used to create a table to send to global collision callback function
+-- @see RNPhysics.addEventListener
 function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
@@ -712,6 +726,8 @@ end
 
 
 -- LOCAL COLLISION HANDLER
+--- used to create a table to send to local collision callback function
+-- @see RNObject:addEventListener
 function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
 
 
@@ -813,6 +829,21 @@ end
 
 
 -- JOINTS
+--- creates a joint of the given type
+-- @param type string: the type of the joint
+-- @param ... attributes: values specified for each kind of joint:<br>
+--revolute  (type,bodyA,bodyB,anchorX,anchorY)<br>
+--distance  (type,bodyA,bodyB,anchorA_X.anchorA_Y,anchorB_X,anchorB_Y[,frequency,damping])<br>
+--prismatic (type,bodyA,bodyB,anchorA_X,anchorA_Y,axisA,axisB)<br>
+--friction  (type,bodyA,bodyB,anchorX,anchorY[, number maxForce, number maxTorque ] )<br>
+--weld  (type,bodyA,bodyB,anchorX,anchorY)<br>
+--wheel  (type,bodyA,bodyB,anchorX,anchorY,axisX,axisY)<br>
+--pulley (type,bodyA,bodyB,groundAnchorA_X,groundAnchorA_Y,groundAnchorB_X,groundAnchorB_Y,anchorA_X,anchorA_Y,anchorB_X,anchorB_Y[,ratio,maxLength1,maxLength2])<br>
+--gear (type,jointA,jointB,ratio)<br>
+--rope(type,bodyA,bodyB,maxLength,[,anchorAX,anchorAY,anchorBX,anchorBY])<br>
+-- @return RNJoint object
+-- @usage <code> j1 = RNPhysics.createJoint("revolute", box, triangle, 100, 100)</code>
+
 function RNPhysics.createJoint(type, ...)
 
     local joint, bodyA, bodyB, anchorX, anchorY, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, axisA, axisB, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, ratio, targetX, targetY, frequency, damping, maxForce, maxTorque, maxLengthA, maxLengthB, jointA, jointB, frequencyHz, dampingRatio
