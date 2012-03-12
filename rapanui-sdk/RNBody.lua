@@ -488,7 +488,7 @@ function RNBody:getInertia()
 end
 
 function RNBody:getMass()
-    return self.body:getInertia()
+    return self.body:getMass()
 end
 
 function RNBody:setMassData(mass, I, centerX, centerY)
