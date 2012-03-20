@@ -62,6 +62,8 @@ function RNWrappedEventListener:call(event)
 
     local func = self.wrappedFunction
 
+    event.target = self.target
+
     if event ~= nil and func ~= nil then
         func(event)
     else

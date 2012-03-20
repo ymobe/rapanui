@@ -1035,11 +1035,14 @@ function RNObject:setX(x)
 end
 
 function RNObject:addEventListener(eventName, func)
+    local index
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
-        RNInputManager.addListenerToEvent(eventName, func, self)
+        print("adding")
+        index = RNInputManager.addGlobalListenerToEvent(eventName, func, { target = self })
     end
+    return index
 end
 
 function RNObject:isInRange(x, y)

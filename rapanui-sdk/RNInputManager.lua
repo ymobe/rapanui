@@ -118,8 +118,19 @@ function RNInputManager.addListenerToEvent(eventName, func, object)
     innerInputManager:innerAddListenerToEvent(eventName, func, object)
 end
 
-function RNInputManager.addGlobalListenerToEvent(eventName, func, name)
-    return innerInputManager:innerAddGlobalListenerToEvent(eventName, func, name)
+function RNInputManager.addGlobalListenerToEvent(eventName, func, params)
+
+    local name, target
+
+    if (params.name ~= nil) then
+        name = params.name
+    end
+
+    if (params.target ~= nil) then
+        target = params.target
+    end
+
+    return innerInputManager:innerAddGlobalListenerToEvent(eventName, func, name, target)
 end
 
 function RNInputManager.removeGlobalListenerToEvent(eventName, id)
@@ -148,6 +159,7 @@ function RNInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
 end
 
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
+    print("adding to ", eventName, func, object)
 
     local listeners = self.events[eventName]
 
@@ -161,7 +173,7 @@ function RNInputManager:innerAddListenerToEvent(eventName, func, object)
     end
 end
 
-function RNInputManager:innerAddGlobalListenerToEvent(eventName, func, name)
+function RNInputManager:innerAddGlobalListenerToEvent(eventName, func, name, target)
 
     local globallisteners = self.globalevents[eventName]
 
@@ -169,6 +181,9 @@ function RNInputManager:innerAddGlobalListenerToEvent(eventName, func, name)
         local globallistenrsSize = self.globaleventsSize[eventName]
         local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
+        if target ~= nil then
+            aListener:setTarget(target)
+        end
         aListener.name = name
         globallisteners[globallistenrsSize] = aListener
         self.globaleventsSize[eventName] = globallistenrsSize + 1
@@ -297,8 +312,6 @@ function RNInputManager:onTouchCancel(x, y, source)
         innerInputManager.globalOnTouchCancel(x, y, source)
     end
 end
-
-
 
 
 function onEvent(eventType, idx, x, y, tapCount)
