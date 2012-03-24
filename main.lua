@@ -30,7 +30,7 @@ end      --]]
 
 -- Anim
 
-require("rapanui-samples/anim/rn-anim")
+--require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
@@ -129,3 +129,6 @@ require("rapanui-samples/anim/rn-anim")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+
+package.path = package.path .. ";./resources/?.lua"
+require("resources/main")
