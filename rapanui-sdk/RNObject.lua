@@ -507,11 +507,11 @@ function RNObject:loadImage(image)
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Width, self.pow2Height = self.image:getSize()
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidth / self.pow2Widht
+    local u = self.originalWidth / self.pow2Width
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
