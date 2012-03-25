@@ -30,12 +30,12 @@ end      --]]
 
 -- Anim
 
-require("rapanui-samples/anim/rn-anim")
+--require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -43,7 +43,7 @@ require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/basic/rn-shapes-penColor")
 
 -- Landscape
-
+-- NOTE: this demo is for landscape and needs the setup of RapaNui & MOAI to landscape mode.
 --require("rapanui-samples/landscape/rn-images")
 
 -- Groups
@@ -84,6 +84,8 @@ require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
+--require("rapanui-samples/touch/rn-touch-global-rnobject")
+
 --NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in moai dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
 

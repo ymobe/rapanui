@@ -24,6 +24,7 @@ buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
 function button1Touch(event)
     text:setText("Call back touch! " .. eventNumber)
     eventNumber = eventNumber + 1
+    print(event.phase)
     print(event.target)
 end
 

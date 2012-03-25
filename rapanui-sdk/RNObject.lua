@@ -1039,11 +1039,26 @@ function RNObject:addEventListener(eventName, func)
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
-        print("adding")
+         local aListener = RNWrappedEventListener:new()
+        aListener:setFunction(func)
+        aListener:setTarget(self)
+
+        self.onTouchCallBackFunction = aListener
+        --index = RNInputManager.addGlobalListenerToEvent(eventName, func, { target = self })
+    end
+    return index
+end
+
+function RNObject:addGlobalEventListener(eventName, func)
+    local index
+    if eventName == "collision" then
+        self.physicObject:addEventListener("collision")
+    else
         index = RNInputManager.addGlobalListenerToEvent(eventName, func, { target = self })
     end
     return index
 end
+
 
 function RNObject:isInRange(x, y)
 

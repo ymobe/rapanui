@@ -159,7 +159,6 @@ function RNInputManager:innerRemoveGlobalListenerToEvent(eventName, id)
 end
 
 function RNInputManager:innerAddListenerToEvent(eventName, func, object)
-    print("adding to ", eventName, func, object)
 
     local listeners = self.events[eventName]
 
@@ -315,6 +314,7 @@ end
 
 
 function onEvent(eventType, idx, x, y, tapCount)
+
     local event = RNEvent:new()
 
     local screen = RNFactory.getCurrentScreen()
@@ -338,12 +338,19 @@ function onEvent(eventType, idx, x, y, tapCount)
         end
     end
 
+    if currenTarget ~= nil and currenTarget.onTouchCallBackFunction ~= nil then
+        event.target = currenTarget.onTouchCallBackFunction:getTarget()
+        currenTarget.onTouchCallBackFunction:call(event)
+    end
+
     --check if the target has value and if has function isListening
     if (currenTarget ~= nil and currenTarget.isListening == nil) or
             -- or if currenTarget has a valid value and if is listening on at least one event
             (currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil) then
         return
     end
+
+
 
     local target
 

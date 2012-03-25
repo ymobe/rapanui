@@ -29,4 +29,4 @@ function button1Touch(event)
 end
 
 
-buttonOne:addEventListener("touch", button1Touch)
+buttonOne:addGlobalEventListener("touch", button1Touch)
