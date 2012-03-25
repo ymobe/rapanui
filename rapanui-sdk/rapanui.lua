@@ -14,49 +14,49 @@
 config = require("config")
 
 
-RNObject = require("rapanui-sdk/RNObject")
+RNObject = require("RNObject")
 
-RNText = require("rapanui-sdk/RNText")
+RNText = require("RNText")
 
-RNEvent = require("rapanui-sdk/RNEvent")
-RNScreen = require("rapanui-sdk/RNScreen")
-RNWrappedEventListener = require("rapanui-sdk/RNWrappedEventListener")
+RNEvent = require("RNEvent")
+RNScreen = require("RNScreen")
+RNWrappedEventListener = require("RNWrappedEventListener")
 
 
 -- Touch Listeners requires
 
-RNListeners = require("rapanui-sdk/RNListeners")
-RNInputManager = require("rapanui-sdk/RNInputManager")
+RNListeners = require("RNListeners")
+RNInputManager = require("RNInputManager")
 
-RNUtil = require("rapanui-sdk/RNUtil")
-RNUnit = require("rapanui-sdk/RNUnit")
-RNGroup = require("rapanui-sdk/RNGroup")
-RNTransition = require("rapanui-sdk/RNTransition")
-RNPhysics = require("rapanui-sdk/RNPhysics")
+RNUtil = require("RNUtil")
+RNUnit = require("RNUnit")
+RNGroup = require("RNGroup")
+RNTransition = require("RNTransition")
+RNPhysics = require("RNPhysics")
 
-RNBody = require("rapanui-sdk/RNBody")
-RNJoint = require("rapanui-sdk/RNJoint")
-RNFixture = require("rapanui-sdk/RNFixture")
+RNBody = require("RNBody")
+RNJoint = require("RNJoint")
+RNFixture = require("RNFixture")
 
 
 -- Threds requires
 
-RNThread = require("rapanui-sdk/RNThread")
-RNMainThread = require("rapanui-sdk/RNMainThread")
+RNThread = require("RNThread")
+RNMainThread = require("RNMainThread")
 
 -- Director requires
 
-RNDirector = require("rapanui-sdk/RNDirector")
+RNDirector = require("RNDirector")
 
 -- Maps requires
 
-RNMap = require("rapanui-sdk/RNMap")
-RNMapLayer = require("rapanui-sdk/RNMapLayer")
-RNMapObject = require("rapanui-sdk/RNMapObject")
-RNMapObjectGroup = require("rapanui-sdk/RNMapObjectGroup")
-RNMapTileset = require("rapanui-sdk/RNMapTileset")
-RNTiledMapParser = require("rapanui-sdk/RNTiledMapParser")
-RNTiledLuaMapParser = require("rapanui-sdk/RNTiledLuaMapParser")
+RNMap = require("RNMap")
+RNMapLayer = require("RNMapLayer")
+RNMapObject = require("RNMapObject")
+RNMapObjectGroup = require("RNMapObjectGroup")
+RNMapTileset = require("RNMapTileset")
+RNTiledMapParser = require("RNTiledMapParser")
+RNTiledLuaMapParser = require("RNTiledLuaMapParser")
 
-RNMapFactory = require("rapanui-sdk/RNMapFactory")
-RNFactory = require("rapanui-sdk/RNFactory")
+RNMapFactory = require("RNMapFactory")
+RNFactory = require("RNFactory")
