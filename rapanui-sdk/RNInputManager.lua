@@ -312,9 +312,11 @@ function RNInputManager:onTouchCancel(x, y, source)
     end
 end
 
+function RNInputManager:setFocus(object)
+	RNInputManager.focus = object 
+end
 
 function onEvent(eventType, idx, x, y, tapCount)
-
     local event = RNEvent:new()
 
     local screen = RNFactory.getCurrentScreen()
@@ -322,8 +324,11 @@ function onEvent(eventType, idx, x, y, tapCount)
     local x, y = RNFactory.screen.layer:wndToWorld(x, y)
     event.x, event.y = x, y
 
-    local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
-    event:initWithEventType(eventType)
+    local currenTarget = RNInputManager.focus
+	if currenTarget == nil then
+		currenTarget = screen:getRNObjectWithHighestLevelOn(x, y)
+	end
+	event:initWithEventType(eventType)
 
     local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
 
