@@ -134,4 +134,4 @@ require("rapanui-samples/touch/rn-touch-focus")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
 package.path = package.path .. ";./resources/?.lua"
-require("resources/main")
+--require("resources/main")
