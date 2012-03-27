@@ -75,6 +75,12 @@ function RNFactory.init()
     contentlwidth = lwidth
     contentHeight = lheight
 
+    --the resize in x axis is good. The resize in y axis is not, because it's from the bottom to top
+    --so we have to set y offset but if we do so,touch events won't be good they will suffer from this offset
+    --example of resize with 480x800 screen already set on config and resized in view from here.
+    --RNFactory.screen.viewport:setSize(800*800/480,480*480/320)
+    --RNFactory.screen.viewport:setOffset(-1, 0.3) --
+
     RNInputManager.setGlobalRNScreen(screen)
 end
 

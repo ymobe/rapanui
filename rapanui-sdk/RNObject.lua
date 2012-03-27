@@ -290,7 +290,7 @@ function RNObject:innerNew(o)
         image = nil,
         originalHeight = 0,
         originalWidth = 0,
-        pow2Widht = 0,
+        pow2Width = 0,
         pow2Height = 0,
         x = 0,
         y = 0,
@@ -389,11 +389,11 @@ function RNObject:initBlank(width, height)
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Width, self.pow2Height = self.image:getSize()
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidth / self.pow2Widht
+    local u = self.originalWidth / self.pow2Width
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
@@ -435,11 +435,11 @@ function RNObject:loadCopyRect(src, params)
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Width, self.pow2Height = self.image:getSize()
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidth / self.pow2Widht
+    local u = self.originalWidth / self.pow2Width
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
@@ -478,11 +478,11 @@ function RNObject:initWithMoaiImage(moaiImage)
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Width, self.pow2Height = self.image:getSize()
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidth / self.pow2Widht
+    local u = self.originalWidth / self.pow2Width
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
@@ -507,11 +507,11 @@ function RNObject:loadImage(image)
     self.image = self.image:padToPow2()
     self.gfxQuad:setTexture(self.image)
 
-    self.pow2Widht, self.pow2Height = self.image:getSize()
+    self.pow2Width, self.pow2Height = self.image:getSize()
 
     self.prop = MOAIProp2D.new()
 
-    local u = self.originalWidth / self.pow2Widht
+    local u = self.originalWidth / self.pow2Width
     local v = self.originalHeight / self.pow2Height
 
     self.gfxQuad:setUVRect(0, 0, u, v)
@@ -590,7 +590,7 @@ function RNObject:loadCircle(x, y, r, rgb)
     local r2 = r * 2
     self.originalWidth, self.originalHeight = r2, r2
 
-    self.pow2Widht, self.pow2Height = r2, r2
+    self.pow2Width, self.pow2Height = r2, r2
     self.prop = MOAIProp2D.new()
 
     self.prop:setDeck(self.gfxQuad)
