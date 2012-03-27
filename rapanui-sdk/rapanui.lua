@@ -39,7 +39,7 @@ RNJoint = require("rapanui-sdk/RNJoint")
 RNFixture = require("rapanui-sdk/RNFixture")
 
 
--- Threds requires
+-- Threads requires
 
 RNThread = require("rapanui-sdk/RNThread")
 RNMainThread = require("rapanui-sdk/RNMainThread")
