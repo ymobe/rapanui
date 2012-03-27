@@ -35,7 +35,7 @@ end      --]]
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -87,7 +87,7 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 
 --NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in moai dev branch
---require("rapanui-samples/touch/rn-buttons-animated")
+require("rapanui-samples/touch/rn-buttons-animated")
 
 -- listeners
 

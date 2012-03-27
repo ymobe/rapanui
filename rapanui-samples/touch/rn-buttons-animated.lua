@@ -24,9 +24,6 @@ text = RNFactory.createText("Touch on button and drag it", { size = 9, top = 100
 --physical animation with many sequences
 --newAnim(file,sizeX,sizeY[,posx,posy,scaleX,scaleY])
 button1 = RNFactory.createAnim("images/rapanui_circles.png", 64, 64, 100, 200, 1, 1)
---buggy:we have to call those flips functions for now to buttons to work
-button1:flipHorizontal()
-button1:flipVertical()
 --newSequence(name,frameOrder,speed,repeatTimes,onStopFunction)
 button1:newSequence("default", { 1, 2, 3, 4, 3, 2 }, 12, -1)
 button1:newSequence("down", { 5, 6, 7, 8 }, 12, -1)

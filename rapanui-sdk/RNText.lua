@@ -89,7 +89,7 @@ function RNText:initWithText(text, font, size, x, y, width, height, alignment)
 
     self.textbox:setString(self.text)
     self.textbox:setFont(self.font)
-    self.textbox:setTextSize(self.font:getScale())
+    self.textbox:setTextSize(size,163)
     self.textbox:setRect(x, y, x + width, y + height)
     self.textbox:setAlignment(alignment)
 
@@ -105,7 +105,7 @@ function RNText:setTextSize(size)
     self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
     self.textbox:setString(self.text)
     self.textbox:setFont(self.font)
-    self.textbox:setTextSize(self.font:getScale())
+    self.textbox:setTextSize(size,163)
 end
 
 
