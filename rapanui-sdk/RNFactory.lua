@@ -331,6 +331,22 @@ function RNFactory.createRect(x, y, width, height, params)
     return shape
 end
 
+function RNFactory.createLine(x1, y1, x2, y2, penSize)
+	local penSize = penSize or 5
+	local xf = x1 - x2
+	local yf = y1 - y2
+	local distanceBetween = math.sqrt((xf*xf) + (yf*yf))
+	local angleBetween = math.deg( math.atan( yf/xf ) )
+	if ( x1 < x2 ) then angleBetween = angleBetween+90 else angleBetween = angleBetween-90 end
+	
+	tempLine = RNFactory.createRect(0,0, penSize, distanceBetween)
+	tempLine.x = x1 - xf*.5
+	tempLine.y = y1 - yf*.5
+	tempLine.rotation = angleBetween
+	
+	return tempLine
+end
+
 function RNFactory.createCircle(x, y, r, params)
     local parentGroup, top, left
     local rgb = { 255, 255, 255 }
