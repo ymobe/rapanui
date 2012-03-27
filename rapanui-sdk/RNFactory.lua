@@ -44,7 +44,7 @@ RNFactory.height = 0
 function RNFactory.init()
 
     local lwidth, lheight, screenlwidth, screenHeight
-    local screenX, screenY = 0,0
+    local screenX, screenY = MOAIEnvironment.screenWidth, MOAIEnvironment.screenHeight --MOAI 1.0 fix
 
     if screenX ~= 0 then --if physical screen
         lwidth, lheight, screenlwidth, screenHeight = screenX, screenY, screenX, screenY
