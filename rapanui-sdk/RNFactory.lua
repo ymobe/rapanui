@@ -314,7 +314,7 @@ function RNFactory.createRect(x, y, width, height, params)
     local rgb = { 255, 255, 255 }
 
     if params then
-        parentGroup = params.parentGroup or RNFactory.mainGroups
+        parentGroup = params.parentGroup or RNFactory.mainGroup
         rgb = params.rgb or rgb
     end
 
@@ -325,9 +325,10 @@ function RNFactory.createRect(x, y, width, height, params)
     shape.y = shape.originalHeight * .5 + y
     shape.rotation = 0
 
-    if parentGroup ~= nil then
-        parentGroup:insert(shape)
-    end
+    if parentGroup == nil then
+        parentGroup = RNFactory.mainGroup
+	end
+	parentGroup:insert(shape)
     return shape
 end
 
@@ -353,7 +354,7 @@ function RNFactory.createCircle(x, y, r, params)
 
     if params then
         if type(params) == "table" then
-            parentGroup = params.parentGroup or RNFactory.mainGroups
+            parentGroup = params.parentGroup or RNFactory.mainGroup
             top = params.top or 0
             left = params.left or 0
             rgb = params.rgb or rgb
@@ -367,9 +368,10 @@ function RNFactory.createCircle(x, y, r, params)
     shape.y = y
     shape.rotation = 0
 
-    if parentGroup ~= nil then
-        parentGroup:insert(shape)
-    end
+    if parentGroup == nil then
+        parentGroup = RNFactory.mainGroup
+	end
+	parentGroup:insert(shape)
     return shape
 end
 
