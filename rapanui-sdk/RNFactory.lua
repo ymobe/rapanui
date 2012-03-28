@@ -46,7 +46,7 @@ function RNFactory.init()
     local lwidth, lheight, screenlwidth, screenHeight
     local screenX, screenY = MOAIEnvironment.screenWidth, MOAIEnvironment.screenHeight --MOAI 1.0 fix
 
-    if screenX ~= 0 then --if physical screen
+    if screenX ~= nil then --if physical screen
         lwidth, lheight, screenlwidth, screenHeight = screenX, screenY, screenX, screenY
     else
         lwidth, lheight, screenlwidth, screenHeight = config.sizes[config.device][1], config.sizes[config.device][2], config.sizes[config.device][3], config.sizes[config.device][4]
