@@ -97,6 +97,17 @@ function RNFactory.getCurrentScreen()
 end
 
 
+function RNFactory.createTable(name,params)
+    local tab=RNTableElement:new()
+    tab.name=name
+    tab.style=params.style
+    tab.elements=params.elements
+    tab.x=params.position.x
+    tab.y=params.position.y
+    tab:init()
+    return tab
+end
+
 function RNFactory.createImage(filename, params)
 
     local parentGroup, left, top

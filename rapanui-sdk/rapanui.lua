@@ -60,3 +60,5 @@ RNTiledLuaMapParser = require("rapanui-sdk/RNTiledLuaMapParser")
 
 RNMapFactory = require("rapanui-sdk/RNMapFactory")
 RNFactory = require("rapanui-sdk/RNFactory")
+
+RNTable = require("rapanui-sdk/RNTableElement")

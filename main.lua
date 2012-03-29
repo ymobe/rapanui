@@ -41,6 +41,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
+--require("rapanui-samples/basic/rn-tableElement")
 
 -- Landscape
 -- NOTE: this demo is for landscape and needs the setup of RapaNui & MOAI to landscape mode.
