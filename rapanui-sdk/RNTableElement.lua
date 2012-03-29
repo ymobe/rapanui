@@ -14,6 +14,9 @@
 
 RNTableElement = {}
 local SELF
+local isSCROLLINGY = false
+local tmpY = 0
+
 local function fieldChangedListener(self, key, value)
 
     getmetatable(self).__object[key] = value
@@ -53,6 +56,9 @@ function RNTableElement:innerNew(o)
         elements = {},
         x = 0,
         y = 0,
+        canScrollY=false,
+        minY=0,
+        maxY=320,
     }
     setmetatable(o, self)
     self.__index = self
@@ -67,8 +73,8 @@ function RNTableElement:init()
     --create texts
     for i, v in ipairs(self.elements) do
         v.rnText = RNFactory.createText(v.text, { size = self.style.size, font = self.style.font, top = -self.style.top + self.style.top * i, left = self.style.left, width = self.style.width, height = self.style.height, alignment = MOAITextBox.LEFT_JUSTIFY })
-        v.rnText.x=self.x
-        v.rnText.y=self.y
+        v.rnText.x = self.x
+        v.rnText.y = self.y
     end
     SELF = self
     --add touch listener
@@ -77,9 +83,30 @@ end
 
 function RNTableElement.touchEvent(event)
     local self = SELF
+
     if event.phase == "began" then
+        tmpY = event.y
+        isSCROLLINGY = false
+    end
+
+    if event.phase == "moved" then
+        isSCROLLINGY = true
+        local deltay = event.y - tmpY
+        if self.canScrollY == true then
+            if deltay>0 and self.y < self.maxY then
+                self.y = self.y + deltay
+                tmpY = event.y
+            end
+            if deltay<=0 and self.y > self.minY then
+                self.y = self.y + deltay
+                tmpY = event.y
+            end
+        end
+    end
+
+    if event.phase == "ended" and isSCROLLINGY == false then
         for i = 1, table.getn(self.elements), 1 do
-            if event.y > -self.style.top + i * self.style.top +self.y and event.y < i * self.style.top + self.y then
+            if event.y > -self.style.top + i * self.style.top + self.y and event.y < i * self.style.top + self.y then
                 if self.elements[i].onClick ~= nil then
                     local funct = self.elements[i].onClick
                     local event = { text = self.elements[i].text, target = self.elements[i].name }
@@ -115,4 +142,5 @@ function RNTableElement:remove()
         end
     end
     self = nil
+    SELF = nil
 end

@@ -23,6 +23,7 @@ end
 --create a table of elements: name,style,elements
 local tab = RNFactory.createTable("table1", {
     position={x=100,y=0},
+    scrollingY={active=true,minY=-50,maxY=370},
     style = nil,
     elements = {
         { text = "Rapanui text  table test1",name="label1",onClick=getCallBack },
@@ -40,8 +41,13 @@ local tab = RNFactory.createTable("table1", {
 tab.x=0
 tab.y=50
 
+--scrolling property
+tab.maxY=370
+tab.minY=-50
+tab.canScrollY=true
+
 --TO DO : setColor and other stuff like this.
---TO DO : gesture scrolling.
+--TO DO : better gesture scrolling
 
 
 --if style is nil a default style is created.
