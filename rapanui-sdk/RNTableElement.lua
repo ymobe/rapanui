@@ -16,6 +16,7 @@ RNTableElement = {}
 local SELF
 local isSCROLLINGY = false
 local tmpY = 0
+local deltay = 0
 
 local function fieldChangedListener(self, key, value)
 
@@ -56,9 +57,9 @@ function RNTableElement:innerNew(o)
         elements = {},
         x = 0,
         y = 0,
-        canScrollY=false,
-        minY=0,
-        maxY=320,
+        canScrollY = false,
+        minY = 0,
+        maxY = 320,
     }
     setmetatable(o, self)
     self.__index = self
@@ -79,6 +80,26 @@ function RNTableElement:init()
     SELF = self
     --add touch listener
     RNListeners:addEventListener("touch", self.touchEvent)
+    --step listener
+    RNListeners:addEventListener("enterFrame", self)
+end
+
+function RNTableElement:enterFrame()
+    if deltay > 0 then deltay = deltay - 0.2 end
+    if deltay < 0 then deltay = deltay + 0.2 end
+
+    if deltay>15 then deltay=15 end
+    if deltay<-15 then deltay=-15 end
+
+    if deltay > 0 and deltay <= 0.2 then deltay = 0 end
+    if deltay < 0 and deltay >= -0.2 then deltay = 0 end
+
+    if deltay > 0 and SELF.y < SELF.maxY then
+        SELF.y = SELF.y + deltay
+    end
+    if deltay <= 0 and SELF.y > SELF.minY then
+        SELF.y = SELF.y + deltay
+    end
 end
 
 function RNTableElement.touchEvent(event)
@@ -89,18 +110,12 @@ function RNTableElement.touchEvent(event)
         isSCROLLINGY = false
     end
 
+
     if event.phase == "moved" then
         isSCROLLINGY = true
-        local deltay = event.y - tmpY
+        deltay = event.y - tmpY
         if self.canScrollY == true then
-            if deltay>0 and self.y < self.maxY then
-                self.y = self.y + deltay
-                tmpY = event.y
-            end
-            if deltay<=0 and self.y > self.minY then
-                self.y = self.y + deltay
-                tmpY = event.y
-            end
+            tmpY = event.y
         end
     end
 

@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
---rapanui's tableElement sample
+--rapanui's tableElement sample. Enjoy the scrolling gestureå
 
 
 --function to receive callback to
@@ -47,7 +47,6 @@ tab.minY=-50
 tab.canScrollY=true
 
 --TO DO : setColor and other stuff like this.
---TO DO : better gesture scrolling
 
 
 --if style is nil a default style is created.
