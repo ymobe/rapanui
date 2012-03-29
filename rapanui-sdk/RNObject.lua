@@ -750,6 +750,7 @@ function RNObject:stop()
 end
 
 function RNObject:play(sequenceName, speed, repeatTimes, onStop)
+    self.animCounter=0
     if self.isAnim == true then
         if sequenceName == nil then sequenceName = "default" end
         self.pause = false
