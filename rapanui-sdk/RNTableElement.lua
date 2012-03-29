@@ -60,6 +60,7 @@ function RNTableElement:innerNew(o)
         canScrollY = false,
         minY = 0,
         maxY = 320,
+        maxScrollingForceY=100,
     }
     setmetatable(o, self)
     self.__index = self
@@ -88,8 +89,8 @@ function RNTableElement:enterFrame()
     if deltay > 0 then deltay = deltay - 0.2 end
     if deltay < 0 then deltay = deltay + 0.2 end
 
-    if deltay>15 then deltay=15 end
-    if deltay<-15 then deltay=-15 end
+    if deltay>SELF.maxScrollingForceY then deltay=SELF.maxScrollingForceY end
+    if deltay<-SELF.maxScrollingForceY then deltay=-SELF.maxScrollingForceY end
 
     if deltay > 0 and deltay <= 0.2 then deltay = 0 end
     if deltay < 0 and deltay >= -0.2 then deltay = 0 end

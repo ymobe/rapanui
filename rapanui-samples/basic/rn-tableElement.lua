@@ -23,7 +23,7 @@ end
 --create a table of elements: name,style,elements
 local tab = RNFactory.createTable("table1", {
     position={x=100,y=0},
-    scrollingY={active=true,minY=-50,maxY=370},
+    scrollingY={active=true,minY=-50,maxY=370,maxScrollingForceY=100},
     style = nil,
     elements = {
         { text = "Rapanui text  table test1",name="label1",onClick=getCallBack },
@@ -45,6 +45,7 @@ tab.y=50
 tab.maxY=370
 tab.minY=-50
 tab.canScrollY=true
+tab.maxScrollingForceY=30
 
 --TO DO : setColor and other stuff like this.
 

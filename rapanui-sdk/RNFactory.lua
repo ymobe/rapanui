@@ -107,6 +107,7 @@ function RNFactory.createTable(name,params)
     tab.canScrollY=params.scrollingY.active
     tab.maxY=params.scrollingY.maxY
     tab.minY=params.scrollingY.minY
+    tab.maxScrollingForceY=params.scrollingY.maxScrollingForceY
     tab:init()
     return tab
 end
