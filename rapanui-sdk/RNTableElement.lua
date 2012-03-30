@@ -32,6 +32,10 @@ local function fieldChangedListener(self, key, value)
     if key ~= nil and key == "y" then
         self:setY(value)
     end
+
+    if key ~= nil and key == "alpha" then
+        self:setAlpha(value)
+    end
 end
 
 
@@ -175,8 +179,14 @@ end
 
 
 function RNTableElement:setAlpha(value)
-    for i,v in ipairs(self.elements)do
-        self.elements[i].alpha=value
+    for i, v in ipairs(self.elements) do
+        v.rnText.alpha = value
+    end
+end
+
+function RNTableElement:setVisibility(value)
+    for i, v in ipairs(self.elements) do
+        v.rnText.visible = value
     end
 end
 

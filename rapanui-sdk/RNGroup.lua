@@ -114,25 +114,31 @@ end
 
 
 function RNGroup:insert(object, resetTransform)
+    if object:getType() == "RNTableElement" then
+        for i, v in ipairs(object.elements) do
+            self:insert(v.rnText)
+        end
+    else
 
-    if resetTransform == true then
-        object.x = 0
-        object.y = 0
+        if resetTransform == true then
+            object.x = 0
+            object.y = 0
+        end
+
+        if object.setParentGroup ~= nil then
+            object:setParentGroup(self)
+        end
+
+        local level = self:getHighestLevel() + 1
+
+        object:setLevel(level)
+
+        self.levels[level] = level
+
+        self.numChildren = self.numChildren + 1
+        self.displayObjects[self.numChildren] = object
+        object:setIDInGroup(self.numChildren)
     end
-
-    if object.setParentGroup ~= nil then
-        object:setParentGroup(self)
-    end
-
-    local level = self:getHighestLevel() + 1
-
-    object:setLevel(level)
-
-    self.levels[level] = level
-
-    self.numChildren = self.numChildren + 1
-    self.displayObjects[self.numChildren] = object
-    object:setIDInGroup(self.numChildren)
 end
 
 function RNGroup:removeChild(id)
