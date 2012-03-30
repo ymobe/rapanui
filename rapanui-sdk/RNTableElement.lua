@@ -17,6 +17,8 @@ local SELF
 local isSCROLLINGY = false
 local tmpY = 0
 local deltay = 0
+local ENTERFRAMELISTENER
+local TOUCHLISTENER
 
 local function fieldChangedListener(self, key, value)
 
@@ -60,7 +62,7 @@ function RNTableElement:innerNew(o)
         canScrollY = false,
         minY = 0,
         maxY = 320,
-        maxScrollingForceY=100,
+        maxScrollingForceY = 100,
     }
     setmetatable(o, self)
     self.__index = self
@@ -80,39 +82,40 @@ function RNTableElement:init()
     end
     SELF = self
     --add touch listener
-    RNListeners:addEventListener("touch", self.touchEvent)
+    ENTERFRAMELISTENER = RNListeners:addEventListener("touch", self.touchEvent)
     --step listener
-    RNListeners:addEventListener("enterFrame", self)
+    TOUCHLISTENER = RNListeners:addEventListener("enterFrame", self)
 end
 
 function RNTableElement:enterFrame()
-    if deltay > 0 then deltay = deltay - 0.2 end
-    if deltay < 0 then deltay = deltay + 0.2 end
+    if SELF ~= nil then
+        if deltay > 0 then deltay = deltay - 0.2 end
+        if deltay < 0 then deltay = deltay + 0.2 end
 
-    if deltay>SELF.maxScrollingForceY then deltay=SELF.maxScrollingForceY end
-    if deltay<-SELF.maxScrollingForceY then deltay=-SELF.maxScrollingForceY end
+        if deltay > SELF.maxScrollingForceY then deltay = SELF.maxScrollingForceY end
+        if deltay < -SELF.maxScrollingForceY then deltay = -SELF.maxScrollingForceY end
 
-    if deltay > 0 and deltay <= 0.2 then deltay = 0 end
-    if deltay < 0 and deltay >= -0.2 then deltay = 0 end
+        if deltay > 0 and deltay <= 0.2 then deltay = 0 end
+        if deltay < 0 and deltay >= -0.2 then deltay = 0 end
 
-    if deltay > 0 and SELF.y < SELF.maxY then
-        SELF.y = SELF.y + deltay
-    end
-    if deltay <= 0 and SELF.y > SELF.minY then
-        SELF.y = SELF.y + deltay
+        if deltay > 0 and SELF.y < SELF.maxY then
+            SELF.y = SELF.y + deltay
+        end
+        if deltay <= 0 and SELF.y > SELF.minY then
+            SELF.y = SELF.y + deltay
+        end
     end
 end
 
 function RNTableElement.touchEvent(event)
     local self = SELF
-
-    if event.phase == "began" then
+    if event.phase == "began" and self ~= nil then
         tmpY = event.y
         isSCROLLINGY = false
     end
 
 
-    if event.phase == "moved" then
+    if event.phase == "moved" and self ~= nil then
         isSCROLLINGY = true
         deltay = event.y - tmpY
         if self.canScrollY == true then
@@ -120,7 +123,7 @@ function RNTableElement.touchEvent(event)
         end
     end
 
-    if event.phase == "ended" and isSCROLLINGY == false then
+    if event.phase == "ended" and isSCROLLINGY == false and self ~= nil then
         for i = 1, table.getn(self.elements), 1 do
             if event.y > -self.style.top + i * self.style.top + self.y and event.y < i * self.style.top + self.y then
                 if self.elements[i].onClick ~= nil then
@@ -152,6 +155,8 @@ function RNTableElement:setY(value)
 end
 
 function RNTableElement:remove()
+    RNListeners:removeEventListener("enterFrame", ENTERFRAMELISTENER)
+    --RNListeners:removeEventListener("touch", TOUCHLISTENER)
     for i, v in ipairs(self.elements) do
         if v.rnText ~= nil then
             v.rnText:remove()
@@ -160,3 +165,31 @@ function RNTableElement:remove()
     self = nil
     SELF = nil
 end
+
+
+
+
+function RNTableElement:getType()
+    return "RNTableElement"
+end
+
+
+function RNTableElement:setAlpha(value)
+    for i,v in ipairs(self.elements)do
+        self.elements[i].alpha=value
+    end
+end
+
+--mocks for groupAdd
+
+
+function RNTableElement:setIDInGroup()
+    --mocked for group adding see RNGroup
+end
+
+function RNTableElement:setLevel()
+    --mocked for group adding see RNGroup
+end
+
+
+
