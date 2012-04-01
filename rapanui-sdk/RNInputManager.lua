@@ -20,16 +20,16 @@
 -- TOUCH_CANCEL
 
 
-CURRENT_TARGET_LEVEL_DEFAULT = 99999999999999
-CURRENT_TARGET_LEVEL = CURRENT_TARGET_LEVEL_DEFAULT
+local CURRENT_TARGET_LEVEL_DEFAULT = 99999999999999
+local CURRENT_TARGET_LEVEL = CURRENT_TARGET_LEVEL_DEFAULT
 
 
 
-DRAGGING = false
-DRAGGED_TARGET = nil
-LAST_xSTART = nil
-LAST_ySTART = nil
-isTOUCHING = false
+local DRAGGING = false
+local DRAGGED_TARGET = nil
+local LAST_xSTART = nil
+local LAST_ySTART = nil
+local isTOUCHING = false
 
 RNInputManager = {}
 
@@ -58,7 +58,7 @@ function RNInputManager:new(o)
 end
 
 
-innerInputManager = RNInputManager:new()
+local innerInputManager = RNInputManager:new()
 
 
 function RNInputManager.init()
@@ -212,14 +212,12 @@ end
 
 
 function onClick(down)
+	local x = innerInputManager:getPointerX()
+    local y = innerInputManager:getPointerY()
     if down then
-        local x = innerInputManager:getPointerX()
-        local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
         isTOUCHING = true
     else
-        local x = innerInputManager:getPointerX()
-        local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
         isTOUCHING = false
     end
@@ -312,9 +310,20 @@ function RNInputManager:onTouchCancel(x, y, source)
     end
 end
 
+function RNInputManager:setFocus(object, value)
+	if value == false then
+		if innerInputManager.focus == object then
+			object = nil
+		end
+	end
+	innerInputManager.focus = object
+end
+
+function RNInputManager:getFocus()
+	return innerInputManager.focus
+end
 
 function onEvent(eventType, idx, x, y, tapCount)
-
     local event = RNEvent:new()
 
     local screen = RNFactory.getCurrentScreen()
@@ -322,10 +331,62 @@ function onEvent(eventType, idx, x, y, tapCount)
     local x, y = RNFactory.screen.layer:wndToWorld(x, y)
     event.x, event.y = x, y
 
-    local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
-    event:initWithEventType(eventType)
+    local currenTarget = innerInputManager.focus or screen:getRNObjectWithHighestLevelOn(x, y)
 
-    local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
+	event:initWithEventType(eventType) --this line doesn't seem to have a purpose.
+
+    local target
+
+    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+        event.phase = "began"
+        if currenTarget ~= nil then
+            DRAGGED_TARGET = currenTarget
+            event.target = currenTarget
+            DRAGGING = true
+            DRAGGED_TARGET:onEvent(event)
+        end
+        LAST_xSTART = x
+        LAST_ySTART = y
+        event.xStart = LAST_xSTART
+        event.yStart = LAST_ySTART
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+        event.phase = "moved"
+        event.xStart = LAST_xSTART
+        event.yStart = LAST_ySTART
+        if DRAGGED_TARGET ~= nil then
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+        end
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_UP) then
+        event.phase = "ended"
+        event.xStart = LAST_xSTART
+        event.yStart = LAST_ySTART
+        if DRAGGED_TARGET ~= nil then
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+        end
+
+        DRAGGED_TARGET = nil
+        DRAGGING = false
+    end
+
+    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+        event.phase = "cancelled"
+        event.xStart = LAST_xSTART
+        event.yStart = LAST_ySTART
+        if DRAGGED_TARGET ~= nil then
+            event.target = DRAGGED_TARGET
+            DRAGGED_TARGET:onEvent(event)
+            DRAGGED_TARGET = nil
+        end
+        DRAGGING = false
+    end
+
+	local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
 
     if globallisteners ~= nil then
 
@@ -348,53 +409,6 @@ function onEvent(eventType, idx, x, y, tapCount)
             -- or if currenTarget has a valid value and if is listening on at least one event
             (currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil) then
         return
-    end
-
-
-
-    local target
-
-    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
-        event.phase = "began"
-        if currenTarget ~= nil then
-            LAST_xSTART = x
-            LAST_ySTART = y
-            DRAGGED_TARGET = currenTarget
-            event.target = currenTarget
-            DRAGGING = true
-            DRAGGED_TARGET:onEvent(event)
-        end
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
-        event.phase = "moved"
-        if DRAGGED_TARGET ~= nil then
-            event.target = DRAGGED_TARGET
-            DRAGGED_TARGET:onEvent(event)
-        end
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_UP) then
-        event.phase = "ended"
-        if DRAGGED_TARGET ~= nil then
-            event.xStart = LAST_xSTART
-            event.yStart = LAST_ySTART
-            event.target = DRAGGED_TARGET
-            DRAGGED_TARGET:onEvent(event)
-        end
-
-        DRAGGED_TARGET = nil
-        DRAGGING = false
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
-        event.phase = "cancelled"
-        if DRAGGED_TARGET ~= nil then
-            event.target = DRAGGED_TARGET
-            DRAGGED_TARGET:onEvent(event)
-            DRAGGED_TARGET = nil
-        end
-        DRAGGING = false
     end
 end
 

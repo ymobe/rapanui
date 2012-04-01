@@ -35,7 +35,7 @@ end      --]]
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+-- require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -85,6 +85,7 @@ require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
+require("rapanui-samples/touch/rn-touch-focus")
 
 --NOTE: anim prop it's upsidedown to receive touch due to a MOAI bug already fixed in moai dev branch
 --require("rapanui-samples/touch/rn-buttons-animated")
@@ -131,3 +132,6 @@ require("rapanui-samples/basic/rn-images")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+
+package.path = package.path .. ";./resources/?.lua"
+--require("resources/main")

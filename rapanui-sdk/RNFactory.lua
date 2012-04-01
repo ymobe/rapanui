@@ -44,9 +44,9 @@ RNFactory.height = 0
 function RNFactory.init()
 
     local lwidth, lheight, screenlwidth, screenHeight
-    local screenX, screenY = MOAIEnvironment.getScreenSize()
+    local screenX, screenY = MOAIEnvironment.screenWidth, MOAIEnvironment.screenHeight --MOAI 1.0 fix
 
-    if screenX ~= 0 then --if physical screen
+    if screenX ~= nil then --if physical screen
         lwidth, lheight, screenlwidth, screenHeight = screenX, screenY, screenX, screenY
     else
         lwidth, lheight, screenlwidth, screenHeight = config.sizes[config.device][1], config.sizes[config.device][2], config.sizes[config.device][3], config.sizes[config.device][4]
@@ -314,7 +314,7 @@ function RNFactory.createRect(x, y, width, height, params)
     local rgb = { 255, 255, 255 }
 
     if params then
-        parentGroup = params.parentGroup or RNFactory.mainGroups
+        parentGroup = params.parentGroup or RNFactory.mainGroup
         rgb = params.rgb or rgb
     end
 
@@ -325,10 +325,27 @@ function RNFactory.createRect(x, y, width, height, params)
     shape.y = shape.originalHeight * .5 + y
     shape.rotation = 0
 
-    if parentGroup ~= nil then
-        parentGroup:insert(shape)
-    end
+    if parentGroup == nil then
+        parentGroup = RNFactory.mainGroup
+	end
+	parentGroup:insert(shape)
     return shape
+end
+
+function RNFactory.createLine(x1, y1, x2, y2, penSize)
+	local penSize = penSize or 5
+	local xf = x1 - x2
+	local yf = y1 - y2
+	local distanceBetween = math.sqrt((xf*xf) + (yf*yf))
+	local angleBetween = math.deg( math.atan( yf/xf ) )
+	if ( x1 < x2 ) then angleBetween = angleBetween+90 else angleBetween = angleBetween-90 end
+	
+	tempLine = RNFactory.createRect(0,0, penSize, distanceBetween)
+	tempLine.x = x1 - xf*.5
+	tempLine.y = y1 - yf*.5
+	tempLine.rotation = angleBetween
+	
+	return tempLine
 end
 
 function RNFactory.createCircle(x, y, r, params)
@@ -337,7 +354,7 @@ function RNFactory.createCircle(x, y, r, params)
 
     if params then
         if type(params) == "table" then
-            parentGroup = params.parentGroup or RNFactory.mainGroups
+            parentGroup = params.parentGroup or RNFactory.mainGroup
             top = params.top or 0
             left = params.left or 0
             rgb = params.rgb or rgb
@@ -351,9 +368,10 @@ function RNFactory.createCircle(x, y, r, params)
     shape.y = y
     shape.rotation = 0
 
-    if parentGroup ~= nil then
-        parentGroup:insert(shape)
-    end
+    if parentGroup == nil then
+        parentGroup = RNFactory.mainGroup
+	end
+	parentGroup:insert(shape)
     return shape
 end
 
