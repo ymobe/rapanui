@@ -58,7 +58,7 @@ function RNInputManager:new(o)
 end
 
 
-innerInputManager = RNInputManager:new()
+local innerInputManager = RNInputManager:new()
 
 
 function RNInputManager.init()
@@ -212,14 +212,12 @@ end
 
 
 function onClick(down)
+	local x = innerInputManager:getPointerX()
+    local y = innerInputManager:getPointerY()
     if down then
-        local x = innerInputManager:getPointerX()
-        local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_DOWN, -1, x, y, 0)
         isTOUCHING = true
     else
-        local x = innerInputManager:getPointerX()
-        local y = innerInputManager:getPointerY()
         onEvent(MOAITouchSensor.TOUCH_UP, -1, x, y, 0)
         isTOUCHING = false
     end
@@ -312,8 +310,17 @@ function RNInputManager:onTouchCancel(x, y, source)
     end
 end
 
-function RNInputManager:setFocus(object)
-	RNInputManager.focus = object 
+function RNInputManager:setFocus(object, value)
+	if value == false then
+		if innerInputManager.focus == object then
+			object = nil
+		end
+	end
+	innerInputManager.focus = object
+end
+
+function RNInputManager:getFocus()
+	return innerInputManager.focus
 end
 
 function onEvent(eventType, idx, x, y, tapCount)
@@ -324,11 +331,9 @@ function onEvent(eventType, idx, x, y, tapCount)
     local x, y = RNFactory.screen.layer:wndToWorld(x, y)
     event.x, event.y = x, y
 
-    local currenTarget = RNInputManager.focus
-	if currenTarget == nil then
-		currenTarget = screen:getRNObjectWithHighestLevelOn(x, y)
-	end
-	event:initWithEventType(eventType)
+    local currenTarget = innerInputManager.focus or screen:getRNObjectWithHighestLevelOn(x, y)
+
+	event:initWithEventType(eventType) --this line doesn't seem to have a purpose.
 
     local target
 
