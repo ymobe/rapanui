@@ -24,31 +24,41 @@ function getCallBack(event)
 end
 
 --create a table of elements: name,style,elements
-local tab = RNFactory.createTable("table1", {
-    position = { x = 100, y = 0 },
+local style = { size = 10, font = font, top = 50, left = 0, width = 300, height = 48, alignment = MOAITextBox.LEFT_JUSTIFY }
+
+tab = RNFactory.createTable("table1", {
+    position = { x = 0, y = 0 },
     scrollingY = { active = true, minY = -50, maxY = 370, maxScrollingForceY = 100 },
-    style = nil,
+    style = style,
     elements = {
-        { text = "Rapanui text  table test1", name = "label1", onClick = getCallBack },
-        { text = "Rapanui text  table test2", name = "label2", onClick = getCallBack },
-        { text = "Rapanui text  table test3", name = "label3", onClick = getCallBack },
-        { text = "Rapanui text  table test4", name = "label4", onClick = getCallBack },
-        { text = "Rapanui text  table test5", name = "label5", onClick = getCallBack },
+        { text = "Table 1 texas hold'em poker", name = "label1", onClick = getCallBack },
+        { text = "Table 2 texas hold'em poker", name = "label2", onClick = getCallBack },
+        { text = "Table 3 texas hold'em poker", name = "label3", onClick = getCallBack },
+        { text = "Table 4 texas hold'em poker", name = "label4", onClick = getCallBack },
+        { text = "Table 5 texas hold'em poker", name = "label5", onClick = getCallBack },
+        { text = "Table 6 texas hold'em poker", name = "label6", onClick = getCallBack },
+        { text = "Table 7 texas hold'em poker", name = "label7", onClick = getCallBack },
+        { text = "Table 8 texas hold'em poker", name = "label8", onClick = getCallBack },
+        { text = "Table 9 texas hold'em poker", name = "label9", onClick = getCallBack },
+        { text = "Table 10 texas hold'em poker", name = "label10", onClick = getCallBack },
+        { text = "Table 11 texas hold'em poker", name = "label11", onClick = getCallBack },
+        { text = "Table 12 texas hold'em poker", name = "label12", onClick = getCallBack },
+        { text = "Table 13 texas hold'em poker", name = "label13", onClick = getCallBack },
+        { text = "Table 14 texas hold'em poker", name = "label14", onClick = getCallBack },
+
     },
 })
+tab.x = 10
+tab.y = 0
+tab.maxY = 1
+tab.minY = -210
+tab.canScrollY = true
+tab.maxScrollingForceY = 30
+
 
 --this is for table removing
 --tab:remove()
 
---move the tab
-tab.x = 0
-tab.y = 50
-
---scrolling property
-tab.maxY = 370
-tab.minY = -50
-tab.canScrollY = true
-tab.maxScrollingForceY = 30
 
 --TO DO : setColor and other stuff like this.
 

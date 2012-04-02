@@ -19,6 +19,7 @@ local tmpY = 0
 local deltay = 0
 local ENTERFRAMELISTENER
 local TOUCHLISTENER
+local isTOUCHING
 
 local function fieldChangedListener(self, key, value)
 
@@ -108,15 +109,24 @@ function RNTableElement:enterFrame()
         if deltay > 0 and deltay <= 0.2 then deltay = 0 end
         if deltay < 0 and deltay >= -0.2 then deltay = 0 end
 
-        if deltay > 0 and SELF.y < SELF.maxY then
+        if deltay > 0 and SELF.y < SELF.maxY+100 then
             SELF.y = SELF.y + deltay
         end
-        if deltay <= 0 and SELF.y > SELF.minY then
+        if deltay <= 0 and SELF.y > SELF.minY-100 then
             SELF.y = SELF.y + deltay
         end
 
         if deltay > 1 or deltay < -1 then
             isSCROLLINGY = true
+        end
+
+        if SELF.y>SELF.maxY and isTOUCHING==false then
+            deltay=0
+            SELF.y=SELF.y-(SELF.maxY+SELF.y)/20
+        end
+        if SELF.y<SELF.minY and isTOUCHING==false then
+            deltay=0
+            SELF.y=SELF.y+(SELF.minY-SELF.y)/20
         end
     end
 end
@@ -125,6 +135,7 @@ function RNTableElement.touchEvent(event)
     local self = SELF
     if event.phase == "began" and self ~= nil then
         tmpY = event.y
+        isTOUCHING=true
     end
 
 
@@ -147,10 +158,12 @@ function RNTableElement.touchEvent(event)
                 end
             end
         end
+        isTOUCHING=false
     end
 
     if event.phase == "ended" and isSCROLLINGY == true then
         isSCROLLINGY = false
+        isTOUCHING=false
     end
 end
 
@@ -158,6 +171,12 @@ function RNTableElement:setX(value)
     for i, v in ipairs(self.elements) do
         if v.rnText ~= nil then
             v.rnText.x = value
+        end
+    end
+    for i, v in ipairs(self.rectangles) do
+        if v ~= nil then
+            v.x = v.x+value
+            print("aaa")
         end
     end
     self.x = value
