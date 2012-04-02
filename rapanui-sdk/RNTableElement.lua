@@ -61,6 +61,7 @@ function RNTableElement:innerNew(o)
         name = "",
         style = { size = 10, font = nil, top = 30, left = -50, width = 200, height = 50 },
         elements = {},
+        rectangles = {},
         x = 0,
         y = 0,
         canScrollY = false,
@@ -74,17 +75,22 @@ function RNTableElement:innerNew(o)
 end
 
 function RNTableElement:init()
+    --set self
+    SELF = self
     --set style if nil
     if self.style == nil then
-        self.style = { size = 10, font = nil, top = 30, left = 0, width = 500, height = 500, alignment = MOAITextBox.LEFT_JUSTIFY }
+        self.style = { size = 10, font = nil, top = 30, left = 0, width = 500, height = 28, alignment = MOAITextBox.LEFT_JUSTIFY }
     end
-    --create texts
+    --create texts and rectangles
     for i, v in ipairs(self.elements) do
+        --texts
         v.rnText = RNFactory.createText(v.text, { size = self.style.size, font = self.style.font, top = -self.style.top + self.style.top * i, left = self.style.left, width = self.style.width, height = self.style.height, alignment = MOAITextBox.LEFT_JUSTIFY })
         v.rnText.x = self.x
         v.rnText.y = self.y
+        --rectangles
+        self.rectangles[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.style.height, { rgb = { 0, 0, 100 } })
+        self.rectangles[i].y = -self.style.top + self.style.top * i - self.style.height / 1.5
     end
-    SELF = self
     --add touch listener
     ENTERFRAMELISTENER = RNListeners:addEventListener("touch", self.touchEvent)
     --step listener
@@ -108,6 +114,10 @@ function RNTableElement:enterFrame()
         if deltay <= 0 and SELF.y > SELF.minY then
             SELF.y = SELF.y + deltay
         end
+
+        if deltay > 1 or deltay < -1 then
+            isSCROLLINGY = true
+        end
     end
 end
 
@@ -115,12 +125,10 @@ function RNTableElement.touchEvent(event)
     local self = SELF
     if event.phase == "began" and self ~= nil then
         tmpY = event.y
-        isSCROLLINGY = false
     end
 
 
     if event.phase == "moved" and self ~= nil then
-        isSCROLLINGY = true
         deltay = event.y - tmpY
         if self.canScrollY == true then
             tmpY = event.y
@@ -133,10 +141,16 @@ function RNTableElement.touchEvent(event)
                 if self.elements[i].onClick ~= nil then
                     local funct = self.elements[i].onClick
                     local event = { text = self.elements[i].text, target = self.elements[i].name }
+                    self.rectangles[i]:setPenColor(255, 255, 255)
+
                     funct(event)
                 end
             end
         end
+    end
+
+    if event.phase == "ended" and isSCROLLINGY == true then
+        isSCROLLINGY = false
     end
 end
 
@@ -155,6 +169,12 @@ function RNTableElement:setY(value)
             v.rnText.y = value
         end
     end
+    for i, v in ipairs(self.rectangles) do
+        if v ~= nil then
+            v.y = value + self.style.top * i - self.style.height / 1.5
+        end
+    end
+
     self.y = value
 end
 
@@ -166,6 +186,14 @@ function RNTableElement:remove()
             v.rnText:remove()
         end
     end
+    --[[ bug in removing shapes
+    for i, v in ipairs(self.rectangles) do
+        if v ~= nil then
+            v:remove()
+        end
+    end
+    ]] --
+
     self = nil
     SELF = nil
 end
@@ -182,11 +210,18 @@ function RNTableElement:setAlpha(value)
     for i, v in ipairs(self.elements) do
         v.rnText.alpha = value
     end
+    --bug in alpha shapes
+    for i, v in ipairs(self.rectangles) do
+        v.alpha = value
+    end
 end
 
 function RNTableElement:setVisibility(value)
     for i, v in ipairs(self.elements) do
         v.rnText.visible = value
+    end
+    for i, v in ipairs(self.rectangles) do
+        v.visible = value
     end
 end
 
