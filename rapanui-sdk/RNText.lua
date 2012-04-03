@@ -125,7 +125,7 @@ end
 
 function RNText:setAlpha(value)
     self.alpha = value
-    self.prop:setColor(self.r, self.g, self.g, value, 0)
+    self.prop:setColor(self.r/255, self.g/255, self.b/255, value, 0)
 end
 
 return RNText
