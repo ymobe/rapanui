@@ -108,6 +108,10 @@ function RNFactory.createTable(name,params)
     tab.maxY=params.scrollingY.maxY
     tab.minY=params.scrollingY.minY
     tab.maxScrollingForceY=params.scrollingY.maxScrollingForceY
+    if params.lineHeight~=nil then tab.lineHeight=params.lineHeight end
+    if params.lineColor~=nil then tab.lineColor=params.lineColor end
+    if params.backGroundColor~=nil then tab.backGroundColor=params.backGroundColor end
+    if params.pressColor~=nil then tab.pressColor=params.pressColor end
     tab:init()
     return tab
 end

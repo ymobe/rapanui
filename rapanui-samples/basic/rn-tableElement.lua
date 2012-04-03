@@ -29,7 +29,7 @@ local style = { size = 10, font = font, top = 50, left = 0, width = 300, height 
 tab = RNFactory.createTable("table1", {
     position = { x = 0, y = 0 },
     scrollingY = { active = true, minY = -50, maxY = 370, maxScrollingForceY = 100 },
-    style = style,
+    style = style,lineColor={0,0,0},backGroundColor={0,0,255},pressColor={255,255,0}, lineHeight=5,
     elements = {
         { text = "Testing item number 1", name = "label1", onClick = getCallBack},
         { text = "Testing item number 2", name = "label2", onClick = getCallBack, XOffset = 0, YOffset = 0 },

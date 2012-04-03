@@ -71,6 +71,10 @@ function RNTableElement:innerNew(o)
         elements = {},
         rectangles = {},
         lines = {},
+        backGroundColor={0,0,255},
+        pressColor={255,255,255},
+        lineColor={0,0,0},
+        lineHeight=5,
         x = 0,
         y = 0,
         canScrollY = false,
@@ -103,15 +107,15 @@ function RNTableElement:init()
         v.rnText.y = self.y
         v.rnText:setTextColor(color[1],color[2],color[3])
         --rectangles
-        self.rectangles[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.style.height, { rgb = BLUE })
+        self.rectangles[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.style.height, { rgb = self.backGroundColor })
         self.rectangles[i].y = -self.style.top + self.style.top * i - self.style.height / 2
         --lines
-        self.lines[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, 5, { rgb = BLACK })
+        self.lines[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.lineHeight, { rgb = self.lineColor })
         self.lines[i].y = -self.style.top + self.style.top * i - self.style.height
     end
     --last line
     local place = table.getn(self.lines) + 1
-    self.lines[place] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * place, self.style.width, 5, { rgb = BLACK })
+    self.lines[place] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * place, self.style.width, self.lineHeight, { rgb = self.lineColor })
     self.lines[place].y = -self.style.top + self.style.top * place - self.style.height
     --add touch listener
     ENTERFRAMELISTENER = RNListeners:addEventListener("touch", self.touchEvent)
@@ -173,7 +177,7 @@ function RNTableElement.touchEvent(event)
                 if self.elements[i].onClick ~= nil then
                     local funct = self.elements[i].onClick
                     local event = { text = self.elements[i].text, target = self.elements[i].name }
-                    local cColor = WHITE
+                    local cColor = self.pressColor
                     self.rectangles[i]:setPenColor(cColor[1], cColor[2], cColor[3])
                     CHOOSEDONE = true
                     funct(event)
