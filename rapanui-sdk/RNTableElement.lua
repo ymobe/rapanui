@@ -20,6 +20,13 @@ local deltay = 0
 local ENTERFRAMELISTENER
 local TOUCHLISTENER
 local isTOUCHING
+local CHOOSEDONE = false
+
+local WHITE = { 255, 255, 255 }
+local BLUE = { 0, 0, 255 }
+local BLACK = { 0, 0, 0 }
+
+
 
 local function fieldChangedListener(self, key, value)
 
@@ -63,6 +70,7 @@ function RNTableElement:innerNew(o)
         style = { size = 10, font = nil, top = 30, left = -50, width = 200, height = 50 },
         elements = {},
         rectangles = {},
+        lines = {},
         x = 0,
         y = 0,
         canScrollY = false,
@@ -80,18 +88,31 @@ function RNTableElement:init()
     SELF = self
     --set style if nil
     if self.style == nil then
-        self.style = { size = 10, font = nil, top = 30, left = 0, width = 500, height = 28, alignment = MOAITextBox.LEFT_JUSTIFY }
+        self.style = { size = 10, font = nil, top = 30, left = 0, width = 500, height = 30, alignment = MOAITextBox.LEFT_JUSTIFY }
     end
-    --create texts and rectangles
+    --create texts and rectangles and lines
     for i, v in ipairs(self.elements) do
+        local xoffs,yoffs=self.elements[i].XOffset,self.elements[i].YOffset
+        if xoffs==nil then xoffs=0 end
+        if yoffs==nil then yoffs=0 end
+        local color=self.elements[i].color
+        if color==nil then color={255,255,255} end
         --texts
-        v.rnText = RNFactory.createText(v.text, { size = self.style.size, font = self.style.font, top = -self.style.top + self.style.top * i, left = self.style.left, width = self.style.width, height = self.style.height, alignment = MOAITextBox.LEFT_JUSTIFY })
+        v.rnText = RNFactory.createText(v.text, { size = self.style.size, font = self.style.font, top = -self.style.top + self.style.top * i +yoffs, left = self.style.left+xoffs, width = self.style.width, height = self.style.height, alignment = MOAITextBox.LEFT_JUSTIFY })
         v.rnText.x = self.x
         v.rnText.y = self.y
+        v.rnText:setTextColor(color[1],color[2],color[3])
         --rectangles
-        self.rectangles[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.style.height, { rgb = { 0, 0, 100 } })
-        self.rectangles[i].y = -self.style.top + self.style.top * i - self.style.height / 1.5
+        self.rectangles[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, self.style.height, { rgb = BLUE })
+        self.rectangles[i].y = -self.style.top + self.style.top * i - self.style.height / 2
+        --lines
+        self.lines[i] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * i, self.style.width, 5, { rgb = BLACK })
+        self.lines[i].y = -self.style.top + self.style.top * i - self.style.height
     end
+    --last line
+    local place = table.getn(self.lines) + 1
+    self.lines[place] = RNFactory.createRect(self.style.left, -self.style.top + self.style.top * place, self.style.width, 5, { rgb = BLACK })
+    self.lines[place].y = -self.style.top + self.style.top * place - self.style.height
     --add touch listener
     ENTERFRAMELISTENER = RNListeners:addEventListener("touch", self.touchEvent)
     --step listener
@@ -109,10 +130,10 @@ function RNTableElement:enterFrame()
         if deltay > 0 and deltay <= 0.2 then deltay = 0 end
         if deltay < 0 and deltay >= -0.2 then deltay = 0 end
 
-        if deltay > 0 and SELF.y < SELF.maxY+100 then
+        if deltay > 0 and SELF.y < SELF.maxY + 100 then
             SELF.y = SELF.y + deltay
         end
-        if deltay <= 0 and SELF.y > SELF.minY-100 then
+        if deltay <= 0 and SELF.y > SELF.minY - 100 then
             SELF.y = SELF.y + deltay
         end
 
@@ -120,13 +141,13 @@ function RNTableElement:enterFrame()
             isSCROLLINGY = true
         end
 
-        if SELF.y>SELF.maxY and isTOUCHING==false then
-            deltay=0
-            SELF.y=SELF.y-(SELF.maxY+SELF.y)/20
+        if SELF.y > SELF.maxY and isTOUCHING == false then
+            deltay = 0
+            SELF.y = SELF.y - (SELF.maxY + SELF.y) / 20
         end
-        if SELF.y<SELF.minY and isTOUCHING==false then
-            deltay=0
-            SELF.y=SELF.y+(SELF.minY-SELF.y)/20
+        if SELF.y < SELF.minY and isTOUCHING == false then
+            deltay = 0
+            SELF.y = SELF.y + (SELF.minY - SELF.y) / 20
         end
     end
 end
@@ -135,7 +156,7 @@ function RNTableElement.touchEvent(event)
     local self = SELF
     if event.phase == "began" and self ~= nil then
         tmpY = event.y
-        isTOUCHING=true
+        isTOUCHING = true
     end
 
 
@@ -146,24 +167,25 @@ function RNTableElement.touchEvent(event)
         end
     end
 
-    if event.phase == "ended" and isSCROLLINGY == false and self ~= nil then
+    if event.phase == "ended" and isSCROLLINGY == false and self ~= nil and CHOOSEDONE == false then
         for i = 1, table.getn(self.elements), 1 do
             if event.y > -self.style.top + i * self.style.top + self.y and event.y < i * self.style.top + self.y then
                 if self.elements[i].onClick ~= nil then
                     local funct = self.elements[i].onClick
                     local event = { text = self.elements[i].text, target = self.elements[i].name }
-                    self.rectangles[i]:setPenColor(255, 255, 255)
-
+                    local cColor = WHITE
+                    self.rectangles[i]:setPenColor(cColor[1], cColor[2], cColor[3])
+                    CHOOSEDONE = true
                     funct(event)
                 end
             end
         end
-        isTOUCHING=false
+        isTOUCHING = false
     end
 
     if event.phase == "ended" and isSCROLLINGY == true then
         isSCROLLINGY = false
-        isTOUCHING=false
+        isTOUCHING = false
     end
 end
 
@@ -175,8 +197,12 @@ function RNTableElement:setX(value)
     end
     for i, v in ipairs(self.rectangles) do
         if v ~= nil then
-            v.x = v.x+value
-            print("aaa")
+            v.x = v.x + value
+        end
+    end
+    for i, v in ipairs(self.lines) do
+        if v ~= nil then
+            v.x = v.x + value
         end
     end
     self.x = value
@@ -190,7 +216,12 @@ function RNTableElement:setY(value)
     end
     for i, v in ipairs(self.rectangles) do
         if v ~= nil then
-            v.y = value + self.style.top * i - self.style.height / 1.5
+            v.y = value + self.style.top * i - self.style.height / 2
+        end
+    end
+    for i, v in ipairs(self.lines) do
+        if v ~= nil then
+            v.y = value + self.style.top * i - self.style.height
         end
     end
 
@@ -207,6 +238,13 @@ function RNTableElement:remove()
     end
     --[[ bug in removing shapes
     for i, v in ipairs(self.rectangles) do
+        if v ~= nil then
+            v:remove()
+        end
+    end
+    ]] --
+    --[[ bug in removing shapes
+    for i, v in ipairs(self.lines) do
         if v ~= nil then
             v:remove()
         end

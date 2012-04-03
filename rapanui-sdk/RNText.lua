@@ -115,11 +115,12 @@ end
 
 
 function RNText:setTextColor(r, g, b)
+
     self.r = r
     self.g = g
-    self.g = b
+    self.b = b
 
-    self.textbox:setColor(r, g, b)
+    self.textbox:getStyle():setColor(r/255,g/255,b/255)
 end
 
 function RNText:setAlpha(value)
