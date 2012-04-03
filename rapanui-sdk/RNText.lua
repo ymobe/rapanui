@@ -93,7 +93,7 @@ function RNText:initWithText(text, font, size, x, y, width, height, alignment)
     self.textbox:setRect(x, y, x + width, y + height)
     self.textbox:setAlignment(alignment)
 
-    self:setTextColor(1, 1, 1)
+    self:setTextColor(255, 255, 255)
 end
 
 
