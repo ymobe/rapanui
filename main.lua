@@ -41,7 +41,8 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
---require("rapanui-samples/basic/rn-tableElement")
+require("rapanui-samples/basic/rn-rnListView")
+
 
 -- Landscape
 -- NOTE: this demo is for landscape and needs the setup of RapaNui & MOAI to landscape mode.
@@ -86,7 +87,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
-require("rapanui-samples/touch/rn-buttons-animated")
+--require("rapanui-samples/touch/rn-buttons-animated")
 
 -- listeners
 

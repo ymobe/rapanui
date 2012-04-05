@@ -97,23 +97,17 @@ function RNFactory.getCurrentScreen()
 end
 
 
-function RNFactory.createTable(name,params)
-    local tab=RNTableElement:new()
-    tab.name=name
-    tab.style=params.style
-    tab.elements=params.elements
-    tab.x=params.position.x
-    tab.y=params.position.y
-    tab.canScrollY=params.scrollingY.active
-    tab.maxY=params.scrollingY.maxY
-    tab.minY=params.scrollingY.minY
-    tab.maxScrollingForceY=params.scrollingY.maxScrollingForceY
-    if params.lineHeight~=nil then tab.lineHeight=params.lineHeight end
-    if params.lineColor~=nil then tab.lineColor=params.lineColor end
-    if params.backGroundColor~=nil then tab.backGroundColor=params.backGroundColor end
-    if params.pressColor~=nil then tab.pressColor=params.pressColor end
-    tab:init()
-    return tab
+
+function RNFactory.createList(name, params)
+    local list = RNListView:new()
+    list.name = name
+    list.options = params.options
+    list.elements = params.elements
+    list.x = params.x
+    list.y = params.y
+    if params.canScrollY ~= nil then list.canScrollY = params.canScrollY else list.canScrollY = true end
+    list:init()
+    return list
 end
 
 function RNFactory.createImage(filename, params)
