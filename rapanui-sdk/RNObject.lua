@@ -1173,7 +1173,9 @@ function RNObject:remove()
         self.prop:setDeck(nil)
     end
     --print("remove", self.idInGroup)
-    self.parentGroup:removeChild(self.idInGroup)
+	if(self.parentGroup) then
+    	self.parentGroup:removeChild(self.idInGroup)
+	end
 end
 
 --if it's awake (returns boolean)
