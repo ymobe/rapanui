@@ -90,13 +90,12 @@ function RNScreen:removeRNObject(object)
             for k = ind + 1, len, 1 do
                 self.sprites[k - 1] = self.sprites[k]
                 self.sprites[k].idInScreen = k - 1
+				self.sprites[k]:getProp().rnObjectId = k - 1
             end
             self.sprites[len] = nil
         end
     end
 
-    --refresh other objects id
-    for i, v in ipairs(self.sprites) do v.idInScreen = i end
     --
     self.numSprites = table.getn(self.sprites)
 end
