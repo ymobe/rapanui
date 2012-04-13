@@ -750,7 +750,7 @@ function RNObject:stop()
 end
 
 function RNObject:play(sequenceName, speed, repeatTimes, onStop)
-    self.animCounter=0
+    self.animCounter = 0
     if self.isAnim == true then
         if sequenceName == nil then sequenceName = "default" end
         self.pause = false
@@ -1035,12 +1035,25 @@ function RNObject:setX(x)
     self.x = self.currentRefX + x
 end
 
+function RNObject:setTouchable(value)
+
+    if value then
+        self:getProp().touchable = true
+    else
+        self:getProp().touchable = false
+    end
+end
+
+function RNObject:isTouchable()
+    return self:getProp().touchable
+end
+
 function RNObject:addEventListener(eventName, func)
     local index
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
-         local aListener = RNWrappedEventListener:new()
+        local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
         aListener:setTarget(self)
 
@@ -1117,18 +1130,22 @@ function RNObject:onTouchMove(x, y, source)
 end
 
 function RNObject:setOnTouchDown(func)
+    self:setTouchable(true)
     self.onTouchDownListener = func
 end
 
 function RNObject:setOnTouchMove(func)
+    self:setTouchable(true)
     self.onTouchMoveListener = func
 end
 
 function RNObject:setOnTouchUp(func)
+    self:setTouchable(true)
     self.onTouchUpListener = func
 end
 
 function RNObject:setOnTouchCancel(func)
+    self:setTouchable(true)
     self.onTouchCancelListener = func
 end
 

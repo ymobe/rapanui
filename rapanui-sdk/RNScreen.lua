@@ -102,7 +102,16 @@ function RNScreen:removeRNObject(object)
 end
 
 function RNScreen:getPropWithHighestLevelOn(x, y)
-    return self.mainPartition:propForPoint(x, y)
+
+
+
+    local props = { self.mainPartition:propListForPoint(x, y, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+
+    for i, p in ipairs(props) do
+        if p.touchable then
+            return p
+        end
+    end
 end
 
 function RNScreen:getRNObjectWithHighestLevelOn(x, y)
