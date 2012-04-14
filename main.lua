@@ -41,7 +41,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
-require("rapanui-samples/basic/rn-rnListView")
+--require("rapanui-samples/basic/rn-rnListView")
 
 
 -- Landscape
@@ -88,6 +88,8 @@ require("rapanui-samples/basic/rn-rnListView")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
+require("rapanui-samples/touch/rn-touch-buttons-untouchable")
+
 
 -- listeners
 

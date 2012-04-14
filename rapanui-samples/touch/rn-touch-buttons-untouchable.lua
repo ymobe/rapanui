@@ -12,19 +12,19 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
+-- by default RNObject aren't touchable only when a listener it's set they start to be touchable.
+
 text = RNFactory.createText("Touch on buttons", { size = 9, top = 200, left = 5, width = 250, height = 50 })
 
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
+
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
 
-
-buttonTwo = RNFactory.createImage("images/tile2.png", { top = 50, left = 150 })
-
-buttonTwo.rotation = 30
-
-
+hex = RNFactory.createImage("images/hex-pattern.png")
+hex:bringToFront()
+text:bringToFront()
 
 function button1TouchDown(event)
     text:setText("Button one touch down!")
@@ -42,19 +42,14 @@ buttonOne:setOnTouchDown(button1TouchDown)
 buttonOne:setOnTouchMove(button1Moved)
 buttonOne:setOnTouchUp(button1UP)
 
+trn = RNTransition:new()
 
-function button2TouchDown(event)
-    text:setText("Button two touch down!")
+function goToPointA()
+    trn:run(buttonOne, { type = "move", time = 3000, alpha = 0, x = 200, y = 100, onComplete = goToPointB })
 end
 
-function button2Moved(event)
-    text:setText("Button two moved!")
+function goToPointB()
+    trn:run(buttonOne, { type = "move", time = 3000, alpha = 0, x = 200, y = 400, onComplete = goToPointA })
 end
 
-function button2Up(event)
-    text:setText("Button two touch up")
-end
-
-buttonTwo:setOnTouchDown(button2TouchDown)
-buttonTwo:setOnTouchMove(button2Moved)
-buttonTwo:setOnTouchUp(button2Up)
+goToPointA()
