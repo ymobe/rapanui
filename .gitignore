@@ -5,6 +5,7 @@ docs
 copyrect.lua
 moai-config.lua
 sample-spike
+moai-build
 rapanui-samples/.DS_Store
 rapanui-samples/games/.DS_Store
 rapanui-samples/maps/reference.tmx
