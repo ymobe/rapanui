@@ -30,12 +30,12 @@ end      --]]
 
 -- Anim
 
---require("rapanui-samples/anim/rn-anim")
+--equire("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
@@ -46,7 +46,7 @@ end      --]]
 
 -- Landscape
 -- NOTE: this demo is for landscape and needs the setup of RapaNui & MOAI to landscape mode.
---require("rapanui-samples/landscape/rn-images")
+-- require("rapanui-samples/landscape/rn-images")
 
 -- Groups
 
@@ -88,7 +88,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
-require("rapanui-samples/touch/rn-touch-buttons-untouchable")
+--require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 
 -- listeners
@@ -133,5 +133,3 @@ require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
-
-

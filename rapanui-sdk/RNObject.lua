@@ -1053,6 +1053,7 @@ function RNObject:addEventListener(eventName, func)
     if eventName == "collision" then
         self.physicObject:addEventListener("collision")
     else
+        self:setTouchable(true)
         local aListener = RNWrappedEventListener:new()
         aListener:setFunction(func)
         aListener:setTarget(self)
