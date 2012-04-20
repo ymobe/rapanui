@@ -88,17 +88,19 @@ end
 
 --handling touch
 function screen_touch(event)
-    local xx = event.x
-    local yy = event.y
-    local fx = event.x - ball.x
-    local fy = event.y - ball.y
-    local distance
+    if event.phase == "began" then
+        local xx = event.x
+        local yy = event.y
+        local fx = event.x - ball.x
+        local fy = event.y - ball.y
+        local distance
 
-    distance = math.sqrt(math.pow(event.x - ball.x, 2) + math.pow(event.y - ball.y, 2))
-    if canMove == true then
-        ball:applyForce(fx * 2000, fy * 2000, ball.x, ball.y)
-        shots = shots + 1
-        score:setText("" .. shots)
+        distance = math.sqrt(math.pow(event.x - ball.x, 2) + math.pow(event.y - ball.y, 2))
+        if canMove == true then
+            ball:applyForce(fx * 99999 * 2, fy * 99999 * 2, ball.x, ball.y)
+            shots = shots + 1
+            score:setText("" .. shots)
+        end
     end
 end
 

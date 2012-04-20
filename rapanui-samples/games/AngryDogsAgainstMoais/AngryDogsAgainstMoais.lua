@@ -148,7 +148,7 @@ function screen_touch(event)
         print("drop received, shooting...go dog, go!")
         distance = math.sqrt(math.pow(event.x - startX, 2) + math.pow(event.y - startY, 2))
         if canMove == true then
-            dog:applyForce(fx * 2000, fy * 2000, dog.x, dog.y)
+            dog:applyForce(fx * 999999 / 2, fy * 999999 / 2, dog.x, dog.y)
             shots = shots + 1
             score:setText("" .. shots)
         end
