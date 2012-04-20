@@ -35,13 +35,13 @@ end      --]]
 
 -- Basics
 
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
---require("rapanui-samples/basic/rn-rnListView")
+require("rapanui-samples/basic/rn-rnListView")
 
 
 -- Landscape
