@@ -207,6 +207,94 @@ end
 
 
 
+-- elements actions
+
+function RNListView:getElement(value)
+    return self.elements[value]
+end
+
+function RNListView:getSize()
+    return table.getn(self.elements)
+end
+
+function RNListView:insertElement(element, number)
+    if number ~= nil then
+        --the element is add to the end of the list if param number is > of the list size
+        if number > self:getSize() then
+            self.elements[self:getSize() + 1] = element
+        end
+        --else the element is inserted in the place [number] and the below elements moved
+        if number <= self:getSize() then
+            for i = self:getSize(), number, -1 do
+                self.elements[i + 1] = self.elements[i]
+            end
+            self.elements[number] = element
+        end
+    else
+        --the element is add to the end of the list if param number is nil
+        self.elements[self:getSize() + 1] = element
+    end
+end
+
+function RNListView:removeElement(removeRNObject, number)
+    if number ~= nil then
+        if number > self:getSize() then
+            if removeRNObject == true then
+                self.elements[self:getSize()].object:remove()
+            end
+            self.elements[self:getSize()] = nil
+        end
+        if number <= self:getSize() then
+            if removeRNObject == true then
+                self.elements[number].object:remove()
+            end
+            for i = number, self:getSize() - 1, 1 do
+                self.elements[i] = self.elements[i + 1]
+            end
+            self.elements[self:getSize()] = nil
+        end
+    else
+        if removeRNObject == true then
+            self.elements[self:getSize()].object:remove()
+        end
+        self.elements[self:getSize()] = nil
+    end
+end
+
+
+function RNListView:swapElements(n1, n2)
+    local tempn1 = self.elements[n1]
+    local tempn2 = self.elements[n2]
+
+    self.elements[n1] = tempn2
+    self.elements[n2] = tempn1
+end
+
+
+function RNListView:getObjectByNumber(value)
+    local o
+    for i = 1, self:getSize() do
+        if i == value then
+            o = self.elements[i]
+        end
+    end
+
+    return o
+end
+
+
+function RNListView:getNumberByObject(value)
+    local n
+    for i = 1, self:getSize() do
+        if self.elements[i].object == value then
+            n = i
+        end
+    end
+
+    return n
+end
+
+--
 
 function RNListView:getType()
     return "RNListView"
@@ -225,7 +313,9 @@ function RNListView:setVisibility(value)
     end
 end
 
---mocks for groupAdd (Yes, RNLists can be added to RNGroups ^^)
+
+
+--mocks for groupAdd (Yes, RNListViews can be added to RNGroups ^^)
 
 
 function RNListView:setIDInGroup()

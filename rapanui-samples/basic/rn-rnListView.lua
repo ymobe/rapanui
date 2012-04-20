@@ -31,6 +31,11 @@ local image6 = RNFactory.createImage("images/tile1.png")
 local image7 = RNFactory.createImage("images/tile2.png")
 local image8 = RNFactory.createImage("images/tile3.png")
 local image9 = RNFactory.createImage("images/tile4.png")
+local image10 = RNFactory.createImage("images/tile5.png")
+local image11 = RNFactory.createImage("images/tile6.png")
+local image12 = RNFactory.createImage("images/tile7.png")
+local image13 = RNFactory.createImage("images/tile8.png")
+local image14 = RNFactory.createImage("images/tile9.png")
 local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5); anim1:play("default", 12, -1)
 local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
@@ -57,7 +62,7 @@ end
 --maxScrollingForceY,minY and maxY affect directly the scrolling gesture.
 
 local list = RNFactory.createList("testList", {
-    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 4 - 32, maxY = 0 },
+    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 6 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
     canScrollY = true,
     x = 0,
     y = 0,
@@ -78,10 +83,49 @@ local list = RNFactory.createList("testList", {
 })
 
 
---WORKING CALLS AND METHODS:
+-- ELEMENTS ACTIONS
+
+--insertElement(element,number)
+--the element is added at the end if param number is nil or > list size
+--insert tile5 at the end
+list:insertElement({ object = image10, offsetX = 32, offsetY = 32, onClick = getCallBack },9999)
+--insert tile6 at the end
+list:insertElement({ object = image11, offsetX = 32, offsetY = 32, onClick = getCallBack })
+--addElement inside of a list
+--insert tile7 at 9th place (below tile0)
+list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = getCallBack },9)
+--remove last object
+--removeElement(isRNObjectToRemove,number in list)
+--the last element is removed if param number is nil or > list size
+--if the first boolean param is true the RNObject will be removed from the screen else it's just removed from the list
+--tile6 is removed
+list:removeElement(true)
+--tile5 is removed from list then manually removed from screen
+list:removeElement(false,9999)
+image10:remove()
+--tile3 is removed from 12th place
+list:removeElement(true,12)
+--add elements tile8 and tile9 at the end
+list:insertElement({ object = image13, offsetX = 32, offsetY = 32, onClick = getCallBack })
+list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = getCallBack })
+--swap tile8 and tile9 positions
+list:swapElements(13,14)
+
+
+
+
+--OTHER WORKING CALLS AND METHODS:
 
 --list.x=0
 --list.y=0
 --list.alpha=0
 --list.visible=false
 --list:remove()
+--list:getElement(1) --returns whole element table as given to the RNListView
+--list:getSize()
+--list.options.maxScrollingForceY=30
+--list.options.maxY=100
+--list.options.minY=0
+--list:getObjectByNumber(14) --returns RNObject
+--print(list:getNumberByObject(image13))
+
