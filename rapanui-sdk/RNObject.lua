@@ -186,7 +186,7 @@ local function fieldAccessListener(self, key)
         end
     end
 
-
+    
 
     if object.isPhysical == true then
 
@@ -1191,9 +1191,9 @@ function RNObject:remove()
         self.prop:setDeck(nil)
     end
     --print("remove", self.idInGroup)
-	if(self.parentGroup) then
-    	self.parentGroup:removeChild(self.idInGroup)
-	end
+    if (self.parentGroup) then
+        self.parentGroup:removeChild(self.idInGroup)
+    end
 end
 
 --if it's awake (returns boolean)
