@@ -186,7 +186,18 @@ local function fieldAccessListener(self, key)
         end
     end
 
-    
+    if object.isPhysical == false then
+
+        if key ~= nil and key == "x" then
+            local xx,yy=object:getProp():getLoc()
+            object.x =xx
+        end
+
+        if key ~= nil and key == "y" then
+            local xx,yy=object:getProp():getLoc()
+            object.y =yy
+        end
+    end
 
     if object.isPhysical == true then
 
