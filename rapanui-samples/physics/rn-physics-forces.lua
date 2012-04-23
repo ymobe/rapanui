@@ -33,11 +33,11 @@ RNPhysics.createBodyFromImage(triangle, { shape = { -32, 32, 0, -32, 32, 32 }, r
 RNPhysics.createBodyFromImage(floor, "static")
 
 box.restitution = 0.2
-box:applyAngularImpulse(10000)
+box:applyAngularImpulse(1000000)
 
-ball:applyLinearImpulse(-100, -1000, ball.x, ball.y)
+ball:applyLinearImpulse(-10000, -100000, ball.x, ball.y)
 
-triangle:applyForce(0, -1000, triangle.x, triangle.y)
+triangle:applyForce(0, -100000, triangle.x, triangle.y)
 
 --check RNBody.lua for all methods available!
 
