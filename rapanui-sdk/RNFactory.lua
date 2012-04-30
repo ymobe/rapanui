@@ -110,6 +110,14 @@ function RNFactory.createList(name, params)
     return list
 end
 
+function RNFactory.createPageSwipe(name, params)
+    local pSwipe = RNPageSwipe:new()
+    pSwipe.options = params.options
+    pSwipe.elements = params.elements
+    pSwipe:init()
+    return pSwipe
+end
+
 function RNFactory.createImage(filename, params)
 
     local parentGroup, left, top

@@ -41,7 +41,9 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
-require("rapanui-samples/basic/rn-rnListView")
+--require("rapanui-samples/basic/rn-rnListView")
+require("rapanui-samples/basic/rn-rnPageSwipe")
+
 
 
 -- Landscape

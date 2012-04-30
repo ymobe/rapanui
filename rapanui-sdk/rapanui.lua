@@ -62,3 +62,5 @@ RNMapFactory = require("rapanui-sdk/RNMapFactory")
 RNFactory = require("rapanui-sdk/RNFactory")
 
 RNListView = require("rapanui-sdk/RNListView")
+
+RNPageSwipe=require("rapanui-sdk/RNPageSwipe")
