@@ -109,6 +109,8 @@ print(swipeObject:getElementByPageAndNumber(2, 3).object.name)
 print(swipeObject:getPageAndNumberByElement(image15))
 --gets the element by its name
 print(swipeObject:getElementByName("testName1"))
+--gets the swipe gesture state
+print(swipeObject.isMoving)
 
 
 --managing table methods

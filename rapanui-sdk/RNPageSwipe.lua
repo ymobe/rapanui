@@ -55,7 +55,8 @@ function RNPageSwipe:innerNew(o)
         forcex = 0,
         currentPage = 1,
         enterFrameListener = nil,
-        touchListener = nil
+        touchListener = nil,
+        isMoving = false,
     }
     setmetatable(o, self)
     self.__index = self
@@ -125,15 +126,18 @@ function touchSwipe(event)
         if event.phase == "moved" then
             self.forcex = (event.x - self.tempx)
             self.tempx = event.x
+            self.isMoving = true
         end
         if event.phase == "ended" then
             self.forcex = 0
             self:doSwipe()
+            self.isMoving = false
         end
     else
         if event.phase == "ended" then
             self.forceX = 0
             self:doSwipe()
+            self.isMoving = false
         end
     end
 end
