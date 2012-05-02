@@ -259,6 +259,12 @@ function RNPageSwipe:removeElementByPageAndNumber(removeRNObject, page, num)
 end
 
 
+function RNPageSwipe:getElementsInLastPage()
+    local eleNumber = table.getn(self.elements)
+    local pages = math.modf(eleNumber / (self.options.columns * self.options.rows))
+    return eleNumber - (self.options.columns * self.options.rows) * pages
+end
+
 function RNPageSwipe:swapElementsByNames(n1, n2)
     local nn1 = self:getElementByName(n1).object
     local t, y, globaln1 = self:getPageAndNumberByElement(nn1)

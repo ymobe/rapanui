@@ -81,6 +81,7 @@ print(swipeObject.options.cellH)
 --plus:
 print(swipeObject.pages)
 print(swipeObject.currentPage)
+print(swipeObject:getElementsInLastPage())
 
 
 --you can change all the options and elements values from above at anytime.
