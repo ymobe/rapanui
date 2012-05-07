@@ -203,6 +203,42 @@ function RNFactory.createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
+function RNFactory.createImage2(image, sizex, sizey)
+    local o = RNObject:new()
+    local o, deck = o:initWithImage2(image, sizex, sizey)
+
+
+    local parentGroup = RNFactory.mainGroup
+
+    RNFactory.screen:addRNObject(o)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(o)
+    end
+
+
+    return o, deck
+end
+
+function RNFactory.createAnim2(image, sizex, sizey, tilex, tiley, posx, posy, scalex, scaley)
+    local o = RNObject:new()
+    local o, deck = o:initWithAnim2(image, sizex, sizey, tilex, tiley, scalex, scaley)
+
+    o.x = posx
+    o.y = posy
+
+    local parentGroup = RNFactory.mainGroup
+
+    RNFactory.screen:addRNObject(o)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(o)
+    end
+
+
+    return o, deck
+end
+
 function RNFactory.createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
@@ -289,6 +325,54 @@ function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     return image
 end
+
+function RNFactory.createText2(text, params)
+
+    local top, left, size, font, height, width, alignment
+
+    font = "arial-rounded"
+    size = 15
+    alignment = MOAITextBox.CENTER_JUSTIFY
+    --LEFT_JUSTIFY, CENTER_JUSTIFY or RIGHT_JUSTIFY.
+
+    if (params ~= nil) then
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.font ~= nil) then
+            font = params.font
+        end
+
+        if (params.size ~= nil) then
+            size = params.size
+        end
+
+        if (params.height ~= nil) then
+            height = params.height
+        end
+
+        if (params.width ~= nil) then
+            width = params.width
+        end
+
+        if (params.alignment ~= nil) then
+            alignment = params.alignment
+        end
+    end
+
+    local RNText = RNText:new()
+    local gFont
+    RNText, gFont = RNText:initWithText2(text, font, size, left, top, width, height, alignment)
+    RNFactory.screen:addRNObject(RNText)
+    RNFactory.mainGroup:insert(RNText)
+    return RNText, gFont
+end
+
 
 function RNFactory.createText(text, params)
 

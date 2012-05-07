@@ -49,7 +49,7 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
     self.width = width
     self.height = height
     self.viewport = MOAIViewport.new()
-    self.viewport:setSize(screenWidth, screenHeight)
+    self.viewport:setSize(screenWidth, screenHeight-70)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
     self.layer = MOAILayer2D.new()

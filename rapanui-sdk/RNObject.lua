@@ -189,13 +189,13 @@ local function fieldAccessListener(self, key)
     if object.isPhysical == false then
 
         if key ~= nil and key == "x" then
-            local xx,yy=object:getProp():getLoc()
-            object.x =xx
+            local xx, yy = object:getProp():getLoc()
+            object.x = xx
         end
 
         if key ~= nil and key == "y" then
-            local xx,yy=object:getProp():getLoc()
-            object.y =yy
+            local xx, yy = object:getProp():getLoc()
+            object.y = yy
         end
     end
 
@@ -533,6 +533,77 @@ function RNObject:loadImage(image)
     self.prop:setPriority(1)
 end
 
+function RNObject:initWithImage2(image, sizex, sizey)
+    local deck = image
+    if type(image) == "string" then
+        deck = MOAIGfxQuad2D.new()
+        deck:setTexture(image)
+        deck:setRect(-sizex / 2, -sizey / 2, sizex / 2, sizey / 2)
+        --deck:setRect(0, 0, sizex, sizey)
+        deck:setUVRect(0, 0, 1, 1)
+    end
+
+    self.name = ""
+    self.prop = MOAIProp2D.new()
+    self.prop:setDeck(deck)
+    --RNFactory.screen.layer:insertProp(self.prop)
+    self.prop:setPriority(1)
+
+
+    RNListeners:addEventListener("enterFrame", self)
+
+
+    return self, deck
+end
+
+function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
+    local px = sizex / sx
+    local py = sizey / sy
+    local deck = image
+    if type(image) == "string" then
+        deck = MOAITileDeck2D.new()
+        deck:setTexture(image)
+        --deck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
+        deck:setRect(-sx * scaleX, sy * scaleY, sx * scaleX, -sy * scaleY)
+        --self.tileDeck:setSize(number width, number height [, number cellWidth, number cellHeight, number xOff, number yOff, number tileWidth, number tileHeight ] )
+        deck:setSize(px, py, 1 / px, 1 / py, 0, 0, 1 / px, 1 / py)
+    end
+
+    self.prop = MOAIProp2D.new()
+    self.prop:setIndex(1)
+    self.prop:setPriority(1)
+
+
+    self.prop:setDeck(deck)
+
+    local oW = sizex
+    local oH = sizey
+
+    self.originalWidth = sx * scaleX * 2
+    self.originalHeight = sy * scaleY * 2
+    self.scaleX = scaleX
+    self.scaleY = scaleY
+    self.sizex = sx
+    self.sizey = sy
+    self.isAnim = true
+    self.frameNumberTotal = oW / sx * oH / sy
+
+    --we check for default sequence frame Order
+    local defaultFrameOrder = {}
+    for j = 1, self.frameNumberTotal, 1 do defaultFrameOrder[j] = j end
+
+    --we create a new sequence
+    self:newSequence("default", defaultFrameOrder, 12, 1, nil)
+    --and set it as current
+    self.currentSequence = "default"
+    self.frame = 1
+    RNListeners:addEventListener("enterFrame", self)
+
+    --RNFactory.screen.layer:insertProp(self.prop)
+
+    return self, deck
+end
+
 
 function RNObject:initWithRect(width, height, rgb)
     self.visible = true
@@ -641,6 +712,7 @@ end
 function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     self.name = image
 
+
     self.tileDeck = MOAITileDeck2D.new()
 
 
@@ -673,6 +745,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     local oW = self.originalWidth
     local oH = self.originalHeight
 
+    --self.tileDeck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
     self.tileDeck:setRect(-sx * scaleX, sy * scaleY, sx * scaleX, -sy * scaleY)
     self.originalWidth = sx * scaleX * 2
     self.originalHeight = sy * scaleY * 2

@@ -89,11 +89,47 @@ function RNText:initWithText(text, font, size, x, y, width, height, alignment)
 
     self.textbox:setString(self.text)
     self.textbox:setFont(self.font)
-    self.textbox:setTextSize(size,163)
+    self.textbox:setTextSize(size, 163)
     self.textbox:setRect(x, y, x + width, y + height)
     self.textbox:setAlignment(alignment)
 
     self:setTextColor(255, 255, 255)
+end
+
+function RNText:initWithText2(text, font, size, x, y, width, height, alignment)
+    self.charcodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;!?()&/-'
+
+    if type(font) == "string" then
+        self.fontName = font
+
+        self.font = MOAIFont.new()
+        self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
+    else
+        self.fontName = font
+        self.font=font
+    end
+
+    self.locatingMode = CENTERED_MODE
+    self.text = text
+
+    self.name = text
+    self.visible = true
+
+    self.textbox = MOAITextBox.new()
+    self.prop = self.textbox
+
+    self.text = text
+
+
+    self.textbox:setString(self.text)
+    self.textbox:setFont(self.font)
+    self.textbox:setTextSize(size, 163)
+    self.textbox:setRect(x, y, x + width, y + height)
+    self.textbox:setAlignment(alignment)
+
+    self:setTextColor(255, 255, 255)
+
+    return self, self.font
 end
 
 
@@ -105,7 +141,7 @@ function RNText:setTextSize(size)
     self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
     self.textbox:setString(self.text)
     self.textbox:setFont(self.font)
-    self.textbox:setTextSize(size,163)
+    self.textbox:setTextSize(size, 163)
 end
 
 
@@ -120,12 +156,12 @@ function RNText:setTextColor(r, g, b)
     self.g = g
     self.b = b
 
-    self.textbox:getStyle():setColor(r/255,g/255,b/255)
+    self.textbox:getStyle():setColor(r / 255, g / 255, b / 255)
 end
 
 function RNText:setAlpha(value)
     self.alpha = value
-    self.prop:setColor(self.r/255, self.g/255, self.b/255, value, 0)
+    self.prop:setColor(self.r / 255, self.g / 255, self.b / 255, value, 0)
 end
 
 return RNText
