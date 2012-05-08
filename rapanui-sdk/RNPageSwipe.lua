@@ -262,7 +262,9 @@ end
 function RNPageSwipe:getElementsInLastPage()
     local eleNumber = table.getn(self.elements)
     local pages = math.modf(eleNumber / (self.options.columns * self.options.rows))
-    return eleNumber - (self.options.columns * self.options.rows) * pages
+    local elementsInLastPage = eleNumber - (self.options.columns * self.options.rows) * pages
+    if elementsInLastPage == 0 then elementsInLastPage = self.options.columns * self.options.rows end
+    return elementsInLastPage
 end
 
 function RNPageSwipe:swapElementsByNames(n1, n2)
