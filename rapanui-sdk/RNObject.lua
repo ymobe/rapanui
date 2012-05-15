@@ -550,7 +550,7 @@ function RNObject:initWithImage2(image, sizex, sizey)
     self.prop:setPriority(1)
 
 
-    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
+    --self.tmplistener = RNListeners:addEventListener("enterFrame", self)
 
 
     return self, deck
@@ -597,7 +597,7 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
+    self.tmplistener = RNListeners:addEventListener("enterFrame", self)
 
     --RNFactory.screen.layer:insertProp(self.prop)
 
@@ -764,7 +764,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
+    self.tmplistener = RNListeners:addEventListener("enterFrame", self)
 end
 
 function RNObject:enterFrame(event)
@@ -813,7 +813,11 @@ end
 
 function RNObject:togglePause()
     if self.isAnim == true then
-        if self.pause == true then self.pause = false else self.pause = true end
+        if self.pause == true then
+            self.pause = false
+        else
+            self.pause = true
+        end
     end
 end
 
@@ -854,6 +858,7 @@ function RNObject:play(sequenceName, speed, repeatTimes, onStop)
         if speed ~= nil then rightSequence.speed = speed end
         if repeatTimes ~= nil then rightSequence.repeatTimes = repeatTimes end
         if onStop ~= nil then rightSequence.onStop = onStop end
+
     end
 end
 
