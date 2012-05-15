@@ -33,12 +33,10 @@ function RNRuntime:addEventListener(eventName, listener, name)
 
         if type(listener) == "table" then
             listenerId = RNMainThread.getMainThread():addEnterFrame(listener.enterFrame, listener)
-            RNMainThread.startMainThread()
         end
 
         if type(listener) == "function" then
             listenerId = RNMainThread.getMainThread():addEnterFrame(listener)
-            RNMainThread.startMainThread()
         end
 
     elseif eventName == "touch" then

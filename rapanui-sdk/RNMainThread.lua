@@ -18,7 +18,6 @@ RNMainThread.rnThread = RNThread:new()
 
 function RNMainThread.addTimedAction(delay, func, iterations)
     local actionid = RNMainThread.rnThread:runFunction(delay, func, iterations)
-    RNMainThread.rnThread:start()
     return actionid
 end
 

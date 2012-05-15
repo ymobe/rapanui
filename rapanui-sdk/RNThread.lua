@@ -27,6 +27,7 @@ function RNThread:new(o)
     self.__index = self
     self.wrappedFunctions = {}
     self.wrappedFunctionSize = 0
+    self.wproxy = {}
     return o
 end
 
@@ -37,24 +38,42 @@ function RNThread:runFunction(delay, func, iterations)
     wrappedTimedAction:setDelay(delay)
     wrappedTimedAction:setIterations(iterations)
 
-    self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
+    self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
+    --create proxy
+    self.wproxy[table.getn(self.wproxy) + 1] = self.wrappedFunctionSize
+
     return self.wrappedFunctionSize
 end
 
 
 function RNThread:resumeAction(actionid)
-    local wrappedAction = self.wrappedFunctions[actionid - 1]
+    local wrappedAction = self.wrappedFunctions[self.wproxy[actionid]]
     wrappedAction:resume()
 end
 
 function RNThread:removeAction(actionid)
-    self.wrappedFunctions[actionid - 1] = nil
+    self.wrappedFunctions[actionid] = nil
+    --search in proxy the index to remove
+    local place = nil
+    for i = 1, table.getn(self.wproxy) do
+        if self.wproxy[i] == actionid then
+            place = i
+        end
+    end
+    if place ~= nil then
+        --move all
+        for i = place, table.getn(self.wproxy) do
+            self.wproxy[i] = self.wproxy[i + 1]
+        end
+        --nil last one
+        self.wproxy[table.getn(self.wproxy)] = nil
+    end
 end
 
 
 function RNThread:suspendAction(actionid)
-    local wrappedAction = self.wrappedFunctions[actionid - 1]
+    local wrappedAction = self.wrappedFunctions[self.wproxy[actionid]]
     wrappedAction:suspend()
 end
 
@@ -66,8 +85,11 @@ function RNThread:addEnterFrame(func, source)
     wrappedTimedAction:setDelay(-1)
     wrappedTimedAction:setIterations(-1)
 
-    self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
     self.wrappedFunctionSize = self.wrappedFunctionSize + 1
+    self.wrappedFunctions[self.wrappedFunctionSize] = wrappedTimedAction
+    --create proxy
+    self.wproxy[table.getn(self.wproxy) + 1] = self.wrappedFunctionSize
+
     return self.wrappedFunctionSize
 end
 
@@ -77,15 +99,13 @@ function RNThread:start()
         main_thread_started = true
         thread:run(function()
             while true do
-                for i = 0, self.wrappedFunctionSize - 1 do
-
-                    local wrappedTimedAction = self.wrappedFunctions[i]
+                coroutine.yield()
+                for i = 1, table.getn(self.wproxy) do
+                    local wrappedTimedAction = self.wrappedFunctions[self.wproxy[i]]
                     if wrappedTimedAction ~= nil and wrappedTimedAction:isToCall() then
                         wrappedTimedAction:call()
                     end
                 end
-
-                coroutine.yield()
             end
         end)
     end

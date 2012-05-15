@@ -550,7 +550,7 @@ function RNObject:initWithImage2(image, sizex, sizey)
     self.prop:setPriority(1)
 
 
-    RNListeners:addEventListener("enterFrame", self)
+    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
 
 
     return self, deck
@@ -597,7 +597,7 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    RNListeners:addEventListener("enterFrame", self)
+    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
 
     --RNFactory.screen.layer:insertProp(self.prop)
 
@@ -764,7 +764,7 @@ function RNObject:loadAnim(image, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    RNListeners:addEventListener("enterFrame", self)
+    self.tmplistener=RNListeners:addEventListener("enterFrame", self)
 end
 
 function RNObject:enterFrame(event)
@@ -1267,6 +1267,9 @@ end
 -- calls to phsyic object methods
 --
 function RNObject:remove()
+
+    if self.tmplistener ~= nil then RNListeners:removeEventListener("enterFrame", self.tmplistener) end
+
     self.scene:removeRNObject(self)
     --print_r(self.scene)
     if self.isPhysical == true then
