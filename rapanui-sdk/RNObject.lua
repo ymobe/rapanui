@@ -564,7 +564,7 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
         deck = MOAITileDeck2D.new()
         deck:setTexture(image)
         --deck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
-        deck:setRect(-sx * scaleX, sy * scaleY, sx * scaleX, -sy * scaleY)
+        deck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
         --self.tileDeck:setSize(number width, number height [, number cellWidth, number cellHeight, number xOff, number yOff, number tileWidth, number tileHeight ] )
         deck:setSize(px, py, 1 / px, 1 / py, 0, 0, 1 / px, 1 / py)
     end
@@ -575,6 +575,7 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
 
 
     self.prop:setDeck(deck)
+    self.tileDeck = deck
 
     local oW = sizex
     local oH = sizey
@@ -597,12 +598,16 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    self.tmplistener = RNListeners:addEventListener("enterFrame", self)
+    --self.tmplistener = RNListeners:addEventListener("enterFrame", self)
 
     --RNFactory.screen.layer:insertProp(self.prop)
 
+
+
+
     return self, deck
 end
+
 
 
 function RNObject:initWithRect(width, height, rgb)
@@ -811,56 +816,118 @@ function RNObject:enterFrame(event)
     end
 end
 
-function RNObject:togglePause()
-    if self.isAnim == true then
-        if self.pause == true then
-            self.pause = false
-        else
-            self.pause = true
+function RNObject:animate(keyframe, executed, value)
+    --print("keyframe " .. keyframe)
+    --print("executed " .. executed)
+    --get self from timer
+    self = self.obj
+    --we check for the right sequence to play
+    local rightSequenceToPlay
+    if self.sequenceList ~= nil then
+        for i = 1, table.getn(self.sequenceList), 1 do
+            if self.sequenceList[i].name == self.currentSequence then rightSequenceToPlay = i end
         end
+    end
+    --get right sequence from list
+    local rightSequence = self.sequenceList[rightSequenceToPlay]
+    --set current Frame of animation
+    self.frame = rightSequence.frameOrder[keyframe]
+    --if we meet execution times
+    if executed + 1 >= rightSequence.repeatTimes and executed + 1 >= table.getn(rightSequence.frameOrder) then
+        --stop and deallocate timer
+        self.timer:stop()
+        self.timer = nil
+        --get right sequence from list
+        local rightSequence = self.sequenceList[rightSequenceToPlay]
+        --call onEnd function
+        if rightSequence.onStop ~= nil then
+            local funct = rightSequence.onStop
+            funct()
+        end
+        --stops animation
     end
 end
 
 function RNObject:stop()
-    if self.isAnim == true then
-        self.pause = true
-        self.frame = 1
-        local rightSequenceToPlay = nil
-        if self.sequenceList ~= nil then
-            for i = 1, table.getn(self.sequenceList), 1 do
-                if self.sequenceList[i].name == self.currentSequence then rightSequenceToPlay = i end
-            end
+    --stops timer
+    if self.timer ~= nil then self.timer:stop(); self.timer = nil end
+end
+
+function RNObject:togglePause()
+    if self.isAnim == true and self.timer ~= nil then
+        if self.pause == true then
+            self.pause = false
+            self.timer:start()
+        else
+            self.pause = true
+            self.timer:stop()
         end
-        local rightSequence = self.sequenceList[rightSequenceToPlay]
-        rightSequence.timeRepeated = 0
-        rightSequence.currentFrame = 1
     end
 end
+
+
 
 function RNObject:play(sequenceName, speed, repeatTimes, onStop)
-    self.animCounter = 0
-    if self.isAnim == true then
-        if sequenceName == nil then sequenceName = "default" end
-        self.pause = false
-        self.currentSequence = sequenceName
+    self:stop()
+    self.currentSequence = nil
 
-        local rightSequenceToPlay = nil
-        if self.sequenceList ~= nil then
-            for i = 1, table.getn(self.sequenceList), 1 do
-                if self.sequenceList[i].name == sequenceName then rightSequenceToPlay = i end
-            end
+    --get sequence name
+    if sequenceName == nil then sequenceName = "default" end
+    self.currentSequence = sequenceName
+    --get sequence from sequence list
+    local rightSequenceToPlay
+    if self.sequenceList ~= nil then
+        for i = 1, table.getn(self.sequenceList), 1 do
+            if self.sequenceList[i].name == sequenceName then rightSequenceToPlay = i end
         end
-        local rightSequence = self.sequenceList[rightSequenceToPlay]
-
-        rightSequence.timeRepeated = 0
-        rightSequence.currentFrame = 1
-
-        if speed ~= nil then rightSequence.speed = speed end
-        if repeatTimes ~= nil then rightSequence.repeatTimes = repeatTimes end
-        if onStop ~= nil then rightSequence.onStop = onStop end
-
     end
+    local rightSequence = self.sequenceList[rightSequenceToPlay]
+    --set sequence values
+    rightSequence.timeRepeated = 0
+    rightSequence.currentFrame = 1
+    if speed ~= nil then rightSequence.speed = speed end
+    if repeatTimes ~= nil then rightSequence.repeatTimes = repeatTimes end
+    if onStop ~= nil then rightSequence.onStop = onStop end
+
+
+    --stop eventual previous animation
+    if self.timer ~= nil then self.timer = nil end
+    if self.curve ~= nil then self.curve = nil end
+
+    --create new timer and stop
+    self.timer = MOAITimer.new()
+    self.timer:setMode(MOAITimer.LOOP)
+    --create new curve
+    self.curve = MOAIAnimCurve.new()
+    --assign the curve to the timer
+    self.timer:setCurve(self.curve)
+    self.timer.obj = self
+
+    local timer = self.timer
+    local curve = self.curve
+
+    --create keys
+    local framesInSequence = table.getn(rightSequence.frameOrder)
+    curve:reserveKeys(framesInSequence)
+    for i = 1, framesInSequence do
+        curve:setKey(i, i, i, MOAIEaseType.LINEAR, 1)
+    end
+
+    --set timer spans
+    timer:setSpan(framesInSequence)
+    timer:setSpeed(rightSequence.speed)
+    --set listener
+    timer:setListener(MOAITimer.EVENT_TIMER_KEYFRAME, self.animate)
+    --start timer
+    timer:start()
+    --unset pause
+    self.pause = false
 end
+
+
+
+
+
 
 function RNObject:newSequence(name, frameOrder, speed, repeatTimes, onStop)
     if self.isAnim == true then
@@ -1272,6 +1339,9 @@ end
 -- calls to phsyic object methods
 --
 function RNObject:remove()
+
+    if self.timer ~= nil then self.timer:stop(); self.timer = nil end
+    if self.curve ~= nil then self.curve = nil end
 
     if self.tmplistener ~= nil then RNListeners:removeEventListener("enterFrame", self.tmplistener) end
 
