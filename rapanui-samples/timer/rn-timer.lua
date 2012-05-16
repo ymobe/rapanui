@@ -22,4 +22,4 @@ local function count()
     text:setText("Times " .. times)
 end
 
-local actionId = RNMainThread.addTimedAction(2000, count)
+local actionId = RNMainThread.addTimedAction(0.5, count)

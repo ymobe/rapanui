@@ -30,7 +30,7 @@ local function count()
     end
 end
 
-actionId = RNMainThread.addTimedAction(500, count)
+actionId = RNMainThread.addTimedAction(0.5, count)
 
 function button1UP(event)
     if counting then
