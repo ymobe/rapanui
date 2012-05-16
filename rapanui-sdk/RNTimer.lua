@@ -52,8 +52,8 @@ function RNTimer:callback(keyframe, executed)
     --to perform action
     if keyframe == self.iterations then
         self.timer:stop()
-        self.timer = nil
-        self.curve = nil
+        --self.timer = nil
+        --self.curve = nil
         if self.toRepeat == true then
             self:init(self.delay, self.funct, -1)
         else
@@ -64,9 +64,12 @@ function RNTimer:callback(keyframe, executed)
 end
 
 function RNTimer:remove()
-    if self.timer ~= nil then self.timer:stop(); self.timer = nil end
-    if self.curve ~= nil then self.curve = nil end
-    self = nil
+    if self.timer ~= nil then
+        self.timer:stop()
+        --self.timer = nil
+    end
+    --if self.curve ~= nil then self.curve = nil end
+    if self ~= nil then self = nil end
 end
 
 function RNTimer:pause()
