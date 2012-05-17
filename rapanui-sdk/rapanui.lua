@@ -63,9 +63,11 @@ RNFactory = require("rapanui-sdk/RNFactory")
 
 RNListView = require("rapanui-sdk/RNListView")
 
-RNPageSwipe=require("rapanui-sdk/RNPageSwipe")
+RNPageSwipe = require("rapanui-sdk/RNPageSwipe")
 
-RNTimer=require("rapanui-sdk/RNTimer")
+RNTimer = require("rapanui-sdk/RNTimer")
+
+RNGraphicsManager = require("rapanui-sdk/RNGraphicsManager")
 
 --starts main thread
 RNMainThread.startMainThread()

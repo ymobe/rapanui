@@ -42,7 +42,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
 --require("rapanui-samples/basic/rn-rnListView")
-require("rapanui-samples/basic/rn-rnPageSwipe")
+--require("rapanui-samples/basic/rn-rnPageSwipe")
 
 
 
@@ -131,6 +131,7 @@ require("rapanui-samples/basic/rn-rnPageSwipe")
 --require("rapanui-samples/maps/rn-physics-map")
 --require("rapanui-samples/maps/rn-physics-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
+
 
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")

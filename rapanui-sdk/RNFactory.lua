@@ -118,7 +118,7 @@ function RNFactory.createPageSwipe(name, params)
     return pSwipe
 end
 
-function RNFactory.createImage(filename, params)
+function RNFactory.createImage(image, params)
 
     local parentGroup, left, top
 
@@ -146,19 +146,21 @@ function RNFactory.createImage(filename, params)
     end
 
 
-    local image = RNObject:new()
+    local o = RNObject:new()
+    local o, deck = o:initWithImage2(image)
 
-    image:initWith(filename)
+    o.x = o.originalWidth / 2 + left
+    o.y = o.originalHeight / 2 + top
+    local parentGroup = RNFactory.mainGroup
 
-    RNFactory.screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    RNFactory.screen:addRNObject(o)
 
     if parentGroup ~= nil then
-        parentGroup:insert(image)
+        parentGroup:insert(o)
     end
 
-    return image
+
+    return o, deck
 end
 
 function RNFactory.createImageFromMoaiImage(moaiImage, params)
@@ -293,7 +295,7 @@ function RNFactory.createCopyRect(moaiimage, params)
     return image
 end
 
-function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
+function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
 
     if scaleX == nil then
         scaleX = 1
@@ -313,20 +315,28 @@ function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     local parentGroup = RNFactory.mainGroup
 
-    local image = RNObject:new()
-    image:initAnimWith(filename, sx, sy, scaleX, scaleY)
-    RNFactory.screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+
+    local o = RNObject:new()
+    local o, deck = o:initWithAnim2(image, sizex, sizey, scaleX, scaleY)
+
+    o.x = left
+    o.y = top
+    o.scalex=scaleX
+    o.scaley=scaleY
+
+    local parentGroup = RNFactory.mainGroup
+
+    RNFactory.screen:addRNObject(o)
 
     if parentGroup ~= nil then
-        parentGroup:insert(image)
+        parentGroup:insert(o)
     end
 
-    return image
+
+    return o, deck
 end
 
-function RNFactory.createText2(text, params)
+function RNFactory.createText(text, params)
 
     local top, left, size, font, height, width, alignment
 
@@ -374,7 +384,7 @@ function RNFactory.createText2(text, params)
 end
 
 
-function RNFactory.createText(text, params)
+function RNFactory.createTextOld(text, params)
 
     local top, left, size, font, height, width, alignment
 

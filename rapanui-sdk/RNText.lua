@@ -99,15 +99,22 @@ end
 function RNText:initWithText2(text, font, size, x, y, width, height, alignment)
     self.charcodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;!?()&/-'
 
-    if type(font) == "string" then
-        self.fontName = font
+    self.fontName = font
 
-        self.font = MOAIFont.new()
-        self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
-    else
-        self.fontName = font
-        self.font=font
+
+    if type(font) == "string" then
+        if RNGraphicsManager:getAlreadyAllocated(font) then
+            font = RNGraphicsManager:getFontByPath(font)
+        else
+            font = RNGraphicsManager:allocateFont(font, self.charcodes, size, 163)
+        end
     end
+
+    print(font)
+
+    self.font = font
+
+
 
     self.locatingMode = CENTERED_MODE
     self.text = text

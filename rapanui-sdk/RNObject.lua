@@ -533,41 +533,49 @@ function RNObject:loadImage(image)
     self.prop:setPriority(1)
 end
 
-function RNObject:initWithImage2(image, sizex, sizey)
+function RNObject:initWithImage2(image)
+
     local deck = image
     if type(image) == "string" then
-        deck = MOAIGfxQuad2D.new()
-        deck:setTexture(image)
-        deck:setRect(-sizex / 2, -sizey / 2, sizex / 2, sizey / 2)
-        --deck:setRect(0, 0, sizex, sizey)
-        deck:setUVRect(0, 0, 1, 1)
+        if RNGraphicsManager:getAlreadyAllocated(image) then
+            deck = RNGraphicsManager:getDeckByPath(image)
+        else
+            deck = RNGraphicsManager:allocateDeck2DGfx(image)
+        end
     end
+
+
+    self.originalWidth = RNGraphicsManager:getGfxByPath(image).width
+    self.originalHeight = RNGraphicsManager:getGfxByPath(image).height
+
 
     self.name = ""
     self.prop = MOAIProp2D.new()
     self.prop:setDeck(deck)
-    --RNFactory.screen.layer:insertProp(self.prop)
     self.prop:setPriority(1)
-
-
-    --self.tmplistener = RNListeners:addEventListener("enterFrame", self)
-
 
     return self, deck
 end
 
-function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
-    local px = sizex / sx
-    local py = sizey / sy
+function RNObject:initWithAnim2(image, sx, sy, scaleX, scaleY)
+
     local deck = image
+    local path = image
+
     if type(image) == "string" then
-        deck = MOAITileDeck2D.new()
-        deck:setTexture(image)
-        --deck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
-        deck:setRect(-sx * scaleX / 2, sy * scaleY / 2, sx * scaleX / 2, -sy * scaleY / 2)
-        --self.tileDeck:setSize(number width, number height [, number cellWidth, number cellHeight, number xOff, number yOff, number tileWidth, number tileHeight ] )
-        deck:setSize(px, py, 1 / px, 1 / py, 0, 0, 1 / px, 1 / py)
+        if RNGraphicsManager:getAlreadyAllocated(image) then
+            deck = RNGraphicsManager:getDeckByPath(image)
+        else
+            deck = RNGraphicsManager:allocateTileDeck2DGfx(image, sx, sy, scaleX, scaleY)
+        end
+    else
+        path=RNGraphicsManager:getGfxByDeck(deck)
+        print(path)
     end
+
+
+    local oW = RNGraphicsManager:getGfxByPath(path).width
+    local oH = RNGraphicsManager:getGfxByPath(path).height
 
     self.prop = MOAIProp2D.new()
     self.prop:setIndex(1)
@@ -577,8 +585,7 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
     self.prop:setDeck(deck)
     self.tileDeck = deck
 
-    local oW = sizex
-    local oH = sizey
+
 
     self.originalWidth = sx * scaleX * 2
     self.originalHeight = sy * scaleY * 2
@@ -598,9 +605,6 @@ function RNObject:initWithAnim2(image, sizex, sizey, sx, sy, scaleX, scaleY)
     --and set it as current
     self.currentSequence = "default"
     self.frame = 1
-    --self.tmplistener = RNListeners:addEventListener("enterFrame", self)
-
-    --RNFactory.screen.layer:insertProp(self.prop)
 
 
 
