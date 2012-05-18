@@ -315,100 +315,109 @@ end
 
 
 function onEvent(eventType, idx, x, y, tapCount)
+    if x == nil then
+        TOUCHES = 0
+    end
 
-    local event = RNEvent:new()
-    event.id = idx
-    event.tapCount = tapCount
+    if x ~= nil then
 
-    local screen = RNFactory.getCurrentScreen()
+        local event = RNEvent:new()
+        event.id = idx
+        event.tapCount = tapCount
 
-    local x, y = RNFactory.screen.layer:wndToWorld(x, y)
-    event.x, event.y = x, y
+        local screen = RNFactory.getCurrentScreen()
 
-    local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
-    event:initWithEventType(eventType)
+        if x == nil then TOUCHES = 0 end
 
-    local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
+        if x ~= nil then
+            local x, y = RNFactory.screen.layer:wndToWorld(x, y)
+            event.x, event.y = x, y
+        end
+        local currenTarget = screen:getRNObjectWithHighestLevelOn(x, y);
+        event:initWithEventType(eventType)
 
-    if globallisteners ~= nil then
 
-        for key, value in pairs(globallisteners) do
-            if value ~= nil and value:isToRemove() ~= true then
-                local breakHere = value:call(event)
-            else
-                globallisteners[key] = nil
+        local globallisteners = innerInputManager:getGlobalListenersToEvent("touch")
+
+        if globallisteners ~= nil then
+
+            for key, value in pairs(globallisteners) do
+                if value ~= nil and value:isToRemove() ~= true then
+                    local breakHere = value:call(event)
+                else
+                    globallisteners[key] = nil
+                end
             end
         end
-    end
 
-    if currenTarget ~= nil and currenTarget.onTouchCallBackFunction ~= nil then
-        event.target = currenTarget.onTouchCallBackFunction:getTarget()
-        currenTarget.onTouchCallBackFunction:call(event)
-    end
-
-    --check if the target has value and if has function isListening
-    if (currenTarget ~= nil and currenTarget.isListening == nil) or
-            -- or if currenTarget has a valid value and if is listening on at least one event
-            (currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil) then
-        return
-    end
-
-
-
-    local target
-
-    if (eventType == MOAITouchSensor.TOUCH_DOWN) then
-        event.phase = "began"
-        if currenTarget ~= nil then
-            LAST_xSTART = x
-            LAST_ySTART = y
-            DRAGGED_TARGET = currenTarget
-            event.target = currenTarget
-            TOUCHES = TOUCHES + 1
-            event.touchesNumber = TOUCHES
-            DRAGGING = true
-            DRAGGED_TARGET:onEvent(event)
-        end
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_MOVE) then
-        event.phase = "moved"
-        if DRAGGED_TARGET ~= nil then
-            event.target = DRAGGED_TARGET
-            event.touchesNumber = TOUCHES
-            DRAGGED_TARGET:onEvent(event)
-        end
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_UP) then
-        event.phase = "ended"
-        if DRAGGED_TARGET ~= nil then
-            event.xStart = LAST_xSTART
-            event.yStart = LAST_ySTART
-            event.target = DRAGGED_TARGET
-            TOUCHES = TOUCHES - 1
-            event.touchesNumber = TOUCHES
-            DRAGGED_TARGET:onEvent(event)
+        if currenTarget ~= nil and currenTarget.onTouchCallBackFunction ~= nil then
+            event.target = currenTarget.onTouchCallBackFunction:getTarget()
+            currenTarget.onTouchCallBackFunction:call(event)
         end
 
-        if TOUCHES == 0 then
-            DRAGGED_TARGET = nil
+        --check if the target has value and if has function isListening
+        if (currenTarget ~= nil and currenTarget.isListening == nil) or
+                -- or if currenTarget has a valid value and if is listening on at least one event
+                (currenTarget ~= nil and currenTarget:isListening() == false and DRAGGED_TARGET == nil) then
+            return
+        end
+
+
+
+        local target
+
+        if (eventType == MOAITouchSensor.TOUCH_DOWN) then
+            event.phase = "began"
+            if currenTarget ~= nil then
+                LAST_xSTART = x
+                LAST_ySTART = y
+                DRAGGED_TARGET = currenTarget
+                event.target = currenTarget
+                TOUCHES = TOUCHES + 1
+                event.touchesNumber = TOUCHES
+                DRAGGING = true
+                DRAGGED_TARGET:onEvent(event)
+            end
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_MOVE) then
+            event.phase = "moved"
+            if DRAGGED_TARGET ~= nil then
+                event.target = DRAGGED_TARGET
+                event.touchesNumber = TOUCHES
+                DRAGGED_TARGET:onEvent(event)
+            end
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_UP) then
+            event.phase = "ended"
+            if DRAGGED_TARGET ~= nil then
+                event.xStart = LAST_xSTART
+                event.yStart = LAST_ySTART
+                event.target = DRAGGED_TARGET
+                TOUCHES = TOUCHES - 1
+                event.touchesNumber = TOUCHES
+                DRAGGED_TARGET:onEvent(event)
+            end
+
+            if TOUCHES == 0 then
+                DRAGGED_TARGET = nil
+                DRAGGING = false
+            end
+        end
+
+        if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
+            event.phase = "cancelled"
+            if DRAGGED_TARGET ~= nil then
+                event.target = DRAGGED_TARGET
+                DRAGGED_TARGET:onEvent(event)
+                DRAGGED_TARGET = nil
+            end
             DRAGGING = false
         end
-    end
-
-    if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
-        event.phase = "cancelled"
-        if DRAGGED_TARGET ~= nil then
-            event.target = DRAGGED_TARGET
-            DRAGGED_TARGET:onEvent(event)
-            DRAGGED_TARGET = nil
-        end
-        DRAGGING = false
     end
 end
 
 RNInputManager.init()
-
 
 return RNInputManager
