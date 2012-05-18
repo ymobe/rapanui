@@ -316,6 +316,8 @@ end
 function onEvent(eventType, idx, x, y, tapCount)
 
     local event = RNEvent:new()
+    event.id=idx
+    event.tapCount=tapCount
 
     local screen = RNFactory.getCurrentScreen()
 
