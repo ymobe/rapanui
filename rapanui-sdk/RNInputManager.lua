@@ -30,6 +30,7 @@ DRAGGED_TARGET = nil
 LAST_xSTART = nil
 LAST_ySTART = nil
 isTOUCHING = false
+TOUCHES = 0
 
 RNInputManager = {}
 
@@ -316,8 +317,8 @@ end
 function onEvent(eventType, idx, x, y, tapCount)
 
     local event = RNEvent:new()
-    event.id=idx
-    event.tapCount=tapCount
+    event.id = idx
+    event.tapCount = tapCount
 
     local screen = RNFactory.getCurrentScreen()
 
@@ -363,6 +364,8 @@ function onEvent(eventType, idx, x, y, tapCount)
             LAST_ySTART = y
             DRAGGED_TARGET = currenTarget
             event.target = currenTarget
+            TOUCHES = TOUCHES + 1
+            event.touchesNumber = TOUCHES
             DRAGGING = true
             DRAGGED_TARGET:onEvent(event)
         end
@@ -372,6 +375,7 @@ function onEvent(eventType, idx, x, y, tapCount)
         event.phase = "moved"
         if DRAGGED_TARGET ~= nil then
             event.target = DRAGGED_TARGET
+            event.touchesNumber = TOUCHES
             DRAGGED_TARGET:onEvent(event)
         end
     end
@@ -382,11 +386,15 @@ function onEvent(eventType, idx, x, y, tapCount)
             event.xStart = LAST_xSTART
             event.yStart = LAST_ySTART
             event.target = DRAGGED_TARGET
+            TOUCHES = TOUCHES - 1
+            event.touchesNumber = TOUCHES
             DRAGGED_TARGET:onEvent(event)
         end
 
-        DRAGGED_TARGET = nil
-        DRAGGING = false
+        if TOUCHES == 0 then
+            DRAGGED_TARGET = nil
+            DRAGGING = false
+        end
     end
 
     if (eventType == MOAITouchSensor.TOUCH_CANCEL) then
