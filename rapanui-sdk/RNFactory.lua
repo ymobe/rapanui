@@ -253,6 +253,10 @@ function RNFactory.createBlankMoaiImage(width, height)
     return image
 end
 
+function RNFactory.createAtlasFromTexturePacker(image, file)
+    RNGraphicsManager:allocateTexturePackerAtlas(image,file)
+end
+
 function RNFactory.createCopyRect(moaiimage, params)
 
     local parentGroup, left, top
@@ -321,8 +325,8 @@ function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
 
     o.x = left
     o.y = top
-    o.scalex=scaleX
-    o.scaley=scaleY
+    o.scalex = scaleX
+    o.scaley = scaleY
 
     local parentGroup = RNFactory.mainGroup
 

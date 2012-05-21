@@ -15,9 +15,9 @@
 background = RNFactory.createImage("images/background-purple.png")
 
 
-spritesheetlilia = RNFactory.createImage("images/lilia.png")
-spritesheetlilia.x = 48
-spritesheetlilia.y = 64
+--spritesheetlilia = RNFactory.createImage("images/lilia.png")
+--spritesheetlilia.x = 48
+--spritesheetlilia.y = 64
 
 
 liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1)
@@ -39,22 +39,22 @@ function onEndS4()
 end
 
 
-liliaChar:newSequence("walkFront", { 1, 2, 3 }, 6, 10, onEndS1)
-liliaChar:newSequence("walkBack", { 13, 14, 15 }, 6, 10, onEndS2)
-liliaChar:newSequence("walkLeft", { 5, 6, 7 }, 6, 10, onEndS3)
-liliaChar:newSequence("walkRight", { 9, 10, 11 }, 6, 10, onEndS4)
+liliaChar:newSequence("walkFront", { 0, 1, 2, 3, 2 }, 6, 2, onEndS1)
+liliaChar:newSequence("walkBack", { 0, 8, 9, 10, 9 }, 6, 2, onEndS2)
+liliaChar:newSequence("walkLeft", { 0, 4, 5, 6, 5 }, 6, 2, onEndS3)
+liliaChar:newSequence("walkRight", { 0, 6, 7, 8, 7 }, 6, 2, onEndS4)
 
 liliaChar:play("walkFront")
 liliaChar.frame = 1
-spritesheetlilia.x = 50
-spritesheetlilia.y = 100
+--spritesheetlilia.x = 50
+--spritesheetlilia.y = 100
 
 
 --simple animation which plays the default sequence
-ektorspritesheet = RNFactory.createImage("images/ektor.png")
+--ektorspritesheet = RNFactory.createImage("images/ektor.png")
 
-ektorspritesheet.x = 48
-ektorspritesheet.y = 250
+--ektorspritesheet.x = 48
+--ektorspritesheet.y = 250
 
 
 ektorChar = RNFactory.createAnim("images/ektor.png", 32, 32)
@@ -67,7 +67,7 @@ function onEndSEktor()
 end
 
 
-ektorChar:newSequence("walkFront", { 1, 2, 3 }, 6, 10, onEndSEktor)
+ektorChar:newSequence("walkFront", { 0, 1, 2, 3, 2 }, 6, 10, onEndSEktor)
 
 ektorChar.x = 200
 ektorChar.y = 250
