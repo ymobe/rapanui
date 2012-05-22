@@ -41,12 +41,12 @@ end
 
 --physical animation with many sequences
 --newAnim(file,sizeX,sizeY[,posx,posy,scaleX,scaleY])
-char = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5)
+char = RNFactory.createAnim("images/char.png", 42, 32, 100, 300, 2, 3)
 --newSequence(name,frameOrder,speed,repeatTimes,onStopFunction)
-char:newSequence("walkFront", { 0, 7, 8, 9 }, 6, 1, onEndS1)
-char:newSequence("walkBack", { 0, 1, 2, 3 }, 6, 10, onEndS2)
-char:newSequence("walkLeft", { 0, 4, 5, 6 }, 6, 10, onEndS3)
-char:newSequence("walkRight", { 0, 10, 11, 12 }, 6, 10, onEndS4)
+char:newSequence("walkFront", { 7, 8, 9 }, 6, 10, onEndS1)
+char:newSequence("walkBack", { 1, 2, 3 }, 6, 10, onEndS2)
+char:newSequence("walkLeft", { 4, 5, 6 }, 6, 10, onEndS3)
+char:newSequence("walkRight", { 10, 11, 12 }, 6, 10, onEndS4)
 char:play("walkFront")
 
 

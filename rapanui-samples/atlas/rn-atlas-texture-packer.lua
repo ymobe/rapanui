@@ -29,5 +29,5 @@ RNFactory.createImage("tile3.png", { left = 200, top = 100 })
 --in fact images created from atlas are animations.
 local img = RNFactory.createImage("drink.png", { top = 250, left = 150 })
 --indexes are images in atlas ordered as exported from Texture Packer
-img:newSequence("seq", { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, 5)
+img:newSequence("seq", { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, 5)
 img:play("seq")

@@ -39,10 +39,10 @@ function onEndS4()
 end
 
 
-liliaChar:newSequence("walkFront", { 0, 1, 2, 3, 2 }, 6, 2, onEndS1)
-liliaChar:newSequence("walkBack", { 0, 8, 9, 10, 9 }, 6, 2, onEndS2)
-liliaChar:newSequence("walkLeft", { 0, 4, 5, 6, 5 }, 6, 2, onEndS3)
-liliaChar:newSequence("walkRight", { 0, 6, 7, 8, 7 }, 6, 2, onEndS4)
+liliaChar:newSequence("walkFront", { 1, 2, 3, 2 }, 6, 2, onEndS1)
+liliaChar:newSequence("walkBack", { 10, 11, 12, 11 }, 6, 2, onEndS2)
+liliaChar:newSequence("walkLeft", { 4, 5, 6, 5 }, 6, 2, onEndS3)
+liliaChar:newSequence("walkRight", { 7, 8, 9, 8 }, 6, 2, onEndS4)
 
 liliaChar:play("walkFront")
 liliaChar.frame = 1
@@ -67,7 +67,7 @@ function onEndSEktor()
 end
 
 
-ektorChar:newSequence("walkFront", { 0, 1, 2, 3, 2 }, 6, 10, onEndSEktor)
+ektorChar:newSequence("walkFront", { 1, 2, 3, 2 }, 6, 10, onEndSEktor)
 
 ektorChar.x = 200
 ektorChar.y = 250

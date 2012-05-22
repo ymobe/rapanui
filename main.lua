@@ -31,7 +31,7 @@ end      --]]
 -- Anim
 
 --require("rapanui-samples/anim/rn-anim")
--- require("rapanui-samples/anim/rn-anim2")
+--require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
