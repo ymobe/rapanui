@@ -41,7 +41,7 @@ director:setTime(1000)
 
 
 --FADE IN TEST
-director:showScene("rapanui-samples/director/scene1","fade")
+--director:showScene("rapanui-samples/director/scene1","fade")
 
 
 --FADE OUT TEST
@@ -55,7 +55,7 @@ director:showScene("rapanui-samples/director/scene1","fade")
 
 
 --SLIDE TO LEFT IN TEST
---director:showScene("rapanui-samples/director/scene1", "slidetoleft")
+director:showScene("rapanui-samples/director/scene1", "slidetoleft")
 
 
 --SLIDE TO LEFT OUT TEST
