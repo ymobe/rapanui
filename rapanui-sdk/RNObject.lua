@@ -318,6 +318,7 @@ function RNObject:innerNew(o)
         currentRefY = 0,
         isVisible = true,
         tileDeck = nil,
+        rotation = 0,
         --physic metamerge
         isPhysical = false,
         physicObject = nil,
