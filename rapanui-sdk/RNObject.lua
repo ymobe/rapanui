@@ -570,12 +570,12 @@ function RNObject:initWithAnim2(image, sx, sy, scaleX, scaleY)
 
 
     self.prop:setDeck(deck)
-    self.tileDeck = deck
+    self.deck = deck
 
 
 
-    self.originalWidth = sx * scaleX * 2
-    self.originalHeight = sy * scaleY * 2
+    self.originalWidth = sx * scaleX
+    self.originalHeight = sy * scaleY
     self.scaleX = scaleX
     self.scaleY = scaleY
     self.sizex = sx
@@ -897,13 +897,13 @@ function RNObject:putOver(object)
 end
 
 function RNObject:setTileScaleX(value)
-    self.originalWidth = (self.originalWidth / 2 / self.scaleX / self.sizex) * value * 2 * self.sizex
-    self.tileDeck:setRect(self.originalWidth / 2, self.originalHeight / 2, -self.originalWidth / 2, -self.originalHeight / 2)
+    self.originalWidth = self.originalWidth * value
+    self.deck:setRect(-self.originalWidth / 2, self.originalHeight / 2, self.originalWidth / 2, -self.originalHeight / 2)
 end
 
 function RNObject:setTileScaleY(value)
-    self.originalHeight = (self.originalHeight / 2 / self.scaleY / self.sizey) * value * 2 * self.sizey
-    self.tileDeck:setRect(self.originalWidth / 2, self.originalHeight / 2, -self.originalWidth / 2, -self.originalHeight / 2)
+    self.originalHeight = self.originalHeight * value
+    self.deck:setRect(-self.originalWidth / 2, self.originalHeight / 2, self.originalWidth / 2, -self.originalHeight / 2)
 end
 
 function RNObject:getChildren()

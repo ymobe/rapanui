@@ -91,7 +91,7 @@ function create_level()
     --creating moais
     for j = 1, 3, 1 do
         for i = 1, 2, 1 do
-            local moais = RNFactory.createAnim("RapaNui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 0.5, 0.5);
+            local moais = RNFactory.createAnim("RapaNui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 1, 1);
             moais.x = 1050 + i * 100; moais.y = 500 - j * 130; moais.rotation = 0
             RNPhysics.createBodyFromImage(moais, { shape = { -18, -30, 18, -30, 18, 30, -18, 30 }, restitution = 0.4, density = 0.1 })
             gameGroup:insert(moais)

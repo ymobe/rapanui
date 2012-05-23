@@ -36,7 +36,7 @@ local image11 = RNFactory.createImage("images/tile6.png")
 local image12 = RNFactory.createImage("images/tile7.png")
 local image13 = RNFactory.createImage("images/tile8.png")
 local image14 = RNFactory.createImage("images/tile9.png")
-local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5); anim1:play("default", 12, -1)
+local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 1, 2); anim1:play("default", 12, -1)
 local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 
@@ -88,12 +88,12 @@ local list = RNFactory.createList("testList", {
 --insertElement(element,number)
 --the element is added at the end if param number is nil or > list size
 --insert tile5 at the end
-list:insertElement({ object = image10, offsetX = 32, offsetY = 32, onClick = getCallBack },9999)
+list:insertElement({ object = image10, offsetX = 32, offsetY = 32, onClick = getCallBack }, 9999)
 --insert tile6 at the end
 list:insertElement({ object = image11, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --addElement inside of a list
 --insert tile7 at 9th place (below tile0)
-list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = getCallBack },9)
+list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = getCallBack }, 9)
 --remove last object
 --removeElement(isRNObjectToRemove,number in list)
 --the last element is removed if param number is nil or > list size
@@ -101,15 +101,15 @@ list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = get
 --tile6 is removed
 list:removeElement(true)
 --tile5 is removed from list then manually removed from screen
-list:removeElement(false,9999)
+list:removeElement(false, 9999)
 image10:remove()
 --tile3 is removed from 12th place
-list:removeElement(true,12)
+list:removeElement(true, 12)
 --add elements tile8 and tile9 at the end
 list:insertElement({ object = image13, offsetX = 32, offsetY = 32, onClick = getCallBack })
 list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --swap tile8 and tile9 positions
-list:swapElements(13,14)
+list:swapElements(13, 14)
 
 
 
