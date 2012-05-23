@@ -12,19 +12,19 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
---local background = RNFactory.createImage("images/background-blue.png")
+local background = RNFactory.createImage("images/background-blue.png")
 
 text = RNFactory.createText("Hello world!", { size = 10, top = 0, left = 0, width = 200, height = 50 })
 
 trn = RNTransition:new()
 
-function goToPointA()
-    trn:run(text, { type = "move", time = 1500, alpha = 0, x = 200, y = 200, onComplete = goToPointB })
+function first()
+    trn:run(text, { type = "rotate", time = 3000, angle = 90, onComplete = second })
 end
 
-function goToPointB()
-    trn:run(text, { type = "move", time = 1500, alpha = 0, x = 0, y = 0, onComplete = goToPointA })
+function second()
+    trn:run(text, { type = "rotate", time = 3000, angle = -90, onComplete = first })
 end
 
-goToPointA()
+first()
 

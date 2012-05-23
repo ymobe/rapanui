@@ -17,13 +17,14 @@ local background = RNFactory.createImage("images/background-blue.png")
 text = RNFactory.createText("Hello world!", { size = 10, top = 0, left = 0, width = 200, height = 50 })
 
 trn = RNTransition:new()
+trn = RNTransition:new()
 
 function first()
-    trn:run(text, { type = "rotate", time = 3000, angle = 90, onComplete = second })
+    trn:run(text, { type = "scale", xScale = 1, yScale = 1, time = 1000, onComplete = second })
 end
 
 function second()
-    trn:run(text, { type = "rotate", time = 3000, angle = -90, onComplete = first })
+    trn:run(text, { type = "scale", xScale = -1, yScale = -1, time = 1000, onComplete = first })
 end
 
 first()

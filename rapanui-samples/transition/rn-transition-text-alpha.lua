@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
---local background = RNFactory.createImage("images/background-blue.png")
+local background = RNFactory.createImage("images/background-blue.png")
 
 text = RNFactory.createText("Hello world!", { size = 10, top = 0, left = 0, width = 200, height = 50 })
 

@@ -65,6 +65,37 @@ function RNText:new(o)
 end
 
 
+function RNText:initWithText(text, font, size, x, y, width, height, alignment)
+    self.charcodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;!?()&/-'
+
+    if font ~= nil then
+        self.fontName = font
+    end
+
+    self.font = MOAIFont.new()
+    self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
+
+    self.locatingMode = CENTERED_MODE
+    self.text = text
+
+    self.name = text
+    self.visible = true
+
+    self.textbox = MOAITextBox.new()
+    self.prop = self.textbox
+
+    self.text = text
+
+
+    self.textbox:setString(self.text)
+    self.textbox:setFont(self.font)
+    self.textbox:setTextSize(size, 163)
+    self.textbox:setRect(x, y, x + width, y + height)
+    self.textbox:setAlignment(alignment)
+
+    self:setTextColor(255, 255, 255)
+end
+
 function RNText:initWithText2(text, font, size, x, y, width, height, alignment)
     self.charcodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;!?()&/-'
 
@@ -123,6 +154,10 @@ end
 
 function RNText:setText(text)
     self.textbox:setString(text)
+end
+
+function RNText:getType()
+    return "RNText"
 end
 
 
