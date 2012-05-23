@@ -49,7 +49,8 @@ end      --]]
 
 
 -- Menu
-require("rapanui-samples/menu/rn-menu-director")
+--require("rapanui-samples/menu/rn-menu-director")
+require("rapanui-samples/menu/rn-menu-popup")
 
 
 -- Landscape
