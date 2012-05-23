@@ -110,8 +110,6 @@ function RNText:initWithText2(text, font, size, x, y, width, height, alignment)
         end
     end
 
-    print(font)
-
     self.font = font
 
 
