@@ -41,9 +41,16 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
---require("rapanui-samples/basic/rn-rnListView")
---require("rapanui-samples/basic/rn-rnPageSwipe")
 
+-- Lists
+
+--require("rapanui-samples/lists/rn-rnListView")
+--require("rapanui-samples/lists/rn-rnPageSwipe")
+
+
+-- Menu
+--require("rapanui-samples/menu/rn-menu-director")
+require("rapanui-samples/menu/rn-menu-popup")
 
 
 -- Landscape
@@ -79,8 +86,9 @@ end      --]]
 
 --require("rapanui-samples/transition/rn-transition-text-move")
 --require("rapanui-samples/transition/rn-transition-text-alpha")
+--require("rapanui-samples/transition/rn-transition-text-scale")
+-- Due to a bug in moai 1.1 rotate doesn't work on RNText
 --require("rapanui-samples/transition/rn-transition-text-rotate")
-require("rapanui-samples/transition/rn-transition-text-scale")
 
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
@@ -136,6 +144,10 @@ require("rapanui-samples/transition/rn-transition-text-scale")
 --require("rapanui-samples/maps/rn-physics-map")
 --require("rapanui-samples/maps/rn-physics-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
+
+
+-- Atlases
+--require("rapanui-samples/atlas/rn-atlas-texture-packer")
 
 
 -- These two tests have only text output

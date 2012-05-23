@@ -75,11 +75,13 @@ function RNFactory.init()
     contentlwidth = lwidth
     contentHeight = lheight
 
-    --the resize in x axis is good. The resize in y axis is not, because it's from the bottom to top
-    --so we have to set y offset but if we do so,touch events won't be good they will suffer from this offset
-    --example of resize with 480x800 screen already set on config and resized in view from here.
-    --RNFactory.screen.viewport:setSize(800*800/480,480*480/320)
-    --RNFactory.screen.viewport:setOffset(-1, 0.3) --
+
+    --if we have to stretch graphics to screen
+    if config.stretch == true then
+        RNFactory.screen.viewport:setSize(0, 0, lwidth, lheight)
+        RNFactory.screen.viewport:setScale(config.graphicsDesign.w, -config.graphicsDesign.h)
+    end
+
 
     RNInputManager.setGlobalRNScreen(screen)
 end
@@ -204,41 +206,7 @@ function RNFactory.createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
-function RNFactory.createImage2(image, sizex, sizey)
-    local o = RNObject:new()
-    local o, deck = o:initWithImage2(image, sizex, sizey)
 
-
-    local parentGroup = RNFactory.mainGroup
-
-    RNFactory.screen:addRNObject(o)
-
-    if parentGroup ~= nil then
-        parentGroup:insert(o)
-    end
-
-
-    return o, deck
-end
-
-function RNFactory.createAnim2(image, sizex, sizey, tilex, tiley, posx, posy, scalex, scaley)
-    local o = RNObject:new()
-    local o, deck = o:initWithAnim2(image, sizex, sizey, tilex, tiley, scalex, scaley)
-
-    o.x = posx
-    o.y = posy
-
-    local parentGroup = RNFactory.mainGroup
-
-    RNFactory.screen:addRNObject(o)
-
-    if parentGroup ~= nil then
-        parentGroup:insert(o)
-    end
-
-
-    return o, deck
-end
 
 function RNFactory.createMoaiImage(filename)
     local image = MOAIImage.new()
@@ -253,7 +221,7 @@ function RNFactory.createBlankMoaiImage(width, height)
 end
 
 function RNFactory.createAtlasFromTexturePacker(image, file)
-    RNGraphicsManager:allocateTexturePackerAtlas(image,file)
+    RNGraphicsManager:allocateTexturePackerAtlas(image, file)
 end
 
 function RNFactory.createCopyRect(moaiimage, params)
@@ -324,8 +292,6 @@ function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
 
     o.x = left
     o.y = top
-    o.scalex = scaleX
-    o.scaley = scaleY
 
     local parentGroup = RNFactory.mainGroup
 
@@ -386,52 +352,6 @@ function RNFactory.createText(text, params)
     return RNText, gFont
 end
 
-
-function RNFactory.createTextOld(text, params)
-
-    local top, left, size, font, height, width, alignment
-
-    font = "arial-rounded"
-    size = 15
-    alignment = MOAITextBox.CENTER_JUSTIFY
-    --LEFT_JUSTIFY, CENTER_JUSTIFY or RIGHT_JUSTIFY.
-
-    if (params ~= nil) then
-        if (params.top ~= nil) then
-            top = params.top
-        end
-
-        if (params.left ~= nil) then
-            left = params.left
-        end
-
-        if (params.font ~= nil) then
-            font = params.font
-        end
-
-        if (params.size ~= nil) then
-            size = params.size
-        end
-
-        if (params.height ~= nil) then
-            height = params.height
-        end
-
-        if (params.width ~= nil) then
-            width = params.width
-        end
-
-        if (params.alignment ~= nil) then
-            alignment = params.alignment
-        end
-    end
-
-    local RNText = RNText:new()
-    RNText:initWithText(text, font, size, left, top, width, height, alignment)
-    RNFactory.screen:addRNObject(RNText)
-    RNFactory.mainGroup:insert(RNText)
-    return RNText
-end
 
 function RNFactory.createRect(x, y, width, height, params)
     local parentGroup, top, left

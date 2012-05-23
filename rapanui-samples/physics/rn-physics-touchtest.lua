@@ -89,5 +89,5 @@ function create_ball(xx, yy)
 end
 
 
---- -Click to add a bouncing ball, self destroyed when touching the floor
----- Click the box to move move it toward the mouse.
+--Click to add a bouncing ball, self destroyed when touching the floor
+--Click the box to move move it toward the mouse.
