@@ -24,3 +24,8 @@ doc/
 rapanui-sdk/RNDirector_edit.lua
 run.sh
 tmp/
+mainmoai.lua
+moai-samples
+runmoai.sh
+testproplist.lua
+#	testtest.lua
