@@ -89,7 +89,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
---require("rapanui-samples/touch/rn-buttons-animated")
+require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 
@@ -134,14 +134,11 @@ end      --]]
 
 
 -- Atlases
-require("rapanui-samples/atlas/rn-atlas-texture-packer")
+--require("rapanui-samples/atlas/rn-atlas-texture-packer")
 
 
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
-
-
-
 
 

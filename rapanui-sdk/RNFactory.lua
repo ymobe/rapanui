@@ -72,14 +72,18 @@ function RNFactory.init()
     RNFactory.width = lwidth
     RNFactory.height = lheight
 
+    print(lwidth, lheight)
+
     contentlwidth = lwidth
     contentHeight = lheight
 
-    --the resize in x axis is good. The resize in y axis is not, because it's from the bottom to top
-    --so we have to set y offset but if we do so,touch events won't be good they will suffer from this offset
-    --example of resize with 480x800 screen already set on config and resized in view from here.
-    --RNFactory.screen.viewport:setSize(800*800/480,480*480/320)
-    --RNFactory.screen.viewport:setOffset(-1, 0.3) --
+
+    --if we have to stretch graphics to screen
+    if config.stretch == true then
+        RNFactory.screen.viewport:setSize(0, 0, lwidth, lheight)
+        RNFactory.screen.viewport:setScale(config.graphicsDesign.w, -config.graphicsDesign.h)
+    end
+
 
     RNInputManager.setGlobalRNScreen(screen)
 end
@@ -253,7 +257,7 @@ function RNFactory.createBlankMoaiImage(width, height)
 end
 
 function RNFactory.createAtlasFromTexturePacker(image, file)
-    RNGraphicsManager:allocateTexturePackerAtlas(image,file)
+    RNGraphicsManager:allocateTexturePackerAtlas(image, file)
 end
 
 function RNFactory.createCopyRect(moaiimage, params)

@@ -319,6 +319,7 @@ function RNObject:innerNew(o)
         isVisible = true,
         tileDeck = nil,
         rotation = 0,
+        touchable = false,
         --physic metamerge
         isPhysical = false,
         physicObject = nil,
@@ -1077,9 +1078,9 @@ end
 function RNObject:setTouchable(value)
 
     if value then
-        self:getProp().touchable = true
+        self.touchable = true
     else
-        self:getProp().touchable = false
+        self.touchable = false
     end
 end
 

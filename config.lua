@@ -26,10 +26,18 @@ config.sizes = {}
 config.sizes["iPadDev"] = { 768, 1024, 384, 512 } -- shrunk for easier viewing
 config.sizes["iPad"] = { 768, 1024, 768, 1024 } -- 1:1 pixel iPad
 config.sizes["iPhone3G"] = { 320, 480, 320, 480 }
-config.sizes["iPhone4Full"] = { 640, 960, 640, 960}
-config.sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 }  -- 3G screen ratio upscaled to 500x750
+config.sizes["iPhone4Full"] = { 640, 960, 640, 960 }
+config.sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 } -- 3G screen ratio upscaled to 500x750
+config.sizes["test"] = { 100, 200, 100, 200 }
 
+--set lanscape mode and device
 config.landscape = false
 config.device = "iPhone3G"
+
+--set stretch and graphics design
+--this will stretch your graphics to fit screen size
+--but you need to set for which sizes your assets are originally designed for
+config.stretch = false
+config.graphicsDesign = { w = 320, h = 480 }
 
 return config
