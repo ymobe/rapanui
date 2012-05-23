@@ -15,10 +15,6 @@
 background = RNFactory.createImage("images/background-purple.png")
 
 
---spritesheetlilia = RNFactory.createImage("images/lilia.png")
---spritesheetlilia.x = 48
---spritesheetlilia.y = 64
-
 
 liliaChar = RNFactory.createAnim("images/lilia.png", 32, 32, 140, 50, 1, 1)
 
@@ -46,15 +42,10 @@ liliaChar:newSequence("walkRight", { 7, 8, 9, 8 }, 6, 2, onEndS4)
 
 liliaChar:play("walkFront")
 liliaChar.frame = 1
---spritesheetlilia.x = 50
---spritesheetlilia.y = 100
-
 
 --simple animation which plays the default sequence
 --ektorspritesheet = RNFactory.createImage("images/ektor.png")
 
---ektorspritesheet.x = 48
---ektorspritesheet.y = 250
 
 
 ektorChar = RNFactory.createAnim("images/ektor.png", 32, 32)

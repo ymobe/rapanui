@@ -61,3 +61,7 @@ end
 listenerId = RNListeners:addEventListener("enterFrame", doIt)
 print("action", listenerId)
 text:setText("Added listener: " .. listenerId)
+
+--since enterFrame listener is handled inside a while = true cycle, use it carefully
+--to save CPU usage. The use of timers (RNMainThread.addTimedAction(seconds, funct))
+--is highly recommend, when possible.

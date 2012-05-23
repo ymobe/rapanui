@@ -94,6 +94,6 @@ char2:removeSequence("try") --removes the sequence
     char.sequenceList[3].speed=12
     
 	Animations will be improved soon.
-    
+
     
 ]] --
