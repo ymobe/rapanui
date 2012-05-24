@@ -42,6 +42,28 @@ function RNGraphicsManager:allocateDeck2DGfx(path)
     return object.deck
 end
 
+function RNGraphicsManager:allocateTileset(image, tileW, tileH)
+
+    local object = {}
+
+    -- check the new size of the image and update the width height
+    object.path = image
+    local moaiimage = MOAIImage.new()
+    moaiimage:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
+    object.width, object.height = moaiimage:getSize()
+
+    object.deck = MOAITileDeck2D.new()
+    object.deck:setTexture(object.path)
+    object.deck:setSize(object.width / tileW, object.height / tileH)
+    object.deck:setRect(-0.5, 0.5, 0.5, -0.5)
+
+    moaiimage = nil
+
+    RNGraphicsManager.gfx[table.getn(RNGraphicsManager.gfx) + 1] = object
+
+    return object
+end
+
 function RNGraphicsManager:loadAtlas(lua, png)
     local frames = dofile(lua).frames
 
