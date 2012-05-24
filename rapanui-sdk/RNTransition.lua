@@ -117,6 +117,7 @@ function RNTransition:run(target, params)
             deltay = (-1) * deltay
         end
 
+
         if target:getType() == "RNObject" then
             action = target:getProp():moveLoc(deltax, deltay, time)
         elseif target:getType() == "RNMap" then

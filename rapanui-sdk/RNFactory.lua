@@ -346,9 +346,13 @@ function RNFactory.createText(text, params)
 
     local RNText = RNText:new()
     local gFont
-    RNText, gFont = RNText:initWithText2(text, font, size, left, top, width, height, alignment)
+    RNText, gFont = RNText:initWithText2(text, font, size, width, height, alignment)
     RNFactory.screen:addRNObject(RNText)
     RNFactory.mainGroup:insert(RNText)
+
+    RNText.x = left
+    RNText.y = top
+
     return RNText, gFont
 end
 

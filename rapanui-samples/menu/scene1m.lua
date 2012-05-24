@@ -34,6 +34,8 @@ local sceneGroup = RNGroup:new()
 function aScene.onCreate()
     --add things to sceneGroup
     local background = RNFactory.createImage("images/background-purple.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
+    local text1 = RNFactory.createText("This is the menu screen. Choose scene to go!", { size = 8, top = 400, left = 50, width = 200, height = 500 })
+    sceneGroup:insert(text1)
     local button1 = RNFactory.createAnim("images/sceneButtons.png", 128, 64)
     button1.frame = 3
     sceneGroup:insert(button1)
@@ -90,9 +92,13 @@ end
 
 
 function aScene.onEnd()
-    for i = 1, table.getn(sceneGroup.displayObjects), 1 do
-        sceneGroup.displayObjects[1]:remove();
-    end
+
+    --for i = 1, table.getn(sceneGroup.displayObjects), 1 do
+    --  sceneGroup.displayObjects[1]:remove();
+    --end
+    sceneGroup.displayObjects[1]:remove();
+    sceneGroup.displayObjects[2]:remove();
+    sceneGroup.displayObjects[3]:remove();
 end
 
 return aScene
