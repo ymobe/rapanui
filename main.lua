@@ -87,8 +87,7 @@ end      --]]
 --require("rapanui-samples/transition/rn-transition-text-move")
 --require("rapanui-samples/transition/rn-transition-text-alpha")
 --require("rapanui-samples/transition/rn-transition-text-scale")
--- Due to a bug in moai 1.1 rotate doesn't work on RNText
---require("rapanui-samples/transition/rn-transition-text-rotate")
+require("rapanui-samples/transition/rn-transition-text-rotate")
 
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
@@ -138,7 +137,7 @@ end      --]]
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
-require("rapanui-samples/maps/rn-basic-map-properties")
+--require("rapanui-samples/maps/rn-basic-map-properties")
 --require("rapanui-samples/maps/rn-basic-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
