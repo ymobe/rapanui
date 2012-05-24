@@ -134,7 +134,8 @@ function RNTransition:run(target, params)
         if target:getType() == "RNObject" then
             action = target:getProp():moveRot(angle, time)
         elseif target:getType() == "RNText" then
-           -- action = target:getProp():moveRot(angle, angle, 0, time)
+            -- action = target:getProp():moveRot(angle, angle, 0, time)
+            action = target:getProp():moveRot(0, 0, angle, time)
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveRot(angle, time)
