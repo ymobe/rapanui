@@ -2,6 +2,95 @@
 <map version="1.0" orientation="orthogonal" width="10" height="15" tilewidth="40" tileheight="40">
  <tileset firstgid="1" name="rpgtileset" tilewidth="40" tileheight="40">
   <image source="rpgtileset.png" width="480" height="280"/>
+  <tile id="19">
+   <properties>
+    <property name="type" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="type" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="type" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="name" value="center"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="name" value="center"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="name" value="center"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="type" value="vine"/>
+    <property name="type2" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="type" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="78">
+   <properties>
+    <property name="type" value="vine"/>
+    <property name="type2" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="79">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="type" value="solid"/>
+    <property name="type2" value="vine"/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="type" value="vine"/>
+    <property name="type2" value="solid"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="ground" width="10" height="15">
   <data>

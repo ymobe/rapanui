@@ -88,9 +88,6 @@ function RNMapLayer:getRows()
 end
 
 
-function RNMapLayer:getTilesAt(index)
-    return tonumber(self.tiles[index])
-end
 
 
 function RNMapLayer:getOpacity()
@@ -111,6 +108,28 @@ function RNMapLayer:getProperties()
     return self.properties
 end
 
+function RNMapLayer:getRowAndColFromCoordinates(map, aTileset, xx, yy)
+    local tileW = aTileset:getTileWidth()
+    local tileH = aTileset:getTileHeight()
+    for col = 0, map.layers[1]:getCols() - 1 do
+        if xx >= tileW * (col + 1) - tileW + map.x and xx <= tileW * (col + 1) + map.x then
+            for row = 0, map.layers[1]:getRows() - 1 do
+                local tileIdx = map.layers[1]:getTilesAt(row, col)
+                if yy >= tileH * (row + 1) - tileH + map.y and yy <= tileH * (row + 1) + map.y then
+                    return row, col
+                end
+            end
+        end
+    end
+end
+
+function RNMapLayer:getPropertiesFromCoordinates(map, aTileset, xx, yy)
+    local row, col = self:getRowAndColFromCoordinates(map, aTileset, xx, yy)
+    local tileId = self:getTilesAt(row, col)
+    if aTileset:getPropertiesForTile(tileId) ~= nil then
+        return aTileset:getPropertiesForTile(tileId)
+    end
+end
 
 function RNMapLayer:getProperty(key)
     if self.propertiesSize > 0 then
@@ -122,6 +141,7 @@ function RNMapLayer:getProperty(key)
     end
     return nil
 end
+
 
 function RNMapLayer:setLevel(level)
     self.prop:setPriority(level)

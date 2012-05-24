@@ -66,10 +66,12 @@ function RNMapTileset:getPropertyValueForTile(id, property)
 end
 
 function RNMapTileset:getPropertiesForTile(id)
-    if self.tilesproperties[id - 1] ~= nil then
-        return self.tilesproperties[id - 1]
-    else
-        return nil
+    if self.tilesproperties ~= nil then
+        if self.tilesproperties[id - 1] ~= nil then
+            return self.tilesproperties[id - 1]
+        else
+            return nil
+        end
     end
 end
 

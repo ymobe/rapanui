@@ -214,6 +214,16 @@ function RNMap:getFirstObjectGroupByName(name)
     return nil
 end
 
+function RNMap:getLayerByName(name)
+    for i = 0, #self.layers do
+        if self.layers[i].name == name then
+            return self.layers[i]
+        end
+    end
+
+    return false
+end
+
 
 function RNMap:getLoc()
     return self.mapx, self.mapy

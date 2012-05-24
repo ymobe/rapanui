@@ -49,7 +49,7 @@ end      --]]
 
 
 -- Menu
-require("rapanui-samples/menu/rn-menu-director")
+--require("rapanui-samples/menu/rn-menu-director")
 --require("rapanui-samples/menu/rn-menu-popup")
 
 
@@ -138,6 +138,7 @@ require("rapanui-samples/menu/rn-menu-director")
 -- Maps
 
 --require("rapanui-samples/maps/rn-basic-map")
+require("rapanui-samples/maps/rn-basic-map-properties")
 --require("rapanui-samples/maps/rn-basic-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
