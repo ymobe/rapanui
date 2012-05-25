@@ -82,9 +82,9 @@ end
 
 function RNScreen:removeRNObject(object)
     self.layer:removeProp(object:getProp())
-    id = object.idInScreen
-    len = table.getn(self.sprites)
-    ind = id
+    local id = object.idInScreen
+    local len = table.getn(self.sprites)
+    local ind = id
     for i = 1, len, 1 do
         if (i == ind) then
             for k = ind + 1, len, 1 do

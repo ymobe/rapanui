@@ -218,7 +218,12 @@ end
 
 
 function RNMapLayer:remove()
+    self.parentMap = nil
     self.scene:removeRNObject(self)
+    self.scene = nil
+    self.prop:setDeck(nil)
+    self.prop = nil
+    self = nil
 end
 
 

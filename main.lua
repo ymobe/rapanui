@@ -154,3 +154,4 @@ require("rapanui-samples/basic/rn-deallocate")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+

@@ -79,6 +79,9 @@ function RNGraphicsManager:deallocateGfx(path)
         self.gfx[#self.gfx] = nil
         object.deck = nil
         object = nil
+        --we have to call collectgarbage() TWICE!!!
+        --else memory won't be freed
+        collectgarbage()
         collectgarbage()
     end
 end

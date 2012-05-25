@@ -40,6 +40,7 @@ RNListeners:addEventListener("touch", t)
 
 
 
+
 --uncomment this whole block to see how to remove an animation asset from memory
 --[[
 --create an animation
@@ -140,16 +141,20 @@ RNListeners:addEventListener("touch", t)
 --[[
 map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/rpgmap.tmx")
 
+
 aTileset = map:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/maps/rpgtileset.png")
 
 map:drawMapAt(0, 0, aTileset)
+
 
 function t(event)
     if event.phase == "began" then
         --onTouch we remove map,tileset and assets. Then we create a newer one
         aTileset:remove()
         map:remove()
+        map = nil
+        aTileset = nil
         RNFactory.removeAsset("rapanui-samples/maps/rpgtileset.png")
         map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/rpgmap.tmx")
         aTileset = map:getTileset(0)
