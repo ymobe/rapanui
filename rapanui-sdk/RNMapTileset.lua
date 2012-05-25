@@ -163,6 +163,12 @@ function RNMapTileset:getImage()
     return self.image.source
 end
 
+function RNMapTileset:remove()
+    self.image.source = nil
+    self.image = nil
+    self = nil
+end
+
 function RNMapTileset:getWidth()
     return tonumber(self.image.width)
 end

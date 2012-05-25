@@ -41,6 +41,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
+require("rapanui-samples/basic/rn-deallocate")
 
 -- Lists
 
@@ -87,7 +88,7 @@ end      --]]
 --require("rapanui-samples/transition/rn-transition-text-move")
 --require("rapanui-samples/transition/rn-transition-text-alpha")
 --require("rapanui-samples/transition/rn-transition-text-scale")
-require("rapanui-samples/transition/rn-transition-text-rotate")
+--require("rapanui-samples/transition/rn-transition-text-rotate")
 
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
