@@ -47,8 +47,26 @@ liliaChar.frame = 1
 
 
 ektorChar = RNFactory.createAnim("images/ektor.png", 32, 32)
-ektorChar.scalex = 2
-ektorChar.scaley = 2
+ektorChar2 = RNFactory.createAnim("images/ektor.png", 32, 32)
+ektorChar3 = RNFactory.createAnim("images/ektor.png", 32, 32)
+ektorChar2.x = 100
+ektorChar2.y = 100
+ektorChar3.x = 164
+ektorChar3.y = 100
+ektorChar2.scaleX = -4
+ektorChar2.scaleY = -4
+ektorChar2.scaleX = -2
+ektorChar2.scaleY = -2
+ektorChar2.scaleX = 1
+ektorChar2.scaleY = 1
+ektorChar2.scaleX = 3
+ektorChar2.scaleY = 3
+ektorChar2.scaleX = 1
+ektorChar2.scaleY = 1
+ektorChar2.scaleX = -0.5
+ektorChar2.scaleY = -0.5
+
+
 
 function onEndSEktor()
     ektorChar:flipVertical()

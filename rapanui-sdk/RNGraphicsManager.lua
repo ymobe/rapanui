@@ -157,8 +157,10 @@ function RNGraphicsManager:allocateTexturePackerAtlas(image, file)
     RNGraphicsManager.gfx[table.getn(RNGraphicsManager.gfx) + 1] = object
 end
 
-function RNGraphicsManager:allocateTileDeck2DGfx(path, sx, sy, scaleX, scaleY)
+function RNGraphicsManager:allocateTileDeck2DGfx(path, sx, sy)
 
+    local scaleX = 1
+    local scaleY = 1
 
     local object = {}
     object.path = path

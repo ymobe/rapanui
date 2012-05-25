@@ -39,7 +39,7 @@ triangle.restitution = 0.3
 --simple animation which plays the default sequence
 char = RNFactory.createAnim("rapanui-samples/physics/char.png", 42, 32)
 char.x = 100; char.y = 100;
-char.scalex = 0.5; char.scaley = 1
+char.scaleX = 0.5; char.scaleY = 1
 char:play("default", 12, -1)
 
 RNPhysics.createBodyFromImage(char)
