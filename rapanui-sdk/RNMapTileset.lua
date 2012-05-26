@@ -159,8 +159,20 @@ function RNMapTileset:updateImageSource(image)
     self.tileDeck = gfx.deck
 end
 
+
 function RNMapTileset:getImage()
     return self.image.source
+end
+
+function RNMapTileset:remove()
+    if self.image ~= nil then
+        self.image.source = nil
+    end
+    self.tilesets = nil
+    self.image = nil
+    self.tiledeck = nil
+    self = nil
+    collectgarbage()
 end
 
 function RNMapTileset:getWidth()

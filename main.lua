@@ -30,17 +30,19 @@ end      --]]
 
 -- Anim
 
---require("rapanui-samples/anim/rn-anim")
+ --require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
 --require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
+--require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
+--require("rapanui-samples/basic/rn-deallocate")
 
 -- Lists
 
@@ -156,6 +158,7 @@ end      --]]
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
+
 -- other memory test
 --require("rapanui-samples/test/rnbutton-mem-test")
-require("rapanui-samples/test/map-mem-test")
+--require("rapanui-samples/test/map-mem-test")

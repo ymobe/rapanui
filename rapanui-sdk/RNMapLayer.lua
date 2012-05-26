@@ -108,7 +108,8 @@ function RNMapLayer:getProperties()
     return self.properties
 end
 
-function RNMapLayer:getRowAndColFromCoordinates(map, aTileset, xx, yy)
+function RNMapLayer:getRowAndColFromCoordinates(xx, yy, aTileset)
+    local map = self.parentMap
     local tileW = aTileset:getTileWidth()
     local tileH = aTileset:getTileHeight()
     for col = 0, map.layers[1]:getCols() - 1 do
@@ -123,8 +124,8 @@ function RNMapLayer:getRowAndColFromCoordinates(map, aTileset, xx, yy)
     end
 end
 
-function RNMapLayer:getPropertiesFromCoordinates(map, aTileset, xx, yy)
-    local row, col = self:getRowAndColFromCoordinates(map, aTileset, xx, yy)
+function RNMapLayer:getTilePropertiesAt(xx, yy, aTileset)
+    local row, col = self:getRowAndColFromCoordinates(xx, yy, aTileset)
     local tileId = self:getTilesAt(row, col)
     if aTileset:getPropertiesForTile(tileId) ~= nil then
         return aTileset:getPropertiesForTile(tileId)
@@ -217,7 +218,12 @@ end
 
 
 function RNMapLayer:remove()
+    self.parentMap = nil
     self.scene:removeRNObject(self)
+    self.scene = nil
+    self.prop:setDeck(nil)
+    self.prop = nil
+    self = nil
 end
 
 

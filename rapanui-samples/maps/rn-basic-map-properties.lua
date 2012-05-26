@@ -34,7 +34,7 @@ local mountainslayer = map:getLayerByName("mountains")
 function touch(event)
     if event.phase == "began" then
         --we get properties
-        local properties = mountainslayer:getPropertiesFromCoordinates(map, aTileset, event.x, event.y)
+        local properties = mountainslayer:getTilePropertiesAt(event.x, event.y, aTileset)
         if properties ~= nil then
             --we print them
             for i, v in pairs(properties) do

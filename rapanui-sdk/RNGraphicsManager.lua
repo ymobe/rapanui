@@ -64,6 +64,28 @@ function RNGraphicsManager:allocateTileset(image, tileW, tileH)
     return object
 end
 
+function RNGraphicsManager:deallocateGfx(path)
+    local indexToRemove
+    for i, v in ipairs(self.gfx) do
+        if v.path == path then
+            indexToRemove = i
+        end
+    end
+    if indexToRemove ~= nil then
+        local object = self.gfx[indexToRemove]
+        for i = indexToRemove, #self.gfx - 1 do
+            self.gfx[i] = self.gfx[i + 1]
+        end
+        self.gfx[#self.gfx] = nil
+        object.deck = nil
+        object = nil
+        --we have to call collectgarbage() TWICE!!!
+        --else memory won't be freed
+        collectgarbage()
+        collectgarbage()
+    end
+end
+
 function RNGraphicsManager:loadAtlas(lua, png)
     local frames = dofile(lua).frames
 
@@ -128,14 +150,17 @@ function RNGraphicsManager:allocateTexturePackerAtlas(image, file)
     object.names = names
     object.sizes = sizes
     object.isInAtlas = true
+    object.path = image
 
 
 
     RNGraphicsManager.gfx[table.getn(RNGraphicsManager.gfx) + 1] = object
 end
 
-function RNGraphicsManager:allocateTileDeck2DGfx(path, sx, sy, scaleX, scaleY)
+function RNGraphicsManager:allocateTileDeck2DGfx(path, sx, sy)
 
+    local scaleX = 1
+    local scaleY = 1
 
     local object = {}
     object.path = path
