@@ -17,6 +17,7 @@ config = require("config")
 RNObject = require("rapanui-sdk/RNObject")
 
 RNText = require("rapanui-sdk/RNText")
+RNButton = require("rapanui-sdk/RNButton")
 
 RNEvent = require("rapanui-sdk/RNEvent")
 RNScreen = require("rapanui-sdk/RNScreen")
