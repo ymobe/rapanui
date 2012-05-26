@@ -164,6 +164,94 @@ function RNFactory.createImage(image, params)
     return o, deck
 end
 
+function RNFactory.createButton(image, text, params)
+
+    local parentGroup, left, top
+
+    local top, left, size, font, alignment
+
+    font = "arial-rounded"
+    size = 15
+    alignment = MOAITextBox.CENTER_JUSTIFY
+    top = 0
+    left = 0
+
+    if (params ~= nil) then
+
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.parentGroup ~= nil) then
+            parentGroup = params.parentGroup
+        else
+            parentGroup = RNFactory.mainGroup
+        end
+
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.font ~= nil) then
+            font = params.font
+        end
+
+        if (params.size ~= nil) then
+            size = params.size
+        end
+
+        --[[
+        if (params.height ~= nil) then
+            height = params.height
+        end
+
+        if (params.width ~= nil) then
+            width = params.width
+        end
+          ]] --
+
+        if (params.alignment ~= nil) then
+            alignment = params.alignment
+        end
+    end
+
+    local rnObject = RNObject:new()
+    local rnObject, deck = rnObject:initWithImage2(image)
+
+    rnObject.x = rnObject.originalWidth / 2 + left
+    rnObject.y = rnObject.originalHeight / 2 + top
+
+    RNFactory.screen:addRNObject(rnObject)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(rnObject)
+    end
+
+
+
+    local rnText = RNText:new()
+    local gFont
+    rnText, gFont = rnText:initWithText2(text, font, size, rnObject.originalWidth, rnObject.originalHeight, alignment)
+    RNFactory.screen:addRNObject(rnText)
+    RNFactory.mainGroup:insert(rnText)
+
+    rnText.x = left
+    rnText.y = top
+
+    local rnButton = RNButton:new()
+    rnButton:initWith(rnObject, rnText)
+
+    return rnButton, deck
+end
+
 function RNFactory.createImageFromMoaiImage(moaiImage, params)
 
     local parentGroup, left, top
