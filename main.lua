@@ -87,7 +87,7 @@ end      --]]
 --require("rapanui-samples/transition/rn-transition-text-move")
 --require("rapanui-samples/transition/rn-transition-text-alpha")
 --require("rapanui-samples/transition/rn-transition-text-scale")
-require("rapanui-samples/transition/rn-transition-text-rotate")
+--require("rapanui-samples/transition/rn-transition-text-rotate")
 
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
@@ -104,6 +104,8 @@ require("rapanui-samples/transition/rn-transition-text-rotate")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
+-- Buttons
+--require("rapanui-samples/buttons/rn-button")
 
 -- listeners
 
@@ -153,3 +155,7 @@ require("rapanui-samples/transition/rn-transition-text-rotate")
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+
+-- other memory test
+--require("rapanui-samples/test/rnbutton-mem-test")
+require("rapanui-samples/test/map-mem-test")
