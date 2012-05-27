@@ -16,6 +16,8 @@
 -- Create a new class that inherits from a base class RNObject
 RNButton = {}
 
+
+
 local function fieldChangedListenerRNButton(self, key, value)
 
     getmetatable(self).__object[key] = value
@@ -81,7 +83,8 @@ function RNButton:innerNew(o)
     o = o or {
         name = "",
         rntext = nil,
-        rnobject = nil
+        rnImageDefault = nil,
+        rnImageOver = nil
     }
 
     setmetatable(o, self)
@@ -98,27 +101,72 @@ function RNButton:new(o)
 end
 
 
-function RNButton:initWith(rnobject, rntext)
+function RNButton:initWith(imageDefault, imageOver, rntext)
     self.text = rntext
-    self.rnobject = rnobject
+    self.rnImageDefault = imageDefault
+
+    self.pippo = "boh"
+
+    if imageOver ~= nil then
+        self.rnImageOver = imageOver
+    end
+end
+
+
+--function RNButton:defaultOnTouchDownButton(event)
+--    print("default button toch down")
+--end
+
+
+function RNButton:defaultOnTouchUp()
+    print("default button toch up")
 end
 
 
 function RNButton:setOnTouchDown(func)
-    self.rnobject:setOnTouchDown(func)
+    self.onTouchDownFunc = func
+
+    local function defaultOnTouchDownButton(event)
+
+        if self.rnImageOver ~= nil then
+            self.rnImageDefault:setVisible(false)
+            self.rnImageOver:setVisible(true)
+        end
+        self.onTouchDownFunc(event)
+    end
+
+    self.rnImageDefault:setOnTouchDown(defaultOnTouchDownButton)
 end
 
 
 function RNButton:setOnTouchUp(func)
-    self.rnobject:setOnTouchUp(func)
+    self.rnImageDefault:setOnTouchUp(func)
+    self.onTouchUpFunc = func
+
+    local function defaultOnTouchUp(event)
+
+        if self.rnImageOver ~= nil then
+            self.rnImageOver:setVisible(false)
+            self.rnImageDefault:setVisible(true)
+        end
+        self.onTouchUpFunc(event)
+    end
+
+    self.rnImageDefault:setOnTouchUp(defaultOnTouchUp)
 end
 
 
 function RNButton:remove(func)
     local tmpText = self.text
-    local tmpRnobject = self.rnobject
+    local tmpRnobject = self.rnImageDefault
     self.text = nil
-    self.rnobject = nil
+    self.rnImageDefault = nil
+
+    if self.rnImageOver ~= nil then
+        local tmpRnImageOver = self.rnImageOver
+        self.rnImageOver = nil
+        tmpRnImageOver:remove()
+    end
 
     tmpText:remove()
     tmpRnobject:remove()

@@ -30,7 +30,7 @@ end      --]]
 
 -- Anim
 
- --require("rapanui-samples/anim/rn-anim")
+--require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
@@ -107,7 +107,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 -- Buttons
---require("rapanui-samples/buttons/rn-button")
+require("rapanui-samples/buttons/rn-button")
 
 -- listeners
 

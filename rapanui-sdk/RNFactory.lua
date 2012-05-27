@@ -173,11 +173,14 @@ function RNFactory.createButton(image, text, params)
 
     local parentGroup, left, top
 
-    local top, left, size, font, alignment
+    local top, left, size, font, vAlignment, hAlignment
 
     font = "arial-rounded"
     size = 15
-    alignment = MOAITextBox.CENTER_JUSTIFY
+
+    vAlignment = MOAITextBox.CENTER_JUSTIFY
+    hAlignment = MOAITextBox.CENTER_JUSTIFY
+
     top = 0
     left = 0
 
@@ -223,28 +226,51 @@ function RNFactory.createButton(image, text, params)
         end
           ]] --
 
-        if (params.alignment ~= nil) then
-            alignment = params.alignment
+        if (params.verticalAlignment ~= nil) then
+            vAlignment = params.verticalAlignment
+        end
+
+        if (params.horizontalAlignment ~= nil) then
+            hAlignment = params.horizontalAlignment
         end
     end
 
-    local rnObject = RNObject:new()
-    local rnObject, deck = rnObject:initWithImage2(image)
+    -- init of default RNButtonImage
+    local rnButtonImage = RNObject:new()
+    local rnButtonImage, deck = rnButtonImage:initWithImage2(image)
 
-    rnObject.x = rnObject.originalWidth / 2 + left
-    rnObject.y = rnObject.originalHeight / 2 + top
+    rnButtonImage.x = rnButtonImage.originalWidth / 2 + left
+    rnButtonImage.y = rnButtonImage.originalHeight / 2 + top
 
-    RNFactory.screen:addRNObject(rnObject)
+    RNFactory.screen:addRNObject(rnButtonImage)
 
     if parentGroup ~= nil then
-        parentGroup:insert(rnObject)
+        parentGroup:insert(rnButtonImage)
     end
 
+    local rnButtonImageOver
 
+    if params.imageOver ~= nil then
+
+
+        rnButtonImageOver = RNObject:new()
+        rnButtonImageOver, deck = rnButtonImageOver:initWithImage2( params.imageOver )
+
+        rnButtonImageOver.x = rnButtonImageOver.originalWidth / 2 + left
+        rnButtonImageOver.y = rnButtonImageOver.originalHeight / 2 + top
+
+        rnButtonImageOver:setVisible(false)
+
+        RNFactory.screen:addRNObject(rnButtonImageOver)
+
+        if parentGroup ~= nil then
+            parentGroup:insert(rnButtonImageOver)
+        end
+    end
 
     local rnText = RNText:new()
     local gFont
-    rnText, gFont = rnText:initWithText2(text, font, size, rnObject.originalWidth, rnObject.originalHeight, alignment)
+    rnText, gFont = rnText:initWithText2(text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
     RNFactory.screen:addRNObject(rnText)
     RNFactory.mainGroup:insert(rnText)
 
@@ -252,7 +278,9 @@ function RNFactory.createButton(image, text, params)
     rnText.y = top
 
     local rnButton = RNButton:new()
-    rnButton:initWith(rnObject, rnText)
+
+    print_r(rnButtonImageOver)
+    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
 
     return rnButton, deck
 end

@@ -321,6 +321,7 @@ function RNObject:innerNew(o)
         tileDeck = nil,
         rotation = 0,
         touchable = false,
+        swapImage = nil,
         --physic metamerge
         isPhysical = false,
         physicObject = nil,
@@ -1132,7 +1133,7 @@ function RNObject:addGlobalEventListener(eventName, func)
     return index
 end
 
-
+-- Todo: check to remove.
 function RNObject:isInRange(x, y)
 
     local buttonx = x
@@ -1161,22 +1162,22 @@ end
 function RNObject:onEvent(event)
 
     if event.phase == "began" and self.visible and self.onTouchDownListener ~= nil then
-        self.onTouchDownListener(event)
+        self.onTouchDownListener(self, event)
         return true
     end
 
     if event.phase == "moved" and self.visible and self.onTouchMoveListener ~= nil then
-        self.onTouchMoveListener(event)
+        self.onTouchMoveListener(self, event)
         return true
     end
 
     if event.phase == "ended" and self.visible and self.onTouchUpListener ~= nil then
-        self.onTouchUpListener(event)
+        self.onTouchUpListener(self, event)
         return true
     end
 
     if event.phase == "cancelled" and self.visible and self.onTouchUpListener ~= nil then
-        self.onTouchUpListener(event)
+        self.onTouchUpListener(self, event)
         return true
     end
 end
