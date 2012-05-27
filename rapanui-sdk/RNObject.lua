@@ -1162,22 +1162,22 @@ end
 function RNObject:onEvent(event)
 
     if event.phase == "began" and self.visible and self.onTouchDownListener ~= nil then
-        self.onTouchDownListener(self, event)
+        self.onTouchDownListener(event)
         return true
     end
 
     if event.phase == "moved" and self.visible and self.onTouchMoveListener ~= nil then
-        self.onTouchMoveListener(self, event)
+        self.onTouchMoveListener(event)
         return true
     end
 
     if event.phase == "ended" and self.visible and self.onTouchUpListener ~= nil then
-        self.onTouchUpListener(self, event)
+        self.onTouchUpListener(event)
         return true
     end
 
     if event.phase == "cancelled" and self.visible and self.onTouchUpListener ~= nil then
-        self.onTouchUpListener(self, event)
+        self.onTouchUpListener(event)
         return true
     end
 end
