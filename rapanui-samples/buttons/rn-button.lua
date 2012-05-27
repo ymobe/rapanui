@@ -14,14 +14,14 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-button = RNFactory.createButton("images/button-plain.png", "Button 1", { imageOver = "images/button-over.png", top = 130, left = 10, size = 10, width = 200, height = 50 })
+button = RNFactory.createButton("images/button-plain.png", "Main Button 1", { imageOver = "images/button-over.png", top = 50, left = 10, size = 8, width = 200, height = 50 })
 
 -- second button to show different text alignments
 
-button2 = RNFactory.createButton("images/button-plain.png", "Button 2", {
-    top = 230,
+button2 = RNFactory.createButton("images/button-plain.png", "Text alignment Button 2", {
+    top = 150,
     left = 10,
-    size = 10,
+    size = 8,
     width = 200,
     height = 50,
     verticalAlignment = MOAITextBox.LEFT_JUSTIFY,

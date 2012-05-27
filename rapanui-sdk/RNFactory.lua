@@ -279,7 +279,6 @@ function RNFactory.createButton(image, text, params)
 
     local rnButton = RNButton:new()
 
-    print_r(rnButtonImageOver)
     rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
 
     return rnButton, deck

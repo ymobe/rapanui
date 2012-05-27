@@ -10,6 +10,7 @@ rapanui-samples/.DS_Store
 rapanui-samples/games/.DS_Store
 rapanui-samples/maps/reference.tmx
 rapanui-samples/maps/rn-map-spike.lua
+images/cathead.png
 moai-build
 rapanui.iml
 rapanui.ipr

@@ -58,10 +58,6 @@ local function fieldAccessListener(self, key)
 
     local object = getmetatable(self).__object
 
-    if key ~= nil and key == "rnobject" then
-        print("rnobject")
-    end
-
     --[[
 if key ~= nil and key == "x" then
   local xx, yy
@@ -110,18 +106,39 @@ function RNButton:initWith(imageDefault, imageOver, rntext)
     if imageOver ~= nil then
         self.rnImageOver = imageOver
     end
+
 end
 
 
---function RNButton:defaultOnTouchDownButton(event)
---    print("default button toch down")
---end
-
-
-function RNButton:defaultOnTouchUp()
-    print("default button toch up")
+function RNButton:getType()
+    return "RNButton"
 end
 
+function RNButton:getLoc()
+    return self.rnImageDefault:getProp():getLoc()
+end
+
+function RNButton:getRNtext()
+    return self.text
+end
+
+function RNButton:getAllProps()
+    local props = self:getAllRNObjectProps()
+    table.insert(props, self.text:getProp())
+    return props
+end
+
+function RNButton:getAllRNObjectProps()
+    local props = {}
+    --table.insert(props, self.text:getProp())
+    table.insert(props, self.rnImageDefault:getProp())
+
+    if self.rnImageOver ~= nil then
+        table.insert(props, self.rnImageOver:getProp())
+    end
+
+    return props
+end
 
 function RNButton:setOnTouchDown(func)
     self.onTouchDownFunc = func

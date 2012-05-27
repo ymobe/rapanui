@@ -35,7 +35,7 @@ end      --]]
 
 -- Basics
 
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
@@ -86,10 +86,22 @@ end      --]]
 --require("rapanui-samples/transition/rn-transition-rotate")
 --require("rapanui-samples/transition/rn-transition-scale")
 
+-- Transition on RNText
+
 --require("rapanui-samples/transition/rn-transition-text-move")
 --require("rapanui-samples/transition/rn-transition-text-alpha")
 --require("rapanui-samples/transition/rn-transition-text-scale")
 --require("rapanui-samples/transition/rn-transition-text-rotate")
+
+-- Transition on RNButton
+
+--require("rapanui-samples/transition/rn-transition-rnbutton-move")
+--require("rapanui-samples/transition/rn-transition-rnbutton-alpha")
+--require("rapanui-samples/transition/rn-transition-rnbutton-scale")
+--require("rapanui-samples/transition/rn-transition-rnbutton-rotate")
+
+
+-- Transition on RNMap
 
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
@@ -107,7 +119,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 -- Buttons
-require("rapanui-samples/buttons/rn-button")
+--require("rapanui-samples/buttons/rn-button")
 
 -- listeners
 

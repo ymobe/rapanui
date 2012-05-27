@@ -101,6 +101,8 @@ function RNTransition:run(target, params)
             px, py = target:getProp():getLoc()
         elseif target:getType() == "RNText" then
             px, py = target:getProp():getLoc()
+        elseif target:getType() == "RNButton" then
+            px, py = target:getLoc()
         elseif target:getType() == "RNMap" then
             px, py = target:getLoc();
         end
@@ -124,6 +126,11 @@ function RNTransition:run(target, params)
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveLoc(deltax, deltay, time)
             end
+        elseif target:getType() == "RNButton" then
+            for key, prop in pairs(target:getAllRNObjectProps()) do
+                action = prop:moveLoc(deltax, deltay, time)
+            end
+            action = target:getRNtext():getProp():moveLoc(deltax, deltay, 0, time)
         elseif target:getType() == "RNText" then
             action = target:getProp():moveLoc(deltax, deltay, 0, time)
         end
@@ -136,6 +143,8 @@ function RNTransition:run(target, params)
         elseif target:getType() == "RNText" then
             -- action = target:getProp():moveRot(angle, angle, 0, time)
             action = target:getProp():moveRot(0, 0, angle, time)
+        elseif target:getType() == "RNButton" then
+            print("[WARN] RNButton: RNTransition.ROTATE unsupported")
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveRot(angle, time)
@@ -147,6 +156,10 @@ function RNTransition:run(target, params)
     if (type == RNTransition.ALPHA) then
         if target:getType() == "RNObject" or target:getType() == "RNText" then
             action = target:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
+        elseif target:getType() == "RNButton" then
+            for key, prop in pairs(target:getAllProps()) do
+                action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
+            end
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
@@ -160,6 +173,13 @@ function RNTransition:run(target, params)
             action = target:getProp():moveScl(xScale, yScale, time, mode)
         elseif target:getType() == "RNText" then
             action = target:getProp():moveScl(xScale, yScale, 0, time, mode)
+        elseif target:getType() == "RNButton" then
+            print("[WARN] RNButton: RNTransition.SCALE unsupported")
+            --     elseif target:getType() == "RNButton" then
+            --         for key, prop in pairs(target:getAllRNObjectProps()) do
+            --             action = prop:moveScl(xScale, yScale, time, mode)
+            --         end
+            --         action = target:getRNtext():getProp():moveScl(xScale, yScale, 0, time, mode)
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveScl(xScale, yScale, time, mode)
