@@ -74,7 +74,6 @@ function RNPageSwipe:init()
     --arranging objects
     self:arrange()
     --enterFrameListener
-    self.enterFrameListener = RNListeners:addEventListener("enterFrame", self)
     self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
 end
 
@@ -98,24 +97,6 @@ function RNPageSwipe:arrange()
     end
 end
 
-function RNPageSwipe:enterFrame()
-    self = SELF
-    --move elements according to touch
-    for i, v in ipairs(self.elements) do
-        v.object.x = v.object.x + self.forcex
-    end
-    --sets forcex to 0 at the end
-    self.forcex = 0
-    --checks the current page
-    for i = 1, self.pages do
-        local minBorder = self.options.offsetX - i * (self.options.pageH) + self.options.pageH / 2
-        local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageH) + self.options.pageH / 2
-        if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
-            self.currentPage = i
-        end
-    end
-end
-
 
 function touchSwipe(event)
     local self = SELF
@@ -127,6 +108,21 @@ function touchSwipe(event)
             self.forcex = (event.x - self.tempx)
             self.tempx = event.x
             self.isMoving = true
+            --
+            --move elements according to touch
+            for i, v in ipairs(self.elements) do
+                v.object.x = v.object.x + self.forcex
+            end
+            --sets forcex to 0 at the end
+            self.forcex = 0
+            --checks the current page
+            for i = 1, self.pages do
+                local minBorder = self.options.offsetX - i * (self.options.pageH) + self.options.pageH / 2
+                local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageH) + self.options.pageH / 2
+                if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
+                    self.currentPage = i
+                end
+            end
         end
         if event.phase == "ended" then
             self.forcex = 0
@@ -382,7 +378,6 @@ function RNPageSwipe:goToPage(value)
 end
 
 function RNPageSwipe:remove()
-    RNListeners:removeEventListener("enterFrame", self.enterFrameListener)
     RNListeners:removeEventListener("touch", self.touchListener)
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then
