@@ -18,7 +18,7 @@ local SELF
 
 --since RapaNui touch listener doesn't return the target as the enterFrame does(but not returns self!),
 --we need to specify SELF here, and due to this fact
---only one RNList at once can be created  TODO: fix this.
+--only one RNPageSwipe at once can be created  TODO: fix this.
 
 
 local function fieldChangedListener(self, key, value)
@@ -54,7 +54,6 @@ function RNPageSwipe:innerNew(o)
         tempx = 0,
         forcex = 0,
         currentPage = 1,
-        enterFrameListener = nil,
         touchListener = nil,
         isMoving = false,
     }
@@ -73,7 +72,7 @@ function RNPageSwipe:init()
     if elementsInLastPage > 0 then self.pages = pages + 1 else self.pages = pages end
     --arranging objects
     self:arrange()
-    --enterFrameListener
+    --touch listener
     self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
 end
 
@@ -91,7 +90,7 @@ function RNPageSwipe:arrange()
             page = page + 1
         end
         local o = self.elements[i].object
-        o.x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageH * (page - 1)
+        o.x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1)
         o.y = self.options.offsetY + self.options.cellH * (row - 1) + self.options.dividerY * (row - 1)
         col = col + 1
     end
@@ -117,8 +116,8 @@ function touchSwipe(event)
             self.forcex = 0
             --checks the current page
             for i = 1, self.pages do
-                local minBorder = self.options.offsetX - i * (self.options.pageH) + self.options.pageH / 2
-                local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageH) + self.options.pageH / 2
+                local minBorder = self.options.offsetX - i * (self.options.pageW) + self.options.pageW / 2
+                local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageW) + self.options.pageW / 2
                 if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
                     self.currentPage = i
                 end
@@ -153,7 +152,7 @@ function RNPageSwipe:doSwipe()
             page = page + 1
         end
         local trn = RNTransition:new()
-        trn:run(v.object, { type = "move", time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageH * (page - 1) - self.options.pageH * (self.currentPage - 1) })
+        trn:run(v.object, { type = "move", time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })
         col = col + 1
     end
 end

@@ -49,7 +49,7 @@ local image26 = RNFactory.createImage("images/tile2.png")
 
 
 local swipeObject = RNFactory.createPageSwipe("pageSwipe", {
-    options = { rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageH = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
+    options = { rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
     elements = {
         { object = image0, userData = "userdata test" },
         { object = image1, testField = "testdata" },
