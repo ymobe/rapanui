@@ -48,7 +48,7 @@ function RNPageSwipe:innerNew(o)
 
     o = o or {
         name = "",
-        options = { rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellH = 0, pageH = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
+        options = { rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellW = 0, pageW = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
         elements = {},
         pages = 0,
         tempx = 0,
