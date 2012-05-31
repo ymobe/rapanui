@@ -32,6 +32,3 @@ end
 director:setTime(1000)
 
 director:showScene("rapanui-samples/director/scene1button", "slidetotop")
-
-text1 = RNFactory.createText("Touch Button to swap!", { size = 10, top = 5, left = 5, width = 300, height = 50 })
-text1:setLevel(1000)

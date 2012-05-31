@@ -35,10 +35,11 @@ function aScene.onCreate()
     local background = RNFactory.createImage("images/background-purple.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
 
     local button1 = RNFactory.createButton("images/button-plain.png",
-        "Scene 2 Sliding To left",
+        "Sliding To left",
         {
             parentGroup = sceneGroup,
             imageOver = "images/button-over.png",
+            font = "dwarves",
             top = 50,
             left = 10,
             size = 8,
@@ -48,10 +49,11 @@ function aScene.onCreate()
         })
 
     local button2 = RNFactory.createButton("images/button-plain.png",
-        "Scene 2 Fade",
+        "Fade",
         {
             parentGroup = sceneGroup,
             imageOver = "images/button-over.png",
+            font = "dwarves",
             top = 120,
             left = 10,
             size = 8,
@@ -61,10 +63,11 @@ function aScene.onCreate()
         })
 
     local button3 = RNFactory.createButton("images/button-plain.png",
-        "Scene 2 Crossfade",
+        "Crossfade",
         {
             parentGroup = sceneGroup,
             imageOver = "images/button-over.png",
+            font = "dwarves",
             top = 200,
             left = 10,
             size = 8,
