@@ -56,6 +56,8 @@ end      --]]
 
 -- Groups
 --require("rapanui-samples/groups/rn-groups")
+--require("rapanui-samples/groups/rn-groups-rnbutton")
+--require("rapanui-samples/groups/rn-groups-rnbutton-move")
 --require("rapanui-samples/groups/rn-map-group")
 
 -- Director
@@ -63,6 +65,10 @@ end      --]]
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
+require("rapanui-samples/director/rn-director-rnbutton")
+
+-- Buttons
+--require("rapanui-samples/buttons/rn-button")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
@@ -102,9 +108,6 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
-
--- Buttons
---require("rapanui-samples/buttons/rn-button")
 
 -- listeners
 --require("rapanui-samples/listeners/rn-listener-touch-remove")

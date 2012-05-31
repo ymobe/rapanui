@@ -14,7 +14,24 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-button = RNFactory.createButton("images/button-plain.png", "Main Button 1", { imageOver = "images/button-over.png", top = 50, left = 10, size = 8, width = 200, height = 50 })
+function button1TouchDown(event)
+    text:setText("Button 1 touch down!")
+end
+
+function button1UP(event)
+    text:setText("Button 1 touch up")
+end
+
+button = RNFactory.createButton("images/button-plain.png", "Main Button 1", {
+    imageOver = "images/button-over.png",
+    top = 50,
+    left = 10,
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = button1TouchDown,
+    onTouchUp = button1UP
+})
 
 -- second button to show different text alignments
 
@@ -28,15 +45,12 @@ button2 = RNFactory.createButton("images/button-plain.png", "Text alignment Butt
     horizontalAlignment = MOAITextBox.LEFT_JUSTIFY
 })
 
+button3 = RNFactory.createButton("images/button-plain.png", "No call back", { imageOver = "images/button-over.png", top = 250, left = 10, size = 8, width = 200, height = 50 })
+
+
 text = RNFactory.createText("Touch on buttons 1", { size = 9, top = 400, left = 5, width = 250, height = 50 })
 
-function button1TouchDown(event)
-    text:setText("Button 1 touch down!")
-end
 
-function button1UP(event)
-    text:setText("Button 1 touch up")
-end
 
 function button2TouchDown(event)
     text:setText("Button 2 touch down!")
@@ -46,8 +60,7 @@ function button2UP(event)
     text:setText("Button 2 touch up")
 end
 
-button:setOnTouchDown(button1TouchDown)
-button:setOnTouchUp(button1UP)
+
 
 button2:setOnTouchDown(button2TouchDown)
 button2:setOnTouchUp(button2UP)

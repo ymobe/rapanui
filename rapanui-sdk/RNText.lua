@@ -147,6 +147,10 @@ function RNText:setText(text)
     self.textbox:setString(text)
 end
 
+function RNText:getText()
+    return self.text
+end
+
 function RNText:getType()
     return "RNText"
 end

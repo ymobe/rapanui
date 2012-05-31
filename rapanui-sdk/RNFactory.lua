@@ -244,17 +244,13 @@ function RNFactory.createButton(image, text, params)
 
     RNFactory.screen:addRNObject(rnButtonImage)
 
-    if parentGroup ~= nil then
-        parentGroup:insert(rnButtonImage)
-    end
-
     local rnButtonImageOver
 
     if params.imageOver ~= nil then
 
 
         rnButtonImageOver = RNObject:new()
-        rnButtonImageOver, deck = rnButtonImageOver:initWithImage2( params.imageOver )
+        rnButtonImageOver, deck = rnButtonImageOver:initWithImage2(params.imageOver)
 
         rnButtonImageOver.x = rnButtonImageOver.originalWidth / 2 + left
         rnButtonImageOver.y = rnButtonImageOver.originalHeight / 2 + top
@@ -263,14 +259,13 @@ function RNFactory.createButton(image, text, params)
 
         RNFactory.screen:addRNObject(rnButtonImageOver)
 
-        if parentGroup ~= nil then
-            parentGroup:insert(rnButtonImageOver)
-        end
+        --   if parentGroup ~= nil then
+        --       parentGroup:insert(rnButtonImageOver)
+        --   end
     end
 
     local rnText = RNText:new()
-    local gFont
-    rnText, gFont = rnText:initWithText2(text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+    local rnText, gFont = rnText:initWithText2(text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
     RNFactory.screen:addRNObject(rnText)
     RNFactory.mainGroup:insert(rnText)
 
@@ -280,6 +275,22 @@ function RNFactory.createButton(image, text, params)
     local rnButton = RNButton:new()
 
     rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(rnButton)
+    end
+
+
+    rnButton.x = rnButtonImage.originalWidth / 2 + left
+    rnButton.y = rnButtonImage.originalHeight / 2 + top
+
+    if params.onTouchUp ~= nil then
+        rnButton:setOnTouchUp(params.onTouchUp)
+    end
+
+    if params.onTouchDown ~= nil then
+        rnButton:setOnTouchDown(params.onTouchDown)
+    end
 
     return rnButton, deck
 end

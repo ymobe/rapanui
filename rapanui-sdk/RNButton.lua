@@ -13,9 +13,8 @@
 ]]
 
 
--- Create a new class that inherits from a base class RNObject
-RNButton = {}
 
+RNButton = {}
 
 
 local function fieldChangedListenerRNButton(self, key, value)
@@ -28,18 +27,23 @@ local function fieldChangedListenerRNButton(self, key, value)
         local tmpX = value
         local tmpY = self.y
 
-        if (self:getProp() ~= nil) then
-            self:getProp():setLoc(tmpX, tmpY);
+        for key, prop in pairs(self:getAllRNObjectProps()) do
+            prop:setLoc(tmpX, tmpY);
         end
+
+        self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
     end
 
     if key ~= nil and key == "y" then
         local tmpX = self.x
         local tmpY = value
 
-        if (self:getProp() ~= nil) then
-            self:getProp():setLoc(tmpX, tmpY);
+        for key, prop in pairs(self:getAllRNObjectProps()) do
+            prop:setLoc(tmpX, tmpY);
         end
+
+        self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+        --self.text:getProp():setLoc(tmpX, tmpY)
     end
 
     if key == "isFocus" and value == true then
@@ -58,20 +62,19 @@ local function fieldAccessListener(self, key)
 
     local object = getmetatable(self).__object
 
-    --[[
-if key ~= nil and key == "x" then
-  local xx, yy
-  xx, yy = object:getProp():getLoc()
-  object.x = xx
-end
+    if key ~= nil and key == "x" then
+        local xx, yy
+        xx, yy = object.rnImageDefault:getProp():getLoc()
+        object.x = xx
+    end
 
 
-if key ~= nil and key == "x" then
-  local xx, yy
-  xx, yy = object:getProp():getLoc()
-  object.y = yy
-end
-    ]] --
+    if key ~= nil and key == "x" then
+        local xx, yy
+        xx, yy = object.rnImageDefault:getProp():getLoc()
+        object.y = yy
+    end
+
     return getmetatable(self).__object[key]
 end
 
@@ -80,7 +83,9 @@ function RNButton:innerNew(o)
         name = "",
         rntext = nil,
         rnImageDefault = nil,
-        rnImageOver = nil
+        rnImageOver = nil,
+        x = 0,
+        y = 0
     }
 
     setmetatable(o, self)
@@ -101,17 +106,71 @@ function RNButton:initWith(imageDefault, imageOver, rntext)
     self.text = rntext
     self.rnImageDefault = imageDefault
 
-    self.pippo = "boh"
-
     if imageOver ~= nil then
         self.rnImageOver = imageOver
     end
 
+
+
+    local function defaultOnTouchDownButton(event)
+
+        if self.rnImageOver ~= nil then
+
+            self.rnImageDefault:setVisible(false)
+            self.rnImageOver:setVisible(true)
+        end
+
+        if self.onTouchDownFunc ~= nil then
+            self.onTouchDownFunc(event)
+        end
+    end
+
+    self.rnImageDefault:setOnTouchDown(defaultOnTouchDownButton)
+
+    local function defaultOnTouchUp(event)
+
+
+        if self.rnImageOver ~= nil then
+            self.rnImageOver:setVisible(false)
+            self.rnImageDefault:setVisible(true)
+        end
+
+        if self.onTouchUpFunc ~= nil then
+            self.onTouchUpFunc(event)
+        end
+    end
+
+    self.rnImageDefault:setOnTouchUp(defaultOnTouchUp)
 end
 
 
 function RNButton:getType()
     return "RNButton"
+end
+
+function RNButton:setAlpha(level)
+end
+
+function RNButton:setLevel(level)
+    self.text:setLevel(level)
+    self.rnImageDefault:setLevel(level)
+
+    if self.rnImageOver ~= nil then
+        self.rnImageOver:setLevel(level)
+    end
+end
+
+function RNButton:setIDInGroup(idInGroup)
+    self.idInGroup = idInGroup
+end
+
+function RNButton:setParentGroup(group)
+    self.text:setParentGroup(group)
+    self.rnImageDefault:setParentGroup(group)
+
+    if self.rnImageOver ~= nil then
+        self.rnImageOver:setParentGroup(group)
+    end
 end
 
 function RNButton:getLoc()
@@ -142,38 +201,17 @@ end
 
 function RNButton:setOnTouchDown(func)
     self.onTouchDownFunc = func
-
-    local function defaultOnTouchDownButton(event)
-
-        if self.rnImageOver ~= nil then
-            self.rnImageDefault:setVisible(false)
-            self.rnImageOver:setVisible(true)
-        end
-        self.onTouchDownFunc(event)
-    end
-
-    self.rnImageDefault:setOnTouchDown(defaultOnTouchDownButton)
 end
 
 
 function RNButton:setOnTouchUp(func)
-    self.rnImageDefault:setOnTouchUp(func)
     self.onTouchUpFunc = func
-
-    local function defaultOnTouchUp(event)
-
-        if self.rnImageOver ~= nil then
-            self.rnImageOver:setVisible(false)
-            self.rnImageDefault:setVisible(true)
-        end
-        self.onTouchUpFunc(event)
-    end
-
-    self.rnImageDefault:setOnTouchUp(defaultOnTouchUp)
 end
 
 
 function RNButton:remove(func)
+
+
     local tmpText = self.text
     local tmpRnobject = self.rnImageDefault
     self.text = nil
@@ -185,8 +223,13 @@ function RNButton:remove(func)
         tmpRnImageOver:remove()
     end
 
-    tmpText:remove()
-    tmpRnobject:remove()
+    if tmpText ~= nil then
+        tmpText:remove()
+    end
+
+    if tmpRnobject ~= nil then
+        tmpRnobject:remove()
+    end
 end
 
 

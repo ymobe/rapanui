@@ -28,3 +28,14 @@ end
 
 goToPointA()
 
+
+function button1TouchDown(event)
+    print("Button 1 touch down!")
+end
+
+function button1UP(event)
+    print("Button 1 touch up")
+end
+
+button:setOnTouchDown(button1TouchDown)
+button:setOnTouchUp(button1UP)
