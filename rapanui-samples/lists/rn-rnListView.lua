@@ -22,7 +22,6 @@
 --       only one RNList at once can be created.
 
 --object creation
-local image1 = RNFactory.createImage("images/image.png")
 local image2 = RNFactory.createImage("images/image2.png")
 local image3 = RNFactory.createImage("images/image3.png")
 local image4 = RNFactory.createImage("images/image4.png")
@@ -39,6 +38,26 @@ local image14 = RNFactory.createImage("images/tile9.png")
 local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 1, 2); anim1:play("default", 12, -1)
 local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
+
+
+-- also groups and nested groups can be used as objects in lists
+
+local image1a = RNFactory.createImage("images/image.png")
+local image1b = RNFactory.createImage("images/image.png")
+local image1c = RNFactory.createImage("images/image.png")
+
+local group1 = RNGroup:new()
+local group2 = RNGroup:new()
+
+group1:insert(group2)
+
+group1:insert(image1a, true)
+group2:insert(image1b, true)
+group2:insert(image1c, true)
+image1b.x = 40
+image1c.x = 80
+
+
 
 --callback for touch
 function getCallBack(event)
@@ -67,7 +86,7 @@ local list = RNFactory.createList("testList", {
     x = 0,
     y = 0,
     elements = {
-        { object = image1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "test", userValue2 = "test2" },
+        { object = group1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "test", userValue2 = "test2" },
         { object = image2, offsetX = 64, offsetY = 32, onClick = getCallBack },
         { object = anim1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "this is the anim 1" },
         { object = text1, offsetX = 0, offsetY = 0, onClick = getCallBack, userValue = "this is the text 1" },

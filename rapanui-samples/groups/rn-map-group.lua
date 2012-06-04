@@ -34,12 +34,16 @@ aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
 mapThree:drawMapAt(0, 320, aTileset)
 
 
+--add maps in groups, with a little bit of nesting, too ^^
+
 group = RNGroup:new()
+group2 = RNGroup:new()
 
 group:insert(mapOne)
-group:insert(mapTwo)
+group2:insert(mapTwo)
 group:insert(mapThree)
-group:remove(mapTwo)
+group:insert(group2)
+group2:removeChild(mapTwo.idInGroup)
 
 print("group one size: " .. group:getSize())
 

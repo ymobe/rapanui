@@ -192,10 +192,12 @@ local function fieldAccessListener(self, key)
         if key ~= nil and key == "x" then
             local xx, yy = object:getProp():getLoc()
             object.x = xx
+            object.y = yy
         end
 
         if key ~= nil and key == "y" then
             local xx, yy = object:getProp():getLoc()
+            object.x = xx
             object.y = yy
         end
     end
@@ -321,6 +323,8 @@ function RNObject:innerNew(o)
         tileDeck = nil,
         rotation = 0,
         touchable = false,
+        xInGroup = 0,
+        yInGroup = 0,
         --physic metamerge
         isPhysical = false,
         physicObject = nil,
@@ -522,7 +526,7 @@ function RNObject:initWithImage2(image)
     end
 
 
-    self.name = ""
+    if type(image) == "string" then self.name = image else self.name = "" end
     self.prop = MOAIProp2D.new()
     self.prop:setDeck(deck)
     self.prop:setPriority(1)
@@ -575,6 +579,7 @@ function RNObject:initWithAnim2(image, sx, sy, scaleX, scaleY)
     self.prop:setDeck(deck)
     self.deck = deck
 
+    if type(image) == "string" then self.name = image else self.name = "" end
     self.originalWidth = sx * scaleX
     self.originalHeight = sy * scaleY
     self.originalScaleX = scaleX

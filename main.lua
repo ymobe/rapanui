@@ -30,14 +30,14 @@ end      --]]
 
 -- Anim
 
- --require("rapanui-samples/anim/rn-anim")
+--require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
 
 --require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
-require("rapanui-samples/basic/rn-images-scale")
+--require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
@@ -47,7 +47,7 @@ require("rapanui-samples/basic/rn-images-scale")
 -- Lists
 
 --require("rapanui-samples/lists/rn-rnListView")
---require("rapanui-samples/lists/rn-rnPageSwipe")
+require("rapanui-samples/lists/rn-rnPageSwipe")
 
 
 -- Menu
@@ -61,6 +61,7 @@ require("rapanui-samples/basic/rn-images-scale")
 
 -- Groups
 
+--require("rapanui-samples/groups/rn-groups-basics")
 --require("rapanui-samples/groups/rn-groups")
 --require("rapanui-samples/groups/rn-map-group")
 

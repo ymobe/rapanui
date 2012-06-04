@@ -103,6 +103,8 @@ function RNTransition:run(target, params)
             px, py = target:getProp():getLoc()
         elseif target:getType() == "RNMap" then
             px, py = target:getLoc();
+        elseif target:getType() == "RNGroup" then
+            px, py = target.x, target.y
         end
 
         local deltax = self:getDelta(px, toX)
@@ -126,6 +128,21 @@ function RNTransition:run(target, params)
             end
         elseif target:getType() == "RNText" then
             action = target:getProp():moveLoc(deltax, deltay, 0, time)
+        elseif target:getType() == "RNGroup" then
+            action = target:getProp():moveLoc(deltax, deltay, time)
+            target.lastx = toX
+            target.lasty = toY
+            for key, object in pairs(target:getAllNonGroupChildren()) do
+                if object:getType() == "RNObject" then
+                    action = object:getProp():moveLoc(deltax, deltay, time)
+                elseif object:getType() == "RNMap" then
+                    for key2, prop2 in pairs(object:getAllProps()) do
+                        action = prop2:moveLoc(deltax, deltay, time)
+                    end
+                elseif object:getType() == "RNText" then
+                    action = object:getProp():moveLoc(deltax, deltay, 0, time)
+                end
+            end
         end
     end
 
@@ -140,6 +157,18 @@ function RNTransition:run(target, params)
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveRot(angle, time)
             end
+        elseif target:getType() == "RNGroup" then
+            for key, object in pairs(target:getAllNonGroupChildren()) do
+                if object:getType() == "RNObject" then
+                    action = object:getProp():moveRot(angle, time)
+                elseif object:getType() == "RNText" then
+                    action = object:getProp():moveRot(0, 0, angle, time)
+                elseif object:getType() == "RNMap" then
+                    for key2, prop2 in pairs(object:getAllProps()) do
+                        action = prop2:moveRot(angle, time)
+                    end
+                end
+            end
         end
     end
 
@@ -150,6 +179,16 @@ function RNTransition:run(target, params)
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
+            end
+        elseif target:getType() == "RNGroup" then
+            for key, object in pairs(target:getAllNonGroupChildren()) do
+                if object:getType() == "RNObject" or object:getType() == "RNText" then
+                    action = object:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
+                elseif object:getType() == "RNMap" then
+                    for key2, prop2 in pairs(object:getAllProps()) do
+                        action = prop2:seekColor(alpha, alpha, alpha, alpha, time, mode)
+                    end
+                end
             end
         end
     end
@@ -164,6 +203,18 @@ function RNTransition:run(target, params)
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:moveScl(xScale, yScale, time, mode)
             end
+        elseif target:getType() == "RNGroup" then
+            for key, object in pairs(target:getAllNonGroupChildren()) do
+                if object:getType() == "RNObject" then
+                    action = object:getProp():moveScl(xScale, yScale, time, mode)
+                elseif object:getType() == "RNText" then
+                    action = object:getProp():moveScl(xScale, yScale, 0, time, mode)
+                elseif object:getType() == "RNMap" then
+                    for key2, prop2 in pairs(object:getAllProps()) do
+                        action = prop2:moveScl(xScale, yScale, time, mode)
+                    end
+                end
+            end
         end
     end
 
@@ -177,8 +228,8 @@ end
 
 function RNTransition:updateMapLoc(target, x, y)
     if target:getType() == "RNMap" then
-        target.mapx = x
-        target.mapy = y
+        target.x = x
+        target.y = y
     end
 end
 
