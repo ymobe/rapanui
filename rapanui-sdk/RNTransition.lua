@@ -228,8 +228,8 @@ end
 
 function RNTransition:updateMapLoc(target, x, y)
     if target:getType() == "RNMap" then
-        target.x = x
-        target.y = y
+        target.mapx = x
+        target.mapy = y
     end
 end
 
