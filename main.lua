@@ -44,7 +44,7 @@ end      --]]
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
---require("rapanui-samples/lists/rn-rnPageSwipe")
+require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")
@@ -55,6 +55,8 @@ end      --]]
 -- require("rapanui-samples/landscape/rn-images")
 
 -- Groups
+
+--require("rapanui-samples/groups/rn-groups-basics")
 --require("rapanui-samples/groups/rn-groups")
 --require("rapanui-samples/groups/rn-groups-rnbutton")
 --require("rapanui-samples/groups/rn-groups-rnbutton-move")

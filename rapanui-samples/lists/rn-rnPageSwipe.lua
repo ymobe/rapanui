@@ -19,7 +19,6 @@
 --only one RNPageSwipe object can be created at time, at the moment
 
 
-local image0 = RNFactory.createImage("images/tile0.png")
 local image1 = RNFactory.createImage("images/tile1.png")
 local image2 = RNFactory.createImage("images/tile2.png")
 local image3 = RNFactory.createImage("images/tile3.png")
@@ -47,11 +46,35 @@ local image24 = RNFactory.createImage("images/tile0.png")
 local image25 = RNFactory.createImage("images/tile1.png")
 local image26 = RNFactory.createImage("images/tile2.png")
 
+-- also groups or nested groups can be used as elements
+
+local image1a = RNFactory.createImage("images/image.png")
+local image1b = RNFactory.createImage("images/image.png")
+local image1c = RNFactory.createImage("images/image.png")
+--[[
+local mapOne = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/groups/mapone.tmx")
+local aTileset = mapOne:getTileset(0)
+aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
+mapOne:drawMapAt(0, 0, aTileset)
+]] --
+
+local group1 = RNGroup:new()
+local group2 = RNGroup:new()
+
+group1:insert(group2)
+
+group1:insert(image1a, true)
+group2:insert(image1b, true)
+group2:insert(image1c, true)
+--group2:insert(mapOne)
+image1b.x = 40
+image1c.x = 80
+
 
 local swipeObject = RNFactory.createPageSwipe("pageSwipe", {
-    options = { rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageH = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
+    options = { rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
     elements = {
-        { object = image0, userData = "userdata test" },
+        { object = group1, userData = "userdata test" },
         { object = image1, testField = "testdata" },
         { object = image2, name = "testName1" },
         { object = image3, name = "testName2" },
@@ -141,11 +164,10 @@ swipeObject:removeElementByPageAndNumber(true, 1, 2)
 --by names
 swipeObject:swapElementsByNames("testName1", "testName2")
 --by global numbers
-swipeObject:swapElementsByNumbers(1,2)
+swipeObject:swapElementsByNumbers(1, 2)
 --by object instance
-swipeObject:swapElementsByObjects(image0,image2)
+swipeObject:swapElementsByObjects(group1, image2)
 --by pages and numbers (page1, number1, page2, number2)
-swipeObject:swapElementsByPageAndNumber(2,2,2,6)
-
+swipeObject:swapElementsByPageAndNumber(2, 2, 2, 6)
 
 

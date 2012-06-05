@@ -18,7 +18,7 @@ local SELF
 
 --since RapaNui touch listener doesn't return the target as the enterFrame does(but not returns self!),
 --we need to specify SELF here, and due to this fact
---only one RNList at once can be created  TODO: fix this.
+--only one RNPageSwipe at once can be created  TODO: fix this.
 
 
 local function fieldChangedListener(self, key, value)
@@ -48,13 +48,12 @@ function RNPageSwipe:innerNew(o)
 
     o = o or {
         name = "",
-        options = { rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellH = 0, pageH = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
+        options = { rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellW = 0, pageW = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
         elements = {},
         pages = 0,
         tempx = 0,
         forcex = 0,
         currentPage = 1,
-        enterFrameListener = nil,
         touchListener = nil,
         isMoving = false,
     }
@@ -73,8 +72,7 @@ function RNPageSwipe:init()
     if elementsInLastPage > 0 then self.pages = pages + 1 else self.pages = pages end
     --arranging objects
     self:arrange()
-    --enterFrameListener
-    self.enterFrameListener = RNListeners:addEventListener("enterFrame", self)
+    --touch listener
     self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
 end
 
@@ -92,27 +90,9 @@ function RNPageSwipe:arrange()
             page = page + 1
         end
         local o = self.elements[i].object
-        o.x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageH * (page - 1)
+        o.x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1)
         o.y = self.options.offsetY + self.options.cellH * (row - 1) + self.options.dividerY * (row - 1)
         col = col + 1
-    end
-end
-
-function RNPageSwipe:enterFrame()
-    self = SELF
-    --move elements according to touch
-    for i, v in ipairs(self.elements) do
-        v.object.x = v.object.x + self.forcex
-    end
-    --sets forcex to 0 at the end
-    self.forcex = 0
-    --checks the current page
-    for i = 1, self.pages do
-        local minBorder = self.options.offsetX - i * (self.options.pageH) + self.options.pageH / 2
-        local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageH) + self.options.pageH / 2
-        if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
-            self.currentPage = i
-        end
     end
 end
 
@@ -127,6 +107,21 @@ function touchSwipe(event)
             self.forcex = (event.x - self.tempx)
             self.tempx = event.x
             self.isMoving = true
+            --
+            --move elements according to touch
+            for i, v in ipairs(self.elements) do
+                v.object.x = v.object.x + self.forcex
+            end
+            --sets forcex to 0 at the end
+            self.forcex = 0
+            --checks the current page
+            for i = 1, self.pages do
+                local minBorder = self.options.offsetX - i * (self.options.pageW) + self.options.pageW / 2
+                local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageW) + self.options.pageW / 2
+                if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
+                    self.currentPage = i
+                end
+            end
         end
         if event.phase == "ended" then
             self.forcex = 0
@@ -157,7 +152,7 @@ function RNPageSwipe:doSwipe()
             page = page + 1
         end
         local trn = RNTransition:new()
-        trn:run(v.object, { type = "move", time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageH * (page - 1) - self.options.pageH * (self.currentPage - 1) })
+        trn:run(v.object, { type = "move", time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })
         col = col + 1
     end
 end
@@ -382,7 +377,6 @@ function RNPageSwipe:goToPage(value)
 end
 
 function RNPageSwipe:remove()
-    RNListeners:removeEventListener("enterFrame", self.enterFrameListener)
     RNListeners:removeEventListener("touch", self.touchListener)
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then

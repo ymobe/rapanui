@@ -91,9 +91,8 @@ function RNMap:innerNew(o)
         physicsIsStarted = false,
         movePhysicsFirstCall = true,
         lastX = 0,
-        lastY = 0
+        lastY = 0,
     }
-
     setmetatable(o, self)
     self.__index = self
     return o
@@ -273,6 +272,10 @@ function RNMap:remove()
     for i = 0, self:getLayersSize() - 1 do
         local layer = self.layers[i]
         layer:remove()
+    end
+
+    if (self.parentGroup ~= nil) then
+        self.parentGroup:removeChild(self.idInGroup)
     end
 
     for i, v in pairs(self.tilesets) do

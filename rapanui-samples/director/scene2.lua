@@ -32,9 +32,19 @@ local sceneGroup = RNGroup:new()
 function aScene.onCreate()
     --add things to sceneGroup
     local background = RNFactory.createImage("images/background-green.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
-    local tile1a = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 240;
-    local tile1b = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1b.x = 100; tile1b.y = 140;
-    local tile1c = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1c.x = 260; tile1c.y = 240;
+    local tile1a = RNFactory.createImage("images/tile2.png"); tile1a.x = 160; tile1a.y = 240;
+    local tile1b = RNFactory.createImage("images/tile2.png"); tile1b.x = 100; tile1b.y = 140;
+    local tile1c = RNFactory.createImage("images/tile2.png"); tile1c.x = 260; tile1c.y = 240;
+
+    local group1 = RNGroup:new()
+    local group2 = RNGroup:new()
+
+    group1:insert(tile1a)
+    group1:insert(tile1b)
+    group2:insert(tile1c)
+    group1:insert(group2)
+
+    sceneGroup:insert(group1)
     --return sceneGroup
     return sceneGroup
 end

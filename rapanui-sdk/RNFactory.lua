@@ -35,6 +35,7 @@ groups = {}
 groups_size = 0
 
 RNFactory.mainGroup = RNGroup:new()
+RNFactory.mainGroup.name = "mainGroup"
 
 RNFactory.stageWidth = 0
 RNFactory.stageHeight = 0
