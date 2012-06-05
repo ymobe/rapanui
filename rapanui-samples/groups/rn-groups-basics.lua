@@ -102,6 +102,14 @@ print("# # # # # # # # # # # #")
 
 
 
+-- flattern (this will place all the group's elements (and sub-elements) at the same drawing priority
+
+group1:flattern(100)
+group2:flattern(50)
+group3:flattern(1)
+
+
+
 
 --applying transition to groups
 local trn = RNTransition:new()

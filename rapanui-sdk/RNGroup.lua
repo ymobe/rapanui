@@ -127,6 +127,7 @@ function RNGroup:setAlpha()
 end
 
 function RNGroup:getAllNonGroupChildren()
+    --returns all children , sub-groups excluded
     local t = {}
     for i, v in ipairs(self.displayObjects) do
         if v:getType() == "RNGroup" then
@@ -143,6 +144,7 @@ function RNGroup:getAllNonGroupChildren()
 end
 
 function RNGroup:getAllChildren()
+    --returns all children , sub-groups included
     local t = {}
     for i, v in ipairs(self.displayObjects) do
         if v:getType() == "RNGroup" then
@@ -155,6 +157,16 @@ function RNGroup:getAllChildren()
     end
 
     return t
+end
+
+function RNGroup:flattern(value)
+    for i, v in ipairs(self:getAllChildren()) do
+        v:setLevel(value)
+    end
+end
+
+function RNGroup:setPriority(value)
+    self:flattern(value)
 end
 
 function RNGroup:innerNew(o)
@@ -318,9 +330,9 @@ function RNGroup:getDelta01(a, b)
 end
 
 function RNGroup:setLevel(value)
-    --TODO: ???
-    --self.prop:setPriority(value)
-    --self.parentGroup:inserLevel(self:getLevel())
+    if self.prop ~= nil then
+        self:setPriority(value)
+    end
 end
 
 function RNGroup:setParentGroup(group)
