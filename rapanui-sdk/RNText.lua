@@ -60,7 +60,7 @@ local function fieldAccessListener(self, key)
         object.x = xx
     end
 
-    if key ~= nil and key == "x" then
+    if key ~= nil and key == "y" then
         local xx, yy
         xx, yy = object:getProp():getLoc()
         object.y = yy
