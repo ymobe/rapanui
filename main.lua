@@ -44,7 +44,7 @@ end      --]]
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
-require("rapanui-samples/lists/rn-rnPageSwipe")
+--require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")
@@ -70,7 +70,7 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 --require("rapanui-samples/director/rn-director-rnbutton")
 
 -- Buttons
-require("rapanui-samples/buttons/rn-button")
+--require("rapanui-samples/buttons/rn-button")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
@@ -93,8 +93,6 @@ require("rapanui-samples/buttons/rn-button")
 -- Transition on RNButton
 --require("rapanui-samples/transition/rn-transition-rnbutton-move")
 --require("rapanui-samples/transition/rn-transition-rnbutton-alpha")
---require("rapanui-samples/transition/rn-transition-rnbutton-scale")
---require("rapanui-samples/transition/rn-transition-rnbutton-rotate")
 
 -- Transition on RNMap
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
@@ -154,5 +152,8 @@ require("rapanui-samples/buttons/rn-button")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
 
 -- other memory test
---require("rapanui-samples/test/rnbutton-mem-test")
---require("rapanui-samples/test/map-mem-test")
+--require("rapanui-samples/test/memory/rnbutton-mem-test")
+--require("rapanui-samples/test/memory/map-mem-test")
+
+-- Unit tests
+require("rapanui-samples/test/unit/rn-groups-unit-test")

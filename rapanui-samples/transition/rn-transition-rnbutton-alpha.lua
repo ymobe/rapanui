@@ -14,7 +14,15 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-button = RNFactory.createButton("images/button-plain.png", "Main Button 1", { imageOver = "images/button-over.png", top = 50, left = 10, size = 8, width = 200, height = 50 })
+button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    top = 50,
+    left = 10,
+    size = 8,
+    width = 200,
+    height = 50
+})
 
 trn = RNTransition:new()
 
@@ -27,4 +35,16 @@ function setAlphaToOne()
 end
 
 setAlphaToZero()
+
+
+function button1TouchDown(event)
+    print("Button 1 touch down!")
+end
+
+function button1UP(event)
+    print("Button 1 touch up")
+end
+
+button:setOnTouchDown(button1TouchDown)
+button:setOnTouchUp(button1UP)
 

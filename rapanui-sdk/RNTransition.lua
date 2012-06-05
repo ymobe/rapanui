@@ -93,6 +93,7 @@ function RNTransition:run(target, params)
 
     local action
 
+    local deltax, deltay
 
     if (type == RNTransition.MOVE) then
         local px, py, pz
@@ -109,9 +110,8 @@ function RNTransition:run(target, params)
             px, py = target.x, target.y
         end
 
-        local deltax = self:getDelta(px, toX)
-        local deltay = self:getDelta(py, toY)
-
+        deltax = self:getDelta(px, toX)
+        deltay = self:getDelta(py, toY)
 
         if (toX < px) then
             deltax = (-1) * deltax
@@ -237,19 +237,25 @@ function RNTransition:run(target, params)
             end
         end
     end
-
-
     if (params.onComplete ~= nil and action ~= nil) then
-        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY) params.onComplete(target) end)
+        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY, deltax, deltay) params.onComplete(target) end)
     elseif (action ~= nil) then
-        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY) end)
+        action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY, deltax, deltay) end)
     end
 end
 
-function RNTransition:updateMapLoc(target, x, y)
+function RNTransition:updateMapLoc(target, x, y, deltax, deltay)
+    -- if the target is a RNMap or a RNGroup with a RNMap inside we need to upate the x,y location.
     if target:getType() == "RNMap" then
         target.mapx = x
         target.mapy = y
+    elseif target:getType() == "RNGroup" then
+        for key, object in pairs(target:getAllNonGroupChildren()) do
+            if object:getType() == "RNMap" then
+                object.mapx = object.mapx + deltax
+                object.mapy = object.mapy + deltay
+            end
+        end
     end
 end
 
