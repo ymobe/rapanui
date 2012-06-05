@@ -46,7 +46,7 @@ end      --]]
 
 -- Lists
 
-require("rapanui-samples/lists/rn-rnListView")
+--require("rapanui-samples/lists/rn-rnListView")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
 
 
@@ -61,7 +61,7 @@ require("rapanui-samples/lists/rn-rnListView")
 
 -- Groups
 
---require("rapanui-samples/groups/rn-groups-basics")
+require("rapanui-samples/groups/rn-groups-basics")
 --require("rapanui-samples/groups/rn-groups")
 --require("rapanui-samples/groups/rn-map-group")
 

@@ -270,6 +270,20 @@ end
 function RNGroup:setReferencePoint(referencePoint)
 end
 
+function RNGroup:getChild(value)
+    local o
+    if type(value) == "string" then
+        for i, v in ipairs(self:getAllChildren()) do
+            if v.name == value then
+                o = v
+            end
+        end
+    else
+        o = self.displayObjects[value]
+    end
+    return o
+end
+
 function RNGroup:getSize()
     return self.numChildren
 end
