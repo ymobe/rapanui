@@ -161,7 +161,7 @@ end
 
 function RNGroup:flattern(value)
     for i, v in ipairs(self:getAllChildren()) do
-        v:setLevel(value)
+        v:setLevel(value + i)
     end
 end
 

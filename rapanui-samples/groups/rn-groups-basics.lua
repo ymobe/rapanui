@@ -107,6 +107,10 @@ print("# # # # # # # # # # # #")
 group1:flattern(100)
 group2:flattern(50)
 group3:flattern(1)
+-- note: when an object is inserted in a group, its priority is reset to 1.
+-- also if its already in a group, or if a group is inserted.
+-- so: first of all nest groups. Then use flattern function. Reuse flattern if you add a new object to a group
+-- or something might be wrong.
 
 
 --how to get an element from a group:
