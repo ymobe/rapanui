@@ -65,10 +65,10 @@ end      --]]
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
-require("rapanui-samples/director/rn-director-rnbutton")
+--require("rapanui-samples/director/rn-director-rnbutton")
 
 -- Buttons
---require("rapanui-samples/buttons/rn-button")
+require("rapanui-samples/buttons/rn-button")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")

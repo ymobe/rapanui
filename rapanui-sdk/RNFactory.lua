@@ -169,7 +169,7 @@ function RNFactory.createImage(image, params)
     return o, deck
 end
 
-function RNFactory.createButton(image, text, params)
+function RNFactory.createButton(image, params)
 
     local parentGroup, left, top
 
@@ -264,13 +264,22 @@ function RNFactory.createButton(image, text, params)
         --   end
     end
 
-    local rnText = RNText:new()
-    local rnText, gFont = rnText:initWithText2(text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
-    RNFactory.screen:addRNObject(rnText)
-    RNFactory.mainGroup:insert(rnText)
+    local rnText
 
-    rnText.x = left
-    rnText.y = top
+    local gFont
+
+    if params.text ~= nil then
+        rnText = RNText:new()
+        rnText, gFont = rnText:initWithText2(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+
+        RNFactory.screen:addRNObject(rnText)
+        --     RNFactory.mainGroup:insert(rnText)
+        rnText.x = left
+        rnText.y = top
+    end
+
+
+
 
     local rnButton = RNButton:new()
 
@@ -279,6 +288,7 @@ function RNFactory.createButton(image, text, params)
     if parentGroup ~= nil then
         parentGroup:insert(rnButton)
     end
+
 
 
     rnButton.x = rnButtonImage.originalWidth / 2 + left
@@ -291,7 +301,6 @@ function RNFactory.createButton(image, text, params)
     if params.onTouchDown ~= nil then
         rnButton:setOnTouchDown(params.onTouchDown)
     end
-
     return rnButton, deck
 end
 

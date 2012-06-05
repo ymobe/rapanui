@@ -104,7 +104,6 @@ function aScene.onEnd()
     for i = 1, table.getn(sceneGroup.displayObjects), 1 do
         sceneGroup.displayObjects[1]:remove();
     end
-    memestatus(true)
 end
 
 

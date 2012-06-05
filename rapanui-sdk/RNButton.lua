@@ -31,7 +31,10 @@ local function fieldChangedListenerRNButton(self, key, value)
             prop:setLoc(tmpX, tmpY);
         end
 
-        self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+        if self.text ~= nil then
+
+            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+        end
     end
 
     if key ~= nil and key == "y" then
@@ -41,9 +44,11 @@ local function fieldChangedListenerRNButton(self, key, value)
         for key, prop in pairs(self:getAllRNObjectProps()) do
             prop:setLoc(tmpX, tmpY);
         end
+        if self.text ~= nil then
 
-        self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
-        --self.text:getProp():setLoc(tmpX, tmpY)
+            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+            --self.text:getProp():setLoc(tmpX, tmpY)
+        end
     end
 
     if key == "isFocus" and value == true then
@@ -104,12 +109,13 @@ end
 
 function RNButton:initWith(imageDefault, imageOver, rntext)
     self.text = rntext
+
+
     self.rnImageDefault = imageDefault
 
     if imageOver ~= nil then
         self.rnImageOver = imageOver
     end
-
 
 
     local function defaultOnTouchDownButton(event)
@@ -152,7 +158,10 @@ function RNButton:setAlpha(level)
 end
 
 function RNButton:setLevel(level)
-    self.text:setLevel(level)
+    if self.text ~= nil then
+        self.text:setLevel(level)
+    end
+
     self.rnImageDefault:setLevel(level)
 
     if self.rnImageOver ~= nil then
@@ -165,7 +174,10 @@ function RNButton:setIDInGroup(idInGroup)
 end
 
 function RNButton:setParentGroup(group)
-    self.text:setParentGroup(group)
+    if self.text ~= nil then
+        self.text:setParentGroup(group)
+    end
+
     self.rnImageDefault:setParentGroup(group)
 
     if self.rnImageOver ~= nil then
@@ -183,7 +195,9 @@ end
 
 function RNButton:getAllProps()
     local props = self:getAllRNObjectProps()
-    table.insert(props, self.text:getProp())
+    if self.text ~= nil then
+        table.insert(props, self.text:getProp())
+    end
     return props
 end
 
