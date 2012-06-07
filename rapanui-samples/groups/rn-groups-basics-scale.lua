@@ -38,6 +38,7 @@ aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
 mapOne:drawMapAt(100, 200, aTileset)
 
 
+
 --[[
   Children Tree starting from RNFactory.mainGroup
 
@@ -70,6 +71,7 @@ group1:insert(img1, true) --true means resetTransform (object will be placed to 
 group1:insert(img2)
 group2:insert(img3)
 group2:insert(mapOne)
+
 group3:insert(img4)
 group3:insert(img5)
 
@@ -109,12 +111,12 @@ local trn = RNTransition:new()
 -- uncommet the transition you want to use
 -- move
 --trn:run(group1, { type = "move", y = 100, x = 100 })
-trn:run(group2, { type = "move", y = 100, x = 100 })
+--trn:run(group2, { type = "move", y = 100, x = 100 })
 --trn:run(group3, { type = "move", y = 100, x = 100 })
 -- rotate
---trn:run(group1, { type = "rotate", angle = 370 })
---trn:run(group2, { type = "rotate", angle = 370 })
---trn:run(group3, { type = "rotate", angle = 370 })
+trn:run(group1, { type = "rotate", angle = 370 })
+trn:run(group2, { type = "rotate", angle = 370 })
+trn:run(group3, { type = "rotate", angle = 370 })
 -- alpha
 --trn:run(group1, { type = "alpha", alpha = 0.3 })
 --trn:run(group2, { type = "alpha", alpha = 0.3 })
