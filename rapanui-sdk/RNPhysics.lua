@@ -137,7 +137,7 @@ end
 -- and give tables for fixture's properties or just give tables for fixture's properties<br>
 -- but the type should be given as first attribute.<br>
 -- Example:<code> RNPhysics.createBodyFromImage(image,"dynamic",{restitution=0},{restitution=0.2},...)</code> or <br>
---<code> RNPhysics.createBodyFromImage(image,{restitution=0},{restitution=2},...)</code>  <br>
+-- <code> RNPhysics.createBodyFromImage(image,{restitution=0},{restitution=2},...)</code>  <br>
 -- image should be an RNObject,<br>
 -- type can be "static","dynamic" or "kinematic" ("dynamic" by default) <br>
 -- a property table should be like this:<br>

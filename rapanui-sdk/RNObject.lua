@@ -323,7 +323,6 @@ function RNObject:innerNew(o)
         tileDeck = nil,
         rotation = 0,
         touchable = false,
-
         swapImage = nil,
         xInGroup = 0,
         yInGroup = 0,

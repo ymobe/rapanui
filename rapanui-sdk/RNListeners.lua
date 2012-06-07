@@ -40,7 +40,7 @@ function RNRuntime:addEventListener(eventName, listener, name)
         end
 
     elseif eventName == "touch" then
-        listenerId = RNInputManager.addGlobalListenerToEvent(eventName, listener, {name=name})
+        listenerId = RNInputManager.addGlobalListenerToEvent(eventName, listener, { name = name })
     end
 
     return listenerId

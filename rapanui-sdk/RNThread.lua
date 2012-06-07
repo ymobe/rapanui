@@ -63,7 +63,7 @@ function RNThread:removeAction(actionid)
     end
     if place ~= nil then
         --move all
-        for i = place, table.getn(self.wproxy)-1 do
+        for i = place, table.getn(self.wproxy) - 1 do
             self.wproxy[i] = self.wproxy[i + 1]
         end
         --nil last one
