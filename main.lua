@@ -56,7 +56,10 @@ end      --]]
 
 -- Groups
 
---require("rapanui-samples/groups/rn-groups-basics")
+--require("rapanui-samples/groups/rn-groups-basics-move")
+--require("rapanui-samples/groups/rn-groups-basics-fade")
+--require("rapanui-samples/groups/rn-groups-basics-rotate")
+--require("rapanui-samples/groups/rn-groups-basics-scale")
 --require("rapanui-samples/groups/rn-groups")
 --require("rapanui-samples/groups/rn-groups-rnbutton")
 --require("rapanui-samples/groups/rn-groups-rnbutton-move")
@@ -67,7 +70,7 @@ end      --]]
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
-require("rapanui-samples/director/rn-director-rnbutton")
+--require("rapanui-samples/director/rn-director-rnbutton")
 
 -- Buttons
  --require("rapanui-samples/buttons/rn-button")
