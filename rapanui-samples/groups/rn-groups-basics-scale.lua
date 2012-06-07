@@ -102,32 +102,12 @@ print("non group objects in group2 = " .. #group2:getAllNonGroupChildren())
 print("non group objects in group3 = " .. #group3:getAllNonGroupChildren())
 print("# # # # # # # # # # # #")
 
-
-
-
 --applying transition to groups
 local trn = RNTransition:new()
-
--- uncommet the transition you want to use
--- move
---trn:run(group1, { type = "move", y = 100, x = 100 })
---trn:run(group2, { type = "move", y = 100, x = 100 })
---trn:run(group3, { type = "move", y = 100, x = 100 })
--- rotate
-trn:run(group1, { type = "rotate", angle = 370 })
-trn:run(group2, { type = "rotate", angle = 370 })
-trn:run(group3, { type = "rotate", angle = 370 })
--- alpha
---trn:run(group1, { type = "alpha", alpha = 0.3 })
---trn:run(group2, { type = "alpha", alpha = 0.3 })
---trn:run(group3, { type = "alpha", alpha = 0.3 })
 -- scale
 --trn:run(group1, { type = "scale", xScale = 0.3, yScale = 0.3 })
---trn:run(group2, { type = "scale", xScale = 0.3, yScale = 0.3 })
+trn:run(group2, { type = "scale", xScale = 0.3, yScale = 0.3 })
 --trn:run(group3, { type = "scale", xScale = 0.3, yScale = 0.3 })
-
-
-
 
 
 --recursive transition for specified group [for testing purpose] :

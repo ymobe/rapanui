@@ -37,7 +37,6 @@ local aTileset = mapOne:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
 mapOne:drawMapAt(100, 200, aTileset)
 
-local button = RNFactory.createButton("images/button-plain.png", { text = "A Button", imageOver = "images/button-over.png", top = 20, left = 10, size = 8, width = 200, height = 50 })
 
 
 --[[
@@ -72,7 +71,6 @@ group1:insert(img1, true) --true means resetTransform (object will be placed to 
 group1:insert(img2)
 group2:insert(img3)
 group2:insert(mapOne)
-group2:insert(button)
 
 group3:insert(img4)
 group3:insert(img5)
@@ -111,26 +109,10 @@ print("# # # # # # # # # # # #")
 local trn = RNTransition:new()
 
 -- uncommet the transition you want to use
--- move
---trn:run(group1, { type = "move", y = 100, x = 100 })
-trn:run(group2, { type = "move", y = 100, x = 100 })
---trn:run(group3, { type = "move", y = 100, x = 100 })
 -- rotate
 --trn:run(group1, { type = "rotate", angle = 370 })
---trn:run(group2, { type = "rotate", angle = 370 })
+trn:run(group2, { type = "rotate", angle = 370 })
 --trn:run(group3, { type = "rotate", angle = 370 })
--- alpha
---trn:run(group1, { type = "alpha", alpha = 0.3 })
---trn:run(group2, { type = "alpha", alpha = 0.3 })
---trn:run(group3, { type = "alpha", alpha = 0.3 })
--- scale
---trn:run(group1, { type = "scale", xScale = 0.3, yScale = 0.3 })
---trn:run(group2, { type = "scale", xScale = 0.3, yScale = 0.3 })
---trn:run(group3, { type = "scale", xScale = 0.3, yScale = 0.3 })
-
-
-
-
 
 --recursive transition for specified group [for testing purpose] :
 --[[
