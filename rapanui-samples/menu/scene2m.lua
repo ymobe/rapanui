@@ -59,7 +59,7 @@ end
 
 function button1Up(event)
     event.target.frame = 1
-    director:showScene("rapanui-samples/menu/scene1m","slidetoright")
+    director:showScene("rapanui-samples/menu/scene1m", "slidetoright")
 end
 
 

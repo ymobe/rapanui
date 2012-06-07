@@ -25,4 +25,4 @@ director:addScene("rapanui-samples/menu/scene4m")
 
 --show scene1m with fade in
 
-director:showScene("rapanui-samples/menu/scene1m","fade")
+director:showScene("rapanui-samples/menu/scene1m", "fade")

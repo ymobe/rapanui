@@ -31,7 +31,7 @@ function button1TouchDown(event)
     text:setText("Button 1 touch down!")
     group.y = group.y + groupY
     groupY = -groupY
-     if nextText == "Click to move Down" then
+    if nextText == "Click to move Down" then
         nextText = "Click to move Up"
     elseif nextText == "Click to move Up" then
         nextText = "Click to move Down"
