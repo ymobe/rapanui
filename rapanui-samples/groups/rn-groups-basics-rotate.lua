@@ -104,6 +104,32 @@ print("# # # # # # # # # # # #")
 
 
 
+-- flattern (this will place all the group's elements (and sub-elements) at the same drawing priority
+
+group1:flattern(100)
+group2:flattern(50)
+group3:flattern(1)
+-- note: when an object is inserted in a group, its priority is reset to 1.
+-- also if its already in a group, or if a group is inserted.
+-- so: first of all nest groups. Then use flattern function. Reuse flattern if you add a new object to a group
+-- or something might be wrong.
+
+
+--how to get an element from a group:
+--each element has
+print(img1.idInGroup)
+--so you can get if from group like this:
+print(group1:getChild(img1.idInGroup))
+--but the above method won't work for nested group (when for example img1 is in group2 and group2 in group1)
+--if you want to get a child from its name you can do like this:
+--set a name (by default image name is it's source path)
+img4.name = "image4"
+print(group1:getChild("image4"))
+--this will work with nested groups (image4 is in group3 under group2 in group1) and if you need to get a group, too:
+group3.name = "group3"
+print(group1:getChild("group3"))
+
+
 
 --applying transition to groups
 local trn = RNTransition:new()

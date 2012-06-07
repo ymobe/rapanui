@@ -127,6 +127,7 @@ function RNGroup:setAlpha()
 end
 
 function RNGroup:getAllNonGroupChildren()
+    --returns all children , sub-groups excluded
     local t = {}
     for i, v in ipairs(self.displayObjects) do
         if v:getType() == "RNGroup" then
@@ -143,6 +144,7 @@ function RNGroup:getAllNonGroupChildren()
 end
 
 function RNGroup:getAllChildren()
+    --returns all children , sub-groups included
     local t = {}
     for i, v in ipairs(self.displayObjects) do
         if v:getType() == "RNGroup" then
@@ -155,6 +157,16 @@ function RNGroup:getAllChildren()
     end
 
     return t
+end
+
+function RNGroup:flattern(value)
+    for i, v in ipairs(self:getAllChildren()) do
+        v:setLevel(value + i)
+    end
+end
+
+function RNGroup:setPriority(value)
+    self:flattern(value)
 end
 
 function RNGroup:innerNew(o)
@@ -200,10 +212,12 @@ function RNGroup:insert(object, resetTransform)
 
         local level = self:getHighestLevel() + 1
 
+
         object.xInGroup = object.x
         object.yInGroup = object.y
 
         object:setLevel(level)
+
 
         self.levels[level] = level
 
@@ -256,6 +270,20 @@ function RNGroup:bringToFront(object)
 end
 
 function RNGroup:setReferencePoint(referencePoint)
+end
+
+function RNGroup:getChild(value)
+    local o
+    if type(value) == "string" then
+        for i, v in ipairs(self:getAllChildren()) do
+            if v.name == value then
+                o = v
+            end
+        end
+    else
+        o = self.displayObjects[value]
+    end
+    return o
 end
 
 function RNGroup:getSize()
@@ -318,9 +346,9 @@ function RNGroup:getDelta01(a, b)
 end
 
 function RNGroup:setLevel(value)
-    --TODO: ???
-    --self.prop:setPriority(value)
-    --self.parentGroup:inserLevel(self:getLevel())
+    if self.prop ~= nil then
+        self:setPriority(value)
+    end
 end
 
 function RNGroup:setParentGroup(group)

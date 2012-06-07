@@ -80,6 +80,7 @@ group3:insert(img5)
 --nest groups as shown the scheme above
 group1:insert(group2)
 group2:insert(group3)
+print("============> HERE")
 
 
 -- remove a group and all its children
@@ -115,6 +116,42 @@ local trn = RNTransition:new()
 --trn:run(group1, { type = "move", y = 100, x = 100 })
 trn:run(group2, { type = "move", y = 100, x = 100 })
 --trn:run(group3, { type = "move", y = 100, x = 100 })
+-- rotate
+--trn:run(group1, { type = "rotate", angle = 370 })
+--trn:run(group2, { type = "rotate", angle = 370 })
+--trn:run(group3, { type = "rotate", angle = 370 })
+-- alpha
+--trn:run(group1, { type = "alpha", alpha = 0.3 })
+--trn:run(group2, { type = "alpha", alpha = 0.3 })
+--trn:run(group3, { type = "alpha", alpha = 0.3 })
+-- scale
+--trn:run(group1, { type = "scale", xScale = 0.3, yScale = 0.3 })
+--trn:run(group2, { type = "scale", xScale = 0.3, yScale = 0.3 })
+--trn:run(group3, { type = "scale", xScale = 0.3, yScale = 0.3 })
+
+
+
+
+
+--recursive transition for specified group [for testing purpose] :
+--[[
+local stGr = group2
+
+function moo()
+    stGr.x = 100
+    stGr.y = 100
+    trn:run(stGr, { type = "move", y = 200, x = 200, onComplete = moo })
+end
+
+stGr.x = 0
+stGr.y = 0
+
+moo()
+
+]] --
+
+
+
 
 
 
