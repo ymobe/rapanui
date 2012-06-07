@@ -93,7 +93,7 @@ function RNTransition:run(target, params)
 
     local action
 
-    local deltax, deltay
+    local deltax, deltay = 0, 0
 
     if (type == RNTransition.MOVE) then
         local px, py, pz
@@ -262,13 +262,13 @@ function RNTransition:updateMapLoc(target, x, y, deltax, deltay)
         target.mapy = y
     elseif target:getType() == "RNGroup" then
 
-        if deltax == nil then
-            deltax = 0
-        end
+     --   if deltax == nil then
+     --       deltax = 0
+     --   end
 
-        if deltay == nil then
-            deltay = 0
-        end
+     --   if deltay == nil then
+     --       deltay = 0
+     --   end
 
 
         for key, object in pairs(target:getAllNonGroupChildren()) do
