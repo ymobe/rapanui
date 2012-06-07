@@ -146,6 +146,13 @@ function RNTransition:run(target, params)
                     for key2, prop2 in pairs(object:getAllProps()) do
                         action = prop2:moveLoc(deltax, deltay, time)
                     end
+                elseif object:getType() == "RNButton" then
+                    for key, prop in pairs(object:getAllRNObjectProps()) do
+                        action = prop:moveLoc(deltax, deltay, time)
+                    end
+
+                    action = object:getRNtext():getProp():moveLoc(deltax, deltay, 0, time)
+
                 elseif object:getType() == "RNText" then
                     action = object:getProp():moveLoc(deltax, deltay, 0, time)
                 end
@@ -201,6 +208,10 @@ function RNTransition:run(target, params)
                     for key2, prop2 in pairs(object:getAllProps()) do
                         action = prop2:seekColor(alpha, alpha, alpha, alpha, time, mode)
                     end
+                elseif object:getType() == "RNButton" then
+                    for key, prop in pairs(object:getAllProps()) do
+                        action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
+                    end
                 end
             end
         end
@@ -250,6 +261,16 @@ function RNTransition:updateMapLoc(target, x, y, deltax, deltay)
         target.mapx = x
         target.mapy = y
     elseif target:getType() == "RNGroup" then
+
+        if deltax == nil then
+            deltax = 0
+        end
+
+        if deltay == nil then
+            deltay = 0
+        end
+
+
         for key, object in pairs(target:getAllNonGroupChildren()) do
             if object:getType() == "RNMap" then
                 object.mapx = object.mapx + deltax
