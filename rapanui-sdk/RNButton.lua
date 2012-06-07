@@ -38,6 +38,7 @@ local function fieldChangedListenerRNButton(self, key, value)
     end
 
     if key ~= nil and key == "y" then
+
         local tmpX = self.x
         local tmpY = value
 
@@ -65,16 +66,19 @@ end
 
 local function fieldAccessListener(self, key)
 
+
     local object = getmetatable(self).__object
 
     if key ~= nil and key == "x" then
+
         local xx, yy
         xx, yy = object.rnImageDefault:getProp():getLoc()
         object.x = xx
     end
 
 
-    if key ~= nil and key == "x" then
+    if key ~= nil and key == "y" then
+
         local xx, yy
         xx, yy = object.rnImageDefault:getProp():getLoc()
         object.y = yy
@@ -158,14 +162,15 @@ function RNButton:setAlpha(level)
 end
 
 function RNButton:setLevel(level)
-    if self.text ~= nil then
-        self.text:setLevel(level)
-    end
 
     self.rnImageDefault:setLevel(level)
 
     if self.rnImageOver ~= nil then
         self.rnImageOver:setLevel(level)
+    end
+
+    if self.text ~= nil then
+        self.text:setLevel(level + 1)
     end
 end
 
@@ -222,6 +227,12 @@ function RNButton:setOnTouchUp(func)
     self.onTouchUpFunc = func
 end
 
+
+function RNButton:setText(value)
+    if self.text ~= nil then
+        self.text:setText(value)
+    end
+end
 
 function RNButton:remove(func)
 

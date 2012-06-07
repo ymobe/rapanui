@@ -269,15 +269,17 @@ function RNFactory.createButton(image, params)
 
     local gFont
 
-    if params.text ~= nil then
-        rnText = RNText:new()
-        rnText, gFont = rnText:initWithText2(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
-
-        RNFactory.screen:addRNObject(rnText)
-        --     RNFactory.mainGroup:insert(rnText)
-        rnText.x = left
-        rnText.y = top
+    if params.text == nil then
+        params.text = ""
     end
+
+    rnText = RNText:new()
+    rnText, gFont = rnText:initWithText2(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+
+    RNFactory.screen:addRNObject(rnText)
+    --     RNFactory.mainGroup:insert(rnText)
+    rnText.x = left
+    rnText.y = top
 
 
 

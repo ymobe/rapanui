@@ -18,7 +18,7 @@ text = RNFactory.createText("Touch on buttons", { size = 9, top = 200, left = 5,
 
 for i = 0, 1000 do
 
-    button = RNFactory.createButton("images/button-plain.png", "Button 1", { top = 130, left = 10, size = 10, width = 200, height = 50 })
+    button = RNFactory.createButton("images/button-plain.png", { text = "Button 1", top = 130, left = 10, size = 10, width = 200, height = 50 })
 
     local function button1TouchDown(event)
         text:setText("Button touch down!")

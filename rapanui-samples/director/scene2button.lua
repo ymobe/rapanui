@@ -35,8 +35,9 @@ function aScene.onCreate()
     local tile1a = RNFactory.createImage("images/tile2.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 240;
 
     local button2 = RNFactory.createButton("images/button-plain.png",
-        "Go back scene 1",
+
         {
+            text = "Go back scene 1",
             parentGroup = sceneGroup,
             imageOver = "images/button-over.png",
             top = 50,
