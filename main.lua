@@ -33,7 +33,7 @@ end      --]]
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
---require("rapanui-samples/basic/rn-images")
+require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
@@ -73,7 +73,7 @@ end      --]]
 --require("rapanui-samples/director/rn-director-rnbutton")
 
 -- Buttons
- --require("rapanui-samples/buttons/rn-button")
+--require("rapanui-samples/buttons/rn-button")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")

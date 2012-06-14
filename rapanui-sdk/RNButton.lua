@@ -164,7 +164,7 @@ end
 function RNButton:setLevel(level)
 
     if self.text ~= nil then
-        self.text:setLevel(level )
+        self.text:setLevel(level)
     end
 
     self.rnImageDefault:setLevel(level)
@@ -172,7 +172,6 @@ function RNButton:setLevel(level)
     if self.rnImageOver ~= nil then
         self.rnImageOver:setLevel(level)
     end
-
 end
 
 function RNButton:setIDInGroup(idInGroup)

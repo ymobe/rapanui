@@ -71,8 +71,8 @@ group3.name = "group3"
 group1:insert(img1, true) --true means resetTransform (object will be placed to group origin)
 group1:insert(img2)
 group2:insert(img3)
-group2:insert(mapOne)
 group2:insert(button)
+group2:insert(mapOne)
 
 group3:insert(img4)
 group3:insert(img5)
@@ -80,7 +80,7 @@ group3:insert(img5)
 --nest groups as shown the scheme above
 group1:insert(group2)
 group2:insert(group3)
-print("============> HERE")
+
 
 
 -- remove a group and all its children

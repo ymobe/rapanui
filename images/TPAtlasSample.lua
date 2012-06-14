@@ -5,88 +5,88 @@
 -- 
 
 return {
-	texture = 'TPAtlasSample.png',
-	frames = {
-			{
-				name = "drink.png",
-				spriteColorRect = { x = 7, y = 4, width = 71, height = 168 },
-				uvRect = { u0 = 0.0078125, v0 = 0.00390625, u1 = 0.664062, v1 = 0.142578 },
-				spriteSourceSize = { width = 79, height = 188 },
-				spriteTrimmed = true,
-				textureRotated = true
-			},
-			{
-				name = "hamburger.png",
-				spriteColorRect = { x = 4, y = 4, width = 96, height = 67 },
-				uvRect = { u0 = 0.664062, v0 = 0.242188, u1 = 0.925781, v1 = 0.429688 },
-				spriteSourceSize = { width = 102, height = 73 },
-				spriteTrimmed = true,
-				textureRotated = true
-			},
-			{
-				name = "hotdog.png",
-				spriteColorRect = { x = 5, y = 0, width = 118, height = 63 },
-				uvRect = { u0 = 0.0078125, v0 = 0.146484, u1 = 0.46875, v1 = 0.269531 },
-				spriteSourceSize = { width = 126, height = 67 },
-				spriteTrimmed = true,
-				textureRotated = false
-			},
-			{
-				name = "icecream.png",
-				spriteColorRect = { x = 4, y = 4, width = 120, height = 80 },
-				uvRect = { u0 = 0.671875, v0 = 0.00390625, u1 = 0.984375, v1 = 0.238281 },
-				spriteSourceSize = { width = 126, height = 88 },
-				spriteTrimmed = true,
-				textureRotated = true
-			},
-			{
-				name = "icecream2.png",
-				spriteColorRect = { x = 1, y = 5, width = 43, height = 93 },
-				uvRect = { u0 = 0.0078125, v0 = 0.273438, u1 = 0.371094, v1 = 0.357422 },
-				spriteSourceSize = { width = 47, height = 101 },
-				spriteTrimmed = true,
-				textureRotated = true
-			},
-			{
-				name = "icecream3.png",
-				spriteColorRect = { x = 2, y = 9, width = 46, height = 106 },
-				uvRect = { u0 = 0.476562, v0 = 0.146484, u1 = 0.65625, v1 = 0.353516 },
-				spriteSourceSize = { width = 50, height = 118 },
-				spriteTrimmed = true,
-				textureRotated = false
-			},
-			{
-				name = "tile1.png",
-				spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
-				uvRect = { u0 = 0.265625, v0 = 0.486328, u1 = 0.515625, v1 = 0.611328 },
-				spriteSourceSize = { width = 64, height = 64 },
-				spriteTrimmed = false,
-				textureRotated = false
-			},
-			{
-				name = "tile2.png",
-				spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
-				uvRect = { u0 = 0.0078125, v0 = 0.361328, u1 = 0.257812, v1 = 0.486328 },
-				spriteSourceSize = { width = 64, height = 64 },
-				spriteTrimmed = false,
-				textureRotated = false
-			},
-			{
-				name = "tile3.png",
-				spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
-				uvRect = { u0 = 0.636719, v0 = 0.433594, u1 = 0.886719, v1 = 0.558594 },
-				spriteSourceSize = { width = 64, height = 64 },
-				spriteTrimmed = false,
-				textureRotated = false
-			},
-			{
-				name = "tile4.png",
-				spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
-				uvRect = { u0 = 0.378906, v0 = 0.357422, u1 = 0.628906, v1 = 0.482422 },
-				spriteSourceSize = { width = 64, height = 64 },
-				spriteTrimmed = false,
-				textureRotated = false
-			},
-		}
-	}
+    texture = 'TPAtlasSample.png',
+    frames = {
+        {
+            name = "drink.png",
+            spriteColorRect = { x = 7, y = 4, width = 71, height = 168 },
+            uvRect = { u0 = 0.0078125, v0 = 0.00390625, u1 = 0.664062, v1 = 0.142578 },
+            spriteSourceSize = { width = 79, height = 188 },
+            spriteTrimmed = true,
+            textureRotated = true
+        },
+        {
+            name = "hamburger.png",
+            spriteColorRect = { x = 4, y = 4, width = 96, height = 67 },
+            uvRect = { u0 = 0.664062, v0 = 0.242188, u1 = 0.925781, v1 = 0.429688 },
+            spriteSourceSize = { width = 102, height = 73 },
+            spriteTrimmed = true,
+            textureRotated = true
+        },
+        {
+            name = "hotdog.png",
+            spriteColorRect = { x = 5, y = 0, width = 118, height = 63 },
+            uvRect = { u0 = 0.0078125, v0 = 0.146484, u1 = 0.46875, v1 = 0.269531 },
+            spriteSourceSize = { width = 126, height = 67 },
+            spriteTrimmed = true,
+            textureRotated = false
+        },
+        {
+            name = "icecream.png",
+            spriteColorRect = { x = 4, y = 4, width = 120, height = 80 },
+            uvRect = { u0 = 0.671875, v0 = 0.00390625, u1 = 0.984375, v1 = 0.238281 },
+            spriteSourceSize = { width = 126, height = 88 },
+            spriteTrimmed = true,
+            textureRotated = true
+        },
+        {
+            name = "icecream2.png",
+            spriteColorRect = { x = 1, y = 5, width = 43, height = 93 },
+            uvRect = { u0 = 0.0078125, v0 = 0.273438, u1 = 0.371094, v1 = 0.357422 },
+            spriteSourceSize = { width = 47, height = 101 },
+            spriteTrimmed = true,
+            textureRotated = true
+        },
+        {
+            name = "icecream3.png",
+            spriteColorRect = { x = 2, y = 9, width = 46, height = 106 },
+            uvRect = { u0 = 0.476562, v0 = 0.146484, u1 = 0.65625, v1 = 0.353516 },
+            spriteSourceSize = { width = 50, height = 118 },
+            spriteTrimmed = true,
+            textureRotated = false
+        },
+        {
+            name = "tile1.png",
+            spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
+            uvRect = { u0 = 0.265625, v0 = 0.486328, u1 = 0.515625, v1 = 0.611328 },
+            spriteSourceSize = { width = 64, height = 64 },
+            spriteTrimmed = false,
+            textureRotated = false
+        },
+        {
+            name = "tile2.png",
+            spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
+            uvRect = { u0 = 0.0078125, v0 = 0.361328, u1 = 0.257812, v1 = 0.486328 },
+            spriteSourceSize = { width = 64, height = 64 },
+            spriteTrimmed = false,
+            textureRotated = false
+        },
+        {
+            name = "tile3.png",
+            spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
+            uvRect = { u0 = 0.636719, v0 = 0.433594, u1 = 0.886719, v1 = 0.558594 },
+            spriteSourceSize = { width = 64, height = 64 },
+            spriteTrimmed = false,
+            textureRotated = false
+        },
+        {
+            name = "tile4.png",
+            spriteColorRect = { x = 0, y = 0, width = 64, height = 64 },
+            uvRect = { u0 = 0.378906, v0 = 0.357422, u1 = 0.628906, v1 = 0.482422 },
+            spriteSourceSize = { width = 64, height = 64 },
+            spriteTrimmed = false,
+            textureRotated = false
+        },
+    }
+}
 

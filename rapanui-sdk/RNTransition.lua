@@ -262,13 +262,13 @@ function RNTransition:updateMapLoc(target, x, y, deltax, deltay)
         target.mapy = y
     elseif target:getType() == "RNGroup" then
 
-     --   if deltax == nil then
-     --       deltax = 0
-     --   end
+        --   if deltax == nil then
+        --       deltax = 0
+        --   end
 
-     --   if deltay == nil then
-     --       deltay = 0
-     --   end
+        --   if deltay == nil then
+        --       deltay = 0
+        --   end
 
 
         for key, object in pairs(target:getAllNonGroupChildren()) do
