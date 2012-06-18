@@ -51,12 +51,43 @@ local image26 = RNFactory.createImage("images/tile2.png")
 local image1a = RNFactory.createImage("images/image.png")
 local image1b = RNFactory.createImage("images/image.png")
 local image1c = RNFactory.createImage("images/image.png")
---[[
+
+
+-- also maps can be inserted!
+-- to insert a map in a swipe object, add the map to a group , then insert the group.
+-- it's the only way at the moment ;D
+
 local mapOne = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/groups/mapone.tmx")
 local aTileset = mapOne:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
 mapOne:drawMapAt(0, 0, aTileset)
-]] --
+
+
+
+-- also buttons can be added!
+-- to insert a button in a swipe object, add the button to a group , then insert the group.
+-- it's the only way at the moment ;D
+
+function button1TouchDown(event)
+    event.target:setText("Button 1 touch down!")
+end
+
+function button1UP(event)
+    event.target:setText("Button 1 touch up")
+end
+
+local button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = button1TouchDown,
+    onTouchUp = button1UP
+})
+
+
+
 
 local group1 = RNGroup:new()
 local group2 = RNGroup:new()
@@ -66,7 +97,8 @@ group1:insert(group2)
 group1:insert(image1a, true)
 group2:insert(image1b, true)
 group2:insert(image1c, true)
---group2:insert(mapOne)
+group2:insert(button)
+group2:insert(mapOne)
 image1b.x = 40
 image1c.x = 80
 

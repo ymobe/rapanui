@@ -39,6 +39,27 @@ function aScene.onCreate()
     local group1 = RNGroup:new()
     local group2 = RNGroup:new()
 
+
+
+
+    -- also buttons can be inserted in groups and scenes.
+
+    local button = RNFactory.createButton("images/button-plain.png", {
+        text = "Main Button 1",
+        imageOver = "images/button-over.png",
+        top = 400,
+        left = 10,
+        size = 8,
+        width = 200,
+        height = 50,
+        onTouchDown = button1TouchDown,
+        onTouchUp = button1UP
+    })
+
+    group2:insert(button)
+
+
+
     group1:insert(tile1a)
     group1:insert(tile1b)
     group2:insert(tile1c)
@@ -49,7 +70,13 @@ function aScene.onCreate()
     return sceneGroup
 end
 
+function button1TouchDown(event)
+    event.target:setText("Button 1 touch down!")
+end
 
+function button1UP(event)
+    event.target:setText("Button 1 touch up")
+end
 
 function aScene.onEnd()
     for i = 1, table.getn(sceneGroup.displayObjects), 1 do

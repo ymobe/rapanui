@@ -33,7 +33,7 @@ end      --]]
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
-require("rapanui-samples/basic/rn-images")
+--require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
 --require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
@@ -44,7 +44,7 @@ require("rapanui-samples/basic/rn-images")
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
---require("rapanui-samples/lists/rn-rnPageSwipe")
+require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")

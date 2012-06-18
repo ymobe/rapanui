@@ -40,6 +40,40 @@ local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, le
 local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 
 
+
+
+
+-- also maps can be added!
+-- maps can be inserted as normal objects, or as child of groups in list. (as in rn-rnPageSwipe)
+
+local mapOne = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/groups/mapone.tmx")
+local aTileset = mapOne:getTileset(0)
+aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
+mapOne:drawMapAt(0, 0, aTileset)
+
+
+-- also buttons can be added!
+-- buttons can be inserted as normal objects, or as child of groups in list. (as in rn-rnPageSwipe)
+
+function button1TouchDown(event)
+    event.target:setText("Button 1 touch down!")
+end
+
+function button1UP(event)
+    event.target:setText("Button 1 touch up")
+end
+
+local button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = button1TouchDown,
+    onTouchUp = button1UP
+})
+
+
 -- also groups and nested groups can be used as objects in lists
 
 local image1a = RNFactory.createImage("images/image.png")
@@ -54,6 +88,7 @@ group1:insert(group2)
 group1:insert(image1a, true)
 group2:insert(image1b, true)
 group2:insert(image1c, true)
+
 image1b.x = 40
 image1c.x = 80
 
@@ -81,7 +116,7 @@ end
 --maxScrollingForceY,minY and maxY affect directly the scrolling gesture.
 
 local list = RNFactory.createList("testList", {
-    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 6 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
+    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
     canScrollY = true,
     x = 0,
     y = 0,
@@ -98,6 +133,8 @@ local list = RNFactory.createList("testList", {
         { object = image7, offsetX = 32, offsetY = 32, onClick = getCallBack },
         { object = image8, offsetX = 32, offsetY = 32, onClick = getCallBack },
         { object = image9, offsetX = 32, offsetY = 32, onClick = getCallBack },
+        { object = button, offsetX = 32, offsetY = 32, onClick = getCallBack },
+        { object = mapOne, offsetX = 32, offsetY = 32, onClick = getCallBack },
     },
 })
 

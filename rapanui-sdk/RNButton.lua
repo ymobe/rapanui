@@ -123,6 +123,7 @@ function RNButton:initWith(imageDefault, imageOver, rntext)
 
 
     local function defaultOnTouchDownButton(event)
+        event.target = self
 
         if self.rnImageOver ~= nil then
 
@@ -138,6 +139,8 @@ function RNButton:initWith(imageDefault, imageOver, rntext)
     self.rnImageDefault:setOnTouchDown(defaultOnTouchDownButton)
 
     local function defaultOnTouchUp(event)
+
+        event.target = self
 
 
         if self.rnImageOver ~= nil then
@@ -236,25 +239,15 @@ end
 
 function RNButton:remove(func)
 
-
-    local tmpText = self.text
-    local tmpRnobject = self.rnImageDefault
-    self.text = nil
-    self.rnImageDefault = nil
-
+    self.text:remove()
+    self.rnImageDefault:remove()
     if self.rnImageOver ~= nil then
-        local tmpRnImageOver = self.rnImageOver
-        self.rnImageOver = nil
-        tmpRnImageOver:remove()
+        self.rnImageOver:remove()
     end
-
-    if tmpText ~= nil then
-        tmpText:remove()
-    end
-
-    if tmpRnobject ~= nil then
-        tmpRnobject:remove()
-    end
+    self.text=nil
+    self.rnImageDefault=nil
+    self.rnImageOver=nil
+    self=nil
 end
 
 

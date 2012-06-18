@@ -37,9 +37,49 @@ end
 RNListeners:addEventListener("touch", t)
 
 
+--uncomment this whole block to see how to remove a set of images for RNButtons assets from memory
+--create a button
+--[[
+function button1TouchDown(event)
+    event.target:setText("Button 1 touch down!")
+end
+
+function button1UP(event)
+    event.target:setText("Button 1 touch up")
+end
+
+button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = button1TouchDown,
+    onTouchUp = button1UP
+})
 
 
+function t(event)
+    if event.phase == "began" then
+        --onTouch we remove object, asset and create a new button
+        button:remove()
+        RNFactory.removeAsset("images/button-plain.png")
+        RNFactory.removeAsset("images/button-over.png")
+        RNFactory.removeAsset("arial-rounded")
+        button = RNFactory.createButton("images/button-plain.png", {
+            text = "Main Button 1",
+            imageOver = "images/button-over.png",
+            size = 8,
+            width = 200,
+            height = 50,
+            onTouchDown = button1TouchDown,
+            onTouchUp = button1UP
+        })
+    end
+end
 
+RNListeners:addEventListener("touch", t)
+]]--
 
 --uncomment this whole block to see how to remove an animation asset from memory
 --[[

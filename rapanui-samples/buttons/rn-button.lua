@@ -57,13 +57,25 @@ button3 = RNFactory.createButton("images/button-plain.png", {
     height = 50
 })
 
+
+function button4TouchDown(event)
+    event.target:setText("Button 4 touched!")
+end
+
+function button4UP(event)
+    event.target:setText("")
+end
+
+
 button4 = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
     top = 350,
     left = 10,
     size = 8,
     width = 200,
-    height = 50
+    height = 50,
+    onTouchDown = button4TouchDown,
+    onTouchUp = button4UP
 })
 
 
