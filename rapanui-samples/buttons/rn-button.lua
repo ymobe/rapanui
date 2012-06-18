@@ -31,7 +31,8 @@ button = RNFactory.createButton("images/button-plain.png", {
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
-    onTouchUp = button1UP
+    onTouchUp = button1UP ,
+    font="arial-rounded"
 })
 
 -- second button to show different text alignments
