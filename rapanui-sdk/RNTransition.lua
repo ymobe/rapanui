@@ -45,7 +45,8 @@ function RNTransition:run(target, params)
     local type = ""
     local alpha = -1
     local angle = 0
-    local mode = MOAIEaseType.LINEAR
+    --local mode = MOAIEaseType.LINEAR
+    local mode = MOAIEaseType.SMOOTH
 
     if (params.type ~= nil) then
         type = params.type
@@ -123,38 +124,38 @@ function RNTransition:run(target, params)
 
 
         if target:getType() == "RNObject" then
-            action = target:getProp():moveLoc(deltax, deltay, time)
+            action = target:getProp():moveLoc(deltax, deltay, time, mode)
         elseif target:getType() == "RNMap" then
             for key, prop in pairs(target:getAllProps()) do
-                action = prop:moveLoc(deltax, deltay, time)
+                action = prop:moveLoc(deltax, deltay, time, mode)
             end
         elseif target:getType() == "RNButton" then
             for key, prop in pairs(target:getAllRNObjectProps()) do
-                action = prop:moveLoc(deltax, deltay, time)
+                action = prop:moveLoc(deltax, deltay, time, mode)
             end
-            action = target:getRNtext():getProp():moveLoc(deltax, deltay, 0, time)
+            action = target:getRNtext():getProp():moveLoc(deltax, deltay, 0, time, mode)
         elseif target:getType() == "RNText" then
-            action = target:getProp():moveLoc(deltax, deltay, 0, time)
+            action = target:getProp():moveLoc(deltax, deltay, 0, time, mode)
         elseif target:getType() == "RNGroup" then
-            action = target:getProp():moveLoc(deltax, deltay, time)
+            action = target:getProp():moveLoc(deltax, deltay, time, mode)
             target.lastx = toX
             target.lasty = toY
             for key, object in pairs(target:getAllNonGroupChildren()) do
                 if object:getType() == "RNObject" then
-                    action = object:getProp():moveLoc(deltax, deltay, time)
+                    action = object:getProp():moveLoc(deltax, deltay, time, mode)
                 elseif object:getType() == "RNMap" then
                     for key2, prop2 in pairs(object:getAllProps()) do
-                        action = prop2:moveLoc(deltax, deltay, time)
+                        action = prop2:moveLoc(deltax, deltay, time, mode)
                     end
                 elseif object:getType() == "RNButton" then
-                    for key, prop in pairs(object:getAllRNObjectProps()) do
-                        action = prop:moveLoc(deltax, deltay, time)
+                    for key2, prop2 in pairs(object:getAllRNObjectProps()) do
+                        action = prop2:moveLoc(deltax, deltay, time, mode)
                     end
 
-                    action = object:getRNtext():getProp():moveLoc(deltax, deltay, 0, time)
+                    action = object:getRNtext():getProp():moveLoc(deltax, deltay, 0, time, mode)
 
                 elseif object:getType() == "RNText" then
-                    action = object:getProp():moveLoc(deltax, deltay, 0, time)
+                    action = object:getProp():moveLoc(deltax, deltay, 0, time, mode)
                 end
             end
         end

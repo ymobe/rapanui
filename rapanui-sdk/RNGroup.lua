@@ -294,7 +294,9 @@ function RNGroup:setFocus(value)
 end
 
 function RNGroup:remove()
+    print("-----")
     for i = 1, #self.displayObjects do
+        print(self.displayObjects[1]:getType())
         self.displayObjects[1]:remove()
     end
     if (self.parentGroup) then

@@ -104,7 +104,7 @@ image1c.x = 80
 
 
 local swipeObject = RNFactory.createPageSwipe("pageSwipe", {
-    options = { rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
+    options = { mode = MOAIEaseType.LINEAR, rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
     elements = {
         { object = group1, userData = "userdata test" },
         { object = image1, testField = "testdata" },

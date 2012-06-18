@@ -19,7 +19,8 @@ anImage = RNFactory.createImage("images/tile1.png", { top = 64, left = 64 })
 trn = RNTransition:new()
 
 function goToPointA()
-    trn:run(anImage, { type = "move", time = 1500, alpha = 0, x = 200, y = 200, onComplete = goToPointB })
+    --you can also set ease mode. Use Moais.
+    trn:run(anImage, { type = "move", time = 1500, alpha = 0, x = 200, y = 200, onComplete = goToPointB, mode = MOAIEaseType.LINEAR })
 end
 
 function goToPointB()

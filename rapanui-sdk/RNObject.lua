@@ -1267,6 +1267,9 @@ function RNObject:remove()
     if self.font ~= nil then
         self.font = nil
     end
+    if self.textbox ~= nil then
+        self.textbox = nil
+    end
     self.prop:setDeck(nil)
     self.prop = nil
     self.deck = nil

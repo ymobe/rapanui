@@ -58,11 +58,14 @@ function aScene.onCreate()
 
     group2:insert(button)
 
+    print(group2.displayObjects[1]:getType())
 
 
     group1:insert(tile1a)
     group1:insert(tile1b)
     group2:insert(tile1c)
+    print(group2.displayObjects[1]:getType())
+    print(group2.displayObjects[2]:getType())
     group1:insert(group2)
 
     sceneGroup:insert(group1)
@@ -79,9 +82,7 @@ function button1UP(event)
 end
 
 function aScene.onEnd()
-    for i = 1, table.getn(sceneGroup.displayObjects), 1 do
-        sceneGroup.displayObjects[1]:remove();
-    end
+    sceneGroup:remove()
 end
 
 return aScene

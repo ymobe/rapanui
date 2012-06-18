@@ -13,6 +13,15 @@
 ]]
 
 
+-- Let's see how to have a popup script loaded in RapaNui.
+-- it's a simple script returning a table containing all the functions we need to be loaded.
+-- (it's a basic lua class creation, the other choice we have is to use metatables and register a lookup
+-- for each instance, but check like RNObject or RNPageSwipe for this)
+
+-- in this samples, for testing purpose, transitions are manually add to background and text.
+-- it would be better to add both text and background to a group and then apply the transition to a group.
+
+
 popup = { isTransitioning = false }
 
 local trn = RNTransition:new()
@@ -24,7 +33,7 @@ function popup.onShow()
     local background = RNFactory.createImage("images/background-blue.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 720;
     local text1 = RNFactory.createText("Hey there,\n I'm a popup!\n\nPlay with me!", { size = 10, top = 480, left = 0, width = 200, height = 500 })
     trn:run(background, { type = "move", time = 1000, y = 440, onComplete = showThings })
-    trn:run(text1, { type = "move", time = 1000, y = 200 })
+    trn:run(text1, { type = "move", time = 1000, y = 100 })
     popup.group = {}
     popup.group[1] = background
     popup.group[2] = text1

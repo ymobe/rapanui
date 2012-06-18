@@ -191,6 +191,8 @@ function RNButton:setParentGroup(group)
     if self.rnImageOver ~= nil then
         self.rnImageOver:setParentGroup(group)
     end
+
+    self.parentGroup = group
 end
 
 function RNButton:getLoc()
@@ -238,16 +240,23 @@ function RNButton:setText(value)
 end
 
 function RNButton:remove(func)
-
-    self.text:remove()
-    self.rnImageDefault:remove()
+    if self.text ~= nil then
+        self.text:remove()
+    end
+    if self.rnImageDefault ~= nil then
+        self.rnImageDefault:remove()
+    end
     if self.rnImageOver ~= nil then
         self.rnImageOver:remove()
     end
-    self.text=nil
-    self.rnImageDefault=nil
-    self.rnImageOver=nil
-    self=nil
+    print(self.parentGroup)
+    if (self.parentGroup) then
+        self.parentGroup:removeChild(self.idInGroup)
+    end
+    self.text = nil
+    self.rnImageDefault = nil
+    self.rnImageOver = nil
+    self = nil
 end
 
 

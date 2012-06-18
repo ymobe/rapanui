@@ -36,7 +36,6 @@ end
 
 RNListeners:addEventListener("touch", t)
 
-
 --uncomment this whole block to see how to remove a set of images for RNButtons assets from memory
 --create a button
 --[[
@@ -142,8 +141,7 @@ function t(event)
 end
 
 RNListeners:addEventListener("touch", t)
-]] --
-
+]]--
 
 
 
