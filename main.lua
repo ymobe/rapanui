@@ -44,7 +44,7 @@ end      --]]
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
-require("rapanui-samples/lists/rn-rnPageSwipe")
+--require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")
@@ -70,7 +70,7 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
---require("rapanui-samples/director/rn-director-rnbutton")
+require("rapanui-samples/director/rn-director-rnbutton")
 
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
