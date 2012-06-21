@@ -76,6 +76,8 @@ function RNFactory.init()
     contentlwidth = lwidth
     contentHeight = lheight
 
+    RNFactory.outWidth = RNFactory.width
+    RNFactory.outHeight = RNFactory.height
 
     --if we have to stretch graphics to screen
 
@@ -88,7 +90,7 @@ function RNFactory.init()
         local SCREEN_Y_OFFSET = 0
 
         local DEVICE_WIDTH, DEVICE_HEIGHT, gameAspect, realAspect
-        DEVICE_WIDTH, DEVICE_HEIGHT = RNFactory.width,RNFactory.height
+        DEVICE_WIDTH, DEVICE_HEIGHT = RNFactory.width, RNFactory.height
 
 
         local gameAspect = SCREEN_UNITS_Y / SCREEN_UNITS_X
@@ -115,7 +117,11 @@ function RNFactory.init()
 
         RNFactory.screen.viewport:setSize(SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SCREEN_X_OFFSET + SCREEN_WIDTH, SCREEN_Y_OFFSET + SCREEN_HEIGHT)
         RNFactory.screen.viewport:setScale(SCREEN_UNITS_X, -SCREEN_UNITS_Y)
+
+        RNFactory.outWidth = config.graphicsDesign.w
+        RNFactory.outHeight = config.graphicsDesign.h
     end
+
 
 
     RNInputManager.setGlobalRNScreen(screen)
