@@ -23,6 +23,8 @@ RNPhysics.jointlist = {}
 RNPhysics.collisionListenerExists = false
 --collision funcion's name
 RNPhysics.collisionHandlerName = nil
+--collision types allowed
+RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.ALL
 
 
 --- starts physics simulation
@@ -285,6 +287,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
             --the fixture now stores the body which is connect+ed to
             tempFixture.parentBody = aRNBody
+            fixture.parentBody = aRNBody
             --this fixture should stay in the i place in the fixturelist (or in the i-1 place if the Type
             --has been specified). ex: if this is the first fixture received if typeGiven is false -->i=1
             --But  if typeGiven is true --> i=2! But this fixture is the first, so it should be the first
@@ -294,13 +297,15 @@ function RNPhysics.createBodyFromImage(image, ...)
             end
             --and its native box2d fixture
             tempFixture.fixture = fixture
+            fixture.parentBody = aRNBody
+            fixture.indexinlist = tempFixture.indexinlist
             --update the RNBody.fixturelist (check the comment 4 lines above)
             if (typeGiven == true) then aRNBody.fixturelist[i - 1] = tempFixture else aRNBody.fixturelist[i] = tempFixture
             end
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
+            if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
             end
         end --end arg for
 
@@ -315,11 +320,13 @@ function RNPhysics.createBodyFromImage(image, ...)
         --default proprieties are given to the tempFixture table too
         local proprieties = { fixture = fixture, density = 1, friction = 0.3, restitution = 0, filter = { categoryBits = 1, maskBits = nil, groupIndex = nil }, sensor = false, shape = "rectangle" }
         --and to its filter
-        tempFixture = RNFixture:new(proprieties)
+        local tempFixture = RNFixture:new(proprieties)
         fixture:setFilter(tempFixture.filter.categoryBits, tempFixture.filter.maskBits, tempFixture.filter.groupIndex)
         --stores in the tempFixture table the RNBody which is connected to
         tempFixture.parentBody = aRNBody
+        fixture.parentBody = aRNBody
         tempFixture.indexinlist = 1
+        fixture.indexinlist = 1
         --and update this RNBody.fixturelist (1 because this will be the
         --only whon fixture in this RNBody)
         aRNBody.fixturelist[1] = tempFixture
@@ -331,7 +338,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
+        if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
@@ -339,7 +346,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
 
     --adds the body to the RNPhysics.bodylist
-    len = table.getn(RNPhysics.bodylist)
+    local len = table.getn(RNPhysics.bodylist)
     RNPhysics.bodylist[len + 1] = aRNBody
     aRNBody.indexinlist = len + 1
 
@@ -492,6 +499,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
             --the fixture now stores the body which is connect+ed to
             tempFixture.parentBody = RNBody
+            fixture.parentBody = aRNBody
             --this fixture should stay in the i place in the fixturelist (or in the i-1 place if the Type
             --has been specified). ex: if this is the first fixture received if typeGiven is false -->i=1
             --But  if typeGiven is true --> i=2! But this fixture is the first, so it should be the first
@@ -499,6 +507,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
             --number i in the list if typeGiven is false and the number i-1 if it's true.
             if (typeGiven == true) then tempFixture.indexinlist = i - 1 else tempFixture.indexinlist = i
             end
+            fixture.indexinlist = tempFixture.indexinlist
             --and its native box2d fixture
             tempFixture.fixture = fixture
             --update the RNBody.fixturelist (check the comment 4 lines above)
@@ -507,7 +516,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+            if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
             end
         end --end arg for
 
@@ -522,11 +531,13 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
         --default proprieties are given to the tempFixture table too
         local proprieties = { fixture = fixture, density = 1, friction = 0.3, restitution = 0, filter = { categoryBits = 1, maskBits = nil, groupIndex = nil }, sensor = false, shape = "rectangle" }
         --and to its filter
-        tempFixture = RNFixture:new(proprieties)
+        local tempFixture = RNFixture:new(proprieties)
         fixture:setFilter(tempFixture.filter.categoryBits, tempFixture.filter.maskBits, tempFixture.filter.groupIndex)
         --stores in the tempFixture table the RNBody which is connected to
         tempFixture.parentBody = RNBody
+        fixture.parentBody = RNBody
         tempFixture.indexinlist = 1
+        fixture.indexinlist = 1
         --and update this RNBody.fixturelist (1 because this will be the
         --only whon fixture in this RNBody)
         RNBody.fixturelist[1] = tempFixture
@@ -537,7 +548,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, MOAIBox2DArbiter.ALL)
+        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
@@ -545,7 +556,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
 
     --adds the body to the RNPhysics.bodylist
-    len = table.getn(RNPhysics.bodylist)
+    local len = table.getn(RNPhysics.bodylist)
     RNPhysics.bodylist[len + 1] = RNBody
     RNBody.indexinlist = len + 1
 
@@ -586,7 +597,7 @@ end
 function RNPhysics.setDebugDraw(screen)
 
     local layerfordebug = screen.layer
-    len = table.getn(screen.sprites)
+    local len = table.getn(screen.sprites)
     for i, sprite in pairs(screen.sprites) do
         --sprite.visible = false
         --in general, assigning visibility doesnt work at all
@@ -598,33 +609,51 @@ function RNPhysics.setDebugDraw(screen)
 end
 
 
+function RNPhysics.setCollisions(type)
+    if type == "all" then
+        RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.ALL
+    end
+    if type == "begin" then
+        RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.BEGIN
+    end
+    if type == "end" then
+        RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.END
+    end
+    if type == "pre_solve" then
+        RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.PRE_SOLVE
+    end
+    if type == "post_solve" then
+        RNPhysics.collisionTypeAllowed = MOAIBox2DArbiter.POST_SOLVE
+    end
+end
+
+
 -- COLLISION HANDLER
 function RNPhysics.addEventListener(Type, funct)
     if (Type == "collision") then
-        collisionHandlerName = funct
+        RNPhysics.collisionHandlerName = funct
         --
-        blist = RNPhysics.bodylist
-        len = table.getn(blist)
+        local blist = RNPhysics.bodylist
+        local len = table.getn(blist)
         --for each body in RNPhysics.bodylist
         for i = 1, len, 1 do
-            currentbody = blist[i]
+            local currentbody = blist[i]
             --and for each fixture in that body
-            flist = currentbody.fixturelist
-            flistlen = table.getn(flist)
+            local flist = currentbody.fixturelist
+            local flistlen = table.getn(flist)
             for k = 1, flistlen, 1 do
                 --sets the fixture for callbacks
-                currentfixture = flist[k].fixture
-                currentfixture:setCollisionHandler(RNPhysics.CollisionHandling, MOAIBox2DArbiter.ALL)
+                local currentfixture = flist[k].fixture
+                currentfixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
             end
         end
-        collisionListenerExists = true
+        RNPhysics.collisionListenerExists = true
     end
 end
 
 
 -- GLOBAL COLLISION HANDLER
 function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
-
 
     local blist, len, flist, flistlen, currentbody, currentfixture, body1, body2, currentphase, fixture1, fixture2, currentEvent
     --creates an event table(that will be passed to the callback function)
@@ -647,42 +676,11 @@ function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
         currentphase = "post_solve"
     end
 
-    --checks for which fixtures in which bodies are colliding
-    blist = RNPhysics.bodylist
-    len = table.getn(blist)
-    --finds fixtureA name:
-    --for each body in RNPhysics.bodylist
-    for i = 1, len, 1 do
-        currentbody = blist[i]
-        --and for each fixture in that body
-        flist = currentbody.fixturelist
-        flistlen = table.getn(flist)
-        for k = 1, flistlen, 1 do
-            currentfixture = flist[k].fixture
-            --if the fixture is the right one envolved in this collision
-            --stores in body1 the envolved fixture's parent RNBody.
-            --and in fixture1 the tempFixture table of the fixture envolved.
-            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k]
-            end
-        end
-    end
 
-    --finds fixtureB name:
-    --for each body in RNPhysics.bodylist
-    for i = 1, len, 1 do
-        currentbody = blist[i]
-        --and for each fixture in that body
-        flist = currentbody.fixturelist
-        flistlen = table.getn(flist)
-        for k = 1, flistlen, 1 do
-            currentfixture = flist[k].fixture
-            --if the fixture is the right one envolved in this collision
-            --stores in body2 the envolved fixture's parent RNBody.
-            --and in fixture2 the tempFixture table of the fixture envolved.
-            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k]
-            end
-        end
-    end
+    body1 = fixtureA.parentBody
+    fixture1 = fixtureA
+    body2 = fixtureB.parentBody
+    fixture2 = fixtureB
 
     --stores in the event table some things to pass to callback funcions
     currentEvent.phase = currentphase
@@ -697,8 +695,8 @@ function RNPhysics.CollisionHandling(phase, fixtureA, fixtureB, arbiter)
     if (body1 ~= nil) and (body2 ~= nil) then
         currentEvent.object1 = body1.sprite
         currentEvent.object2 = body2.sprite
-        if (collisionHandlerName ~= nil) then
-            local funct = collisionHandlerName
+        if (RNPhysics.collisionHandlerName ~= nil) then
+            local funct = RNPhysics.collisionHandlerName
             if (funct ~= nil) then funct(currentEvent)
             end
         end
@@ -731,42 +729,11 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
         currentphase = "post_solve"
     end
 
-    --checks for which fixtures in which bodies are colliding
-    blist = RNPhysics.bodylist
-    len = table.getn(blist)
-    --finds fixtureA name:
-    --for each body in RNPhysics.bodylist
-    for i = 1, len, 1 do
-        currentbody = blist[i]
-        --and for each fixture in that body
-        flist = currentbody.fixturelist
-        flistlen = table.getn(flist)
-        for k = 1, flistlen, 1 do
-            currentfixture = flist[k].fixture
-            --if the fixture is the right one envolved in this collision
-            --stores in body1 the envolved fixture's parent RNBody.
-            --and in fixture1 the tempFixture table of the fixture envolved.
-            if (fixtureA == currentfixture) then body1 = currentbody fixture1 = flist[k]
-            end
-        end
-    end
 
-    --finds fixtureB name:
-    --for each body in RNPhysics.bodylist
-    for i = 1, len, 1 do
-        currentbody = blist[i]
-        --and for each fixture in that body
-        flist = currentbody.fixturelist
-        flistlen = table.getn(flist)
-        for k = 1, flistlen, 1 do
-            currentfixture = flist[k].fixture
-            --if the fixture is the right one envolved in this collision
-            --stores in body2 the envolved fixture's parent RNBody.
-            --and in fixture2 the tempFixture table of the fixture envolved.
-            if (fixtureB == currentfixture) then body2 = currentbody fixture2 = flist[k]
-            end
-        end
-    end
+    body1 = fixtureA.parentBody
+    fixture1 = fixtureA
+    body2 = fixtureB.parentBody
+    fixture2 = fixtureB
 
     --stores in the event table some things to pass to callback funcions
     currentEvent.phase = currentphase
@@ -780,29 +747,24 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
     blist = RNPhysics.bodylist
     len = table.getn(blist)
     --we create the event to send to the function RNPhysics.stored in RNBody.collision
-    localEvent = { phase = currentphase, self = nil, other = nil, selfFixture = nil, otherFixture = nil, force = currentEvent.force, friction = currentEvent.friction }
+    local localEvent = { phase = currentphase, self = nil, other = nil, selfFixture = nil, otherFixture = nil, force = currentEvent.force, friction = currentEvent.friction }
     --for each body in RNPhysics.bodylist
-    for i = 1, len, 1 do
-        --if the body is involved in this collision
-        if (blist[i] == body1) then
-            --if collision is set and there aren't any nils
-            if (blist[i].collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
-                localEvent.self = body1.sprite
-                localEvent.other = body2.sprite
-                localEvent.selfFixture = fixture1
-                localEvent.otherFixture = fixture2
-                blist[i].collision(localEvent.self, localEvent) --we call the function
-            end
+    --if the body is involved in this collision
+    --if collision is set and there aren't any nils
+    if (body1.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
+        localEvent.self = body1.sprite
+        localEvent.other = body2.sprite
+        localEvent.selfFixture = fixture1
+        localEvent.otherFixture = fixture2
+        body1.collision(localEvent.self, localEvent) --we call the function
+    end
 
-        elseif (blist[i] == body2) then
-            if (blist[i].collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
-                localEvent.self = body2.sprite
-                localEvent.other = body1.sprite
-                localEvent.selfFixture = fixture2
-                localEvent.otherFixture = fixture1
-                blist[i].collision(localEvent.self, localEvent)
-            end
-        end
+    if (body2.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
+        localEvent.self = body2.sprite
+        localEvent.other = body1.sprite
+        localEvent.selfFixture = fixture2
+        localEvent.otherFixture = fixture1
+        body2.collision(localEvent.self, localEvent)
     end
 end
 
@@ -982,7 +944,7 @@ function RNPhysics.createJoint(type, ...)
 
 
     --add RNJoint to RNPhysics RNPhysics.jointlist
-    len = table.getn(RNPhysics.jointlist)
+    local len = table.getn(RNPhysics.jointlist)
     RNPhysics.jointlist[len + 1] = RNJoint
     RNJoint.indexingloballist = len + 1
 
