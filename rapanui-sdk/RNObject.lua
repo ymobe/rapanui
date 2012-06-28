@@ -200,6 +200,10 @@ local function fieldAccessListener(self, key)
             object.x = xx
             object.y = yy
         end
+
+        if key ~= nil and key == "rotation" then
+            object.rotation = object:getProp():getRot()
+        end
     end
 
     if object.isPhysical == true then
