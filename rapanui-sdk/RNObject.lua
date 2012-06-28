@@ -1270,6 +1270,11 @@ function RNObject:remove()
     if self.textbox ~= nil then
         self.textbox = nil
     end
+
+    self:setOnTouchUp(nil)
+    self:setOnTouchDown(nil)
+    self:setOnTouchMove(nil)
+
     self.prop:setDeck(nil)
     self.prop = nil
     self.deck = nil
