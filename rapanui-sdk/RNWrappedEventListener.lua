@@ -67,7 +67,13 @@ function RNWrappedEventListener:call(event)
     if event ~= nil and func ~= nil then
         func(event)
     else
-        print("[WARN] RNWrappedEventListener: Event was nil")
+        if event == nil then
+            print("[WARN] RNWrappedEventListener: Event was nil")
+        end
+
+        if func == nil then
+            print("[WARN] RNWrappedEventListener: function was nil")
+        end
     end
 end
 

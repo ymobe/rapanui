@@ -86,13 +86,13 @@ function RNDirector:showScene(name, effect, onEndListener)
     if TRANSITIONING == false then
         TRANSITIONING = true
         if effect == "slidetoleft" then
-            self:slideout(RNFactory.width, 0)
+            self:slideout(RNFactory.outWidth, 0)
         elseif effect == "slidetoright" then
-            self:slideout(-RNFactory.width, 0)
+            self:slideout(-RNFactory.outWidth, 0)
         elseif effect == "slidetotop" then
-            self:slideout(0, RNFactory.height)
+            self:slideout(0, RNFactory.outHeight)
         elseif effect == "slidetobottom" then
-            self:slideout(0, -RNFactory.height)
+            self:slideout(0, -RNFactory.outHeight)
         elseif effect == "pop" then
             self:popIn()
         elseif effect == "fade" then
@@ -134,7 +134,7 @@ end
 function RNDirector:slideout(xx, yy)
 
     --start slide
-    if CURRENT_SCENE_GROUP ~= nill then
+    if CURRENT_SCENE_GROUP ~= nil then
         for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
             if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then --call transition end callback only for last element
                 trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
@@ -169,8 +169,8 @@ function slideEnd()
     end
 
     if NEXT_SCENE ~= nil then
-        NEXT_SCENE_GROUP.x = 0
-        NEXT_SCENE_GROUP.y = 0
+        --NEXT_SCENE_GROUP.x = 0
+        --NEXT_SCENE_GROUP.y = 0
         CURRENT_SCENE_GROUP = NEXT_SCENE_GROUP
         CURRENT_SCENE = NEXT_SCENE
     end
@@ -220,7 +220,7 @@ end
 -- fade effect
 function RNDirector:fade()
 
-    if CURRENT_SCENE_GROUP ~= nill then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
+    if CURRENT_SCENE_GROUP ~= nil then --if it's first call we don't have a CURRENT_SCENE or CURRENT_SCENE_GROUP
         for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
             if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then
                 if NEXT_SCENE ~= nil then

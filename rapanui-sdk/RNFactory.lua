@@ -35,6 +35,7 @@ groups = {}
 groups_size = 0
 
 RNFactory.mainGroup = RNGroup:new()
+RNFactory.mainGroup.name = "mainGroup"
 
 RNFactory.stageWidth = 0
 RNFactory.stageHeight = 0
@@ -75,17 +76,64 @@ function RNFactory.init()
     contentlwidth = lwidth
     contentHeight = lheight
 
-    --the resize in x axis is good. The resize in y axis is not, because it's from the bottom to top
-    --so we have to set y offset but if we do so,touch events won't be good they will suffer from this offset
-    --example of resize with 480x800 screen already set on config and resized in view from here.
-    --RNFactory.screen.viewport:setSize(800*800/480,480*480/320)
-    --RNFactory.screen.viewport:setOffset(-1, 0.3) --
+    RNFactory.outWidth = RNFactory.width
+    RNFactory.outHeight = RNFactory.height
+
+    --if we have to stretch graphics to screen
+
+    if config.stretch == true then
+        local SCREEN_UNITS_X, SCREEN_UNITS_Y
+        SCREEN_UNITS_X = config.graphicsDesign.w
+        SCREEN_UNITS_Y = config.graphicsDesign.h
+
+        local SCREEN_X_OFFSET = 0
+        local SCREEN_Y_OFFSET = 0
+
+        local DEVICE_WIDTH, DEVICE_HEIGHT, gameAspect, realAspect
+        DEVICE_WIDTH, DEVICE_HEIGHT = RNFactory.width, RNFactory.height
+
+
+        local gameAspect = SCREEN_UNITS_Y / SCREEN_UNITS_X
+        local realAspect = DEVICE_HEIGHT / DEVICE_WIDTH
+
+
+        local SCREEN_WIDTH, SCREEN_HEIGHT
+
+        if realAspect > gameAspect then
+            SCREEN_WIDTH = DEVICE_WIDTH
+            SCREEN_HEIGHT = DEVICE_WIDTH * gameAspect
+        else
+            SCREEN_WIDTH = DEVICE_HEIGHT / gameAspect
+            SCREEN_HEIGHT = DEVICE_HEIGHT
+        end
+
+        if SCREEN_WIDTH < DEVICE_WIDTH then
+            SCREEN_X_OFFSET = (DEVICE_WIDTH - SCREEN_WIDTH) * 0.5
+        end
+
+        if SCREEN_HEIGHT < DEVICE_HEIGHT then
+            SCREEN_Y_OFFSET = (DEVICE_HEIGHT - SCREEN_HEIGHT) * 0.5
+        end
+
+        RNFactory.screen.viewport:setSize(SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SCREEN_X_OFFSET + SCREEN_WIDTH, SCREEN_Y_OFFSET + SCREEN_HEIGHT)
+        RNFactory.screen.viewport:setScale(SCREEN_UNITS_X, -SCREEN_UNITS_Y)
+
+        RNFactory.outWidth = config.graphicsDesign.w
+        RNFactory.outHeight = config.graphicsDesign.h
+    end
+
+
 
     RNInputManager.setGlobalRNScreen(screen)
 end
 
 -- extra method call to setup the underlying system
 RNFactory.init()
+
+function RNFactory.removeAsset(path)
+    RNGraphicsManager:deallocateGfx(path)
+end
+
 
 function RNFactory.showDebugLines()
     MOAIDebugLines.setStyle(MOAIDebugLines.PROP_MODEL_BOUNDS, 2, 1, 1, 1)
@@ -110,7 +158,15 @@ function RNFactory.createList(name, params)
     return list
 end
 
-function RNFactory.createImage(filename, params)
+function RNFactory.createPageSwipe(name, params)
+    local pSwipe = RNPageSwipe:new()
+    pSwipe.options = params.options
+    pSwipe.elements = params.elements
+    pSwipe:init()
+    return pSwipe
+end
+
+function RNFactory.createImage(image, params)
 
     local parentGroup, left, top
 
@@ -138,19 +194,157 @@ function RNFactory.createImage(filename, params)
     end
 
 
-    local image = RNObject:new()
+    local o = RNObject:new()
+    local o, deck = o:initWithImage(image)
 
-    image:initWith(filename)
+    o.x = o.originalWidth / 2 + left
+    o.y = o.originalHeight / 2 + top
 
-    RNFactory.screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+    RNFactory.screen:addRNObject(o)
 
     if parentGroup ~= nil then
-        parentGroup:insert(image)
+        parentGroup:insert(o)
     end
 
-    return image
+
+    return o, deck
+end
+
+function RNFactory.createButton(image, params)
+
+    local parentGroup, left, top
+
+    local top, left, size, font, vAlignment, hAlignment
+
+    font = "arial-rounded"
+    size = 15
+
+    vAlignment = MOAITextBox.CENTER_JUSTIFY
+    hAlignment = MOAITextBox.CENTER_JUSTIFY
+
+    top = 0
+    left = 0
+
+    if (params ~= nil) then
+
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.parentGroup ~= nil) then
+            parentGroup = params.parentGroup
+        else
+            parentGroup = RNFactory.mainGroup
+        end
+
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.font ~= nil) then
+            font = params.font
+        end
+
+        if (params.size ~= nil) then
+            size = params.size
+        end
+
+        --[[
+        if (params.height ~= nil) then
+            height = params.height
+        end
+
+        if (params.width ~= nil) then
+            width = params.width
+        end
+          ]] --
+
+        if (params.verticalAlignment ~= nil) then
+            vAlignment = params.verticalAlignment
+        end
+
+        if (params.horizontalAlignment ~= nil) then
+            hAlignment = params.horizontalAlignment
+        end
+    end
+
+    -- init of default RNButtonImage
+    local rnButtonImage = RNObject:new()
+    local rnButtonImage, deck = rnButtonImage:initWithImage(image)
+
+    rnButtonImage.x = rnButtonImage.originalWidth / 2 + left
+    rnButtonImage.y = rnButtonImage.originalHeight / 2 + top
+
+    RNFactory.screen:addRNObject(rnButtonImage)
+
+    local rnButtonImageOver
+
+    if params.imageOver ~= nil then
+
+
+        rnButtonImageOver = RNObject:new()
+        rnButtonImageOver, deck = rnButtonImageOver:initWithImage(params.imageOver)
+
+        rnButtonImageOver.x = rnButtonImageOver.originalWidth / 2 + left
+        rnButtonImageOver.y = rnButtonImageOver.originalHeight / 2 + top
+
+        rnButtonImageOver:setVisible(false)
+
+        RNFactory.screen:addRNObject(rnButtonImageOver)
+
+        --   if parentGroup ~= nil then
+        --       parentGroup:insert(rnButtonImageOver)
+        --   end
+    end
+
+    local rnText
+
+    local gFont
+
+    if params.text == nil then
+        params.text = ""
+    end
+
+    rnText = RNText:new()
+    rnText, gFont = rnText:initWithText(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+
+    RNFactory.screen:addRNObject(rnText)
+    --     RNFactory.mainGroup:insert(rnText)
+    rnText.x = left
+    rnText.y = top
+
+
+
+
+    local rnButton = RNButton:new()
+
+    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(rnButton)
+    end
+
+
+
+    rnButton.x = rnButtonImage.originalWidth / 2 + left
+    rnButton.y = rnButtonImage.originalHeight / 2 + top
+
+    if params.onTouchUp ~= nil then
+        rnButton:setOnTouchUp(params.onTouchUp)
+    end
+
+    if params.onTouchDown ~= nil then
+        rnButton:setOnTouchDown(params.onTouchDown)
+    end
+    return rnButton, deck
 end
 
 function RNFactory.createImageFromMoaiImage(moaiImage, params)
@@ -195,6 +389,8 @@ function RNFactory.createImageFromMoaiImage(moaiImage, params)
     return image
 end
 
+
+
 function RNFactory.createMoaiImage(filename)
     local image = MOAIImage.new()
     image:load(filename, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
@@ -205,6 +401,10 @@ function RNFactory.createBlankMoaiImage(width, height)
     local image = MOAIImage.new()
     image:init(width, height)
     return image
+end
+
+function RNFactory.createAtlasFromTexturePacker(image, file)
+    RNGraphicsManager:allocateTexturePackerAtlas(image, file)
 end
 
 function RNFactory.createCopyRect(moaiimage, params)
@@ -249,7 +449,7 @@ function RNFactory.createCopyRect(moaiimage, params)
     return image
 end
 
-function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
+function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
 
     if scaleX == nil then
         scaleX = 1
@@ -269,17 +469,23 @@ function RNFactory.createAnim(filename, sx, sy, left, top, scaleX, scaleY)
 
     local parentGroup = RNFactory.mainGroup
 
-    local image = RNObject:new()
-    image:initAnimWith(filename, sx, sy, scaleX, scaleY)
-    RNFactory.screen:addRNObject(image)
-    image.x = image.originalWidth / 2 + left
-    image.y = image.originalHeight / 2 + top
+
+    local o = RNObject:new()
+    local o, deck = o:initWithAnim(image, sizex, sizey, scaleX, scaleY)
+
+    o.x = left
+    o.y = top
+
+    local parentGroup = RNFactory.mainGroup
+
+    RNFactory.screen:addRNObject(o)
 
     if parentGroup ~= nil then
-        parentGroup:insert(image)
+        parentGroup:insert(o)
     end
 
-    return image
+
+    return o, deck
 end
 
 function RNFactory.createText(text, params)
@@ -322,11 +528,17 @@ function RNFactory.createText(text, params)
     end
 
     local RNText = RNText:new()
-    RNText:initWithText(text, font, size, left, top, width, height, alignment)
+    local gFont
+    RNText, gFont = RNText:initWithText(text, font, size, width, height, alignment)
     RNFactory.screen:addRNObject(RNText)
     RNFactory.mainGroup:insert(RNText)
-    return RNText
+
+    RNText.x = left
+    RNText.y = top
+
+    return RNText, gFont
 end
+
 
 function RNFactory.createRect(x, y, width, height, params)
     local parentGroup, top, left

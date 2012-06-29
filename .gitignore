@@ -10,6 +10,7 @@ rapanui-samples/.DS_Store
 rapanui-samples/games/.DS_Store
 rapanui-samples/maps/reference.tmx
 rapanui-samples/maps/rn-map-spike.lua
+images/cathead.png
 moai-build
 rapanui.iml
 rapanui.ipr
@@ -24,3 +25,8 @@ doc/
 rapanui-sdk/RNDirector_edit.lua
 run.sh
 tmp/
+mainmoai.lua
+moai-samples
+runmoai.sh
+testproplist.lua
+#	testtest.lua

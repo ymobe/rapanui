@@ -17,6 +17,7 @@ config = require("config")
 RNObject = require("rapanui-sdk/RNObject")
 
 RNText = require("rapanui-sdk/RNText")
+RNButton = require("rapanui-sdk/RNButton")
 
 RNEvent = require("rapanui-sdk/RNEvent")
 RNScreen = require("rapanui-sdk/RNScreen")
@@ -62,3 +63,13 @@ RNMapFactory = require("rapanui-sdk/RNMapFactory")
 RNFactory = require("rapanui-sdk/RNFactory")
 
 RNListView = require("rapanui-sdk/RNListView")
+
+RNPageSwipe = require("rapanui-sdk/RNPageSwipe")
+
+RNTimer = require("rapanui-sdk/RNTimer")
+
+RNGraphicsManager = require("rapanui-sdk/RNGraphicsManager")
+
+--starts main thread
+RNMainThread.startMainThread()
+

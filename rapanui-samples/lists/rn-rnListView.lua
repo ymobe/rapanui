@@ -22,7 +22,6 @@
 --       only one RNList at once can be created.
 
 --object creation
-local image1 = RNFactory.createImage("images/image.png")
 local image2 = RNFactory.createImage("images/image2.png")
 local image3 = RNFactory.createImage("images/image3.png")
 local image4 = RNFactory.createImage("images/image4.png")
@@ -36,9 +35,64 @@ local image11 = RNFactory.createImage("images/tile6.png")
 local image12 = RNFactory.createImage("images/tile7.png")
 local image13 = RNFactory.createImage("images/tile8.png")
 local image14 = RNFactory.createImage("images/tile9.png")
-local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5); anim1:play("default", 12, -1)
+local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 1, 2); anim1:play("default", 12, -1)
 local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
 local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
+
+
+
+
+
+-- also maps can be added!
+-- maps can be inserted as normal objects, or as child of groups in list. (as in rn-rnPageSwipe)
+
+local mapOne = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/groups/mapone.tmx")
+local aTileset = mapOne:getTileset(0)
+aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
+mapOne:drawMapAt(0, 0, aTileset)
+
+
+-- also buttons can be added!
+-- buttons can be inserted as normal objects, or as child of groups in list. (as in rn-rnPageSwipe)
+
+function button1TouchDown(event)
+    event.target:setText("Button 1 touch down!")
+end
+
+function button1UP(event)
+    event.target:setText("Button 1 touch up")
+end
+
+local button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = button1TouchDown,
+    onTouchUp = button1UP
+})
+
+
+-- also groups and nested groups can be used as objects in lists
+
+local image1a = RNFactory.createImage("images/image.png")
+local image1b = RNFactory.createImage("images/image.png")
+local image1c = RNFactory.createImage("images/image.png")
+
+local group1 = RNGroup:new()
+local group2 = RNGroup:new()
+
+group1:insert(group2)
+
+group1:insert(image1a, true)
+group2:insert(image1b, true)
+group2:insert(image1c, true)
+
+image1b.x = 40
+image1c.x = 80
+
+
 
 --callback for touch
 function getCallBack(event)
@@ -62,12 +116,12 @@ end
 --maxScrollingForceY,minY and maxY affect directly the scrolling gesture.
 
 local list = RNFactory.createList("testList", {
-    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 6 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
+    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
     canScrollY = true,
     x = 0,
     y = 0,
     elements = {
-        { object = image1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "test", userValue2 = "test2" },
+        { object = group1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "test", userValue2 = "test2" },
         { object = image2, offsetX = 64, offsetY = 32, onClick = getCallBack },
         { object = anim1, offsetX = 32, offsetY = 32, onClick = getCallBack, userValue = "this is the anim 1" },
         { object = text1, offsetX = 0, offsetY = 0, onClick = getCallBack, userValue = "this is the text 1" },
@@ -79,6 +133,8 @@ local list = RNFactory.createList("testList", {
         { object = image7, offsetX = 32, offsetY = 32, onClick = getCallBack },
         { object = image8, offsetX = 32, offsetY = 32, onClick = getCallBack },
         { object = image9, offsetX = 32, offsetY = 32, onClick = getCallBack },
+        { object = button, offsetX = 32, offsetY = 32, onClick = getCallBack },
+        { object = mapOne, offsetX = 32, offsetY = 32, onClick = getCallBack },
     },
 })
 
@@ -88,12 +144,12 @@ local list = RNFactory.createList("testList", {
 --insertElement(element,number)
 --the element is added at the end if param number is nil or > list size
 --insert tile5 at the end
-list:insertElement({ object = image10, offsetX = 32, offsetY = 32, onClick = getCallBack },9999)
+list:insertElement({ object = image10, offsetX = 32, offsetY = 32, onClick = getCallBack }, 9999)
 --insert tile6 at the end
 list:insertElement({ object = image11, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --addElement inside of a list
 --insert tile7 at 9th place (below tile0)
-list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = getCallBack },9)
+list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = getCallBack }, 9)
 --remove last object
 --removeElement(isRNObjectToRemove,number in list)
 --the last element is removed if param number is nil or > list size
@@ -101,15 +157,15 @@ list:insertElement({ object = image12, offsetX = 32, offsetY = 32, onClick = get
 --tile6 is removed
 list:removeElement(true)
 --tile5 is removed from list then manually removed from screen
-list:removeElement(false,9999)
+list:removeElement(false, 9999)
 image10:remove()
 --tile3 is removed from 12th place
-list:removeElement(true,12)
+list:removeElement(true, 12)
 --add elements tile8 and tile9 at the end
 list:insertElement({ object = image13, offsetX = 32, offsetY = 32, onClick = getCallBack })
 list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --swap tile8 and tile9 positions
-list:swapElements(13,14)
+list:swapElements(13, 14)
 
 
 

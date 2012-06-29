@@ -29,20 +29,26 @@ end      --]]
 -- RapaNui demos:
 
 -- Anim
-
 --require("rapanui-samples/anim/rn-anim")
 --require("rapanui-samples/anim/rn-anim2")
 
 -- Basics
-
 --require("rapanui-samples/basic/rn-images")
 --require("rapanui-samples/basic/rn-images-rotate")
+--require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
-require("rapanui-samples/basic/rn-rnListView")
+--require("rapanui-samples/basic/rn-deallocate")
 
+-- Lists
+--require("rapanui-samples/lists/rn-rnListView")
+--require("rapanui-samples/lists/rn-rnPageSwipe")
+
+-- Menu
+require("rapanui-samples/menu/rn-menu-director")
+--require("rapanui-samples/menu/rn-menu-popup")
 
 -- Landscape
 -- NOTE: this demo is for landscape and needs the setup of RapaNui & MOAI to landscape mode.
@@ -50,31 +56,48 @@ require("rapanui-samples/basic/rn-rnListView")
 
 -- Groups
 
+--require("rapanui-samples/groups/rn-groups-basics-move")
+--require("rapanui-samples/groups/rn-groups-basics-fade")
+--require("rapanui-samples/groups/rn-groups-basics-rotate")
+--require("rapanui-samples/groups/rn-groups-basics-scale")
 --require("rapanui-samples/groups/rn-groups")
+--require("rapanui-samples/groups/rn-groups-rnbutton")
+--require("rapanui-samples/groups/rn-groups-rnbutton-move")
 --require("rapanui-samples/groups/rn-map-group")
 
 -- Director
-
 --require("rapanui-samples/director/rn-director-basic")
 --require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
+--require("rapanui-samples/director/rn-director-rnbutton")
+
+-- Buttons
+--require("rapanui-samples/buttons/rn-button")
 
 -- Timer
-
 --require("rapanui-samples/timer/rn-timer")
 --require("rapanui-samples/timer/rn-timer-stop")
 --require("rapanui-samples/timer/rn-timer-remove")
 
-
 -- Transition
-
 --require("rapanui-samples/transition/rn-transition-alpha")
 --require("rapanui-samples/transition/rn-transition-combined")
 --require("rapanui-samples/transition/rn-transition-move")
 --require("rapanui-samples/transition/rn-transition-rotate")
 --require("rapanui-samples/transition/rn-transition-scale")
 
+-- Transition on RNText
+--require("rapanui-samples/transition/rn-transition-text-move")
+--require("rapanui-samples/transition/rn-transition-text-alpha")
+--require("rapanui-samples/transition/rn-transition-text-scale")
+--require("rapanui-samples/transition/rn-transition-text-rotate")
+
+-- Transition on RNButton
+--require("rapanui-samples/transition/rn-transition-rnbutton-move")
+--require("rapanui-samples/transition/rn-transition-rnbutton-alpha")
+
+-- Transition on RNMap
 --NOTE: now only works on simple 2D maps, still buggy with physics maps
 --require("rapanui-samples/transition/rn-transition-map-alpha")
 --require("rapanui-samples/transition/rn-transition-map-rotate")
@@ -82,7 +105,6 @@ require("rapanui-samples/basic/rn-rnListView")
 --require("rapanui-samples/transition/rn-transition-map-move")
 
 -- Touch
-
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
@@ -90,14 +112,11 @@ require("rapanui-samples/basic/rn-rnListView")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
-
 -- listeners
-
 --require("rapanui-samples/listeners/rn-listener-touch-remove")
 --require("rapanui-samples/listeners/rn-listener-enterFrame-remove")
 
 -- RapaNui Physics demos:
-
 --require("rapanui-samples/physics/rn-physics-shapes")
 --require("rapanui-samples/physics/rn-physics-types")
 --require("rapanui-samples/physics/rn-physics-fixtures")
@@ -113,16 +132,14 @@ require("rapanui-samples/basic/rn-rnListView")
 --require("rapanui-samples/physics/rn-physics-physicsEditor")
 --require("rapanui-samples/physics/test")
 
-
 -- RapaNui sample games:
-
 --require("rapanui-samples/games/brick2d/brick2d")
 --require("rapanui-samples/games/SunGolf/SunGolf")
 --require("rapanui-samples/games/AngryDogsAgainstMoais/AngryDogsAgainstMoais")
 
 -- Maps
-
 --require("rapanui-samples/maps/rn-basic-map")
+--require("rapanui-samples/maps/rn-basic-map-properties")
 --require("rapanui-samples/maps/rn-basic-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-map")
 --require("rapanui-samples/maps/rn-tileset")
@@ -130,6 +147,16 @@ require("rapanui-samples/basic/rn-rnListView")
 --require("rapanui-samples/maps/rn-physics-map-alpha")
 --require("rapanui-samples/maps/rn-scrolling-physics-map")
 
+-- Atlases
+--require("rapanui-samples/atlas/rn-atlas-texture-packer")
+
 -- These two tests have only text output
 --require("rapanui-samples/maps/rn-tiledmap-parser-xml")
 --require("rapanui-samples/maps/rn-tiledmap-parser-lua")
+
+-- other memory test
+--require("rapanui-samples/test/memory/rnbutton-mem-test")
+--require("rapanui-samples/test/memory/map-mem-test")
+
+-- Unit tests
+--require("rapanui-samples/test/unit/rn-groups-unit-test")

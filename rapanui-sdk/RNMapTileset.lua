@@ -66,10 +66,12 @@ function RNMapTileset:getPropertyValueForTile(id, property)
 end
 
 function RNMapTileset:getPropertiesForTile(id)
-    if self.tilesproperties[id - 1] ~= nil then
-        return self.tilesproperties[id - 1]
-    else
-        return nil
+    if self.tilesproperties ~= nil then
+        if self.tilesproperties[id - 1] ~= nil then
+            return self.tilesproperties[id - 1]
+        else
+            return nil
+        end
     end
 end
 
@@ -141,22 +143,36 @@ end
 
 function RNMapTileset:updateImageSource(image)
 
-    -- check the new size of the image and update the width height
-    self.image.source = image
-    local moaiimage = MOAIImage.new()
-    moaiimage:load(image, MOAIImage.TRUECOLOR + MOAIImage.PREMULTIPLY_ALPHA)
-    self.image.width, self.image.height = moaiimage:getSize()
+    local gfx
 
-    if self.tileDeck ~= nil then
-        self.tileDeck = MOAITileDeck2D.new()
-        self.tileDeck:setTexture(self.image.source)
-        self.tileDeck:setSize(self.image.width / self:getTileWidth(), self.image.height / self:getTileHeight())
-        self.tileDeck:setRect(-0.5, 0.5, 0.5, -0.5)
+    if RNGraphicsManager:getAlreadyAllocated(image) == false then
+        gfx = RNGraphicsManager:allocateTileset(image, self:getTileWidth(), self:getTileHeight())
+    else
+        gfx = RNGraphicsManager:getGfxByPath(image)
     end
+
+
+    -- check the new size of the image and update the width height
+    self.image.source = gfx.path
+    self.image.width, self.image.height = gfx.width, gfx.height
+
+    self.tileDeck = gfx.deck
 end
+
 
 function RNMapTileset:getImage()
     return self.image.source
+end
+
+function RNMapTileset:remove()
+    if self.image ~= nil then
+        self.image.source = nil
+    end
+    self.tilesets = nil
+    self.image = nil
+    self.tiledeck = nil
+    self = nil
+    collectgarbage()
 end
 
 function RNMapTileset:getWidth()

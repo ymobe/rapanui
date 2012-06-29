@@ -12,6 +12,10 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
+
+-- this sample shows how to set image levels.
+-- it only works for images in the same group because each group has its own priority set to 1.
+
 IMG_POS_Y = 0
 IMG_POS_X = 0
 

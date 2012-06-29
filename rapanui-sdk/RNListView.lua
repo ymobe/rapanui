@@ -18,6 +18,7 @@ RNListView = {}
 --since RapaNui touch listener doesn't return the target as the enterFrame does,
 --we need to specify SELF here, and due to this fact
 --only one RNList at once can be created  TODO: fix this.
+-- I think we should change approach for this kind of classes. [like RNPageSwipe, too]
 
 local SELF
 
@@ -71,7 +72,7 @@ function RNListView:innerNew(o)
         x = 0,
         y = 0,
         --
-        enterFrameListener = nil,
+        timerListener = nil,
         touchListener = nil,
         --
         isTouching = false,
@@ -103,11 +104,11 @@ function RNListView:init()
     end
     --set listeners
     self.touchListener = RNListeners:addEventListener("touch", self.touchEvent)
-    self.enterFrameListener = RNListeners:addEventListener("enterFrame", self)
+    self.timerListener = RNMainThread.addTimedAction(0.01, self.step)
 end
 
 
-function RNListView:enterFrame()
+function RNListView.step()
     if SELF ~= nil and SELF.canScrollY == true then
         if SELF.deltay > 0 then SELF.deltay = SELF.deltay - 0.2 end
         if SELF.deltay < 0 then SELF.deltay = SELF.deltay + 0.2 end
@@ -193,7 +194,7 @@ function RNListView:setY(value)
 end
 
 function RNListView:remove()
-    RNListeners:removeEventListener("enterFrame", self.enterFrameListener)
+    RNMainThread.removeAction(self.timerListener)
     RNListeners:removeEventListener("touch", self.touchListener)
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then
