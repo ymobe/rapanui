@@ -508,7 +508,7 @@ function RNObject:initWithMoaiImage(moaiImage)
 end
 
 
-function RNObject:initWithImage2(image)
+function RNObject:initWithImage(image)
 
     local deck = image
     local numberInAtlas
@@ -557,7 +557,7 @@ function RNObject:initWithImage2(image)
     return self, deck
 end
 
-function RNObject:initWithAnim2(image, sx, sy, scaleX, scaleY)
+function RNObject:initWithAnim(image, sx, sy, scaleX, scaleY)
 
     local deck = image
     local path = image

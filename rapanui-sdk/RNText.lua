@@ -85,7 +85,7 @@ end
 
 
 
-function RNText:initWithText2(text, font, size, width, height, hAlignment, vAlignment)
+function RNText:initWithText(text, font, size, width, height, hAlignment, vAlignment)
     self.charcodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;!?()&/-'
 
     self.fontName = font
