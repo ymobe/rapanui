@@ -67,7 +67,7 @@ function RNListView:innerNew(o)
 
     o = o or {
         name = "",
-        options = { cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100 },
+        options = { cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0 },
         elements = {},
         x = 0,
         y = 0,
@@ -96,6 +96,10 @@ function RNListView:init()
     if self.options.maxScrollingForceY == nil then self.options.maxScrollingForceY = 30 end
     if self.options.minY == nil then self.options.minY = 0 end
     if self.options.maxY == nil then self.options.maxY = 100 end
+    if self.options.touchW == nil then self.options.touchW = 320 end
+    if self.options.touchH == nil then self.options.touchH = 480 end
+    if self.options.touchStartX == nil then self.options.touchStartX = 0 end
+    if self.options.touchStartY == nil then self.options.touchStartY = 0 end
 
     --organize items
     for i = 1, table.getn(self.elements), 1 do
@@ -132,7 +136,7 @@ function RNListView.step()
 
         if SELF.y > SELF.options.maxY and SELF.isTouching == false then
             SELF.deltay = 0
-            SELF.y = SELF.y - (SELF.options.maxY + SELF.y) / 20
+            SELF.y = SELF.y - (SELF.y - SELF.options.maxY) / 20
         end
         if SELF.y < SELF.options.minY and SELF.isTouching == false then
             SELF.deltay = 0
@@ -143,31 +147,35 @@ end
 
 function RNListView.touchEvent(event)
     local self = SELF
-    if event.phase == "began" and self ~= nil then
-        self.tmpY = event.y
-        self.isTouching = true
-    end
+    if self.canScrollY == true then
+        if event.x > self.options.touchStartX and event.x < self.options.touchStartX + self.options.touchW and
+                event.y > self.options.touchStartY and event.y < self.options.touchStartY + self.options.touchH then
+            if event.phase == "began" and self ~= nil then
+                self.tmpY = event.y
+                self.isTouching = true
+            end
 
 
-    if event.phase == "moved" and self ~= nil then
-        self.deltay = event.y - self.tmpY
-        if self.canScrollY == true then
-            self.tmpY = event.y
-        end
-    end
-
-    if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
-        for i = 1, table.getn(self.elements), 1 do
-            if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
-                if self.elements[i].onClick ~= nil then
-                    local funct = self.elements[i].onClick
-                    funct({ target = self.elements[i] })
+            if event.phase == "moved" and self ~= nil then
+                self.deltay = event.y - self.tmpY
+                if self.canScrollY == true then
+                    self.tmpY = event.y
                 end
             end
-        end
-        self.isTouching = false
-    end
 
+            if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
+                for i = 1, table.getn(self.elements), 1 do
+                    if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
+                        if self.elements[i].onClick ~= nil then
+                            local funct = self.elements[i].onClick
+                            funct({ target = self.elements[i] })
+                        end
+                    end
+                end
+                self.isTouching = false
+            end
+        end
+    end
     if event.phase == "ended" and self.isScrollingY == true then
         self.isScrollingY = false
         self.isTouching = false
@@ -324,6 +332,10 @@ function RNListView:setIDInGroup()
 end
 
 function RNListView:setLevel()
+    --mocked for group adding see RNGroup
+end
+
+function RNListView:setParentGroup()
     --mocked for group adding see RNGroup
 end
 
