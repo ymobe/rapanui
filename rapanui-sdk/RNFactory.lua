@@ -88,7 +88,7 @@ function RNFactory.init()
         local SCREEN_Y_OFFSET = 0
 
         local DEVICE_WIDTH, DEVICE_HEIGHT, gameAspect, realAspect
-        DEVICE_WIDTH, DEVICE_HEIGHT = RNFactory.width,RNFactory.height
+        DEVICE_WIDTH, DEVICE_HEIGHT = RNFactory.width, RNFactory.height
 
 
         local gameAspect = SCREEN_UNITS_Y / SCREEN_UNITS_X
@@ -482,6 +482,64 @@ function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
     return o, deck
 end
 
+
+function RNFactory.createBitmapText(text, params)
+
+    --[[ params.image
+    params.charset
+    params.top
+    params.left
+    params.letterWidth
+    params.letterHeight
+         ]]
+
+    local charcodes, endsizex, sizey, sizex, left, top, scaleX, scaleY, charWidth, charHeight, image, parentGroup
+
+
+
+    if params.image ~= nil then
+        image = params.image
+    end
+
+    if params.charcodes ~= nil then
+        charcodes = params.charcodes
+    end
+
+    if params.top ~= nil then
+        top = params.top
+    end
+
+    if params.left ~= nil then
+        left = params.left
+    end
+
+    if params.charWidth ~= nil then
+        charWidth = params.charWidth
+    end
+
+    if params.charHeight ~= nil then
+        charHeight = params.charHeight
+    end
+
+    if params.parentGroup ~= nil then
+        parentGroup = params.parentGroup
+    else
+        parentGroup = RNFactory.mainGroup
+    end
+
+    local o = RNBitmapText:new()
+    local o, deck = o:initWith(text, image, charcodes, charWidth, charHeight, top, left, hAlignment, vAlignment)
+
+    o.x = left
+    o.y = top
+
+
+
+    parentGroup:insert(o)
+
+    return o, deck
+end
+
 function RNFactory.createText(text, params)
 
     local top, left, size, font, height, width, alignment
@@ -521,16 +579,17 @@ function RNFactory.createText(text, params)
         end
     end
 
-    local RNText = RNText:new()
+    local rntext = RNText:new()
     local gFont
-    RNText, gFont = RNText:initWithText2(text, font, size, width, height, alignment)
-    RNFactory.screen:addRNObject(RNText)
-    RNFactory.mainGroup:insert(RNText)
 
-    RNText.x = left
-    RNText.y = top
+    rntext, gFont = rntext:initWithText2(text, font, size, width, height, alignment)
+    RNFactory.screen:addRNObject(rntext)
+    RNFactory.mainGroup:insert(rntext)
 
-    return RNText, gFont
+    rntext.x = left
+    rntext.y = top
+
+    return rntext, gFont
 end
 
 

@@ -122,7 +122,7 @@ function RNBitmapText:new(o)
 end
 
 
---- Returns the String as a table in which each cahr is the key of the table eg:
+--- Returns the String as a table in which each char is the key of the table eg:
 --- "ABC"
 --- { ["A"] = 1, ["B"] = 2, ["c"] = 3}
 function RNBitmapText:stringToTableKeys(text)
@@ -132,7 +132,7 @@ function RNBitmapText:stringToTableKeys(text)
     for k = 1, string.len(text) do
         local chunk = string.sub(text, k, k)
         charsetList[chunk] = k
-        print("stringToTableKeys decode chunk --> " .. chunk .. " at " .. k)
+        --print("stringToTableKeys decode chunk --> " .. chunk .. " at " .. k)
         size = size + 1
     end
     return charsetList, size
@@ -157,7 +157,6 @@ end
 
 function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, top, left, hAlignment, vAlignment)
     self.charcodes = charcodes
-
     --todo: refactor RNGRoup to avoid this reasignment
     self.displayObjects = {}
     self.numChildren = 0
@@ -169,31 +168,23 @@ function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, to
     self.levels[1] = 1
     -- end reassignment to make RNGroup work
 
+
+    self.image = image
     self.charsConversionTable, self.conversionSize = self:stringToTableKeys(charcodes)
 
-    print_r(self.charsConversionTable)
+    -- print_r(self.charsConversionTable)
 
 
-    local textAsList, textLenght = self:stringToTable(text)
-
-    print_r(textAsList)
 
 
-    local currentx = left
+    -- print_r(textAsList)
 
-    for i = 1, textLenght do
-        local charFrame = self.charsConversionTable[textAsList[i]]
-        print("frame", charFrame, i)
+    self.top = top
+    self.left = left
+    self.charWidth = charWidth
+    self.charHeight = charHeight
 
-        local aChar = RNFactory.createAnim(image, charWidth, charHeight)
-
-        aChar.frame = charFrame
-        aChar.y = top
-        aChar.x = currentx
-
-        self:insert(aChar)
-        currentx = currentx + 16
-    end
+    self:printText(text, left, top, charWidth, charHeight)
 
     if vAlignment == nil then
         vAlignment = hAlignment
@@ -207,12 +198,47 @@ function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, to
     return self
 end
 
+function RNBitmapText:printText(text, left, top, charWidth, charHeight)
+
+
+    for i = 1, #self.displayObjects do
+        print("--> removing [" .. i .. "]")
+        self.displayObjects[1]:remove()
+    end
+
+    --Cleanup of group.
+    --todo: refactor RNGRoup to avoid this reasignment
+    self.displayObjects = {}
+    self.numChildren = 0
+    self.lasty = 0
+    self.lastx = 0
+    self.levels = {}
+    self.levels[1] = 1
+    -- end reassignment to make RNGroup work
+
+
+    local textAsList, textLenght = self:stringToTable(text)
+
+    local currentx = self.left
+
+    for i = 1, textLenght do
+        local charFrame = self.charsConversionTable[textAsList[i]]
+        --print("frame", charFrame, i)
+        local aChar = RNFactory.createAnim(self.image, charWidth, charHeight)
+        aChar.frame = charFrame
+        aChar.y = self.y
+        aChar.x = currentx
+        self:insert(aChar)
+        currentx = currentx + 16
+    end
+end
 
 function RNBitmapText:setSize(width, height)
 end
 
 function RNBitmapText:setText(text)
-    self.textbox:setString(text)
+    print("print text", text, "left", self.left, "top", self.top, self.charWidth, self.charHeight)
+    self:printText(text, self.left, self.top, self.charWidth, self.charHeight)
 end
 
 function RNBitmapText:getText()
