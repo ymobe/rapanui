@@ -13,29 +13,35 @@
 --]]
 local background = RNFactory.createImage("images/background-blue.png")
 
-text = RNFactory.createText("Touch on buttons", { size = 9, top = 200, left = 5, width = 250, height = 50 })
+text1 = RNFactory.createBitmapText("SCENE 1", {
+    image = "images/kromasky.png",
+    charcodes = " ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789:;?!\"%',.",
+    top = 55,
+    left = 10,
+    charWidth = 16,
+    charHeight = 16
+})
 
+text1:remove()
 
 for i = 0, 1000 do
 
-    button = RNFactory.createButton("images/button-plain.png", { text = "Button 1", top = 130, left = 10, size = 10, width = 200, height = 50 })
 
-    local function button1TouchDown(event)
-        text:setText("Button touch down!")
-    end
-
-    local function button1UP(event)
-        text:setText("Button touch up")
-    end
-
-    button:setOnTouchDown(button1TouchDown)
-    button:setOnTouchUp(button1UP)
+    text1 = RNFactory.createBitmapText("ISTANCE " .. i, {
+        image = "images/kromasky.png",
+        charcodes = " ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789:;?!\"%',.",
+        top = 55,
+        left = 10,
+        charWidth = 16,
+        charHeight = 16
+    })
 
     memestatus(true)
-    button:remove()
-    button = nil
+    text1:remove()
+    text1 = nil
     collectgarbage("collect")
 end
 
 print("End")
+collectgarbage("collect")
 memestatus(true)

@@ -19,18 +19,37 @@
 local background = RNFactory.createImage("images/background-purple.png")
 
 
-
-text1 = RNFactory.createBitmapText("HELLO BITMAP WORLD!", {
+text = RNFactory.createBitmapText("CLICK!", {
     image = "images/kromasky.png",
     charcodes = " ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789:;?!\"%',.",
     top = 55,
-    left = 10,
+    left = 50,
     charWidth = 16,
     charHeight = 16
 })
 
 
-text1.y=200
+text.y = 200
+
+function buttonUP(event)
+    text:setText("TOUCH UP")
+end
+
+function buttonTouchDown(event)
+    text:setText("TOUCH DOWN")
+end
+
+button = RNFactory.createButton("images/button-plain.png", {
+    text = "Main Button 1",
+    imageOver = "images/button-over.png",
+    top = 50,
+    left = 10,
+    size = 8,
+    width = 200,
+    height = 50,
+    onTouchDown = buttonTouchDown,
+    onTouchUp = buttonUP,
+    font = "arial-rounded"
+})
 
 background:sendToBottom()
-

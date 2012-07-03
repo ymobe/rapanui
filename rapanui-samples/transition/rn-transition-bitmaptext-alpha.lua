@@ -14,7 +14,14 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-text = RNFactory.createText("Hello world!", { size = 10, top = 0, left = 0, width = 200, height = 50 })
+text = RNFactory.createBitmapText("BITMAP TRANSITION!", {
+    image = "images/kromasky.png",
+    charcodes = " ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789:;?!\"%',.",
+    top = 10,
+    left = 10,
+    charWidth = 16,
+    charHeight = 16
+})
 
 trn = RNTransition:new()
 
@@ -28,3 +35,4 @@ end
 
 setAlphaToZero()
 
+background:sendToBottom()
