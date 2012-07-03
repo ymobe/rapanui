@@ -203,3 +203,19 @@ swipeObject:swapElementsByObjects(group1, image2)
 swipeObject:swapElementsByPageAndNumber(2, 2, 2, 6)
 
 
+
+
+--RNPageSwipe function registration
+local function onSwipeCallback(phase)
+    print(phase)
+end
+
+--register the above function to be called each swipe phase. Check logs.
+local regID = swipeObject:registerFunction(onSwipeCallback)
+--so we can remove the registered function
+--swipeObject:removeRegisteredFunction(regID)
+
+
+
+
+

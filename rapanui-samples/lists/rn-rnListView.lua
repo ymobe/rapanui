@@ -166,7 +166,8 @@ list:insertElement({ object = image13, offsetX = 32, offsetY = 32, onClick = get
 list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --swap tile8 and tile9 positions
 list:swapElements(13, 14)
-
+--smoothly goes to element number
+list:goToElement(5)
 
 
 

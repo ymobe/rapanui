@@ -195,7 +195,7 @@ function RNFactory.createImage(image, params)
 
 
     local o = RNObject:new()
-    local o, deck = o:initWithImage(image)
+    local o, deck = o:initWithImage2(image)
 
     o.x = o.originalWidth / 2 + left
     o.y = o.originalHeight / 2 + top
@@ -278,7 +278,7 @@ function RNFactory.createButton(image, params)
 
     -- init of default RNButtonImage
     local rnButtonImage = RNObject:new()
-    local rnButtonImage, deck = rnButtonImage:initWithImage(image)
+    local rnButtonImage, deck = rnButtonImage:initWithImage2(image)
 
     rnButtonImage.x = rnButtonImage.originalWidth / 2 + left
     rnButtonImage.y = rnButtonImage.originalHeight / 2 + top
@@ -291,7 +291,7 @@ function RNFactory.createButton(image, params)
 
 
         rnButtonImageOver = RNObject:new()
-        rnButtonImageOver, deck = rnButtonImageOver:initWithImage(params.imageOver)
+        rnButtonImageOver, deck = rnButtonImageOver:initWithImage2(params.imageOver)
 
         rnButtonImageOver.x = rnButtonImageOver.originalWidth / 2 + left
         rnButtonImageOver.y = rnButtonImageOver.originalHeight / 2 + top
@@ -314,7 +314,7 @@ function RNFactory.createButton(image, params)
     end
 
     rnText = RNText:new()
-    rnText, gFont = rnText:initWithText(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+    rnText, gFont = rnText:initWithText2(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
 
     RNFactory.screen:addRNObject(rnText)
     --     RNFactory.mainGroup:insert(rnText)
@@ -471,7 +471,7 @@ function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
 
 
     local o = RNObject:new()
-    local o, deck = o:initWithAnim(image, sizex, sizey, scaleX, scaleY)
+    local o, deck = o:initWithAnim2(image, sizex, sizey, scaleX, scaleY)
 
     o.x = left
     o.y = top
@@ -529,7 +529,7 @@ function RNFactory.createText(text, params)
 
     local RNText = RNText:new()
     local gFont
-    RNText, gFont = RNText:initWithText(text, font, size, width, height, alignment)
+    RNText, gFont = RNText:initWithText2(text, font, size, width, height, alignment)
     RNFactory.screen:addRNObject(RNText)
     RNFactory.mainGroup:insert(RNText)
 

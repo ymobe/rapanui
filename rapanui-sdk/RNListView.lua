@@ -109,6 +109,9 @@ function RNListView:init()
     --set listeners
     self.touchListener = RNListeners:addEventListener("touch", self.touchEvent)
     self.timerListener = RNMainThread.addTimedAction(0.01, self.step)
+
+    self.isToScroll = false
+    self.postogo = 0
 end
 
 
@@ -141,6 +144,15 @@ function RNListView.step()
         if SELF.y < SELF.options.minY and SELF.isTouching == false then
             SELF.deltay = 0
             SELF.y = SELF.y + (SELF.options.minY - SELF.y) / 20
+        end
+        --scroll due to postogo
+        if SELF.isToScroll == true then
+            if SELF.y > SELF.postogo then SELF.y = SELF.y - 1 end
+            if SELF.y <= SELF.postogo then SELF.y = SELF.y + 1 end
+            if math.abs(SELF.y - SELF.postogo) < 2 then
+                SELF.y = SELF.postogo
+                SELF.isToScroll = false
+            end
         end
     end
 end
@@ -322,6 +334,10 @@ function RNListView:setVisibility(value)
     end
 end
 
+function RNListView:goToElement(value)
+    self.isToScroll = true
+    self.postogo = -value * self.options.cellH + self.options.touchStartY + self.options.cellH
+end
 
 
 --mocks for groupAdd (Yes, RNListViews can be added to RNGroups ^^)
@@ -338,6 +354,7 @@ end
 function RNListView:setParentGroup()
     --mocked for group adding see RNGroup
 end
+
 
 
 return RNListView

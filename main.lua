@@ -44,10 +44,10 @@ end      --]]
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
---require("rapanui-samples/lists/rn-rnPageSwipe")
+require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
-require("rapanui-samples/menu/rn-menu-director")
+--require("rapanui-samples/menu/rn-menu-director")
 --require("rapanui-samples/menu/rn-menu-popup")
 
 -- Landscape

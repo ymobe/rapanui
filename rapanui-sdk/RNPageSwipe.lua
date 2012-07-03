@@ -74,6 +74,7 @@ function RNPageSwipe:init()
     self:arrange()
     --touch listener
     self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
+    self.registeredFunctions = {}
 end
 
 function RNPageSwipe:arrange()
@@ -101,9 +102,11 @@ function touchSwipe(event)
     local self = SELF
     if event.x > self.options.touchAreaStartingX and event.x < self.options.touchAreaW + self.options.touchAreaStartingX and event.y > self.options.touchAreaStartingY and event.y < self.options.touchAreaH + self.options.touchAreaStartingY then
         if event.phase == "began" then
+            self:callRegisteredFunctions("touchSwipeBegan")
             self.tempx = event.x
         end
         if event.phase == "moved" then
+            self:callRegisteredFunctions("touchSwipeMoved")
             self.forcex = (event.x - self.tempx)
             self.tempx = event.x
             self.isMoving = true
@@ -127,12 +130,16 @@ function touchSwipe(event)
             self.forcex = 0
             self:doSwipe()
             self.isMoving = false
+            --call registered functions
+            self:callRegisteredFunctions("touchSwipeEnded")
         end
+
     else
         if event.phase == "ended" then
             self.forceX = 0
             self:doSwipe()
             self.isMoving = false
+            self:callRegisteredFunctions("touchSwipeCancelled")
         end
     end
 end
@@ -155,6 +162,19 @@ function RNPageSwipe:doSwipe()
         trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })
         col = col + 1
     end
+end
+
+function RNPageSwipe:registerFunction(funct)
+    self.registeredFunctions[#self.registeredFunctions + 1] = funct
+    return #self.registeredFunctions
+end
+
+function RNPageSwipe:removeRegisteredFunction(id)
+    self.registeredFunctions[id] = nil
+    for i = id, #self.registeredFunctions do
+        self.registeredFunctions[i] = self.registeredFunctions[i + 1]
+    end
+    self.registeredFunctions[#self.registeredFunctions] = nil
 end
 
 
@@ -185,6 +205,11 @@ function RNPageSwipe:insert(element, number)
     self:arrange()
 end
 
+function RNPageSwipe:callRegisteredFunctions(phase)
+    for i = 1, #self.registeredFunctions do
+        self.registeredFunctions[i](phase)
+    end
+end
 
 function RNPageSwipe:removeElementByNumber(removeRNObject, number)
     if number ~= nil then
@@ -367,12 +392,14 @@ function RNPageSwipe:getElementByGlobalNumber(value)
 end
 
 function RNPageSwipe:goToPage(value)
-    if value <= self.pages then
-        self.currentPage = value
+    if value ~= self.currentPage then
+        if value <= self.pages then
+            self.currentPage = value
+        else
+            self.currentPage = self.pages
+        end
         self:doSwipe()
-    else
-        self.currentPage = self.pages
-        self:doSwipe()
+        self:callRegisteredFunctions("goToPage")
     end
 end
 
