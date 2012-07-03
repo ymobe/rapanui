@@ -12,7 +12,7 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
--- Create a new class that inherits from a base class RNObject
+-- Create a new class that inherits from a base class RNGroup
 RNBitmapText = RNGroup:innerNew()
 
 local function fieldChangedListener(self, key, value)
@@ -157,7 +157,7 @@ end
 
 function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, top, left, hAlignment, vAlignment)
     self.charcodes = charcodes
-    --todo: refactor RNGRoup to avoid this reasignment
+    --todo: refactor RNGroup to avoid this reassignment
     self.displayObjects = {}
     self.numChildren = 0
     self.y = 0
@@ -168,14 +168,10 @@ function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, to
     self.levels[1] = 1
     -- end reassignment to make RNGroup work
 
-
     self.image = image
     self.charsConversionTable, self.conversionSize = self:stringToTableKeys(charcodes)
 
     -- print_r(self.charsConversionTable)
-
-
-
 
     -- print_r(textAsList)
 
@@ -190,7 +186,6 @@ function RNBitmapText:initWith(text, image, charcodes, charWidth, charHeight, to
         vAlignment = hAlignment
     end
 
-    self.text = text
 
     self.name = text
     self.visible = true
@@ -202,12 +197,12 @@ function RNBitmapText:printText(text, left, top, charWidth, charHeight)
 
 
     for i = 1, #self.displayObjects do
-        print("--> removing [" .. i .. "]")
+        --print("--> removing [" .. i .. "]")
         self.displayObjects[1]:remove()
     end
 
     --Cleanup of group.
-    --todo: refactor RNGRoup to avoid this reasignment
+    --todo: refactor RNGroup to avoid this reassignment
     self.displayObjects = {}
     self.numChildren = 0
     self.lasty = 0
@@ -231,13 +226,12 @@ function RNBitmapText:printText(text, left, top, charWidth, charHeight)
         self:insert(aChar)
         currentx = currentx + 16
     end
-end
 
-function RNBitmapText:setSize(width, height)
+    self.text = text
 end
 
 function RNBitmapText:setText(text)
-    print("print text", text, "left", self.left, "top", self.top, self.charWidth, self.charHeight)
+    --print("print text", text, "left", self.left, "top", self.top, self.charWidth, self.charHeight)
     self:printText(text, self.left, self.top, self.charWidth, self.charHeight)
 end
 
@@ -250,10 +244,6 @@ function RNBitmapText:getType()
 end
 
 
-function RNBitmapText:setTextColor(r, g, b)
-end
 
-function RNBitmapText:setAlpha(value)
-end
 
 return RNBitmapText
