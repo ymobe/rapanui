@@ -200,6 +200,10 @@ local function fieldAccessListener(self, key)
             object.x = xx
             object.y = yy
         end
+
+        if key ~= nil and key == "rotation" then
+            object.rotation = object:getProp():getRot()
+        end
     end
 
     if object.isPhysical == true then
@@ -1270,6 +1274,11 @@ function RNObject:remove()
     if self.textbox ~= nil then
         self.textbox = nil
     end
+
+    self:setOnTouchUp(nil)
+    self:setOnTouchDown(nil)
+    self:setOnTouchMove(nil)
+
     self.prop:setDeck(nil)
     self.prop = nil
     self.deck = nil

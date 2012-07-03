@@ -116,7 +116,7 @@ end
 --maxScrollingForceY,minY and maxY affect directly the scrolling gesture.
 
 local list = RNFactory.createList("testList", {
-    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
+    options = { cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0, touchStartX = 0, touchStartY = 0, touchW = 320, touchH = 480 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
     canScrollY = true,
     x = 0,
     y = 0,
@@ -166,7 +166,8 @@ list:insertElement({ object = image13, offsetX = 32, offsetY = 32, onClick = get
 list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = getCallBack })
 --swap tile8 and tile9 positions
 list:swapElements(13, 14)
-
+--smoothly goes to element number
+list:goToElement(5)
 
 
 

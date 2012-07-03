@@ -247,10 +247,9 @@ function RNBody:addEventListener(Type)
         len = table.getn(flist)
         --for each fixture in in self.fixturelist
         for i = 1, len, 1 do
-
             --sets the fixture for callbacks
             currentfixture = flist[i].fixture
-            currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, MOAIBox2DArbiter.ALL)
+            currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end
 end

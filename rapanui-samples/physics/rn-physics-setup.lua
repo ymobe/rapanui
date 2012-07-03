@@ -26,6 +26,12 @@ floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 16
 RNPhysics.start()
 --RNPhysics.stop()
 
+--filter collisions
+--you may want to set a global filter for collision types: all, begin, end, pre_solve or post_solve
+--to register all fixtures in the game to call back only for one kind of collision (to optimize game speed)
+--by default its set to "all"
+RNPhysics.setCollisions("all")  --optional
+
 --setting up gravity
 RNPhysics.setGravity(0, 10)
 print(RNPhysics.getGravity)

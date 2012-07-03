@@ -162,6 +162,17 @@ function RNButton:getType()
 end
 
 function RNButton:setAlpha(level)
+
+
+    if self.text ~= nil then
+        self.text:setAlpha(level)
+    end
+
+    self.rnImageDefault:setAlpha(level)
+
+    if self.rnImageOver ~= nil then
+        self.rnImageOver:setAlpha(level)
+    end
 end
 
 function RNButton:setLevel(level)
@@ -249,7 +260,7 @@ function RNButton:remove(func)
     if self.rnImageOver ~= nil then
         self.rnImageOver:remove()
     end
-    print(self.parentGroup)
+
     if (self.parentGroup) then
         self.parentGroup:removeChild(self.idInGroup)
     end
