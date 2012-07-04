@@ -201,6 +201,10 @@ swipeObject:swapElementsByNumbers(1, 2)
 swipeObject:swapElementsByObjects(group1, image2)
 --by pages and numbers (page1, number1, page2, number2)
 swipeObject:swapElementsByPageAndNumber(2, 2, 2, 6)
+--maybe you want swipeObject not to execute swipe:
+swipeObject.canMove=false
+swipeObject.canMove=true
+
 
 
 
