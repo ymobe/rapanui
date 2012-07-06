@@ -167,7 +167,9 @@ list:insertElement({ object = image14, offsetX = 32, offsetY = 32, onClick = get
 --swap tile8 and tile9 positions
 list:swapElements(13, 14)
 --smoothly goes to element number
-list:goToElement(5)
+list:goToElement(2)
+--get list total height
+print(list:getTotalHeight())
 
 
 
@@ -186,3 +188,13 @@ list:goToElement(5)
 --list:getObjectByNumber(14) --returns RNObject
 --print(list:getNumberByObject(image13))
 
+
+--RNListView function registration
+local function onListCallBack(phase)
+    print(phase)
+end
+
+--register the above function to be called each swipe phase. Check logs.
+local regID = list:registerFunction(onListCallBack)
+--so we can remove the registered function
+--swipeObject:removeRegisteredFunction(regID)

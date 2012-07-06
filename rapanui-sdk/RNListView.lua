@@ -112,6 +112,8 @@ function RNListView:init()
 
     self.isToScroll = false
     self.postogo = 0
+
+    self.registeredFunctions = {}
 end
 
 
@@ -154,7 +156,18 @@ function RNListView.step()
                 SELF.isToScroll = false
             end
         end
+        SELF:callRegisteredFunctions("step")
     end
+end
+
+function RNListView:callRegisteredFunctions(phase)
+    for i = 1, #SELF.registeredFunctions do
+        SELF.registeredFunctions[i](phase)
+    end
+end
+
+function RNListView:registerFunction(funct)
+    self.registeredFunctions[#self.registeredFunctions + 1] = funct
 end
 
 function RNListView.touchEvent(event)
@@ -165,6 +178,7 @@ function RNListView.touchEvent(event)
             if event.phase == "began" and self ~= nil then
                 self.tmpY = event.y
                 self.isTouching = true
+                SELF:callRegisteredFunctions("beganTouch")
             end
 
 
@@ -172,6 +186,7 @@ function RNListView.touchEvent(event)
                 self.deltay = event.y - self.tmpY
                 if self.canScrollY == true then
                     self.tmpY = event.y
+                    SELF:callRegisteredFunctions("movedTouch")
                 end
             end
 
@@ -185,12 +200,14 @@ function RNListView.touchEvent(event)
                     end
                 end
                 self.isTouching = false
+                SELF:callRegisteredFunctions("endedTouch")
             end
         end
     end
     if event.phase == "ended" and self.isScrollingY == true then
         self.isScrollingY = false
         self.isTouching = false
+        SELF:callRegisteredFunctions("cancelledTouch")
     end
 end
 
@@ -339,6 +356,10 @@ function RNListView:goToElement(value)
     self.postogo = -value * self.options.cellH + self.options.touchStartY + self.options.cellH
 end
 
+
+function RNListView:getTotalHeight()
+    return self.options.cellH * (#self.elements)
+end
 
 --mocks for groupAdd (Yes, RNListViews can be added to RNGroups ^^)
 
