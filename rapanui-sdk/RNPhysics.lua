@@ -922,8 +922,8 @@ function RNPhysics.createJoint(type, ...)
         end
         if (anchorBY == nil) then anchorBY = bodyB.y
         end
-
-        joint = world:addRopeJoint(bodyA, bodyB, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
+        joint = world:addRopeJoint(bodyA.body, bodyB.body, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
+        joint:destroy()
     end
 
     --set RNJoint
