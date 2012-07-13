@@ -139,10 +139,12 @@ function touchSwipe(event)
 
         else
             if event.phase == "ended" then
-                self.forceX = 0
-                self:doSwipe()
-                self.isMoving = false
-                self:callRegisteredFunctions("touchSwipeCancelled")
+                if self.isMoving == true then
+                    self.forceX = 0
+                    self:doSwipe()
+                    self.isMoving = false
+                    self:callRegisteredFunctions("touchSwipeCancelled")
+                end
             end
         end
     end
