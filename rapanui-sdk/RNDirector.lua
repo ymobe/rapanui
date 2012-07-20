@@ -127,6 +127,8 @@ function RNDirector:popIn()
         DIRECTOR.onEndListener:call({})
         DIRECTOR.onEndListener = nil
     end
+
+    collectgarbage("collect")
 end
 
 

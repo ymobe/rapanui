@@ -120,9 +120,9 @@ function RNGroup:new(o)
 end
 
 
-function RNGroup:setAlpha()
+function RNGroup:setAlpha(value)
     for i, v in ipairs(self:getAllNonGroupChildren()) do
-        v:setAlpha(0)
+        v:setAlpha(value)
     end
 end
 
