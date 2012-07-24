@@ -136,7 +136,7 @@ function RNText:setSize(width, height)
 end
 
 function RNText:setTextSize(size)
-    self.font:loadFromTTF(self.fontName .. ".TTF", self.charcodes, size, 163)
+    self.font:loadFromTTF(self.fontName, self.charcodes, size, 163)
     self.textbox:setString(self.text)
     self.textbox:setFont(self.font)
     self.textbox:setTextSize(size, 163)
