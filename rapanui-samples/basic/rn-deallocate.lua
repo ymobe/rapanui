@@ -22,6 +22,7 @@
 
 --uncomment this whole block to see how to remove an image asset from memory
 --create an image
+--[[
 image = RNFactory.createImage("images/tile0.png", { left = 100 })
 
 
@@ -35,10 +36,10 @@ function t(event)
 end
 
 RNListeners:addEventListener("touch", t)
+]]--
 
 --uncomment this whole block to see how to remove a set of images for RNButtons assets from memory
 --create a button
---[[
 function button1TouchDown(event)
     event.target:setText("Button 1 touch down!")
 end
@@ -78,7 +79,6 @@ function t(event)
 end
 
 RNListeners:addEventListener("touch", t)
-]]--
 
 --uncomment this whole block to see how to remove an animation asset from memory
 --[[

@@ -46,6 +46,26 @@ function RNDirector:isTransitioning()
     return TRANSITIONING
 end
 
+function RNDirector:getCurrentScene()
+    return CURRENT_SCENE
+end
+
+function RNDirector:getNextScene()
+    return NEXT_SCENE
+end
+
+function RNDirector:getCurrentSceneGroup()
+    return CURRENT_SCENE_GROUP
+end
+
+function RNDirector:getCurrentSceneName()
+    return CURRENT_SCENE_NAME
+end
+
+function RNDirector:getNextSceneGroup()
+    return NEXT_SCENE_GROUP
+end
+
 --add a scene to Director and set it to invisible . scene must be an instance of RNGroup
 function RNDirector:addScene(scene)
     local len = table.getn(self.scenes)
@@ -103,6 +123,8 @@ function RNDirector:showScene(name, effect, onEndListener)
             self:popIn()
         end
     end
+
+    return NEXT_SCENE
 end
 
 function RNDirector:hideCurrentScene(effect)

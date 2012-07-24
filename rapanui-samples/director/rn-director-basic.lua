@@ -55,7 +55,7 @@ director:setTime(1000)
 
 
 --SLIDE TO LEFT IN TEST
-director:showScene("rapanui-samples/director/scene1", "slidetoleft")
+--director:showScene("rapanui-samples/director/scene1", "slidetoleft")
 
 
 --SLIDE TO LEFT OUT TEST
@@ -108,3 +108,19 @@ director:showScene("rapanui-samples/director/scene1", "slidetoleft")
 --SLIDE TO BOTTOM CHANGE TEST
 --director:showScene("rapanui-samples/director/scene1","pop")
 --director:showScene("rapanui-samples/director/scene2","slidetobottom")
+
+
+--SPECIAL
+--we can also get the scene we are going into because maybe we want references to it.
+local sceneWeAreGoing = director:showScene("rapanui-samples/director/scene1", "slidetoleft")
+print(sceneWeAreGoing)
+
+
+
+--GET METHODS
+print(director:isTransitioning())
+print(director:getCurrentScene())
+print(director:getNextScene())
+print(director:getCurrentSceneGroup())
+print(director:getNextSceneGroup())
+print(director:getCurrentSceneName())
