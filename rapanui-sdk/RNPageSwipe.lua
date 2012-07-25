@@ -73,7 +73,7 @@ function RNPageSwipe:init()
     --arranging objects
     self:arrange()
     --touch listener
-    self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
+    self.touchListener = RNListeners:addEventListener("touch", RNPageSwipe.touchSwipe)
     self.registeredFunctions = {}
     self.canSwipe = true
 end
@@ -99,7 +99,7 @@ function RNPageSwipe:arrange()
 end
 
 
-function touchSwipe(event)
+function RNPageSwipe.touchSwipe(event)
     local self = SELF
     if self.canSwipe == true then
         if event.x > self.options.touchAreaStartingX and event.x < self.options.touchAreaW + self.options.touchAreaStartingX and event.y > self.options.touchAreaStartingY and event.y < self.options.touchAreaH + self.options.touchAreaStartingY then
@@ -175,7 +175,10 @@ function RNPageSwipe:doSwipe()
 end
 
 function RNPageSwipe.endSwipe()
-    SELF:callRegisteredFunctions("endedSwipe")
+    if SELF ~= nil then
+        SELF:callRegisteredFunctions("endedSwipe")
+        SELF.isMoving = false
+    end
 end
 
 function RNPageSwipe:registerFunction(funct)
@@ -414,6 +417,7 @@ function RNPageSwipe:goToPage(value)
         end
         self:doSwipe()
         self:callRegisteredFunctions("goToPage")
+        self.isMoving = true
     end
 end
 
