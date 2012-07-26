@@ -417,7 +417,6 @@ function RNPageSwipe:goToPage(value)
         end
         self:doSwipe()
         self:callRegisteredFunctions("goToPage")
-        self.isMoving = true
     end
 end
 
