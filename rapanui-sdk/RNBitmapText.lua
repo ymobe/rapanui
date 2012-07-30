@@ -243,7 +243,4 @@ function RNBitmapText:getType()
     return "RNBitmapText"
 end
 
-
-
-
 return RNBitmapText

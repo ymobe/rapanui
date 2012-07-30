@@ -71,7 +71,7 @@ end      --]]
 
 -- Director
 --require("rapanui-samples/director/rn-director-basic")
-require("rapanui-samples/director/rn-director-touch")
+--require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/director/rn-director-touch-listener")
 --require("rapanui-samples/director/rn-director-loop")
 --require("rapanui-samples/director/rn-director-rnbutton")
@@ -98,7 +98,7 @@ require("rapanui-samples/director/rn-director-touch")
 --require("rapanui-samples/transition/rn-transition-text-rotate")
 
 -- Transition on RNBitmapText
---require("rapanui-samples/transition/rn-transition-bitmaptext-move")
+require("rapanui-samples/transition/rn-transition-bitmaptext-move")
 --require("rapanui-samples/transition/rn-transition-bitmaptext-alpha")
 
 
