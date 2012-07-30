@@ -21,7 +21,7 @@ buttonOne = RNFactory.createImage("images/tile1.png", { top = 50, left = 50 })
 
 
 function callMeBack(event)
-    text:setText("Called! ".. event.touchtype)
+    text:setText("Called! event phase: [" .. event.phase .. "]")
 end
 
-buttonOne:setTouchGlobaListener(callMeBack)
+buttonOne:setGlobalTouchListener(callMeBack)
