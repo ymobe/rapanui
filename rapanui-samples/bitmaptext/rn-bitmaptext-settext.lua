@@ -49,7 +49,7 @@ button = RNFactory.createButton("images/button-plain.png", {
     height = 50,
     onTouchDown = buttonTouchDown,
     onTouchUp = buttonUP,
-    font = "arial-rounded"
+    font = "arial-rounded.TTF"
 })
 
 background:sendToBottom()

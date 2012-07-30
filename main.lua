@@ -44,7 +44,7 @@ end      --]]
 
 -- Bitmap Text
 --require("rapanui-samples/bitmaptext/rn-bitmaptext")
---require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
+require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
@@ -119,7 +119,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
-require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
+--require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
