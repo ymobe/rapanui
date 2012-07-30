@@ -216,7 +216,7 @@ function RNFactory.createButton(image, params)
 
     local top, left, size, font, vAlignment, hAlignment
 
-    font = "arial-rounded"
+    font = "arial-rounded.TTF"
     size = 15
 
     vAlignment = MOAITextBox.CENTER_JUSTIFY
@@ -550,7 +550,7 @@ function RNFactory.createText(text, params)
 
     local top, left, size, font, height, width, alignment
 
-    font = "arial-rounded"
+    font = "arial-rounded.TTF"
     size = 15
     alignment = MOAITextBox.CENTER_JUSTIFY
     --LEFT_JUSTIFY, CENTER_JUSTIFY or RIGHT_JUSTIFY.

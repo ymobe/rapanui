@@ -199,7 +199,7 @@ function RNGraphicsManager:allocateFont(path, charcodes, size, value)
     object.path = path
 
     object.font = MOAIFont.new()
-    object.font:loadFromTTF(path .. ".TTF", charcodes, size, value)
+    object.font:loadFromTTF(path, charcodes, size, value)
     object.sizes = size
     object.isInAtlas = false
 

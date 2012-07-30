@@ -73,8 +73,9 @@ function RNPageSwipe:init()
     --arranging objects
     self:arrange()
     --touch listener
-    self.touchListener = RNListeners:addEventListener("touch", touchSwipe)
+    self.touchListener = RNListeners:addEventListener("touch", RNPageSwipe.touchSwipe)
     self.registeredFunctions = {}
+    self.canSwipe = true
 end
 
 function RNPageSwipe:arrange()
@@ -98,48 +99,53 @@ function RNPageSwipe:arrange()
 end
 
 
-function touchSwipe(event)
+function RNPageSwipe.touchSwipe(event)
     local self = SELF
-    if event.x > self.options.touchAreaStartingX and event.x < self.options.touchAreaW + self.options.touchAreaStartingX and event.y > self.options.touchAreaStartingY and event.y < self.options.touchAreaH + self.options.touchAreaStartingY then
-        if event.phase == "began" then
-            self:callRegisteredFunctions("touchSwipeBegan")
-            self.tempx = event.x
-        end
-        if event.phase == "moved" then
-            self:callRegisteredFunctions("touchSwipeMoved")
-            self.forcex = (event.x - self.tempx)
-            self.tempx = event.x
-            self.isMoving = true
-            --
-            --move elements according to touch
-            for i, v in ipairs(self.elements) do
-                v.object.x = v.object.x + self.forcex
+    if self.canSwipe == true then
+        if event.x > self.options.touchAreaStartingX and event.x < self.options.touchAreaW + self.options.touchAreaStartingX and event.y > self.options.touchAreaStartingY and event.y < self.options.touchAreaH + self.options.touchAreaStartingY then
+            if event.phase == "began" then
+                self:callRegisteredFunctions("touchSwipeBegan")
+                self.tempx = event.x
             end
-            --sets forcex to 0 at the end
-            self.forcex = 0
-            --checks the current page
-            for i = 1, self.pages do
-                local minBorder = self.options.offsetX - i * (self.options.pageW) + self.options.pageW / 2
-                local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageW) + self.options.pageW / 2
-                if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
-                    self.currentPage = i
+            if event.phase == "moved" then
+                self:callRegisteredFunctions("touchSwipeMoved")
+                self.forcex = (event.x - self.tempx)
+                self.tempx = event.x
+                self.isMoving = true
+                --
+                --move elements according to touch
+                for i, v in ipairs(self.elements) do
+                    v.object.x = v.object.x + self.forcex
+                end
+                --sets forcex to 0 at the end
+                self.forcex = 0
+                --checks the current page
+                for i = 1, self.pages do
+                    local minBorder = self.options.offsetX - i * (self.options.pageW) + self.options.pageW / 2
+                    local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageW) + self.options.pageW / 2
+                    if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
+                        self.currentPage = i
+                    end
                 end
             end
-        end
-        if event.phase == "ended" then
-            self.forcex = 0
-            self:doSwipe()
-            self.isMoving = false
-            --call registered functions
-            self:callRegisteredFunctions("touchSwipeEnded")
-        end
 
-    else
-        if event.phase == "ended" then
-            self.forceX = 0
-            self:doSwipe()
-            self.isMoving = false
-            self:callRegisteredFunctions("touchSwipeCancelled")
+            if event.phase == "ended" then
+                self.forcex = 0
+                self:doSwipe()
+                self.isMoving = false
+                --call registered functions
+                self:callRegisteredFunctions("touchSwipeEnded")
+            end
+
+        else
+            if event.phase == "ended" then
+                if self.isMoving == true then
+                    self.forceX = 0
+                    self:doSwipe()
+                    self.isMoving = false
+                    self:callRegisteredFunctions("touchSwipeCancelled")
+                end
+            end
         end
     end
 end
@@ -159,8 +165,19 @@ function RNPageSwipe:doSwipe()
             page = page + 1
         end
         local trn = RNTransition:new()
-        trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })
+        if i == 1 then
+            trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1), onComplete = RNPageSwipe.endSwipe })
+        else
+            trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })
+        end
         col = col + 1
+    end
+end
+
+function RNPageSwipe.endSwipe()
+    if SELF ~= nil then
+        SELF:callRegisteredFunctions("endedSwipe")
+        SELF.isMoving = false
     end
 end
 
