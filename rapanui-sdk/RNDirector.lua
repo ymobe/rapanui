@@ -78,11 +78,10 @@ function RNDirector:setTime(value)
     TIME = value
 end
 
-local coll = collectgarbage
 local unloadScene = function(moduleName)
     if moduleName ~= "main" and type(package.loaded[moduleName]) == "table" then
         package.loaded[moduleName] = nil
-        coll()
+        MOAISim.forceGarbageCollection()
     end
 end
 
@@ -150,7 +149,7 @@ function RNDirector:popIn()
         DIRECTOR.onEndListener = nil
     end
 
-    collectgarbage("collect")
+    MOAISim.forceGarbageCollection()
 end
 
 
@@ -203,7 +202,7 @@ function slideEnd()
         DIRECTOR.onEndListener:call({})
         DIRECTOR.onEndListener = nil
     end
-    collectgarbage("collect")
+    MOAISim.forceGarbageCollection()
 end
 
 
@@ -307,7 +306,7 @@ function RNDirector:endFade()
         DIRECTOR.onEndListener:call({})
         DIRECTOR.onEndListener = nil
     end
-    collectgarbage("collect")
+    MOAISim.forceGarbageCollection()
 end
 
 return RNDirector

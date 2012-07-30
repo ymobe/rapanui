@@ -172,7 +172,7 @@ function RNMapTileset:remove()
     self.image = nil
     self.tiledeck = nil
     self = nil
-    collectgarbage()
+    --    collectgarbage()
 end
 
 function RNMapTileset:getWidth()
