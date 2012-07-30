@@ -67,7 +67,7 @@ function RNListView:innerNew(o)
 
     o = o or {
         name = "",
-        options = { cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0 },
+        options = { timestep = 1 / 60, cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0 },
         elements = {},
         x = 0,
         y = 0,
@@ -100,6 +100,7 @@ function RNListView:init()
     if self.options.touchH == nil then self.options.touchH = 480 end
     if self.options.touchStartX == nil then self.options.touchStartX = 0 end
     if self.options.touchStartY == nil then self.options.touchStartY = 0 end
+    if self.options.timestep == nil then self.options.timestep = 1 / 60 end
 
     --organize items
     for i = 1, table.getn(self.elements), 1 do
@@ -108,7 +109,8 @@ function RNListView:init()
     end
     --set listeners
     self.touchListener = RNListeners:addEventListener("touch", self.touchEvent)
-    self.timerListener = RNMainThread.addTimedAction(0.01, self.step)
+    self.timerListener = nil
+    self.createTimer()
 
     self.isToScroll = false
     self.postogo = 0
@@ -118,45 +120,76 @@ end
 
 
 function RNListView.step()
-    if SELF ~= nil and SELF.canScrollY == true then
-        if SELF.deltay > 0 then SELF.deltay = SELF.deltay - 0.2 end
-        if SELF.deltay < 0 then SELF.deltay = SELF.deltay + 0.2 end
+    if SELF ~= nil then
+        if #SELF.elements > 0 then
+            if SELF.canScrollY == true then
+                if SELF.deltay > 0 then SELF.deltay = SELF.deltay - 0.2 end
+                if SELF.deltay < 0 then SELF.deltay = SELF.deltay + 0.2 end
 
-        if SELF.deltay > SELF.options.maxScrollingForceY then SELF.deltay = SELF.options.maxScrollingForceY end
-        if SELF.deltay < -SELF.options.maxScrollingForceY then SELF.deltay = -SELF.options.maxScrollingForceY end
+                if SELF.deltay > SELF.options.maxScrollingForceY then SELF.deltay = SELF.options.maxScrollingForceY end
+                if SELF.deltay < -SELF.options.maxScrollingForceY then SELF.deltay = -SELF.options.maxScrollingForceY end
 
-        if SELF.deltay > 0 and SELF.deltay <= 0.2 then SELF.deltay = 0 end
-        if SELF.deltay < 0 and SELF.deltay >= -0.2 then SELF.deltay = 0 end
+                if SELF.deltay > 0 and SELF.deltay <= 0.2 then
+                    SELF.deltay = 0
+                end
+                if SELF.deltay < 0 and SELF.deltay >= -0.2 then
+                    SELF.deltay = 0
+                end
 
-        if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 then
-            SELF.y = SELF.y + SELF.deltay
-        end
-        if SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
-            SELF.y = SELF.y + SELF.deltay
-        end
+                if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 then
+                    SELF.y = SELF.y + SELF.deltay
+                end
+                if SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
+                    SELF.y = SELF.y + SELF.deltay
+                end
 
-        if SELF.deltay > 1 or SELF.deltay < -1 then
-            SELF.isScrollingY = true
-        end
+                if SELF.deltay > 1 or SELF.deltay < -1 then
+                    SELF.isScrollingY = true
+                end
 
-        if SELF.y > SELF.options.maxY and SELF.isTouching == false then
-            SELF.deltay = 0
-            SELF.y = SELF.y - (SELF.y - SELF.options.maxY) / 20
-        end
-        if SELF.y < SELF.options.minY and SELF.isTouching == false then
-            SELF.deltay = 0
-            SELF.y = SELF.y + (SELF.options.minY - SELF.y) / 20
-        end
-        --scroll due to postogo
-        if SELF.isToScroll == true then
-            if SELF.y > SELF.postogo then SELF.y = SELF.y - 1 end
-            if SELF.y <= SELF.postogo then SELF.y = SELF.y + 1 end
-            if math.abs(SELF.y - SELF.postogo) < 2 then
-                SELF.y = SELF.postogo
-                SELF.isToScroll = false
+                if SELF.y > SELF.options.maxY and SELF.isTouching == false then
+                    SELF.deltay = 0
+                    local value = (SELF.y - SELF.options.maxY) / 20
+                    SELF.y = SELF.y - value
+                    if value < 0.001 then
+                        SELF.removeTimer()
+                    end
+                end
+                if SELF.y < SELF.options.minY and SELF.isTouching == false then
+                    SELF.deltay = 0
+                    local value = (SELF.options.minY - SELF.y) / 20
+                    SELF.y = SELF.y + value
+                    if value < 0.001 then
+                        SELF.removeTimer()
+                    end
+                end
+
+                --scroll due to postogo
+                if SELF.isToScroll == true then
+                    if SELF.y > SELF.postogo then SELF.y = SELF.y - 1 end
+                    if SELF.y <= SELF.postogo then SELF.y = SELF.y + 1 end
+                    if math.abs(SELF.y - SELF.postogo) < 2 then
+                        SELF.y = SELF.postogo
+                        SELF.isToScroll = false
+                        SELF.removeTimer()
+                    end
+                end
+                SELF:callRegisteredFunctions("step")
             end
         end
-        SELF:callRegisteredFunctions("step")
+    end
+end
+
+function RNListView.createTimer()
+    if SELF.timerListener == nil then
+        SELF.timerListener = RNMainThread.addTimedAction(SELF.options.timestep, SELF.step)
+    end
+end
+
+function RNListView.removeTimer()
+    if SELF.timerListener ~= nil then
+        RNMainThread.removeAction(SELF.timerListener)
+        SELF.timerListener = nil
     end
 end
 
@@ -179,6 +212,8 @@ function RNListView.touchEvent(event)
                 self.tmpY = event.y
                 self.isTouching = true
                 SELF:callRegisteredFunctions("beganTouch")
+                SELF.beganDelta = event.y - self.y
+                SELF.removeTimer()
             end
 
 
@@ -187,6 +222,9 @@ function RNListView.touchEvent(event)
                 if self.canScrollY == true then
                     self.tmpY = event.y
                     SELF:callRegisteredFunctions("movedTouch")
+                    if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 or SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
+                        self.y = event.y - self.beganDelta
+                    end
                 end
             end
 
@@ -201,6 +239,7 @@ function RNListView.touchEvent(event)
                 end
                 self.isTouching = false
                 SELF:callRegisteredFunctions("endedTouch")
+                SELF.createTimer()
             end
         end
     end
@@ -208,6 +247,7 @@ function RNListView.touchEvent(event)
         self.isScrollingY = false
         self.isTouching = false
         SELF:callRegisteredFunctions("cancelledTouch")
+        SELF.createTimer()
     end
 end
 
@@ -231,7 +271,7 @@ function RNListView:setY(value)
 end
 
 function RNListView:remove()
-    RNMainThread.removeAction(self.timerListener)
+    self:removeTimer()
     RNListeners:removeEventListener("touch", self.touchListener)
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then
@@ -354,6 +394,12 @@ end
 function RNListView:goToElement(value)
     self.isToScroll = true
     self.postogo = -value * self.options.cellH + self.options.touchStartY + self.options.cellH
+    self.createTimer()
+end
+
+function RNListView:jumpToElement(value)
+    SELF.y = -value * SELF.options.cellH + SELF.options.touchStartY + SELF.options.cellH
+    SELF.removeTimer()
 end
 
 
