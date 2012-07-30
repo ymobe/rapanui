@@ -285,10 +285,10 @@ function RNFactory.createButton(image, params)
 
     RNFactory.screen:addRNObject(rnButtonImage)
 
+
     local rnButtonImageOver
 
     if params.imageOver ~= nil then
-
 
         rnButtonImageOver = RNObject:new()
         rnButtonImageOver, deck = rnButtonImageOver:initWithImage2(params.imageOver)
@@ -299,10 +299,22 @@ function RNFactory.createButton(image, params)
         rnButtonImageOver:setVisible(false)
 
         RNFactory.screen:addRNObject(rnButtonImageOver)
+    end
 
-        --   if parentGroup ~= nil then
-        --       parentGroup:insert(rnButtonImageOver)
-        --   end
+
+    local rnButtonImageDisabled
+
+    if params.imageDisabled ~= nil then
+
+        rnButtonImageDisabled = RNObject:new()
+        rnButtonImageDisabled, deck = rnButtonImageDisabled:initWithImage2(params.imageDisabled)
+
+        rnButtonImageDisabled.x = rnButtonImageDisabled.originalWidth / 2 + left
+        rnButtonImageDisabled.y = rnButtonImageDisabled.originalHeight / 2 + top
+
+        rnButtonImageDisabled:setVisible(false)
+
+        RNFactory.screen:addRNObject(rnButtonImageDisabled)
     end
 
     local rnText
@@ -326,7 +338,7 @@ function RNFactory.createButton(image, params)
 
     local rnButton = RNButton:new()
 
-    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
+    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnButtonImageDisabled, rnText)
 
     if parentGroup ~= nil then
         parentGroup:insert(rnButton)
@@ -488,6 +500,64 @@ function RNFactory.createAnim(image, sizex, sizey, left, top, scaleX, scaleY)
     return o, deck
 end
 
+
+function RNFactory.createBitmapText(text, params)
+
+    --[[ params.image
+    params.charset
+    params.top
+    params.left
+    params.letterWidth
+    params.letterHeight
+         ]]
+
+    local charcodes, endsizex, sizey, sizex, left, top, scaleX, scaleY, charWidth, charHeight, image, parentGroup
+
+
+
+    if params.image ~= nil then
+        image = params.image
+    end
+
+    if params.charcodes ~= nil then
+        charcodes = params.charcodes
+    end
+
+    if params.top ~= nil then
+        top = params.top
+    end
+
+    if params.left ~= nil then
+        left = params.left
+    end
+
+    if params.charWidth ~= nil then
+        charWidth = params.charWidth
+    end
+
+    if params.charHeight ~= nil then
+        charHeight = params.charHeight
+    end
+
+    if params.parentGroup ~= nil then
+        parentGroup = params.parentGroup
+    else
+        parentGroup = RNFactory.mainGroup
+    end
+
+    local o = RNBitmapText:new()
+    local o, deck = o:initWith(text, image, charcodes, charWidth, charHeight, top, left, hAlignment, vAlignment)
+
+    o.x = left
+    o.y = top
+
+
+
+    parentGroup:insert(o)
+
+    return o, deck
+end
+
 function RNFactory.createText(text, params)
 
     local top, left, size, font, height, width, alignment
@@ -527,16 +597,17 @@ function RNFactory.createText(text, params)
         end
     end
 
-    local RNText = RNText:new()
+    local rntext = RNText:new()
     local gFont
-    RNText, gFont = RNText:initWithText2(text, font, size, width, height, alignment)
-    RNFactory.screen:addRNObject(RNText)
-    RNFactory.mainGroup:insert(RNText)
 
-    RNText.x = left
-    RNText.y = top
+    rntext, gFont = rntext:initWithText2(text, font, size, width, height, alignment)
+    RNFactory.screen:addRNObject(rntext)
+    RNFactory.mainGroup:insert(rntext)
 
-    return RNText, gFont
+    rntext.x = left
+    rntext.y = top
+
+    return rntext, gFont
 end
 
 

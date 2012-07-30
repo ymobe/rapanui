@@ -93,6 +93,7 @@ function RNButton:innerNew(o)
         rntext = nil,
         rnImageDefault = nil,
         rnImageOver = nil,
+        enabled = true,
         x = 0,
         y = 0
     }
@@ -111,9 +112,8 @@ function RNButton:new(o)
 end
 
 
-function RNButton:initWith(imageDefault, imageOver, rntext)
+function RNButton:initWith(imageDefault, imageOver, imageDisabled, rntext)
     self.text = rntext
-
 
     self.rnImageDefault = imageDefault
 
@@ -121,41 +121,63 @@ function RNButton:initWith(imageDefault, imageOver, rntext)
         self.rnImageOver = imageOver
     end
 
+    if imageDisabled ~= nil then
+        self.rnImageDisabled = imageDisabled
+    end
 
     local function defaultOnTouchDownButton(event)
-        event.target = self
+        if self.enabled then
+            event.target = self
 
-        if self.rnImageOver ~= nil then
+            if self.rnImageOver ~= nil then
 
-            self.rnImageDefault:setVisible(false)
-            self.rnImageOver:setVisible(true)
-        end
+                self.rnImageDefault:setVisible(false)
+                self.rnImageOver:setVisible(true)
+            end
 
-        if self.onTouchDownFunc ~= nil then
-            self.onTouchDownFunc(event)
+            if self.onTouchDownFunc ~= nil then
+                self.onTouchDownFunc(event)
+            end
         end
     end
 
     self.rnImageDefault:setOnTouchDown(defaultOnTouchDownButton)
 
     local function defaultOnTouchUp(event)
+        if self.enabled then
+            event.target = self
 
-        event.target = self
 
+            if self.rnImageOver ~= nil then
+                self.rnImageOver:setVisible(false)
+                self.rnImageDefault:setVisible(true)
+            end
 
-        if self.rnImageOver ~= nil then
-            self.rnImageOver:setVisible(false)
-            self.rnImageDefault:setVisible(true)
-        end
-
-        if self.onTouchUpFunc ~= nil then
-            self.onTouchUpFunc(event)
+            if self.onTouchUpFunc ~= nil then
+                self.onTouchUpFunc(event)
+            end
         end
     end
 
     self.rnImageDefault:setOnTouchUp(defaultOnTouchUp)
 end
 
+function RNButton:disable()
+    self.enabled = false
+
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDefault:setVisible(false)
+        self.rnImageDisabled:setVisible(true)
+    end
+end
+
+function RNButton:enable()
+    self.enabled = true
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDefault:setVisible(true)
+        self.rnImageDisabled:setVisible(false)
+    end
+end
 
 function RNButton:getType()
     return "RNButton"
@@ -186,6 +208,10 @@ function RNButton:setLevel(level)
     if self.rnImageOver ~= nil then
         self.rnImageOver:setLevel(level)
     end
+
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDisabled:setLevel(level)
+    end
 end
 
 function RNButton:setIDInGroup(idInGroup)
@@ -201,6 +227,10 @@ function RNButton:setParentGroup(group)
 
     if self.rnImageOver ~= nil then
         self.rnImageOver:setParentGroup(group)
+    end
+
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDisabled:setParentGroup(group)
     end
 
     self.parentGroup = group
@@ -229,6 +259,10 @@ function RNButton:getAllRNObjectProps()
 
     if self.rnImageOver ~= nil then
         table.insert(props, self.rnImageOver:getProp())
+    end
+
+    if self.rnImageDisabled ~= nil then
+        table.insert(props, self.rnImageDisabled:getProp())
     end
 
     return props
@@ -261,9 +295,14 @@ function RNButton:remove(func)
         self.rnImageOver:remove()
     end
 
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDisabled:remove()
+    end
+
     if (self.parentGroup) then
         self.parentGroup:removeChild(self.idInGroup)
     end
+
     self.text = nil
     self.rnImageDefault = nil
     self.rnImageOver = nil

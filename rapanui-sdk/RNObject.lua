@@ -1218,6 +1218,13 @@ function RNObject:setOnTouchCancel(func)
     self.onTouchCancelListener = func
 end
 
+function RNObject:setGlobalTouchListener(func)
+    self:setOnTouchDown(func)
+    self:setOnTouchMove(func)
+    self:setOnTouchUp(func)
+    self:setOnTouchCancel(func)
+end
+
 function RNObject:getTranslatedLocation(x, y)
 end
 

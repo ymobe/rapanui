@@ -42,9 +42,14 @@ end      --]]
 --require("rapanui-samples/basic/rn-shapes-penColor")
 --require("rapanui-samples/basic/rn-deallocate")
 
+-- Bitmap Text
+--require("rapanui-samples/bitmaptext/rn-bitmaptext")
+--require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
+
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
-require("rapanui-samples/lists/rn-rnPageSwipe")
+--require("rapanui-samples/lists/rn-rnListView")
+--require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")
@@ -55,7 +60,6 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 -- require("rapanui-samples/landscape/rn-images")
 
 -- Groups
-
 --require("rapanui-samples/groups/rn-groups-basics-move")
 --require("rapanui-samples/groups/rn-groups-basics-fade")
 --require("rapanui-samples/groups/rn-groups-basics-rotate")
@@ -74,6 +78,7 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
+--require("rapanui-samples/buttons/rn-button-disabled")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
@@ -93,8 +98,14 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 --require("rapanui-samples/transition/rn-transition-text-scale")
 --require("rapanui-samples/transition/rn-transition-text-rotate")
 
+-- Transition on RNBitmapText
+--require("rapanui-samples/transition/rn-transition-bitmaptext-move")
+--require("rapanui-samples/transition/rn-transition-bitmaptext-alpha")
+
+
 -- Transition on RNButton
 --require("rapanui-samples/transition/rn-transition-rnbutton-move")
+--require("rapanui-samples/transition/rn-transition-rnbutton-disabled-move")
 --require("rapanui-samples/transition/rn-transition-rnbutton-alpha")
 
 -- Transition on RNMap
@@ -108,6 +119,7 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 --require("rapanui-samples/touch/rn-touch-buttons")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
+require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
@@ -157,6 +169,7 @@ require("rapanui-samples/lists/rn-rnPageSwipe")
 -- other memory test
 --require("rapanui-samples/test/memory/rnbutton-mem-test")
 --require("rapanui-samples/test/memory/map-mem-test")
+--require("rapanui-samples/test/memory/rnbitmaptext-mem-test")
 
 -- Unit tests
 --require("rapanui-samples/test/unit/rn-groups-unit-test")

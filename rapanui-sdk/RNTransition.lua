@@ -99,6 +99,7 @@ function RNTransition:run(target, params)
     if (type == RNTransition.MOVE) then
         local px, py, pz
 
+
         if target:getType() == "RNObject" then
             px, py = target:getProp():getLoc()
         elseif target:getType() == "RNText" then
@@ -107,7 +108,7 @@ function RNTransition:run(target, params)
             px, py = target:getLoc()
         elseif target:getType() == "RNMap" then
             px, py = target:getLoc();
-        elseif target:getType() == "RNGroup" then
+        elseif target:getType() == "RNGroup" or target:getType() == "RNBitmapText" then
             px, py = target.x, target.y
         end
 
@@ -136,7 +137,7 @@ function RNTransition:run(target, params)
             action = target:getRNtext():getProp():moveLoc(deltax, deltay, 0, time, mode)
         elseif target:getType() == "RNText" then
             action = target:getProp():moveLoc(deltax, deltay, 0, time, mode)
-        elseif target:getType() == "RNGroup" then
+        elseif target:getType() == "RNGroup" or target:getType() == "RNBitmapText" then
             action = target:getProp():moveLoc(deltax, deltay, time, mode)
             target.lastx = toX
             target.lasty = toY
@@ -201,7 +202,7 @@ function RNTransition:run(target, params)
             for key, prop in pairs(target:getAllProps()) do
                 action = prop:seekColor(alpha, alpha, alpha, alpha, time, mode)
             end
-        elseif target:getType() == "RNGroup" then
+        elseif target:getType() == "RNGroup" or target:getType() == "RNBitmapText" then
             for key, object in pairs(target:getAllNonGroupChildren()) do
                 if object:getType() == "RNObject" or object:getType() == "RNText" then
                     action = object:getProp():seekColor(alpha, alpha, alpha, alpha, time, mode)
