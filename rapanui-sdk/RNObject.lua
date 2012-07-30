@@ -1291,7 +1291,7 @@ function RNObject:remove()
     self.deck = nil
     self.tileDeck = nil
     self = nil
-    collectgarbage()
+--    collectgarbage()
 end
 
 --if it's awake (returns boolean)

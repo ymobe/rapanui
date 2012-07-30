@@ -273,9 +273,10 @@ function RNMap:remove()
         local layer = self.layers[i]
         layer:remove()
     end
-
-    if (self.parentGroup ~= nil) then
-        self.parentGroup:removeChild(self.idInGroup)
+    if self.parentGroup.getType ~= nil then
+        if (self.parentGroup:getType() == "RNGroup") then
+            self.parentGroup:removeChild(self.idInGroup)
+        end
     end
 
     for i, v in pairs(self.tilesets) do
@@ -290,7 +291,7 @@ function RNMap:remove()
     self.tilesets = nil
     self.layers = nil
     self = nil
-    collectgarbage()
+    --    collectgarbage()
 end
 
 function RNMap:getDelta(a, b)

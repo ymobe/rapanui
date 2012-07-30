@@ -302,7 +302,7 @@ function RNGroup:remove()
     end
     self.prop = nil
     self = nil
-    collectgarbage()
+--    collectgarbage()
 end
 
 
