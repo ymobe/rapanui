@@ -285,10 +285,10 @@ function RNFactory.createButton(image, params)
 
     RNFactory.screen:addRNObject(rnButtonImage)
 
+
     local rnButtonImageOver
 
     if params.imageOver ~= nil then
-
 
         rnButtonImageOver = RNObject:new()
         rnButtonImageOver, deck = rnButtonImageOver:initWithImage2(params.imageOver)
@@ -299,10 +299,22 @@ function RNFactory.createButton(image, params)
         rnButtonImageOver:setVisible(false)
 
         RNFactory.screen:addRNObject(rnButtonImageOver)
+    end
 
-        --   if parentGroup ~= nil then
-        --       parentGroup:insert(rnButtonImageOver)
-        --   end
+
+    local rnButtonImageDisabled
+
+    if params.imageDisabled ~= nil then
+
+        rnButtonImageDisabled = RNObject:new()
+        rnButtonImageDisabled, deck = rnButtonImageDisabled:initWithImage2(params.imageDisabled)
+
+        rnButtonImageDisabled.x = rnButtonImageDisabled.originalWidth / 2 + left
+        rnButtonImageDisabled.y = rnButtonImageDisabled.originalHeight / 2 + top
+
+        rnButtonImageDisabled:setVisible(false)
+
+        RNFactory.screen:addRNObject(rnButtonImageDisabled)
     end
 
     local rnText
@@ -326,7 +338,7 @@ function RNFactory.createButton(image, params)
 
     local rnButton = RNButton:new()
 
-    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnText)
+    rnButton:initWith(rnButtonImage, rnButtonImageOver, rnButtonImageDisabled, rnText)
 
     if parentGroup ~= nil then
         parentGroup:insert(rnButton)
