@@ -60,8 +60,6 @@ end
 text = RNFactory.createText("Touch on buttons 1", { size = 9, top = 400, left = 5, width = 250, height = 50 })
 
 
-function button2TouchDown(event)
-end
 
 
 function button2UP(event)
@@ -77,5 +75,4 @@ function button2UP(event)
     end
 end
 
-button2:setOnTouchDown(button2TouchDown)
 button2:setOnTouchUp(button2UP)

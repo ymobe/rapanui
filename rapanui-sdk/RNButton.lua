@@ -261,6 +261,10 @@ function RNButton:getAllRNObjectProps()
         table.insert(props, self.rnImageOver:getProp())
     end
 
+    if self.rnImageDisabled ~= nil then
+        table.insert(props, self.rnImageDisabled:getProp())
+    end
+
     return props
 end
 
@@ -295,10 +299,10 @@ function RNButton:remove(func)
         self.rnImageDisabled:remove()
     end
 
-
     if (self.parentGroup) then
         self.parentGroup:removeChild(self.idInGroup)
     end
+
     self.text = nil
     self.rnImageDefault = nil
     self.rnImageOver = nil

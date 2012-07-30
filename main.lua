@@ -78,7 +78,7 @@ end      --]]
 
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
-require("rapanui-samples/buttons/rn-button-disabled")
+--require("rapanui-samples/buttons/rn-button-disabled")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
@@ -105,6 +105,7 @@ require("rapanui-samples/buttons/rn-button-disabled")
 
 -- Transition on RNButton
 --require("rapanui-samples/transition/rn-transition-rnbutton-move")
+require("rapanui-samples/transition/rn-transition-rnbutton-disabled-move")
 --require("rapanui-samples/transition/rn-transition-rnbutton-alpha")
 
 -- Transition on RNMap
