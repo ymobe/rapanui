@@ -116,6 +116,8 @@ function RNListView:init()
     self.postogo = 0
 
     self.registeredFunctions = {}
+
+    self.scrolled = false
 end
 
 
@@ -222,6 +224,7 @@ function RNListView.touchEvent(event)
                 if self.canScrollY == true then
                     self.tmpY = event.y
                     SELF:callRegisteredFunctions("movedTouch")
+                    self.scrolled = true
                     if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 or SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
                         self.y = event.y - self.beganDelta
                     end
@@ -231,7 +234,7 @@ function RNListView.touchEvent(event)
             if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
                 for i = 1, table.getn(self.elements), 1 do
                     if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
-                        if self.elements[i].onClick ~= nil then
+                        if self.elements[i].onClick ~= nil and self.scrolled == false then
                             local funct = self.elements[i].onClick
                             funct({ target = self.elements[i] })
                         end
@@ -239,6 +242,7 @@ function RNListView.touchEvent(event)
                 end
                 self.isTouching = false
                 SELF:callRegisteredFunctions("endedTouch")
+                self.scrolled = false
                 SELF.createTimer()
             end
         end
@@ -247,6 +251,7 @@ function RNListView.touchEvent(event)
         self.isScrollingY = false
         self.isTouching = false
         SELF:callRegisteredFunctions("cancelledTouch")
+        self.scrolled = false
         SELF.createTimer()
     end
 end
