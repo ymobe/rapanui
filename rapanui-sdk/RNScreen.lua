@@ -123,7 +123,7 @@ function RNScreen:getObjectWithHighestLevelOn(x, y)
     local props
     if config.stretch == true then
         local toGetX, toGetY = (x - ofx) * Ax, (y - ofy) * Ay
-        print(x, y, toGetX, toGetY)
+        --        print(x, y, toGetX, toGetY)
         props = { self.mainPartition:propListForPoint(toGetX, toGetY, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     else
         props = { self.mainPartition:propListForPoint(x, y, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
@@ -133,7 +133,7 @@ function RNScreen:getObjectWithHighestLevelOn(x, y)
         for j, k in ipairs(self.sprites) do
             if k.prop == p then
                 if k.touchable == true then
-                    print(k.name)
+                    --                    print(k.name)
                     return k
                 end
             end
