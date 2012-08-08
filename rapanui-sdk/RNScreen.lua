@@ -102,14 +102,29 @@ end
 
 function RNScreen:getObjectWithHighestLevelOn(x, y)
 
+    local ofx = RNFactory.screenXOffset
+    local ofy = RNFactory.screenYOffset
+
     local gx = config.graphicsDesign.w
     local gy = config.graphicsDesign.h
     local tx = RNFactory.width
     local ty = RNFactory.height
 
+    --screen aspect without calculating offsets
+    local Ax = gx / (tx - ofx * 2)
+    local Ay = gy / (ty - ofy * 2)
+
+    --screen aspect calculating offsets
+    local AspectX = (gx + ofx * 2 * Ax) / tx
+    local AspectY = (gy + ofy * 2 * Ay) / ty
+
+
+
     local props
     if config.stretch == true then
-        props = { self.mainPartition:propListForPoint(x * gx / tx, y * gy / ty, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        local toGetX, toGetY = (x - ofx) * Ax, (y - ofy) * Ay
+        print(x, y, toGetX, toGetY)
+        props = { self.mainPartition:propListForPoint(toGetX, toGetY, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     else
         props = { self.mainPartition:propListForPoint(x, y, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     end
@@ -118,6 +133,7 @@ function RNScreen:getObjectWithHighestLevelOn(x, y)
         for j, k in ipairs(self.sprites) do
             if k.prop == p then
                 if k.touchable == true then
+                    print(k.name)
                     return k
                 end
             end

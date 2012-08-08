@@ -79,6 +79,12 @@ function RNFactory.init()
     RNFactory.outWidth = RNFactory.width
     RNFactory.outHeight = RNFactory.height
 
+    RNFactory.screenXOffset = 0
+    RNFactory.screenYOffset = 0
+
+    RNFactory.screenUnitsX = 0
+    RNFactory.screenUnitsY = 0
+
     --if we have to stretch graphics to screen
 
     if config.stretch == true then
@@ -120,6 +126,12 @@ function RNFactory.init()
 
         RNFactory.outWidth = config.graphicsDesign.w
         RNFactory.outHeight = config.graphicsDesign.h
+
+        RNFactory.screenXOffset = SCREEN_X_OFFSET
+        RNFactory.screenYOffset = SCREEN_Y_OFFSET
+
+        RNFactory.screenUnitsX = SCREEN_UNITS_X
+        RNFactory.screenUnitsY = SCREEN_UNITS_Y
     end
 
 
