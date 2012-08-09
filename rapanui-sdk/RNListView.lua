@@ -226,7 +226,9 @@ function RNListView.touchEvent(event)
                     SELF:callRegisteredFunctions("movedTouch")
                     self.scrolled = true
                     if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 or SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
-                        self.y = event.y - self.beganDelta
+                        if self.beganDelta ~= nil then
+                            self.y = event.y - self.beganDelta
+                        end
                     end
                 end
             end
