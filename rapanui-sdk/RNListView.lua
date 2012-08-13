@@ -215,6 +215,7 @@ function RNListView.touchEvent(event)
                 self.isTouching = true
                 SELF:callRegisteredFunctions("beganTouch")
                 SELF.beganDelta = event.y - self.y
+                self.olddeltay = 0
                 SELF.removeTimer()
             end
 
@@ -225,12 +226,30 @@ function RNListView.touchEvent(event)
                     self.tmpY = event.y
                     SELF:callRegisteredFunctions("movedTouch")
                     self.scrolled = true
-                    if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 or SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
-                        if self.beganDelta ~= nil then
-                            self.y = event.y - self.beganDelta
+                    if (SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100) then
+                        if self.olddeltay > 0 then
+                            if self.beganDelta ~= nil then
+                                --                                print("               down")
+                                self.y = event.y - self.beganDelta
+                            end
+                        else
+                            --                            print("got new began")
+                            SELF.beganDelta = event.y - self.y
+                        end
+                    end
+                    if (SELF.deltay < 0 and SELF.y > SELF.options.minY - 100) then
+                        if self.olddeltay < 0 then
+                            if self.beganDelta ~= nil then
+                                --                                print("               up")
+                                self.y = event.y - self.beganDelta
+                            end
+                        else
+                            --                            print("got new began")
+                            SELF.beganDelta = event.y - self.y
                         end
                     end
                 end
+                self.olddeltay = self.deltay
             end
 
             if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
