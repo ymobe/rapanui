@@ -31,15 +31,15 @@ button = RNFactory.createButton("images/button-plain.png", {
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
-    onTouchUp = button1UP ,
-    font="arial-rounded.TTF"
+    onTouchUp = button1UP,
+    font = "arial-rounded.TTF"
 })
 
 -- second button to show different text alignments
 
 button2 = RNFactory.createButton("images/button-plain.png", {
     text = "Text alignment Button 2",
-    top = 150,
+    top = 100,
     left = 10,
     size = 8,
     width = 200,
@@ -51,7 +51,7 @@ button2 = RNFactory.createButton("images/button-plain.png", {
 button3 = RNFactory.createButton("images/button-plain.png", {
     text = "No call back",
     imageOver = "images/button-over.png",
-    top = 250,
+    top = 150,
     left = 10,
     size = 8,
     width = 200,
@@ -70,7 +70,7 @@ end
 
 button4 = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
-    top = 350,
+    top = 200,
     left = 10,
     size = 8,
     width = 200,
@@ -79,6 +79,17 @@ button4 = RNFactory.createButton("images/button-plain.png", {
     onTouchUp = button4UP
 })
 
+button5 = RNFactory.createButton("images/button-plain.png", {
+    text = "Button Offset",
+    imageOver = "images/button-over.png",
+    top = 250,
+    left = 10,
+    size = 8,
+    width = 200,
+    height = 50,
+    xOffset = 50,
+    yOffset = 5
+})
 
 
 text = RNFactory.createText("Touch on buttons 1", { size = 9, top = 400, left = 5, width = 250, height = 50 })

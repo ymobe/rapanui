@@ -228,6 +228,8 @@ function RNFactory.createButton(image, params)
 
     local top, left, size, font, vAlignment, hAlignment
 
+    local xOffset, yOffset = 0, 0
+
     font = "arial-rounded.TTF"
     size = 15
 
@@ -286,6 +288,14 @@ function RNFactory.createButton(image, params)
         if (params.horizontalAlignment ~= nil) then
             hAlignment = params.horizontalAlignment
         end
+    end
+
+    if (params.xOffset ~= nil) then
+        xOffset = params.xOffset
+    end
+
+    if (params.yOffset ~= nil) then
+        yOffset = params.yOffset
     end
 
     -- init of default RNButtonImage
@@ -349,8 +359,10 @@ function RNFactory.createButton(image, params)
 
 
     local rnButton = RNButton:new()
-
+    rnButton.xOffset = xOffset
+    rnButton.yOffset = yOffset
     rnButton:initWith(rnButtonImage, rnButtonImageOver, rnButtonImageDisabled, rnText)
+
 
     if parentGroup ~= nil then
         parentGroup:insert(rnButton)
@@ -368,6 +380,8 @@ function RNFactory.createButton(image, params)
     if params.onTouchDown ~= nil then
         rnButton:setOnTouchDown(params.onTouchDown)
     end
+
+
     return rnButton, deck
 end
 

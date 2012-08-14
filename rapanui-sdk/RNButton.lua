@@ -32,8 +32,7 @@ local function fieldChangedListenerRNButton(self, key, value)
         end
 
         if self.text ~= nil then
-
-            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2 + self.xOffset, tmpY - self.rnImageDefault.originalHeight / 2 + self.yOffset)
         end
     end
 
@@ -47,7 +46,7 @@ local function fieldChangedListenerRNButton(self, key, value)
         end
         if self.text ~= nil then
 
-            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2, tmpY - self.rnImageDefault.originalHeight / 2)
+            self.text:getProp():setLoc(tmpX - self.rnImageDefault.originalWidth / 2 + self.xOffset, tmpY - self.rnImageDefault.originalHeight / 2 + self.yOffset)
             --self.text:getProp():setLoc(tmpX, tmpY)
         end
     end
@@ -95,7 +94,9 @@ function RNButton:innerNew(o)
         rnImageOver = nil,
         enabled = true,
         x = 0,
-        y = 0
+        y = 0,
+        xOffset = 0,
+        yOffset = 0
     }
 
     setmetatable(o, self)

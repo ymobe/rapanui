@@ -914,13 +914,23 @@ function RNPhysics.createJoint(type, ...)
         anchorAY = arg[5]
         anchorBX = arg[6]
         anchorBY = arg[7]
-        if (anchorAX == nil) then anchorAX = bodyA.x
+        -- Those are real settings according to box2d:
+        --        if (anchorAX == nil) then anchorAX = bodyA.x
+        --        end
+        --        if (anchorAY == nil) then anchorAY = bodyA.y
+        --        end
+        --        if (anchorBX == nil) then anchorBX = bodyB.x
+        --        end
+        --        if (anchorBY == nil) then anchorBY = bodyB.y
+        --        end
+        -- Those are temporary settings according to MOAI bug:
+        if (anchorAX == nil) then anchorAX = 0
         end
-        if (anchorAY == nil) then anchorAY = bodyA.y
+        if (anchorAY == nil) then anchorAY = 0
         end
-        if (anchorBX == nil) then anchorBX = bodyB.x
+        if (anchorBX == nil) then anchorBX = 0
         end
-        if (anchorBY == nil) then anchorBY = bodyB.y
+        if (anchorBY == nil) then anchorBY = 0
         end
         joint = world:addRopeJoint(bodyA.body, bodyB.body, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
         joint:destroy()
