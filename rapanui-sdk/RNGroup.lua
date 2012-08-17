@@ -199,8 +199,8 @@ function RNGroup:insert(object, resetTransform)
     else
 
         if resetTransform == true then
-            object.x = 0
-            object.y = 0
+            object.x = self.x
+            object.y = self.y
         end
 
         if object.parentGroup ~= nil and object:getType() ~= "RNMap" then
@@ -212,9 +212,6 @@ function RNGroup:insert(object, resetTransform)
 
         local level = self:getHighestLevel() + 1
 
-
-        object.xInGroup = object.x
-        object.yInGroup = object.y
 
         object:setLevel(level)
 
