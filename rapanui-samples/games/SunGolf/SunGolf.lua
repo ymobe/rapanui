@@ -118,6 +118,7 @@ function Step()
     if ball.linearVelocityY > 0 then
         ball.linearVelocityY = ball.linearVelocityY - 1
     end
+
     if ball.linearVelocityX < 0 then
         ball.linearVelocityX = ball.linearVelocityX + 1
     end
@@ -129,6 +130,12 @@ function Step()
     end
     if ball.angularVelocity < 0 then
         ball.angularVelocity = ball.angularVelocity + 1
+    end
+    if (ball.linearVelocityX > 0 and ball.linearVelocityX < 1) or (ball.linearVelocityX > -1 and ball.linearVelocityX < 0) then
+        ball.linearVelocityX = 0
+    end
+    if (ball.linearVelocityY > 0 and ball.linearVelocityY < 1) or (ball.linearVelocityY > -1 and ball.linearVelocityY < 0) then
+        ball.linearVelocityY = 0
     end
     --toggle movement possibility
     if ball.linearVelocityX > -1 and ball.linearVelocityX < 1 and ball.linearVelocityY > -1 and ball.linearVelocityY < 1 then
