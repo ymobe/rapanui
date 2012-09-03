@@ -251,8 +251,7 @@ function RNGroup:getLowestLevel()
 end
 
 function RNGroup:getHighestLevel()
-    local temp = unpack(self.levels)
-    return math.max(temp)
+    return math.max(unpack(self.levels))
 end
 
 function RNGroup:sendToBottom(object)
