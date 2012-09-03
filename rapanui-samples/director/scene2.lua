@@ -49,7 +49,7 @@ function aScene.onCreate()
         imageOver = "images/button-over.png",
         top = 400,
         left = 10,
-        size = 8,
+        size = 16,
         width = 200,
         height = 50,
         onTouchDown = button1TouchDown,

@@ -35,7 +35,7 @@ function aScene.onCreate()
     --add things to sceneGroup
     local background = RNFactory.createImage("images/background-blue.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
     local button1 = RNFactory.createAnim("images/sceneButtons.png", 128, 64)
-    local text1 = RNFactory.createText("This is the scene four.", { size = 8, top = 150, left = 50, width = 200, height = 500 })
+    local text1 = RNFactory.createText("This is the scene four.", { size = 16, top = 150, left = 50, width = 200, height = 500 })
     sceneGroup:insert(text1)
     button1.frame = 1
     sceneGroup:insert(button1)

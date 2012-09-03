@@ -29,7 +29,7 @@ mainButton = RNFactory.createButton("images/button-plain.png", {
     imageDisabled = "images/button-disabled.png",
     top = 50,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
@@ -43,7 +43,7 @@ button2 = RNFactory.createButton("images/button-plain.png", {
     text = "Disable Main Button",
     top = 150,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50
 })
@@ -57,7 +57,7 @@ function button4UP(event)
 end
 
 
-text = RNFactory.createText("Touch on buttons 1", { size = 9, top = 400, left = 5, width = 250, height = 50 })
+text = RNFactory.createText("Touch on buttons 1", { size = 18, top = 400, left = 5, width = 250, height = 50 })
 
 
 

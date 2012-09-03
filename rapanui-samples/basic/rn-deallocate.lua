@@ -49,7 +49,7 @@ end
 button = RNFactory.createButton("images/button-plain.png", {
     text = "Main Button 1",
     imageOver = "images/button-over.png",
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
@@ -70,7 +70,7 @@ function t(event)
         button = RNFactory.createButton("images/button-plain.png", {
             text = "Main Button 1",
             imageOver = "images/button-over.png",
-            size = 8,
+            size = 16,
             width = 200,
             height = 50,
             onTouchDown = button1TouchDown,
@@ -98,7 +98,7 @@ end
 button = RNFactory.createButton("images/button-plain.png", {
     text = "Main Button 1",
     imageOver = "images/button-over.png",
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
@@ -117,7 +117,7 @@ function t(event)
         button = RNFactory.createButton("images/button-plain.png", {
             text = "Main Button 1",
             imageOver = "images/button-over.png",
-            size = 8,
+            size = 16,
             width = 200,
             height = 50,
             onTouchDown = button1TouchDown,
@@ -187,7 +187,7 @@ function t(event)
         --onTouch we remove text, font and create a new text
         text1:remove()
         RNFactory.removeAsset("arial-rounded.TTF")
-        text1 = RNFactory.createText("Hello world!", { font = "arial-rounded.TTF", size = 10, top = 5, left = 5, width = 200, height = 50 })
+        text1 = RNFactory.createText("Hello world!", { font = "arial-rounded.TTF", size = 15, top = 5, left = 5, width = 200, height = 50 })
     end
 end
 

@@ -18,7 +18,7 @@
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
-text = RNFactory.createText("Touch on button and drag it", { size = 9, top = 100, left = 5, width = 250, height = 50 })
+text = RNFactory.createText("Touch on button and drag it", { size = 18, top = 100, left = 5, width = 250, height = 50 })
 
 
 --physical animation with many sequences

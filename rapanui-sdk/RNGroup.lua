@@ -251,7 +251,8 @@ function RNGroup:getLowestLevel()
 end
 
 function RNGroup:getHighestLevel()
-    return math.max(unpack(self.levels))
+    local temp = unpack(self.levels)
+    return math.max(temp)
 end
 
 function RNGroup:sendToBottom(object)
@@ -299,7 +300,7 @@ function RNGroup:remove()
     end
     self.prop = nil
     self = nil
---    collectgarbage()
+    --    collectgarbage()
 end
 
 

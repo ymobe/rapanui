@@ -1282,6 +1282,18 @@ function RNObject:remove()
         self.textbox = nil
     end
 
+    if self.style ~= nil then
+        self.style = nil
+    end
+
+    if self.stylesList ~= nil then
+        for i = 1, #self.stylesList do
+            print(i)
+            self.stylesList[i] = nil
+        end
+        self.styleList = nil
+    end
+
     self:setOnTouchUp(nil)
     self:setOnTouchDown(nil)
     self:setOnTouchMove(nil)
@@ -1291,7 +1303,7 @@ function RNObject:remove()
     self.deck = nil
     self.tileDeck = nil
     self = nil
---    collectgarbage()
+    --    collectgarbage()
 end
 
 --if it's awake (returns boolean)

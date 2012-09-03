@@ -15,11 +15,11 @@
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()
 
-text = RNFactory.createText("Touch and drag to update coords", { size = 9, top = 400, left = 5, width = 200, height = 50 })
+text = RNFactory.createText("Touch and drag to update coords", { size = 18, top = 400, left = 5, width = 200, height = 50 })
 
-coords = RNFactory.createText("0,0", { size = 9, top = 400, left = 150, width = 200, height = 50 })
+coords = RNFactory.createText("0,0", { size = 18, top = 400, left = 150, width = 200, height = 50 })
 
-textinfo = RNFactory.createText("Touch button1 to remove/add listener", { size = 8, top = 10, left = 5, width = 300, height = 50 })
+textinfo = RNFactory.createText("Touch button1 to remove/add listener", { size = 16, top = 10, left = 5, width = 300, height = 50 })
 
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 60, left = 120 })
 

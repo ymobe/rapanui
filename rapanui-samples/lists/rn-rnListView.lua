@@ -36,8 +36,8 @@ local image12 = RNFactory.createImage("images/tile7.png")
 local image13 = RNFactory.createImage("images/tile8.png")
 local image14 = RNFactory.createImage("images/tile9.png")
 local anim1 = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 1, 2); anim1:play("default", 12, -1)
-local text1 = RNFactory.createText("RapaNui is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
-local text2 = RNFactory.createText("Moai is great!", { size = 10, top = 5, left = 5, width = 200, height = 50 })
+local text1 = RNFactory.createText("RapaNui is great!", { size = 20, top = 5, left = 5, width = 200, height = 50 })
+local text2 = RNFactory.createText("Moai is great!", { size = 20, top = 5, left = 5, width = 200, height = 50 })
 
 
 
@@ -66,7 +66,7 @@ end
 local button = RNFactory.createButton("images/button-plain.png", {
     text = "Main Button 1",
     imageOver = "images/button-over.png",
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,

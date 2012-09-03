@@ -18,8 +18,8 @@ back:sendToBottom()
 
 delta = -2
 
-textinfo = RNFactory.createText("Touch button1 to remove/add listener and stop button2", { size = 8, top = 10, left = 5, width = 300, height = 50 })
-text = RNFactory.createText("", { size = 9, top = 400, left = 5, width = 200, height = 50 })
+textinfo = RNFactory.createText("Touch button1 to remove/add listener and stop button2", { size = 16, top = 10, left = 5, width = 300, height = 50 })
+text = RNFactory.createText("", { size = 18, top = 400, left = 5, width = 200, height = 50 })
 
 buttonOne = RNFactory.createImage("images/tile1.png", { top = 60, left = 120 })
 buttonTwo = RNFactory.createImage("images/tile2.png", { top = 220, left = 16 })

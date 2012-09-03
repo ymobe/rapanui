@@ -12,14 +12,15 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
 
-times = 0
+
 local background = RNFactory.createImage("images/background-purple.png")
 
-text = RNFactory.createText("Times 0", { size = 20, top = 5, left = 5, width = 200, height = 50 })
+local text1 = RNFactory.createText("Hello world!\n this is a <style1>special</style1> text\n full of <style2>special</style2> features!\n Have fun!", { size = 25, top = 5, left = 5, width = 320, height = 480 })
+text1:spool()
+text1:highlight(6, 6, 0, 255, 255, 0.8)
+text1:addStyle("style1", "dwarves.TTF", 30)
+text1:addStyle("style2", "dwarves.TTF", 40)
 
-local function count()
-    times = times + 1
-    text:setText("Times " .. times)
-end
+--text1:remove()
 
-local actionId = RNMainThread.addTimedAction(0.5, count)
+

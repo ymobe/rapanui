@@ -37,7 +37,7 @@ local aTileset = mapOne:getTileset(0)
 aTileset:updateImageSource("rapanui-samples/groups/tilesetdemo.png")
 mapOne:drawMapAt(100, 200, aTileset)
 
-local button = RNFactory.createButton("images/button-plain.png", { text = "A Button", imageOver = "images/button-over.png", top = 20, left = 10, size = 8, width = 200, height = 50 })
+local button = RNFactory.createButton("images/button-plain.png", { text = "A Button", imageOver = "images/button-over.png", top = 20, left = 10, size = 16, width = 200, height = 50 })
 
 
 --[[

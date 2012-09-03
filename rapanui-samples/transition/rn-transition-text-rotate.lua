@@ -14,7 +14,7 @@
 
 local background = RNFactory.createImage("images/background-blue.png")
 
-text = RNFactory.createText("Hello world!", { size = 10, top = 50, left = 50, width = 200, height = 50 })
+text = RNFactory.createText("Hello world!", { size = 20, top = 50, left = 50, width = 200, height = 50 })
 
 trn = RNTransition:new()
 

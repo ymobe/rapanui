@@ -15,8 +15,8 @@
 times = 0
 local background = RNFactory.createImage("images/background-purple.png")
 
-text = RNFactory.createText("Times 0", { size = 10, top = 180, left = 50, width = 200, height = 50 })
-textinfo = RNFactory.createText("Touch button1 to remove/add timer", { size = 8, top = 10, left = 5, width = 300, height = 50 })
+text = RNFactory.createText("Times 0", { size = 20, top = 180, left = 50, width = 200, height = 50 })
+textinfo = RNFactory.createText("Touch button1 to remove/add timer", { size = 16, top = 10, left = 5, width = 300, height = 50 })
 
 counting = true
 

@@ -27,7 +27,7 @@ button = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
     top = 50,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,
@@ -41,7 +41,7 @@ button2 = RNFactory.createButton("images/button-plain.png", {
     text = "Text alignment Button 2",
     top = 100,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     verticalAlignment = MOAITextBox.LEFT_JUSTIFY,
@@ -53,7 +53,7 @@ button3 = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
     top = 150,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50
 })
@@ -72,7 +72,7 @@ button4 = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
     top = 200,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button4TouchDown,
@@ -84,7 +84,7 @@ button5 = RNFactory.createButton("images/button-plain.png", {
     imageOver = "images/button-over.png",
     top = 250,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     xOffset = 50,
@@ -92,7 +92,7 @@ button5 = RNFactory.createButton("images/button-plain.png", {
 })
 
 
-text = RNFactory.createText("Touch on buttons 1", { size = 9, top = 400, left = 5, width = 250, height = 50 })
+text = RNFactory.createText("Touch on buttons 1", { size = 18, top = 400, left = 5, width = 250, height = 50 })
 
 
 

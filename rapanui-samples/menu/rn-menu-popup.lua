@@ -17,7 +17,7 @@ local isShown = false
 
 --add things to sceneGroup
 local background = RNFactory.createImage("images/background-purple.png", { parentGroup = sceneGroup }); background.x = 160; background.y = 240;
-local text1 = RNFactory.createText("Touch the button to show popup!", { size = 10, top = 100, left = 50, width = 200, height = 500 })
+local text1 = RNFactory.createText("Touch the button to show popup!", { size = 20, top = 100, left = 50, width = 200, height = 500 })
 local button1 = RNFactory.createAnim("images/rapanui_circles.png", 64, 64, 100, 200, 1, 1) button1.frame = 1
 button1.x = 200; button1.y = 100
 

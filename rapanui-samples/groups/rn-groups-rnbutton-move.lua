@@ -4,11 +4,11 @@ freeImage = RNFactory.createImage("images/image.png")
 
 group = RNGroup:new()
 
-button = RNFactory.createButton("images/button-plain.png", { text = "Button 1", imageOver = "images/button-over.png", top = 250, left = 10, size = 8, width = 200, height = 50 })
+button = RNFactory.createButton("images/button-plain.png", { text = "Button 1", imageOver = "images/button-over.png", top = 250, left = 10, size = 16, width = 200, height = 50 })
 --button.x = 10
 button.y = 90
 
-button2 = RNFactory.createButton("images/button-plain.png", { text = "Button 2", imageOver = "images/button-over.png", top = 150, left = 10, size = 8, width = 200, height = 50 })
+button2 = RNFactory.createButton("images/button-plain.png", { text = "Button 2", imageOver = "images/button-over.png", top = 150, left = 10, size = 16, width = 200, height = 50 })
 --button2.x = 10
 --button2.y = 96
 

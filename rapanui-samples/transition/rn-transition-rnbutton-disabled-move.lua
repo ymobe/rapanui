@@ -21,7 +21,7 @@ button = RNFactory.createButton("images/button-plain.png", {
     imageDisabled = "images/button-disabled.png",
     top = 50,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50
 })
@@ -58,7 +58,7 @@ button2 = RNFactory.createButton("images/button-plain.png", {
     text = "Disable Main Button",
     top = 250,
     left = 10,
-    size = 8,
+    size = 16,
     width = 200,
     height = 50
 })

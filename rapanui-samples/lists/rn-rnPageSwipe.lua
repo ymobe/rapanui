@@ -79,7 +79,7 @@ end
 local button = RNFactory.createButton("images/button-plain.png", {
     text = "Main Button 1",
     imageOver = "images/button-over.png",
-    size = 8,
+    size = 16,
     width = 200,
     height = 50,
     onTouchDown = button1TouchDown,

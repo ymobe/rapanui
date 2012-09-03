@@ -14,7 +14,7 @@
 
 -- by default RNObject aren't touchable only when a listener it's set they start to be touchable.
 
-text = RNFactory.createText("Touch on buttons", { size = 9, top = 200, left = 5, width = 250, height = 50 })
+text = RNFactory.createText("Touch on buttons", { size = 18, top = 200, left = 5, width = 250, height = 50 })
 
 back = RNFactory.createImage("images/background-purple.png")
 back:sendToBottom()

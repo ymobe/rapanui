@@ -193,13 +193,12 @@ function RNGraphicsManager:allocateTileDeck2DGfx(path, sx, sy)
     return object.deck
 end
 
-function RNGraphicsManager:allocateFont(path, charcodes, size, value)
+function RNGraphicsManager:allocateFont(path)
     local object = {}
     object.path = path
 
     object.font = MOAIFont.new()
-    object.font:loadFromTTF(path, charcodes, size, value)
-    object.sizes = size
+    object.font:load(path)
     object.isInAtlas = false
 
 
