@@ -104,7 +104,7 @@ image1c.x = 80
 
 
 local swipeObject = RNFactory.createPageSwipe("pageSwipe", {
-    options = { mode = MOAIEaseType.LINEAR, rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
+    options = { touchLength=100,mode = MOAIEaseType.LINEAR, rows = 2, columns = 3, offsetX = 50, offsetY = 100, dividerX = 20, dividerY = 10, cellW = 64, cellH = 64, pageW = 400, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 320, touchAreaH = 480, time = 500 },
     elements = {
         { object = group1, userData = "userdata test" },
         { object = image1, testField = "testdata" },
@@ -145,6 +145,8 @@ print(swipeObject.elements[1].userData)
 --just remember to call the arrange() function to make changes to the PageSwipe structure happen instantly
 swipeObject.options.dividerY = 20
 swipeObject:arrange()
+--this is the Length which should be reached each touch to change page
+swipeObject.options.touchLength=70
 
 
 --working methods

@@ -133,9 +133,11 @@ function RNListView.step()
 
                 if SELF.deltay > 0 and SELF.deltay <= 0.2 then
                     SELF.deltay = 0
+                    SELF.removeTimer()
                 end
                 if SELF.deltay < 0 and SELF.deltay >= -0.2 then
                     SELF.deltay = 0
+                    SELF.removeTimer()
                 end
 
                 if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 then
@@ -229,22 +231,18 @@ function RNListView.touchEvent(event)
                     if (SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100) then
                         if self.olddeltay > 0 then
                             if self.beganDelta ~= nil then
-                                --                                print("               down")
                                 self.y = event.y - self.beganDelta
                             end
                         else
-                            --                            print("got new began")
                             SELF.beganDelta = event.y - self.y
                         end
                     end
                     if (SELF.deltay < 0 and SELF.y > SELF.options.minY - 100) then
                         if self.olddeltay < 0 then
                             if self.beganDelta ~= nil then
-                                --                                print("               up")
                                 self.y = event.y - self.beganDelta
                             end
                         else
-                            --                            print("got new began")
                             SELF.beganDelta = event.y - self.y
                         end
                     end

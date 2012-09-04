@@ -48,7 +48,7 @@ function RNPageSwipe:innerNew(o)
 
     o = o or {
         name = "",
-        options = { mode = MOAIEaseType.SMOOTH, rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellW = 0, pageW = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
+        options = { touchLength = 100, mode = MOAIEaseType.SMOOTH, rows = 0, columns = 0, offsetX = 0, offsetY = 0, dividerX = 0, dividerY = 0, cellW = 0, cellW = 0, pageW = 0, touchAreaStartingX = 0, touchAreaStartingY = 0, touchAreaW = 0, touchAreaH = 0, time = 0 },
         elements = {},
         pages = 0,
         tempx = 0,
@@ -106,6 +106,7 @@ function RNPageSwipe.touchSwipe(event)
             if event.phase == "began" then
                 self:callRegisteredFunctions("touchSwipeBegan")
                 self.tempx = event.x
+                self.STARTINGX = event.x
             end
             if event.phase == "moved" then
                 self:callRegisteredFunctions("touchSwipeMoved")
@@ -118,18 +119,24 @@ function RNPageSwipe.touchSwipe(event)
                     v.object.x = v.object.x + self.forcex
                 end
                 --sets forcex to 0 at the end
-                self.forcex = 0
-                --checks the current page
-                for i = 1, self.pages do
-                    local minBorder = self.options.offsetX - i * (self.options.pageW) + self.options.pageW / 2
-                    local maxBorder = self.options.offsetX - (i - 1) * (self.options.pageW) + self.options.pageW / 2
-                    if self.elements[1].object.x < maxBorder and self.elements[1].object.x > minBorder then
-                        self.currentPage = i
-                    end
-                end
+                self.forcex = 0 --
             end
 
             if event.phase == "ended" then
+                --check current page
+                if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
+                    if self.STARTINGX > event.x then
+                        if self.currentPage < self.pages then
+                            self.currentPage = self.currentPage + 1
+                        end
+                    end
+                    if self.STARTINGX < event.x then
+                        if self.currentPage > 1 then
+                            self.currentPage = self.currentPage - 1
+                        end
+                    end
+                end
+
                 self.forcex = 0
                 self:doSwipe()
                 self.isMoving = false
@@ -139,7 +146,24 @@ function RNPageSwipe.touchSwipe(event)
 
         else
             if event.phase == "ended" then
+
+
                 if self.isMoving == true then
+                    --check current page
+                    if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
+                        if self.STARTINGX > event.x then
+                            if self.currentPage < self.pages then
+                                self.currentPage = self.currentPage + 1
+                            end
+                        end
+                        if self.STARTINGX < event.x then
+                            if self.currentPage > 0 then
+                                self.currentPage = self.currentPage - 1
+                            end
+                        end
+                    end
+
+
                     self.forceX = 0
                     self:doSwipe()
                     self.isMoving = false
