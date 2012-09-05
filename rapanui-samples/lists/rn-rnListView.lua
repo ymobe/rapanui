@@ -95,7 +95,10 @@ image1c.x = 80
 
 
 --callback for touch
-function getCallBack(event)
+function getCallBack(event,touchEvent)
+    --touchEvent is the basic touch event
+    print(touchEvent.x,touchEvent.y,touchEvent.id,touchEvent.tapCount)
+    --event is the special one
     for i, v in pairs(event) do print(i, v, v.object.name, v.userValue, v.userValue2) end
 end
 
@@ -174,6 +177,8 @@ list:swapElements(13, 14)
 list:jumpToElement(2)
 --get list total height
 print(list:getTotalHeight())
+--list limit
+list.options.limit=90
 
 
 

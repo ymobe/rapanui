@@ -67,7 +67,7 @@ function RNListView:innerNew(o)
 
     o = o or {
         name = "",
-        options = { timestep = 1 / 60, cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0 },
+        options = { timestep = 1 / 60, cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0, limit = 100 },
         elements = {},
         x = 0,
         y = 0,
@@ -101,6 +101,7 @@ function RNListView:init()
     if self.options.touchStartX == nil then self.options.touchStartX = 0 end
     if self.options.touchStartY == nil then self.options.touchStartY = 0 end
     if self.options.timestep == nil then self.options.timestep = 1 / 60 end
+    if self.options.limit == nil then self.options.limit = 100 end
 
     --organize items
     for i = 1, table.getn(self.elements), 1 do
@@ -140,10 +141,10 @@ function RNListView.step()
                     SELF.removeTimer()
                 end
 
-                if SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100 then
+                if SELF.deltay > 0 and SELF.y < SELF.options.maxY + SELF.options.limit then
                     SELF.y = SELF.y + SELF.deltay
                 end
-                if SELF.deltay <= 0 and SELF.y > SELF.options.minY - 100 then
+                if SELF.deltay <= 0 and SELF.y > SELF.options.minY - SELF.options.limit then
                     SELF.y = SELF.y + SELF.deltay
                 end
 
@@ -228,7 +229,7 @@ function RNListView.touchEvent(event)
                     self.tmpY = event.y
                     SELF:callRegisteredFunctions("movedTouch")
                     self.scrolled = true
-                    if (SELF.deltay > 0 and SELF.y < SELF.options.maxY + 100) then
+                    if (SELF.deltay > 0 and SELF.y < SELF.options.maxY + SELF.options.limit) then
                         if self.olddeltay > 0 then
                             if self.beganDelta ~= nil then
                                 self.y = event.y - self.beganDelta
@@ -237,7 +238,7 @@ function RNListView.touchEvent(event)
                             SELF.beganDelta = event.y - self.y
                         end
                     end
-                    if (SELF.deltay < 0 and SELF.y > SELF.options.minY - 100) then
+                    if (SELF.deltay < 0 and SELF.y > SELF.options.minY - SELF.options.limit) then
                         if self.olddeltay < 0 then
                             if self.beganDelta ~= nil then
                                 self.y = event.y - self.beganDelta
@@ -255,7 +256,7 @@ function RNListView.touchEvent(event)
                     if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
                         if self.elements[i].onClick ~= nil and self.scrolled == false then
                             local funct = self.elements[i].onClick
-                            funct({ target = self.elements[i] })
+                            funct({ target = self.elements[i] }, event)
                         end
                     end
                 end
