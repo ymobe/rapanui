@@ -124,15 +124,17 @@ function RNPageSwipe.touchSwipe(event)
 
             if event.phase == "ended" then
                 --check current page
-                if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
-                    if self.STARTINGX > event.x then
-                        if self.currentPage < self.pages then
-                            self.currentPage = self.currentPage + 1
+                if self.STARTINGX ~= nil then
+                    if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
+                        if self.STARTINGX > event.x then
+                            if self.currentPage < self.pages then
+                                self.currentPage = self.currentPage + 1
+                            end
                         end
-                    end
-                    if self.STARTINGX < event.x then
-                        if self.currentPage > 1 then
-                            self.currentPage = self.currentPage - 1
+                        if self.STARTINGX < event.x then
+                            if self.currentPage > 1 then
+                                self.currentPage = self.currentPage - 1
+                            end
                         end
                     end
                 end
@@ -150,15 +152,17 @@ function RNPageSwipe.touchSwipe(event)
 
                 if self.isMoving == true then
                     --check current page
-                    if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
-                        if self.STARTINGX > event.x then
-                            if self.currentPage < self.pages then
-                                self.currentPage = self.currentPage + 1
+                    if self.STARTINGX ~= nil then
+                        if math.abs(self.STARTINGX - event.x) > self.options.touchLength then
+                            if self.STARTINGX > event.x then
+                                if self.currentPage < self.pages then
+                                    self.currentPage = self.currentPage + 1
+                                end
                             end
-                        end
-                        if self.STARTINGX < event.x then
-                            if self.currentPage > 0 then
-                                self.currentPage = self.currentPage - 1
+                            if self.STARTINGX < event.x then
+                                if self.currentPage > 0 then
+                                    self.currentPage = self.currentPage - 1
+                                end
                             end
                         end
                     end
