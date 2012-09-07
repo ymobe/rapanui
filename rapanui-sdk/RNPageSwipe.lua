@@ -160,7 +160,7 @@ function RNPageSwipe.touchSwipe(event)
                                 end
                             end
                             if self.STARTINGX < event.x then
-                                if self.currentPage > 0 then
+                                if self.currentPage > 1 then
                                     self.currentPage = self.currentPage - 1
                                 end
                             end
@@ -207,6 +207,40 @@ function RNPageSwipe.endSwipe()
         SELF:callRegisteredFunctions("endedSwipe")
         SELF.isMoving = false
     end
+end
+
+function RNPageSwipe:jumpToPage(value)
+    if value ~= self.currentPage then
+        if value <= self.pages then
+            self.currentPage = value
+        else
+            self.currentPage = self.pages
+        end
+        self:doJump()
+    end
+    RNPageSwipe.endJump()
+end
+
+function RNPageSwipe:doJump()
+    local col = 1
+    local row = 1
+    local page = 1
+    for i, v in ipairs(self.elements) do
+        if col == self.options.columns + 1 then
+            col = 1
+            row = row + 1
+        end
+        if row == self.options.rows + 1 then
+            row = 1
+            page = page + 1
+        end
+        v.object.x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1)
+        col = col + 1
+    end
+end
+
+function RNPageSwipe.endJump()
+    SELF:callRegisteredFunctions("endedJump")
 end
 
 function RNPageSwipe:registerFunction(funct)

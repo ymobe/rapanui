@@ -104,10 +104,7 @@ function RNListView:init()
     if self.options.limit == nil then self.options.limit = 100 end
 
     --organize items
-    for i = 1, table.getn(self.elements), 1 do
-        self.elements[i].object.x = self.x + self.elements[i].offsetX
-        self.elements[i].object.y = self.y + i * self.options.cellH + self.elements[i].offsetY - self.options.cellH
-    end
+    self:organizeItems()
     --set listeners
     self.touchListener = RNListeners:addEventListener("touch", self.touchEvent)
     self.timerListener = nil
@@ -119,6 +116,13 @@ function RNListView:init()
     self.registeredFunctions = {}
 
     self.scrolled = false
+end
+
+function RNListView:organizeItems()
+    for i = 1, table.getn(self.elements), 1 do
+        self.elements[i].object.x = self.x + self.elements[i].offsetX
+        self.elements[i].object.y = self.y + i * self.options.cellH + self.elements[i].offsetY - self.options.cellH
+    end
 end
 
 
@@ -224,6 +228,7 @@ function RNListView.touchEvent(event)
 
 
             if event.phase == "moved" and self ~= nil then
+                if self.olddeltay == nil then self.olddeltay = 0 end
                 self.deltay = event.y - self.tmpY
                 if self.canScrollY == true then
                     self.tmpY = event.y
@@ -260,8 +265,10 @@ function RNListView.touchEvent(event)
                         end
                     end
                 end
+                if SELF ~= nil then
+                    SELF:callRegisteredFunctions("endedTouch")
+                end
                 self.isTouching = false
-                SELF:callRegisteredFunctions("endedTouch")
                 self.scrolled = false
                 SELF.createTimer()
             end
@@ -337,6 +344,7 @@ function RNListView:insertElement(element, number)
         --the element is add to the end of the list if param number is nil
         self.elements[self:getSize() + 1] = element
     end
+    self:organizeItems()
 end
 
 function RNListView:removeElement(removeRNObject, number)
@@ -362,6 +370,7 @@ function RNListView:removeElement(removeRNObject, number)
         end
         self.elements[self:getSize()] = nil
     end
+    self:organizeItems()
 end
 
 
