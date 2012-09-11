@@ -67,7 +67,7 @@ function RNListView:innerNew(o)
 
     o = o or {
         name = "",
-        options = { timestep = 1 / 60, cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0, limit = 100 },
+        options = { checkElements = false, topLimit = -100, bottomLimit = 480 + 100, timestep = 1 / 60, cellH = 50, cellW = 50, maxScrollingForceY = 30, minY = 0, maxY = 100, touchW = 320, touchH = 480, touchStartX = 0, touchStartY = 0, limit = 100 },
         elements = {},
         x = 0,
         y = 0,
@@ -102,6 +102,10 @@ function RNListView:init()
     if self.options.touchStartY == nil then self.options.touchStartY = 0 end
     if self.options.timestep == nil then self.options.timestep = 1 / 60 end
     if self.options.limit == nil then self.options.limit = 100 end
+    if self.options.topLimit == nil then self.options.topLimit = 100 end
+    if self.options.bottomLimit == nil then self.options.bottomLimit = 480 + 100 end
+    if self.options.checkElements == nil then self.options.checkElements = false end
+
 
     --organize items
     self:organizeItems()
@@ -116,6 +120,7 @@ function RNListView:init()
     self.registeredFunctions = {}
 
     self.scrolled = false
+    self.needScroll = false
 end
 
 function RNListView:organizeItems()
@@ -130,19 +135,27 @@ function RNListView.step()
     if SELF ~= nil then
         if #SELF.elements > 0 then
             if SELF.canScrollY == true then
+                if SELF.timerListener ~= nil then
+                    SELF:callRegisteredFunctions("step")
+                end
+
                 if SELF.deltay > 0 then SELF.deltay = SELF.deltay - 0.2 end
                 if SELF.deltay < 0 then SELF.deltay = SELF.deltay + 0.2 end
 
                 if SELF.deltay > SELF.options.maxScrollingForceY then SELF.deltay = SELF.options.maxScrollingForceY end
                 if SELF.deltay < -SELF.options.maxScrollingForceY then SELF.deltay = -SELF.options.maxScrollingForceY end
 
-                if SELF.deltay > 0 and SELF.deltay <= 0.2 then
+                if SELF.deltay >= 0 and SELF.deltay <= 0.1 then
                     SELF.deltay = 0
-                    SELF.removeTimer()
+                    if SELF.needScroll == false then
+                        SELF.removeTimer()
+                    end
                 end
-                if SELF.deltay < 0 and SELF.deltay >= -0.2 then
+                if SELF.deltay <= 0 and SELF.deltay >= -0.1 then
                     SELF.deltay = 0
-                    SELF.removeTimer()
+                    if SELF.needScroll == false then
+                        SELF.removeTimer()
+                    end
                 end
 
                 if SELF.deltay > 0 and SELF.y < SELF.options.maxY + SELF.options.limit then
@@ -156,24 +169,29 @@ function RNListView.step()
                     SELF.isScrollingY = true
                 end
 
+                --autoscroll at limits / magnetic effect
                 if SELF.y > SELF.options.maxY and SELF.isTouching == false then
                     SELF.deltay = 0
                     local value = (SELF.y - SELF.options.maxY) / 20
                     SELF.y = SELF.y - value
-                    if value < 0.001 then
+                    SELF.needScroll = true
+                    if value < 0.1 then
                         SELF.removeTimer()
+                        SELF.needScroll = false
                     end
                 end
                 if SELF.y < SELF.options.minY and SELF.isTouching == false then
                     SELF.deltay = 0
                     local value = (SELF.options.minY - SELF.y) / 20
                     SELF.y = SELF.y + value
-                    if value < 0.001 then
+                    SELF.needScroll = true
+                    if value < 0.1 then
                         SELF.removeTimer()
+                        SELF.needScroll = false
                     end
                 end
 
-                --scroll due to postogo
+                --scroll due to postogo, move to function
                 if SELF.isToScroll == true then
                     if SELF.y > SELF.postogo then SELF.y = SELF.y - 1 end
                     if SELF.y <= SELF.postogo then SELF.y = SELF.y + 1 end
@@ -183,7 +201,6 @@ function RNListView.step()
                         SELF.removeTimer()
                     end
                 end
-                SELF:callRegisteredFunctions("step")
             end
         end
     end
@@ -199,6 +216,7 @@ function RNListView.removeTimer()
     if SELF.timerListener ~= nil then
         RNMainThread.removeAction(SELF.timerListener)
         SELF.timerListener = nil
+        SELF:callRegisteredFunctions("endedScroll")
     end
 end
 
@@ -223,7 +241,10 @@ function RNListView.touchEvent(event)
                 SELF:callRegisteredFunctions("beganTouch")
                 SELF.beganDelta = event.y - self.y
                 self.olddeltay = 0
-                SELF.removeTimer()
+                if SELF.needScroll == false then
+                    SELF.removeTimer()
+                end
+                SELF.deltay = 0
             end
 
 
@@ -270,7 +291,9 @@ function RNListView.touchEvent(event)
                 end
                 self.isTouching = false
                 self.scrolled = false
-                SELF.createTimer()
+                if SELF ~= nil then
+                    SELF.createTimer()
+                end
             end
         end
     end
@@ -296,7 +319,14 @@ end
 function RNListView:setY(value)
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then
-            v.object.y = self.y + i * self.options.cellH + self.elements[i].offsetY - self.options.cellH
+            local postogo = self.y + i * self.options.cellH + self.elements[i].offsetY - self.options.cellH
+            if self.options.checkElements == true then
+                if postogo > self.options.topLimit and postogo < self.options.bottomLimit then
+                    v.object.y = postogo
+                end
+            else
+                v.object.y = postogo
+            end
         end
     end
     self.options.y = value

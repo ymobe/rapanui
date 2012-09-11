@@ -47,8 +47,7 @@ end      --]]
 --require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
 
 -- Lists
---require("rapanui-samples/lists/rn-rnListView")
---require("rapanui-samples/lists/rn-rnListView")
+require("rapanui-samples/lists/rn-rnListView")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
@@ -143,6 +142,7 @@ require("rapanui-samples/timer/rn-timer-iteration")
 --require("rapanui-samples/physics/rn-physics-setup")
 --require("rapanui-samples/physics/rn-physics-lists")
 --require("rapanui-samples/physics/rn-physics-physicsEditor")
+--require("rapanui-samples/physics/rn-physics-touchMove")
 --require("rapanui-samples/physics/test")
 
 -- RapaNui sample games:

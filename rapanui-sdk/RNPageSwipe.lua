@@ -180,6 +180,7 @@ end
 
 
 function RNPageSwipe:doSwipe()
+    local maxPage = self.pages
     local col = 1
     local row = 1
     local page = 1
@@ -193,7 +194,7 @@ function RNPageSwipe:doSwipe()
             page = page + 1
         end
         local trn = RNTransition:new()
-        if i == 1 then
+        if i == maxPage then
             trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1), onComplete = RNPageSwipe.endSwipe })
         else
             trn:run(v.object, { type = "move", mode = self.options.mode, time = self.options.time, x = self.options.offsetX + self.options.cellW * (col - 1) + self.options.dividerX * (col - 1) + self.options.pageW * (page - 1) - self.options.pageW * (self.currentPage - 1) })

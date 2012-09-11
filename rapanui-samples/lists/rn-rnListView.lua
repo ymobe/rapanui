@@ -95,9 +95,9 @@ image1c.x = 80
 
 
 --callback for touch
-function getCallBack(event,touchEvent)
+function getCallBack(event, touchEvent)
     --touchEvent is the basic touch event
-    print(touchEvent.x,touchEvent.y,touchEvent.id,touchEvent.tapCount)
+    print(touchEvent.x, touchEvent.y, touchEvent.id, touchEvent.tapCount)
     --event is the special one
     for i, v in pairs(event) do print(i, v, v.object.name, v.userValue, v.userValue2) end
 end
@@ -119,7 +119,7 @@ end
 --maxScrollingForceY,minY and maxY affect directly the scrolling gesture.
 
 local list = RNFactory.createList("testList", {
-    options = { timestep = 1 / 60, cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0, touchStartX = 0, touchStartY = 0, touchW = 320, touchH = 480 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
+    options = { checkElements = false, topLimit = -100, bottomLimit = 480 + 100, timestep = 1 / 60, cellH = 64, cellW = 64, maxScrollingForceY = 30, minY = -64 * 8 - 32, maxY = 0, touchStartX = 0, touchStartY = 0, touchW = 320, touchH = 480 }, --minY=-64*6 means it can move down 6 cells since they are 64 in height
     canScrollY = true,
     x = 0,
     y = 0,
@@ -178,7 +178,7 @@ list:jumpToElement(2)
 --get list total height
 print(list:getTotalHeight())
 --list limit
-list.options.limit=90
+list.options.limit = 90
 
 
 
@@ -207,3 +207,8 @@ end
 local regID = list:registerFunction(onListCallBack)
 --so we can remove the registered function
 --swipeObject:removeRegisteredFunction(regID)
+
+--checkElements , while active will perform movement checks only for objects inside topLimit and bottomLimit bounding
+list.options.checkElements = true
+list.options.topLimit = -100
+list.options.bottomLimit = 480 + 100
