@@ -44,7 +44,7 @@ end      --]]
 
 -- Bitmap Text
 --require("rapanui-samples/bitmaptext/rn-bitmaptext")
-require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
+--require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
@@ -83,6 +83,7 @@ require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
 --require("rapanui-samples/timer/rn-timer-stop")
+require("rapanui-samples/timer/rn-timer-iteration")
 --require("rapanui-samples/timer/rn-timer-remove")
 
 -- Transition
