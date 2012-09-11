@@ -180,6 +180,34 @@ function RNButton:enable()
     end
 end
 
+function RNButton:setVisible(isVisible)
+
+
+    if isVisible then
+
+        if self.text ~= nil then
+            self.text:setVisible(true);
+        end
+
+        if self.enabled then
+            self:enable();
+        else
+            self:disable();
+        end
+    else
+
+        if self.text ~= nil then
+            self.text:setVisible(false);
+        end
+
+        if self.rnImageDisabled ~= nil then
+            self.rnImageDefault:setVisible(false)
+            self.rnImageDisabled:setVisible(false)
+        end
+    end
+end
+
+
 function RNButton:getType()
     return "RNButton"
 end

@@ -47,7 +47,7 @@ end      --]]
 --require("rapanui-samples/bitmaptext/rn-bitmaptext-settext")
 
 -- Lists
-require("rapanui-samples/lists/rn-rnListView")
+--require("rapanui-samples/lists/rn-rnListView")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
 
 -- Menu
@@ -78,11 +78,12 @@ require("rapanui-samples/lists/rn-rnListView")
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
 --require("rapanui-samples/buttons/rn-button-disabled")
+require("rapanui-samples/buttons/rn-button-visibility")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
 --require("rapanui-samples/timer/rn-timer-stop")
-require("rapanui-samples/timer/rn-timer-iteration")
+--require("rapanui-samples/timer/rn-timer-iteration")
 --require("rapanui-samples/timer/rn-timer-remove")
 
 -- Transition

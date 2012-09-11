@@ -135,7 +135,7 @@ end
 
 function RNText:addStyle(name, font, size)
     local style = MOAITextStyle.new()
-    self.stylesList[#self.stylesList+1] = style
+    self.stylesList[#self.stylesList + 1] = style
 
     if type(font) == "string" then
         if RNGraphicsManager:getAlreadyAllocated(font) then
@@ -172,6 +172,17 @@ end
 function RNText:highlight(index, size, r, g, b, a)
     self.textbox:setHighlight(index, size, r / 255, g / 255, b / 255, a)
 end
+
+function RNText:setVisible(value)
+    --NOTE: this is a workaround becouse MOAI's setVisible has a bug.
+
+    if value then
+        self:setAlpha(1)
+    else
+        self:setAlpha(0)
+    end
+end
+
 
 function RNText:getText()
     return self.text
