@@ -77,8 +77,8 @@ end      --]]
 
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
---require("rapanui-samples/buttons/rn-button-disabled")
-require("rapanui-samples/buttons/rn-button-visibility")
+require("rapanui-samples/buttons/rn-button-disabled")
+--require("rapanui-samples/buttons/rn-button-visibility")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")

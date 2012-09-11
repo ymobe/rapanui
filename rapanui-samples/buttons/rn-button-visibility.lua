@@ -13,7 +13,7 @@
 ]]
 
 local background = RNFactory.createImage("images/background-blue.png")
-local toHide = true
+local toShow = true
 
 function button1TouchDown(event)
     text:setText("Main Button touch down!")
@@ -56,15 +56,15 @@ text = RNFactory.createText("Touch on buttons 1", { size = 18, top = 400, left =
 
 
 function button2UP(event)
-    if toHide == true then
+    if toShow == true then
         button2:setText("View Main Button")
         mainButton:setVisible(false)
-        toHide = false
+        toShow = false
 
     else
         button2:setText("Hide Main Button")
         mainButton:setVisible(true)
-        toHide = true
+        toShow = true
     end
 end
 

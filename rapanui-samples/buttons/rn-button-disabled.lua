@@ -13,7 +13,7 @@
 ]]
 
 local background = RNFactory.createImage("images/background-blue.png")
-local toDisable = true
+local toEnable = true
 
 function button1TouchDown(event)
     text:setText("Main Button touch down!")
@@ -60,18 +60,16 @@ end
 text = RNFactory.createText("Touch on buttons 1", { size = 18, top = 400, left = 5, width = 250, height = 50 })
 
 
-
-
 function button2UP(event)
-    if toDisable == true then
-        text:setText("Disabled Main Button")
+    if toEnable == true then
+        button2:setText("Enabled Main Button")
         mainButton:disable()
-        toDisable = false
+        toEnable = false
 
     else
-        text:setText("Enabled Main Button")
+        button2:setText("Disabled Main Button")
         mainButton:enable()
-        toDisable = true
+        toEnable = true
     end
 end
 
