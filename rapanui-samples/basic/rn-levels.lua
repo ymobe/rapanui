@@ -36,9 +36,9 @@ anImage1:bringToFront()
 
 IMG_POS_Y = 150
 
-anImage_B3 = RNFactory.createImage("images/tile3.png", { top = IMG_POS_X + SHIFT_X * 2, left = IMG_POS_Y })
-anImage_B4 = RNFactory.createImage("images/tile4.png", { top = IMG_POS_X + SHIFT_X, left = IMG_POS_Y })
-anImage_B5 = RNFactory.createImage("images/tile5.png", { top = IMG_POS_X, left = IMG_POS_Y })
+anImage_B6 = RNFactory.createImage("images/tile6.png", { top = IMG_POS_X + SHIFT_X * 2, left = IMG_POS_Y })
+anImage_B7 = RNFactory.createImage("images/tile7.png", { top = IMG_POS_X + SHIFT_X, left = IMG_POS_Y })
+anImage_B8 = RNFactory.createImage("images/tile8.png", { top = IMG_POS_X, left = IMG_POS_Y })
 
-anImage_B4:putOver(anImage_B5)
+anImage_B7:putOver(anImage_B8)
 
