@@ -247,11 +247,23 @@ function RNGroup:inserLevel(level)
 end
 
 function RNGroup:getLowestLevel()
-    return math.min(unpack(self.levels))
+    local t = -1
+    for i, v in pairs(self.levels) do
+        if t > v then
+            t = v
+        end
+    end
+    return t
 end
 
 function RNGroup:getHighestLevel()
-    return math.max(unpack(self.levels))
+    local t = -1
+    for i, v in pairs(self.levels) do
+        if t < v then
+            t = v
+        end
+    end
+    return t
 end
 
 function RNGroup:sendToBottom(object)
