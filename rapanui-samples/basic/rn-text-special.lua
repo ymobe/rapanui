@@ -21,6 +21,8 @@ text1:highlight(6, 6, 0, 255, 255, 0.8)
 text1:addStyle("style1", "dwarves.TTF", 30)
 text1:addStyle("style2", "dwarves.TTF", 40, { 255, 255, 0, 100 })
 
+print(text1.text)
+
 --text1:remove()
 
 

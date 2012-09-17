@@ -171,6 +171,9 @@ end
 
 function RNText:setText(text)
     self.textbox:setString(text)
+    if self.text ~= text then
+        self.text = text
+    end
 end
 
 function RNText:spool()
