@@ -110,6 +110,9 @@ function RNText:initWithText2(text, font, size, width, height, hAlignment, vAlig
     self.textbox = MOAITextBox.new()
 
     self.style = self:setStyle(font, size, 1, { 255, 255, 255, 255 })
+    self.r = 255
+    self.g = 255
+    self.b = 255
     self.textbox:setStyle(self.style)
     self.textbox:setString(self.text)
     self.textbox:setRect(0, 0, width, height)
