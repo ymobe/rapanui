@@ -418,13 +418,13 @@ function RNBody:setAngle(Angle)
 end
 
 function RNBody:setX(value)
-    local posx, posy = self:getWorldCenter()
+    local posx, posy = self.body:getPosition()
     local angle = self:getAngle()
     self:setTransform(value, posy, angle)
 end
 
 function RNBody:setY(value)
-    local posx, posy = self:getWorldCenter()
+    local posx, posy = self.body:getPosition()
     local angle = self:getAngle()
     self:setTransform(posx, value, angle)
 end
