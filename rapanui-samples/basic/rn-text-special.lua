@@ -19,7 +19,7 @@ local text1 = RNFactory.createText("Hello world!\n this is a <style1>special</st
 text1:spool()
 text1:highlight(6, 6, 0, 255, 255, 0.8)
 text1:addStyle("style1", "dwarves.TTF", 30)
-text1:addStyle("style2", "dwarves.TTF", 40)
+text1:addStyle("style2", "dwarves.TTF", 40, { 255, 255, 0, 100 })
 
 --text1:remove()
 

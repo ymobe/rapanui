@@ -38,6 +38,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
+require("rapanui-samples/basic/rn-text-special")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
 --require("rapanui-samples/basic/rn-deallocate")
@@ -78,12 +79,10 @@ end      --]]
 -- Buttons
 --require("rapanui-samples/buttons/rn-button")
 --require("rapanui-samples/buttons/rn-button-disabled")
---require("rapanui-samples/buttons/rn-button-visibility")
 
 -- Timer
 --require("rapanui-samples/timer/rn-timer")
 --require("rapanui-samples/timer/rn-timer-stop")
---require("rapanui-samples/timer/rn-timer-iteration")
 --require("rapanui-samples/timer/rn-timer-remove")
 
 -- Transition
@@ -118,14 +117,12 @@ end      --]]
 
 -- Touch
 --require("rapanui-samples/touch/rn-touch-buttons")
-require("rapanui-samples/touch/rn-touch-buttons-one-callback")
 --require("rapanui-samples/touch/rn-touch")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
 --require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
-
 
 -- listeners
 --require("rapanui-samples/listeners/rn-listener-touch-remove")
