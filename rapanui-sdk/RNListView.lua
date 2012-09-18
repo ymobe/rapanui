@@ -149,6 +149,9 @@ function RNListView:init()
                 end
 
                 if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
+                    if self ~= nil then
+                        self:createTimer()
+                    end
                     for i = 1, table.getn(self.elements), 1 do
                         if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
                             if self.elements[i].onClick ~= nil and self.scrolled == false then
@@ -162,18 +165,15 @@ function RNListView:init()
                     end
                     self.isTouching = false
                     self.scrolled = false
-                    if self ~= nil then
-                        self:createTimer()
-                    end
                 end
             end
         end
         if event.phase == "ended" and self.isScrollingY == true then
+            self:createTimer()
             self.isScrollingY = false
             self.isTouching = false
             self:callRegisteredFunctions("cancelledTouch")
             self.scrolled = false
-            self:createTimer()
         end
     end
 
