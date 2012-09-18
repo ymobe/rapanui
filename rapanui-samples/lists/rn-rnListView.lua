@@ -17,9 +17,6 @@
 
 --NOTE1: at the moment the scrolling gesture is only vertical.
 --NOTE2: the touch is got when a cell is touched, not when the object is.
---NOTE3: since RapaNui touch listener doesn't return the target as the enterFrame does,
---       we need to specify SELF in RNListView.lua, and due to this fact
---       only one RNList at once can be created.
 
 --object creation
 local image2 = RNFactory.createImage("images/image2.png")

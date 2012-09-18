@@ -38,7 +38,7 @@ end      --]]
 --require("rapanui-samples/basic/rn-images-scale")
 --require("rapanui-samples/basic/rn-levels")
 --require("rapanui-samples/basic/rn-text")
-require("rapanui-samples/basic/rn-text-special")
+--require("rapanui-samples/basic/rn-text-special")
 --require("rapanui-samples/basic/rn-shapes")
 --require("rapanui-samples/basic/rn-shapes-penColor")
 --require("rapanui-samples/basic/rn-deallocate")
@@ -49,7 +49,9 @@ require("rapanui-samples/basic/rn-text-special")
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
+require("rapanui-samples/lists/rn-rnListView-multilist")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
+--require("rapanui-samples/lists/rn-rnPageSwipe-multiswipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")

@@ -16,7 +16,6 @@
 --RapaNui PageSwipe object sample
 
 --RNPageSwipe is a simple object for handling object organization on screen. Change options to familiarize with features.
---only one RNPageSwipe object can be created at time, at the moment
 
 
 local image1 = RNFactory.createImage("images/tile1.png")
