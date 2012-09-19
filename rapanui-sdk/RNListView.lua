@@ -215,13 +215,13 @@ function RNListView:createTimer()
                     if self.deltay > self.options.maxScrollingForceY then self.deltay = self.options.maxScrollingForceY end
                     if self.deltay < -self.options.maxScrollingForceY then self.deltay = -self.options.maxScrollingForceY end
 
-                    if self.deltay >= 0 and self.deltay <= 0.1 then
+                    if self.deltay >= 0 and self.deltay <= 0.2 then
                         self.deltay = 0
                         if self.needScroll == false then
                             self:removeTimer()
                         end
                     end
-                    if self.deltay <= 0 and self.deltay >= -0.1 then
+                    if self.deltay <= 0 and self.deltay >= -0.2 then
                         self.deltay = 0
                         if self.needScroll == false then
                             self:removeTimer()
@@ -230,9 +230,10 @@ function RNListView:createTimer()
 
                     if self.deltay > 0 and self.y < self.options.maxY + self.options.limit then
                         self.y = self.y + self.deltay
-                    end
-                    if self.deltay <= 0 and self.y > self.options.minY - self.options.limit then
+                    elseif self.deltay < 0 and self.y > self.options.minY - self.options.limit then
                         self.y = self.y + self.deltay
+                    else
+                        self:removeTimer()
                     end
 
                     if self.deltay > 1 or self.deltay < -1 then
