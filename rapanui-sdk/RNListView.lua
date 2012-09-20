@@ -233,7 +233,9 @@ function RNListView:createTimer()
                     elseif self.deltay < 0 and self.y > self.options.minY - self.options.limit then
                         self.y = self.y + self.deltay
                     else
-                        self:removeTimer()
+                        if self.needScroll == false then
+                            self:removeTimer()
+                        end
                     end
 
                     if self.deltay > 1 or self.deltay < -1 then

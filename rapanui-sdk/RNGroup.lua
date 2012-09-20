@@ -325,8 +325,16 @@ end
 function RNGroup:setVisible(value)
     for i = 0, self.numChildren - 1 do
         local anObject = self.displayObjects[i]
-        if anObject ~= nil and type(anObject.getProp) ~= "table" and anObject:getProp() ~= nil then
-            anObject.visible = value
+        if anObject ~= nil then
+            if anObject.getType ~= nil then
+                if anObject:getType() ~= "RNButton" then
+                    if anObject ~= nil and type(anObject.getProp) ~= "table" and anObject:getProp() ~= nil then
+                        anObject.visible = value
+                    end
+                else
+                    anObject.visible = value
+                end
+            end
         end
     end
 end
