@@ -44,4 +44,7 @@ config.device = "iPhone3G"
 config.stretch = false
 config.graphicsDesign = { w = 640, h = 960 }
 
+--this is for iOS. Set it to true if you enabled the status bar in your Moai xCode Project, to keep screen touch configured properly.
+config.iosStatusBar = false
+
 return config

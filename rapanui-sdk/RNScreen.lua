@@ -118,15 +118,20 @@ function RNScreen:getObjectWithHighestLevelOn(x, y)
     local AspectX = (gx + ofx * 2 * Ax) / tx
     local AspectY = (gy + ofy * 2 * Ay) / ty
 
+    local statusBar = 0
+
+    if config.iosStatusBar then
+        statusBar = 20
+    end
 
 
     local props
     if config.stretch == true then
         local toGetX, toGetY = (x - ofx) * Ax, (y - ofy) * Ay
         --        print(x, y, toGetX, toGetY)
-        props = { self.mainPartition:propListForPoint(toGetX, toGetY, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        props = { self.mainPartition:propListForPoint(toGetX, toGetY + statusBar, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     else
-        props = { self.mainPartition:propListForPoint(x, y, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        props = { self.mainPartition:propListForPoint(x, y + statusBar, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     end
 
     for i, p in ipairs(props) do
