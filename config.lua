@@ -31,6 +31,8 @@ config.sizes["iPhone3G_500_750"] = { 320, 480, 500, 750 } -- 3G screen ratio ups
 config.sizes["AcerLiquidMetal"] = { 480, 800, 480, 800 }
 config.sizes["test"] = { 700, 1024, 700, 1024 }
 config.sizes["test2"] = { 200, 400, 200, 400 }
+config.sizes["test3"] = { 100, 500, 100, 500 }
+
 
 
 --set lanscape mode and device
@@ -40,9 +42,12 @@ config.device = "iPhone3G"
 --set stretch and graphics design
 --this will stretch your graphics to fit device screen size
 --but you need to set for which sizes your assets are originally designed for
+--letterbox is to enable letterboxing
+--drawOnBlackBars is to writing on blackBars
 --change values with care if you are on landscape
-config.stretch = false
-config.graphicsDesign = { w = 640, h = 960 }
+
+
+config.stretch = { status = false, letterbox = false, drawOnBlackBars = false, graphicsDesign = { w = 640, h = 960 } }
 
 --this is for iOS. Set it to true if you enabled the status bar in your Moai xCode Project, to keep screen touch configured properly.
 config.iosStatusBar = false

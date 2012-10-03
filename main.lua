@@ -49,7 +49,7 @@ end      --]]
 
 -- Lists
 --require("rapanui-samples/lists/rn-rnListView")
-require("rapanui-samples/lists/rn-rnListView-multilist")
+--require("rapanui-samples/lists/rn-rnListView-multilist")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
 --require("rapanui-samples/lists/rn-rnPageSwipe-multiswipe")
 
@@ -123,7 +123,7 @@ require("rapanui-samples/lists/rn-rnListView-multilist")
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
---require("rapanui-samples/touch/rn-buttons-animated")
+require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 -- listeners
@@ -176,3 +176,9 @@ require("rapanui-samples/lists/rn-rnListView-multilist")
 
 -- Unit tests
 --require("rapanui-samples/test/unit/rn-groups-unit-test")
+
+function touch(event)
+for i,v in pairs(event) do print(i,v) end
+end
+
+RNListeners:addEventListener("touch",touch)
