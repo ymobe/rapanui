@@ -78,6 +78,8 @@ function RNScreen:addRNObject(object, mode)
     object:setIDInScreen(self.numSprites)
 
     object:getProp().rnObjectId = self.numSprites
+
+    object:getProp().RNObject = object
 end
 
 function RNScreen:removeRNObject(object)
@@ -103,54 +105,38 @@ end
 function RNScreen:getObjectWithHighestLevelOn(x, y)
 
 
-    local ofx = RNFactory.screenXOffset
-    local ofy = RNFactory.screenYOffset
 
-    local gx = RNFactory.screenUnitsX
-    local gy = RNFactory.screenUnitsY
-    local tx = RNFactory.width
-    local ty = RNFactory.height
-
-    --screen aspect without calculating offsets
-    local Ax = gx / (tx - ofx * 2)
-    local Ay = gy / (ty - ofy * 2)
-
-    --screen aspect calculating offsets
-    local AspectX = (gx + ofx * 2 * Ax) / tx
-    local AspectY = (gy + ofy * 2 * Ay) / ty
-
-    local statusBar = 0
-
-    if config.iosStatusBar then
-        statusBar = 20
-    end
-
-    --[[ TODO: PERFORMANCE FIX: All the operations above are performed each time we enter this function.
-         TODO: We should have the above calculations done in RNFactory during initialization and we should use
-         TODO: RNFactory.toGetX,RNFactory.toGetY,RNFactory.statusBar in the code below.
-      ]]
 
     local props
     if config.stretch.status == true then
         if config.stretch.letterbox == true then
-            local toGetX, toGetY = (x - ofx) * Ax, (y - ofy) * Ay
-            props = { self.mainPartition:propListForPoint(toGetX, toGetY + statusBar * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+            local toGetX, toGetY = (x - RNFactory.ofx) * RNFactory.Ax, (y - RNFactory.ofy) * RNFactory.Ay
+            props = { self.mainPartition:propListForPoint(toGetX, toGetY + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
         else
-            local toGetX, toGetY = (x - ofx) * Ax, (y - ofy) * Ay
-            props = { self.mainPartition:propListForPoint(toGetX, toGetY + statusBar * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+            local toGetX, toGetY = (x - RNFactory.ofx) * RNFactory.Ax, (y - RNFactory.ofy) * RNFactory.Ay
+            props = { self.mainPartition:propListForPoint(toGetX, toGetY + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
         end
     else
-        props = { self.mainPartition:propListForPoint(x, y + statusBar * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        props = { self.mainPartition:propListForPoint(x, y + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     end
 
-    for i, p in ipairs(props) do
-        for j, k in ipairs(self.sprites) do
-            if k.prop == p then
-                if k.touchable == true then
-                    --                    print(k.name)
-                    return k
-                end
-            end
+    --Old, deprecated worst way to do this.
+    --    for i, p in ipairs(props) do
+    --        for j, k in ipairs(self.sprites) do
+    --            if k.prop == p then
+    --                if k.touchable == true then
+    --                    --                    print(k.name)
+    --                    return k
+    --                end
+    --            end
+    --        end
+    --    end
+
+
+    for i = 1, #props do
+        local currentProp = props[i]
+        if currentProp.RNObject.touchable == true then
+            return currentProp.RNObject
         end
     end
 end
