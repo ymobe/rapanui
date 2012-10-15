@@ -299,20 +299,20 @@ function RNFactory.createButton(image, params)
     end
 
     function initButtonImage( image )
-       local rnObj, deck
-       if type(image) == "string" then
-          rnObj = RNObject:new()
-          rnObj, deck = rnObj:initWithImage2( image )
-       else
-          -- assume image is already an RNObject
-          rnObj = image
-       end
+        local rnObj, deck
+        if type(image) == "string" then
+            rnObj = RNObject:new()
+            rnObj, deck = rnObj:initWithImage2( image )
+        else
+            -- assume image is already an RNObject
+            rnObj = image
+        end
 
-       rnObj.x = rnObj.originalWidth / 2 + left
-       rnObj.y = rnObj.originalHeight / 2 + top
-       RNFactory.screen:addRNObject( rnObj )
+        rnObj.x = rnObj.originalWidth / 2 + left
+        rnObj.y = rnObj.originalHeight / 2 + top
+        RNFactory.screen:addRNObject( rnObj )
 
-       return rnObj, deck
+        return rnObj, deck
     end
 
     -- init of default RNButtonImage
