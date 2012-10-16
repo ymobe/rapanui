@@ -394,6 +394,8 @@ function RNObject:initCopyRect(src, params)
 
     self.alpha = 1
     self:loadCopyRect(src, params)
+
+    return self
 end
 
 
@@ -425,6 +427,8 @@ function RNObject:initBlank(width, height)
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
     self.prop:setPriority(1)
+
+    return self
 end
 
 function RNObject:loadCopyRect(src, params)
@@ -471,6 +475,8 @@ function RNObject:loadCopyRect(src, params)
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
     self.prop:setPriority(1)
+
+    return self
 end
 
 
@@ -505,6 +511,8 @@ function RNObject:initWithMoaiImage(moaiImage)
     self.prop:setDeck(self.gfxQuad)
     self.gfxQuad:setRect(-self.originalWidth / 2, -self.originalHeight / 2, (self.originalWidth) / 2, (self.originalHeight) / 2)
     self.prop:setPriority(1)
+
+    return self
 end
 
 
@@ -621,6 +629,8 @@ function RNObject:initWithRect(width, height, rgb)
     self.childrenSize = 0
     self.alpha = 1
     self:loadRect(width, height, rgb)
+
+    return self
 end
 
 
@@ -629,6 +639,8 @@ function RNObject:initWithCircle(x, y, r, rgb)
     self.childrenSize = 0
     self.alpha = 1
     self:loadCircle(x, y, r, rgb)
+
+    return self
 end
 
 
@@ -656,6 +668,8 @@ function RNObject:loadRect(width, height, rgb)
     self.prop:setDeck(self.gfxQuad)
 
     self.prop:setPriority(1)
+
+    return self
 end
 
 function RNObject:setPenColor(r, g, b, alpha)
