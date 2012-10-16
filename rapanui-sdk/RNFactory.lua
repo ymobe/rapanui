@@ -298,7 +298,7 @@ function RNFactory.createButton(image, params)
         yOffset = params.yOffset
     end
 
-    function initButtonImage( image )
+    local function initButtonImage( image )
         local rnObj, deck
         if type(image) == "string" then
             rnObj = RNObject:new()
