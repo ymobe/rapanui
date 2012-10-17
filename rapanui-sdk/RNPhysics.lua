@@ -748,7 +748,9 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
     len = table.getn(blist)
     --we create the event to send to the function RNPhysics.stored in RNBody.collision
     local localEvent = { phase = currentphase, self = nil, other = nil, selfFixture = nil, otherFixture = nil, force = currentEvent.force, friction = currentEvent.friction }
-    --for each body in RNPhysics.bodylist
+
+    --for body1 (if body2 has a collision handler, this whole function
+    --           will be called again with body2 as body1)
     --if the body is involved in this collision
     --if collision is set and there aren't any nils
     if (body1.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
@@ -757,14 +759,6 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
         localEvent.selfFixture = fixture1
         localEvent.otherFixture = fixture2
         body1.collision(localEvent.self, localEvent) --we call the function
-    end
-
-    if (body2.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
-        localEvent.self = body2.sprite
-        localEvent.other = body1.sprite
-        localEvent.selfFixture = fixture2
-        localEvent.otherFixture = fixture1
-        body2.collision(localEvent.self, localEvent)
     end
 end
 
