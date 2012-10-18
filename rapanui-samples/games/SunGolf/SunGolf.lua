@@ -24,8 +24,8 @@ shots = 0
 level = 0
 
 --add images
-background = RNFactory.createImage("RapaNui-samples/games/SunGolf/grass.png")
-bounding = RNFactory.createImage("RapaNui-samples/games/SunGolf/grass.png"); bounding.x = 0; bounding.y = 0;
+background = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png")
+bounding = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png"); bounding.x = 0; bounding.y = 0;
 
 
 --create a complex body for bounding handling (and set it as invisible)
@@ -45,14 +45,14 @@ function create_level()
     lev:setText("" .. level)
     canChangeLevel = true
     --create images
-    hole = RNFactory.createImage("RapaNui-samples/games/SunGolf/hole.png");
+    hole = RNFactory.createImage("rapanui-samples/games/SunGolf/hole.png");
     hole.x = math.random() * 120 + 100; hole.y = 100
-    ball = RNFactory.createImage("RapaNui-samples/games/SunGolf/gball.png"); ball.x = 240; ball.y = 400;
-    obstacle1 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    ball = RNFactory.createImage("rapanui-samples/games/SunGolf/gball.png"); ball.x = 240; ball.y = 400;
+    obstacle1 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle1.x = math.random() * 100 - 20; obstacle1.y = 140 + math.random() * 150; obstacle1.rotation = math.random() * 360;
-    obstacle2 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    obstacle2 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle2.x = 160; obstacle2.y = 140 + math.random() * 150; obstacle2.rotation = math.random() * 360;
-    obstacle3 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    obstacle3 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle3.x = math.random() * 100 + 280; obstacle3.y = 140 + math.random() * 150; obstacle3.rotation = math.random() * 360;
 
     --add physics bodies
