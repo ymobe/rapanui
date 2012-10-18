@@ -176,9 +176,3 @@ require("rapanui-samples/touch/rn-buttons-animated")
 
 -- Unit tests
 --require("rapanui-samples/test/unit/rn-groups-unit-test")
-
-function touch(event)
-for i,v in pairs(event) do print(i,v) end
-end
-
-RNListeners:addEventListener("touch",touch)

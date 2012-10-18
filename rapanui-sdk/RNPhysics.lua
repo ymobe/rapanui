@@ -759,13 +759,13 @@ function RNPhysics.LocalCollisionHandling(phase, fixtureA, fixtureB, arbiter)
         body1.collision(localEvent.self, localEvent) --we call the function
     end
 
-    if (body2.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
-        localEvent.self = body2.sprite
-        localEvent.other = body1.sprite
-        localEvent.selfFixture = fixture2
-        localEvent.otherFixture = fixture1
-        body2.collision(localEvent.self, localEvent)
-    end
+    --    if (body2.collision ~= nil) and (body1 ~= nil) and (body2 ~= nil) then
+    --        localEvent.self = body2.sprite
+    --        localEvent.other = body1.sprite
+    --        localEvent.selfFixture = fixture2
+    --        localEvent.otherFixture = fixture1
+    --        body2.collision(localEvent.self, localEvent)
+    --    end
 end
 
 
