@@ -85,7 +85,7 @@ j10:remove()
 
 --[[ Mouse Joint Testing
 
-ground=RNFactory.createImage("RapaNui-samples/physics/floor.png");ground.x=0;ground.y=0;
+ground=RNFactory.createImage("rapanui-samples/physics/floor.png");ground.x=0;ground.y=0;
 ground.visible=false
 RNPhysics.createBodyFromImage(ground,"kinematic",{shape={0,0,320,0,320,480,0,480},sensor=true })
 
