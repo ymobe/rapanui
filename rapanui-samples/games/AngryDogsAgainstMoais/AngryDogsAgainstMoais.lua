@@ -30,8 +30,8 @@ gameGroup.x = 0; gameGroup.y = 0;
 
 
 --create images
-background = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/grass.png")
-bounding = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/grass.png"); bounding.x = 0; bounding.y = 0;
+background = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/grass.png")
+bounding = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/grass.png"); bounding.x = 0; bounding.y = 0;
 gameGroup:insert(background)
 gameGroup:insert(bounding)
 
@@ -60,13 +60,13 @@ end
 
 function create_level()
     --creating dog
-    dog = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/dog.png"); dog.x = 100; dog.y = 400;
+    dog = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/dog.png"); dog.x = 100; dog.y = 400;
     RNPhysics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
     gameGroup:insert(dog)
     dog.name = "dog"
     lastx = dog.x
     --starting obstacle
-    local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+    local obstacle = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/obstacle.png");
     obstacle.x = 100; obstacle.y = 500; obstacle.rotation = 90
     RNPhysics.createBodyFromImage(obstacle, "static")
     gameGroup:insert(obstacle)
@@ -74,14 +74,14 @@ function create_level()
     --creating obstacles
     for j = 1, 3, 1 do
         for i = 1, 3, 1 do
-            local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+            local obstacle = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/obstacle.png");
             obstacle.x = 1000 + i * 100; obstacle.y = 500 - j * 130; obstacle.rotation = 90
             RNPhysics.createBodyFromImage(obstacle, { density = 1 })
             gameGroup:insert(obstacle)
             obstacle.name = "obstacle"
         end
         for i = 1, 2, 1 do
-            local obstacle = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/obstacle.png");
+            local obstacle = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/obstacle.png");
             obstacle.x = 1050 + i * 100; obstacle.y = 440 - j * 130; obstacle.rotation = 0
             RNPhysics.createBodyFromImage(obstacle, { density = 1 })
             gameGroup:insert(obstacle)
@@ -91,7 +91,7 @@ function create_level()
     --creating moais
     for j = 1, 3, 1 do
         for i = 1, 2, 1 do
-            local moais = RNFactory.createAnim("RapaNui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 1, 1);
+            local moais = RNFactory.createAnim("rapanui-samples/games/AngryDogsAgainstMoais/moaianim.png", 64, 64, 0, 0, 1, 1);
             moais.x = 1050 + i * 100; moais.y = 500 - j * 130; moais.rotation = 0
             RNPhysics.createBodyFromImage(moais, { shape = { -18, -30, 18, -30, 18, 30, -18, 30 }, restitution = 0.4, density = 0.1 })
             gameGroup:insert(moais)
@@ -108,7 +108,7 @@ function create_level()
     lev = RNFactory.createText("0", { size = 20, top = 440, left = 200, width = 30, height = 50 })
 
     --create restart button
-    button = RNFactory.createImage("RapaNui-samples/games/AngryDogsAgainstMoais/restButt.png"); button.x = 160;
+    button = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/restButt.png"); button.x = 160;
 end
 
 
