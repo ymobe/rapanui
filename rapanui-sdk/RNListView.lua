@@ -209,11 +209,28 @@ function RNListView:createTimer()
                         self:callRegisteredFunctions("step")
                     end
 
-                    if self.deltay > 0 then self.deltay = self.deltay - 0.2 end
-                    if self.deltay < 0 then self.deltay = self.deltay + 0.2 end
 
-                    if self.deltay > self.options.maxScrollingForceY then self.deltay = self.options.maxScrollingForceY end
-                    if self.deltay < -self.options.maxScrollingForceY then self.deltay = -self.options.maxScrollingForceY end
+                    --autoscroll at limits / magnetic effect
+                    if self.y > self.options.maxY and self.isTouching == false then
+                        self.deltay = 0
+                        local value = (self.y - self.options.maxY) / 20
+                        self.y = self.y - value
+                        self.needScroll = true
+                        if value < 0.1 then
+                            self:removeTimer()
+                            self.needScroll = false
+                        end
+                    end
+                    if self.y < self.options.minY and self.isTouching == false then
+                        self.deltay = 0
+                        local value = (self.options.minY - self.y) / 20
+                        self.y = self.y + value
+                        self.needScroll = true
+                        if value < 0.1 then
+                            self:removeTimer()
+                            self.needScroll = false
+                        end
+                    end
 
                     if self.deltay >= 0 and self.deltay <= 0.2 then
                         self.deltay = 0
@@ -242,27 +259,7 @@ function RNListView:createTimer()
                         self.isScrollingY = true
                     end
 
-                    --autoscroll at limits / magnetic effect
-                    if self.y > self.options.maxY and self.isTouching == false then
-                        self.deltay = 0
-                        local value = (self.y - self.options.maxY) / 20
-                        self.y = self.y - value
-                        self.needScroll = true
-                        if value < 0.1 then
-                            self:removeTimer()
-                            self.needScroll = false
-                        end
-                    end
-                    if self.y < self.options.minY and self.isTouching == false then
-                        self.deltay = 0
-                        local value = (self.options.minY - self.y) / 20
-                        self.y = self.y + value
-                        self.needScroll = true
-                        if value < 0.1 then
-                            self:removeTimer()
-                            self.needScroll = false
-                        end
-                    end
+
 
                     --scroll due to postogo, move to function
                     if self.isToScroll == true then
@@ -274,6 +271,12 @@ function RNListView:createTimer()
                             self:removeTimer()
                         end
                     end
+
+                    if self.deltay > 0 then self.deltay = self.deltay - 0.2 end
+                    if self.deltay < 0 then self.deltay = self.deltay + 0.2 end
+
+                    if self.deltay > self.options.maxScrollingForceY then self.deltay = self.options.maxScrollingForceY end
+                    if self.deltay < -self.options.maxScrollingForceY then self.deltay = -self.options.maxScrollingForceY end
                 end
             end
         end
@@ -330,14 +333,15 @@ end
 
 function RNListView:remove()
     self:removeTimer()
-    RNListeners:removeEventListener("touch", self.touchListener)
+    if self.touchListener ~= nil then
+        RNListeners:removeEventListener("touch", self.touchListener)
+    end
     for i, v in ipairs(self.elements) do
         if v.object ~= nil then
             v.object:remove()
         end
     end
 
-    self = nil
     self = nil
 end
 
