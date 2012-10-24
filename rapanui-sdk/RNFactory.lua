@@ -20,7 +20,6 @@ contentHeight = nil
 contentWidth = nil
 contentScaleX = nil
 contentScaleY = nil
-contentWidth = nil
 screenOriginX = nil
 screenOriginY = nil
 statusBarHeight = nil
