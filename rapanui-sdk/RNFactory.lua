@@ -135,7 +135,7 @@ function RNFactory.init()
 
 
 
-    RNInputManager.setGlobalRNScreen(screen)
+    RNInputManager.setGlobalRNScreen(RNFactory.screen)
 end
 
 -- extra method call to setup the underlying system
