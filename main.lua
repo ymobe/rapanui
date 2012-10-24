@@ -12,8 +12,6 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
 
-require('strict')
-
 require("rapanui-sdk/rapanui")
 
 --[[ Uncomment to override the default print() function
