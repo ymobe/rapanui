@@ -537,8 +537,7 @@ function RNFactory.createBitmapText(text, params)
          ]]
 
     local charcodes, endsizex, sizey, sizex, left, top, scaleX, scaleY, charWidth, charHeight, image, parentGroup
-
-
+    local hAlignment, vAlignment
 
     if params.image ~= nil then
         image = params.image
@@ -568,6 +567,14 @@ function RNFactory.createBitmapText(text, params)
         parentGroup = params.parentGroup
     else
         parentGroup = RNFactory.mainGroup
+    end
+
+    if params.hAlignment ~= nil then
+        hAlignment = params.hAlignment
+    end
+
+    if params.vAlignment ~= nil then
+        vAlignment = params.vAlignment
     end
 
     local o = RNBitmapText:new()
