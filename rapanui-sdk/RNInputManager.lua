@@ -40,8 +40,8 @@ function RNInputManager:new(o)
         name = "RNInputManager",
         listeners = {},
         size = 0,
-        pointerX,
-        pointerY
+        pointerX=nil,
+        pointerY=nil,
     }
 
     setmetatable(o, self)

@@ -23,6 +23,12 @@ canChangeLevel = false
 shots = 0
 level = 0
 
+ball = nil
+hole = nil
+obstacle1 = nil
+obstacle2 = nil
+obstacle3 = nil
+
 --add images
 background = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png")
 bounding = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png"); bounding.x = 0; bounding.y = 0;
