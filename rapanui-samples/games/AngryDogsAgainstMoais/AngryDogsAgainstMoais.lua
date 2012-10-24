@@ -24,6 +24,13 @@ shots = 0
 startX = 0
 startY = 0
 
+dog = nil
+label = nil
+label2 = nil
+score = nil
+lev = nil
+button = nil
+
 --groups
 gameGroup = RNGroup:new()
 gameGroup.x = 0; gameGroup.y = 0;
@@ -196,7 +203,7 @@ function Step()
             relocateBall()
         else
             if dog.x - gameGroup.x < 2200 then
-                deltax = dog.x - lastx
+                local deltax = dog.x - lastx
                 gameGroup.x = gameGroup.x - deltax
                 lastx = dog.x
             end
@@ -230,8 +237,8 @@ end
 
 --remove only level objects
 function removeAll()
-    blist = RNPhysics.getBodyList()
-    toRemoveList = {}
+    local blist = RNPhysics.getBodyList()
+    local toRemoveList = {}
     for i = 1, table.getn(blist), 1 do
         print(blist[i].name)
         if (blist[i].name == "moaiObject") or (blist[i].name == "obstacle") or (blist[i].name == "dog") then

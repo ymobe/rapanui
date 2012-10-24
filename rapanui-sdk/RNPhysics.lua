@@ -33,62 +33,62 @@ function RNPhysics.start(value)
     if value ~= nil then
         print("noSleep not available at the moment")
     end
-    world = MOAIBox2DWorld.new()
-    world:setGravity(0, 10)
-    world:start()
-    world:setUnitsToMeters(0.06)
+    RNPhysics.world = MOAIBox2DWorld.new()
+    RNPhysics.world:setGravity(0, 10)
+    RNPhysics.world:start()
+    RNPhysics.world:setUnitsToMeters(0.06)
 end
 
 --- sets the sleeping time of physics objects
 -- @param value number: time to sleep
 function RNPhysics.setTimeToSleep(value)
-    if value ~= nil then world:setTimeToSleep(value) else world:setTimeToSleep()
+    if value ~= nil then RNPhysics.world:setTimeToSleep(value) else RNPhysics.world:setTimeToSleep()
     end
 end
 
 --- sets the linear sleep tolerance
 function RNPhysics.setLinearSleepTolerance()
-    if value ~= nil then world:setLinearSleepTolerance(value) else world:setLinearSleepTolerance()
+    if value ~= nil then RNPhysics.world:setLinearSleepTolerance(value) else RNPhysics.world:setLinearSleepTolerance()
     end
 end
 
 --- sets the angular sleep tolerance
 function RNPhysics.setAngularSleepTolerance()
-    if value ~= nil then world:setAngularSleepTolerance(value) else world:setAngularSleepTolerance()
+    if value ~= nil then RNPhysics.world:setAngularSleepTolerance(value) else RNPhysics.world:setAngularSleepTolerance()
     end
 end
 
 --- gets the angular sleep tolerance
 function RNPhysics.getAngularSleepTolerance()
-    return world:getAngularSleepTolerance()
+    return RNPhysics.world:getAngularSleepTolerance()
 end
 
 --- gets the linear sleep tolerance
 function RNPhysics.getLinearSleepTolerance()
-    return world:getAngularSleepTolerance()
+    return RNPhysics.world:getAngularSleepTolerance()
 end
 
 --- gets the sleeping time
 function RNPhysics.getTimeToSleep()
-    return world:getAngularSleepTolerance()
+    return RNPhysics.world:getAngularSleepTolerance()
 end
 
 --- stops the physics simulation
 function RNPhysics.stop()
-    world:stop()
+    RNPhysics.world:stop()
 end
 
 --- sets the gravity
 -- @param xx float: x axis gravity
 -- @param yy float: y axis gravity
 function RNPhysics.setGravity(xx, yy)
-    world:setGravity(xx, yy)
+    RNPhysics.world:setGravity(xx, yy)
 end
 
 --- gets the gravity
 -- @return table: x and y
 function RNPhysics.getGravity()
-    local x, y = world:getGravity()
+    local x, y = RNPhysics.world:getGravity()
     return x, y
 end
 
@@ -96,33 +96,33 @@ end
 --- sets meters to units
 -- @param meters float: meters per box2d units
 function RNPhysics.setMeters(meters)
-    world:setUnitsToMeters(meters / 1000)
-    units = meters
+    RNPhysics.world:setUnitsToMeters(meters / 1000)
+    RNPhysics.units = meters
 end
 
 --- sets physics iterations (see box2d docs)
 -- @param velocity float
 -- @param position float
 function RNPhysics.setIterations(velocity, position)
-    world:setIterations(velocity, position)
+    RNPhysics.world:setIterations(velocity, position)
 end
 
 --- gets meters per units
 -- @return units float
 function RNPhysics.getMeters()
-    return units
+    return RNPhysics.units
 end
 
 --- see box2d docs
 -- @param boolean boolean
 function RNPhysics.setAutoClearForces(boolean)
-    world:setAutoClearForces(boolean)
+    RNPhysics.world:setAutoClearForces(boolean)
 end
 
 --- see box2d docs
 -- @return value
 function RNPhysics.getAutoClearForces()
-    return world:getAutoClearForces()
+    return RNPhysics.world:getAutoClearForces()
 end
 
 --- gets the table list of the bodies in the physics world
@@ -209,11 +209,11 @@ function RNPhysics.createBodyFromImage(image, ...)
   the image. --]]
 
     --checks for body type
-    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC)
+    if (Type == "dynamic") then body = RNPhysics.world:addBody(MOAIBox2DBody.DYNAMIC)
     end
-    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC)
+    if (Type == "static") then body = RNPhysics.world:addBody(MOAIBox2DBody.STATIC)
     end
-    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC)
+    if (Type == "kinematic") then body = RNPhysics.world:addBody(MOAIBox2DBody.KINEMATIC)
     end
 
 
@@ -305,7 +305,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
+            if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
             end
         end --end arg for
 
@@ -338,7 +338,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
+        if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
@@ -430,11 +430,11 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
   the image. --]]
 
     --checks for body type
-    if (Type == "dynamic") then body = world:addBody(MOAIBox2DBody.DYNAMIC)
+    if (Type == "dynamic") then body = RNPhysics.world:addBody(MOAIBox2DBody.DYNAMIC)
     end
-    if (Type == "static") then body = world:addBody(MOAIBox2DBody.STATIC)
+    if (Type == "static") then body = RNPhysics.world:addBody(MOAIBox2DBody.STATIC)
     end
-    if (Type == "kinematic") then body = world:addBody(MOAIBox2DBody.KINEMATIC)
+    if (Type == "kinematic") then body = RNPhysics.world:addBody(MOAIBox2DBody.KINEMATIC)
     end
 
 
@@ -548,7 +548,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
+        if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
@@ -605,7 +605,7 @@ function RNPhysics.setDebugDraw(screen)
     --for i = 1, len, 1 do
     -- screen.sprites[i].visible = false;
     --end
-    layerfordebug:setBox2DWorld(world)
+    layerfordebug:setBox2DWorld(RNPhysics.world)
 end
 
 
@@ -781,7 +781,7 @@ function RNPhysics.createJoint(type, ...)
         bodyB = arg[2].physicObject
         anchorX = arg[3]
         anchorY = arg[4]
-        joint = world:addRevoluteJoint(bodyA.body, bodyB.body, anchorX, anchorY)
+        joint = RNPhysics.world:addRevoluteJoint(bodyA.body, bodyB.body, anchorX, anchorY)
     end
 
     --distance joint
@@ -799,7 +799,7 @@ function RNPhysics.createJoint(type, ...)
         end
         if (damping == nil) then damping = 0
         end
-        joint = world:addDistanceJoint(bodyA.body, bodyB.body, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, frequency, damping)
+        joint = RNPhysics.world:addDistanceJoint(bodyA.body, bodyB.body, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, frequency, damping)
     end
 
     --prismatic joint
@@ -811,7 +811,7 @@ function RNPhysics.createJoint(type, ...)
         anchorA_Y = arg[4]
         axisA = arg[5]
         axisB = arg[6]
-        joint = world:addPrismaticJoint(bodyA.body, bodyB.body, anchorA_X, anchorA_Y, axisA, axisB)
+        joint = RNPhysics.world:addPrismaticJoint(bodyA.body, bodyB.body, anchorA_X, anchorA_Y, axisA, axisB)
     end
 
     --friction joint
@@ -827,7 +827,7 @@ function RNPhysics.createJoint(type, ...)
         end
         if (maxTorque == nil) then maxTorque = 1000000
         end
-        joint = world:addFrictionJoint(bodyA.body, bodyB.body, anchorX, anchorY, maxForce, maxTorque)
+        joint = RNPhysics.world:addFrictionJoint(bodyA.body, bodyB.body, anchorX, anchorY, maxForce, maxTorque)
     end
 
     --weld joint
@@ -837,7 +837,7 @@ function RNPhysics.createJoint(type, ...)
         bodyB = arg[2].physicObject
         anchorX = arg[3]
         anchorY = arg[4]
-        joint = world:addWeldJoint(bodyA.body, bodyB.body, anchorX, anchorY)
+        joint = RNPhysics.world:addWeldJoint(bodyA.body, bodyB.body, anchorX, anchorY)
     end
 
     --wheel joint
@@ -849,7 +849,7 @@ function RNPhysics.createJoint(type, ...)
         anchorY = arg[4]
         axisX = arg[5]
         axisY = arg[6]
-        joint = world:addWheelJoint(bodyA.body, bodyB.body, anchorX, anchorY, axisX, axisY)
+        joint = RNPhysics.world:addWheelJoint(bodyA.body, bodyB.body, anchorX, anchorY, axisX, axisY)
     end
 
     --pulley joint
@@ -872,7 +872,7 @@ function RNPhysics.createJoint(type, ...)
         end
         if (maxLengthB == nil) then maxLengthB = 100
         end
-        joint = world:addPulleyJoint(bodyA.body, bodyB.body, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, ratio, maxLengthA, maxLengthB)
+        joint = RNPhysics.world:addPulleyJoint(bodyA.body, bodyB.body, groundAnchorA_X, groundAnchorA_Y, groundAnchorB_X, groundAnchorB_Y, anchorA_X, anchorA_Y, anchorB_X, anchorB_Y, ratio, maxLengthA, maxLengthB)
     end
 
     --gear joint
@@ -881,7 +881,7 @@ function RNPhysics.createJoint(type, ...)
         jointA = arg[1], joint
         jointB = arg[2].joint
         ratio = arg[3]
-        joint = world:addGearJoint(jointA, jointB, ratio)
+        joint = RNPhysics.world:addGearJoint(jointA, jointB, ratio)
     end
 
     --mouse joint
@@ -899,7 +899,7 @@ function RNPhysics.createJoint(type, ...)
         if (dampingRatio == nil) then dampingRatio = 0.2
         end
 
-        joint = world:addMouseJoint(bodyA.body, bodyB.body, world, targetX, targetY, maxForce, frequencyHz, dampingRatio)
+        joint = RNPhysics.world:addMouseJoint(bodyA.body, bodyB.body, RNPhysics.world, targetX, targetY, maxForce, frequencyHz, dampingRatio)
     end
 
 
@@ -932,7 +932,7 @@ function RNPhysics.createJoint(type, ...)
         end
         if (anchorBY == nil) then anchorBY = 0
         end
-        joint = world:addRopeJoint(bodyA.body, bodyB.body, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
+        joint = RNPhysics.world:addRopeJoint(bodyA.body, bodyB.body, maxLength, anchorAX, anchorAY, anchorBX, anchorBY)
         joint:destroy()
     end
 
