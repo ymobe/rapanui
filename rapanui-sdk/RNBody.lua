@@ -347,7 +347,7 @@ end
 
 --sets all fixture of this body as sensors
 function RNBody:setSensor(value)
-    len = table.getn(self.fixturelist)
+    local len = table.getn(self.fixturelist)
     for i = 1, len, 1 do
         self.fixturelist[i].fixture:setSensor(value)
         self.fixturelist[i].sensor = value
