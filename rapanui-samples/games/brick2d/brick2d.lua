@@ -34,6 +34,9 @@ bricksBroken = 0
 label = RNFactory.createText("Bricks broken: ", { size = 20, top = 440, left = 5, width = 200, height = 50 })
 score = RNFactory.createText("", { size = 20, top = 440, left = 210, width = 30, height = 50 })
 
+dir = nil
+angle = nil
+
 function init()
     dir = round(math.random() * 1);
     ball.speed = 2;
