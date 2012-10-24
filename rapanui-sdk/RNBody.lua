@@ -243,12 +243,12 @@ end
 -- collision handling
 function RNBody:addEventListener(Type)
     if (Type == "collision") then
-        flist = self.fixturelist
-        len = table.getn(flist)
+        local flist = self.fixturelist
+        local len = table.getn(flist)
         --for each fixture in in self.fixturelist
         for i = 1, len, 1 do
             --sets the fixture for callbacks
-            currentfixture = flist[i].fixture
+            local currentfixture = flist[i].fixture
             currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end
