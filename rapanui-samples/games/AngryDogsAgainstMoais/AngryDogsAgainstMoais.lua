@@ -24,6 +24,13 @@ shots = 0
 startX = 0
 startY = 0
 
+dog = nil
+label = nil
+label2 = nil
+score = nil
+lev = nil
+button = nil
+
 --groups
 gameGroup = RNGroup:new()
 gameGroup.x = 0; gameGroup.y = 0;
