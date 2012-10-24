@@ -68,7 +68,7 @@ end
 function RNFixture:new(o)
     local fixture = RNFixture:innerNew(o)
     local proxy = setmetatable({}, { __newindex = fieldChangedListener, __index = fieldAccessListener, __object = fixture })
-    return proxy, physicObject
+    return proxy
 end
 
 
