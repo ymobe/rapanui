@@ -97,7 +97,7 @@ end
 -- @param meters float: meters per box2d units
 function RNPhysics.setMeters(meters)
     RNPhysics.world:setUnitsToMeters(meters / 1000)
-    units = meters
+    RNPhysics.units = meters
 end
 
 --- sets physics iterations (see box2d docs)
@@ -110,7 +110,7 @@ end
 --- gets meters per units
 -- @return units float
 function RNPhysics.getMeters()
-    return units
+    return RNPhysics.units
 end
 
 --- see box2d docs
