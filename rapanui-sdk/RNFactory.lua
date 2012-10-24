@@ -316,8 +316,7 @@ function RNFactory.createButton(image, params)
     end
 
     -- init of default RNButtonImage
-    local rnButtonImage
-    rnButtonImage, deck = initButtonImage( image )
+    local rnButtonImage, deck = initButtonImage( image )
 
     local rnButtonImageOver
     if params.imageOver ~= nil then
