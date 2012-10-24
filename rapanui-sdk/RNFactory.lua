@@ -58,7 +58,7 @@ function RNFactory.init()
         screenlwidth, screenHeight = screenHeight, screenlwidth
     end
 
-    landscape, device, sizes, screenX, screenY = nil
+    screenX, screenY = nil
 
 
     if name == nil then
