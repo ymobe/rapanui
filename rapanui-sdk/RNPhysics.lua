@@ -305,7 +305,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
             --if has been set a listener for collision(so the other fixtures have been set for
             --collision callbacks) also new fixtures should give a callback for collision!
-            if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
+            if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
             end
         end --end arg for
 
@@ -338,7 +338,7 @@ function RNPhysics.createBodyFromImage(image, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
+        if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(RNPhysics.CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
@@ -548,7 +548,7 @@ function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
         --if has been set a listener for collision(so the other fixtures have been set for
         --collision callbacks) also new fixtures should give a callback for collision!
-        if (collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
+        if (RNPhysics.collisionListenerExists == true) then fixture:setCollisionHandler(CollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end --end if arg>0
 
