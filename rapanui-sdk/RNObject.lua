@@ -708,7 +708,7 @@ end
 
 
 function RNObject:setIDInScreen(id)
-    self.idInScreen = id
+    --    self.idInScreen = id
 end
 
 function RNObject:animate(keyframe, executed, value)

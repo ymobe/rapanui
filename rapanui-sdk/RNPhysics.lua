@@ -597,11 +597,11 @@ end
 function RNPhysics.setDebugDraw(screen)
 
     local layerfordebug = screen.layer
-    local len = table.getn(screen.sprites)
-    for i, sprite in pairs(screen.sprites) do
-        --sprite.visible = false
-        --in general, assigning visibility doesnt work at all
-    end
+    --    local len = table.getn(screen.sprites)
+    --    for i, sprite in pairs(screen.sprites) do
+    --        --sprite.visible = false
+    --        --in general, assigning visibility doesnt work at all
+    --    end
     --for i = 1, len, 1 do
     -- screen.sprites[i].visible = false;
     --end

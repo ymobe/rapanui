@@ -20,8 +20,8 @@ function RNScreen:new(o)
 
     o = o or {
         name = "",
-        sprites = {},
-        numSprites = 0,
+        --        sprites = {},
+        --        numSprites = 0,
         width = 0,
         height = 0,
         spriteIndex = 0,
@@ -73,33 +73,33 @@ function RNScreen:addRNObject(object, mode)
     object:setParentScene(self)
     object:updateLocation()
 
-    self.numSprites = self.numSprites + 1
-    self.sprites[self.numSprites] = object
-    object:setIDInScreen(self.numSprites)
+    --    self.numSprites = self.numSprites + 1
+    --    self.sprites[self.numSprites] = object
+    --    object:setIDInScreen(self.numSprites)
 
-    object:getProp().rnObjectId = self.numSprites
+    --    object:getProp().rnObjectId = self.numSprites
 
     object:getProp().RNObject = object
 end
 
 function RNScreen:removeRNObject(object)
     self.layer:removeProp(object:getProp())
-    local id = object.idInScreen
-    local len = table.getn(self.sprites)
-    local ind = id
-    for i = 1, len, 1 do
-        if (i == ind) then
-            for k = ind + 1, len, 1 do
-                self.sprites[k - 1] = self.sprites[k]
-                self.sprites[k].idInScreen = k - 1
-                self.sprites[k]:getProp().rnObjectId = k - 1
-            end
-            self.sprites[len] = nil
-        end
-    end
-
+    --    local id = object.idInScreen
+    --    local len = table.getn(self.sprites)
+    --    local ind = id
+    --    for i = 1, len, 1 do
+    --        if (i == ind) then
+    --            for k = ind + 1, len, 1 do
+    --                self.sprites[k - 1] = self.sprites[k]
+    --                self.sprites[k].idInScreen = k - 1
+    --                self.sprites[k]:getProp().rnObjectId = k - 1
+    --            end
+    --            self.sprites[len] = nil
+    --        end
+    --    end
     --
-    self.numSprites = table.getn(self.sprites)
+    --    --
+    --    self.numSprites = table.getn(self.sprites)
 end
 
 function RNScreen:getObjectWithHighestLevelOn(x, y)

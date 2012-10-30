@@ -34,7 +34,7 @@ end
 
 
 function RNMapLayer:setIDInScreen(id)
-    self.idInScreen = id
+--    self.idInScreen = id
 end
 
 
