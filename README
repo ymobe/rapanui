@@ -21,6 +21,19 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 
 
+How to use RapaNui in your project:
+
+1) Copy rapanui-sdk under your project dir
+2) Copy config.lua from rapanui directory under your project
+3) Add a require "config" into your main.lua
+4) Add a require "rapanui-sdk.rapanui" into your main.lua
+
+Now your main.lua should look something like this
+require "config"
+require "rapanui-sdk.rapanui"
+
+
+
 How to test RapaNui in Moai distribution for Mac iOS:
 
 1) under your moai dir find the dir "samples" create a new dir "RapaNui"
@@ -63,12 +76,6 @@ To change the demo of RapaNui
 3) uncomment the sample you want to test.
 4) run the project
 
-
-
-How to use RapaNui in your project:
-
-1) copy all the files of the root dir of the distribution into your project and add a lua require
-   in your app's scripts.
 
 enjoy,
 The RapaNui team
