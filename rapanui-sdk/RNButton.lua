@@ -214,15 +214,18 @@ end
 
 function RNButton:setAlpha(level)
 
-
     if self.text ~= nil then
-        self.text:setAlpha(level)
+        self.text.alpha = level
     end
 
     self.rnImageDefault:setAlpha(level)
 
     if self.rnImageOver ~= nil then
         self.rnImageOver:setAlpha(level)
+    end
+
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDisabled:setAlpha(level)
     end
 end
 
