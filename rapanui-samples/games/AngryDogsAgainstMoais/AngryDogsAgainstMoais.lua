@@ -53,7 +53,7 @@ bounding.visible = false
 
 --local collision handling of moais objects
 function onMoaiCollide(self, event)
-    if (event.phase == "begin") and (dog.x - gameGroup.x > 1000) then
+    if (event.phase == "begin") and (dog.x - gameGroup.x > 1000) and self ~= nil then
         if self.frame < 4 then
             self.frame = self.frame + 1
         else

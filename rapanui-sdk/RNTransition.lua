@@ -255,6 +255,8 @@ function RNTransition:run(target, params)
     elseif (action ~= nil) then
         action:setListener(MOAIAction.EVENT_STOP, function() self.updateMapLoc(self, target, toX, toY, deltax, deltay) end)
     end
+
+    return action
 end
 
 function RNTransition:updateMapLoc(target, x, y, deltax, deltay)
