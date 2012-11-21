@@ -18,11 +18,20 @@ RNPhysics.start()
 
 --global vars
 canMove = false
-lastx = 0
 moaisDestroyed = 0
 shots = 0
 startX = 0
 startY = 0
+-- we need to set cameras Y coordinate and 
+-- create a cameraXOffset since viewport:setOffset(-1, 1) -> left top corner
+cameraY = 0
+cameraXOffset = -64-32
+--button offset is needed to keep the button in correct position with the camera
+buttonOffset = 160
+
+--camera
+camera = MOAICamera2D.new ()
+RNFactory.screen.layer:setCamera(camera)
 
 dog = nil
 label = nil
@@ -53,7 +62,7 @@ bounding.visible = false
 
 --local collision handling of moais objects
 function onMoaiCollide(self, event)
-    if (event.phase == "begin") and (dog.x - gameGroup.x > 1000) and self ~= nil then
+    if (event.phase == "begin") and (dog.x > 1000) then
         if self.frame < 4 then
             self.frame = self.frame + 1
         else
@@ -71,7 +80,6 @@ function create_level()
     RNPhysics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
     gameGroup:insert(dog)
     dog.name = "dog"
-    lastx = dog.x
     --starting obstacle
     local obstacle = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/obstacle.png");
     obstacle.x = 100; obstacle.y = 500; obstacle.rotation = 90
@@ -117,7 +125,6 @@ function create_level()
     --create restart button
     button = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/restButt.png"); button.x = 160;
 end
-
 
 
 
@@ -196,16 +203,16 @@ function Step()
     end
 
     --Restart and camera setting
-    if dog.x - gameGroup.x > 2500 then
+    if dog.x > 2500 then
         relocateBall()
     else
-        if dog.x - gameGroup.x > 200 and canMove == true then
+        if (dog.x > 110 or dog.x < 90) and canMove == true then
             relocateBall()
         else
-            if dog.x - gameGroup.x < 2200 then
-                local deltax = dog.x - lastx
-                gameGroup.x = gameGroup.x - deltax
-                lastx = dog.x
+            if dog.x  < 2200 then
+				camera:setLoc(dog.x+cameraXOffset,cameraY)
+				local camx,camy=camera:getLoc()
+				button.x = buttonOffset + camx 
             end
         end
     end
@@ -221,14 +228,13 @@ RNListeners:addEventListener("enterFrame", Step)
 
 --bring the ball back to start
 function relocateBall()
-    gameGroup.x = 0
     dog.x = 100
     dog.y = 400
-    gameGroup.x = 0; gameGroup.y = 0;
     dog.rotation = 0
     dog.linearVelocityX = 0
     dog.linearVelocityY = 0
     dog.angularVelocity = 0
+	camera:setLoc(cameraXOffset,cameraY)
 end
 
 
@@ -260,4 +266,3 @@ end
 
 --create starting level
 create_level()
- 
