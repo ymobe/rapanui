@@ -77,7 +77,10 @@ end
 function create_level()
     --creating dog
     dog = RNFactory.createImage("rapanui-samples/games/AngryDogsAgainstMoais/dog.png"); dog.x = 100; dog.y = 400;
-    RNPhysics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
+    local dogBody = RNPhysics.createBodyFromImage(dog, { shape = "circle", restitution = 0.4 })
+    dogBody:setLinearDamping(0.3)      --diminishing speed
+    dogBody:setAngularDamping(0.3)
+
     gameGroup:insert(dog)
     dog.name = "dog"
     --starting obstacle
@@ -176,27 +179,8 @@ RNListeners:addEventListener("touch", screen_touch)
 
 --handling enterFrame
 function Step()
-    --diminishing speed
-    if dog.linearVelocityX > 0 then
-        dog.linearVelocityX = dog.linearVelocityX - 0.2
-    end
-    if dog.linearVelocityY > 0 then
-        dog.linearVelocityY = dog.linearVelocityY - 0.2
-    end
-    if dog.linearVelocityX < 0 then
-        dog.linearVelocityX = dog.linearVelocityX + 0.2
-    end
-    if dog.linearVelocityY < 0 then
-        dog.linearVelocityY = dog.linearVelocityY + 0.2
-    end
-    if dog.angularVelocity > 0 then
-        dog.angularVelocity = dog.angularVelocity - 0.2
-    end
-    if dog.angularVelocity < 0 then
-        dog.angularVelocity = dog.angularVelocity + 0.2
-    end
     --toggle movement possibility
-    if dog.linearVelocityX > -0.1 and dog.linearVelocityX < 0.1 and dog.linearVelocityY > -0.1 and dog.linearVelocityY < 0.1 then
+    if math.abs(dog.linearVelocityX) < 0.2 and math.abs(dog.linearVelocityY) < 0.2 then
         canMove = true
     else
         canMove = false
