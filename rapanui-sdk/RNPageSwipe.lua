@@ -479,6 +479,8 @@ function RNPageSwipe:goToPage(value)
         end
         self:doSwipe()
         self:callRegisteredFunctions("goToPage")
+    else
+        self:callRegisteredFunctions("endedSwipe")
     end
 end
 
