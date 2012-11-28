@@ -148,4 +148,37 @@ function testThatLayerCanBeCreatedWithPartition()
 	assert_that(returnedLayer.name,is(equal_to(TEST_LAYER.name)))
 end
 
+function testThatLayerCanBeRemoved() 
+	local rnlayer = init()
+	returnedLayer = rnlayer:createLayer("test",VIEWPORT)
+	returnedLayer2 = rnlayer:createLayer("test2",VIEWPORT)
+	assert_that(table.getn(rnlayer),equal_to(2))
+
+	rnlayer:remove(returnedLayer2)
+	assert_that(table.getn(rnlayer),equal_to(1))
+	assert_nil(rnlayer:get("test2"))
+	assert_not_nil(rnlayer:get("test"))	
+end
+
+function testThatLayerContainerIsProperlyCleared() 
+	local rnlayer = init()
+	returnedLayer = rnlayer:createLayer("test",VIEWPORT)
+	container = rnlayer[1]
+
+	assert_not_nil(container.name)
+	assert_not_nil(container.layer)
+
+	rnlayer:remove(returnedLayer)
+
+	assert_nil(container.name)
+	assert_nil(container.layer)
+end
+
+function testThatLayerIsClearedWhenLayerIsRemoved()
+	local rnlayer = init()
+	returnedLayer = rnlayer:createLayer("test",VIEWPORT)
+	rnlayer:remove(returnedLayer)
+	assert_true(calledFunctions.clearLayer)
+end
+
 lunatest.run()

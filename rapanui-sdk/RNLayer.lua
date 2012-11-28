@@ -45,4 +45,19 @@ function RNLayer:createLayerWithPartition(name,viewport)
 	return layer
 end
 
+function RNLayer:remove(layer)
+	for i, container in pairs(self) do
+		if container.layer == layer then
+			self:clearContainer(container)
+			table.remove(self,i)
+		end
+	end
+end
+
+function RNLayer:clearContainer(container)
+	container.layer:clear()
+	container.layer=nil
+	container.name=nil
+end
+
 return RNLayer
