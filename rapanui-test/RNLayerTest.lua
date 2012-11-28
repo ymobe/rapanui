@@ -123,4 +123,19 @@ function testThatAllCreatedLayersAreFoundByName()
 	assert_that(rnlayer:get("test2").name,is(equal_to(TEST_LAYER2.name)))
 end
 
+function testThatCannotCreateLayerWithSameName()
+	local rnlayer = init()
+	rnlayer:createLayer("test",VIEWPORT)
+	rnlayer:createLayer("test",VIEWPORT)
+	assert_that(table.getn(rnlayer),equal_to(1))
+end
+
+function testThatCreateLayerWithSameNameReturnsNilAndErrorMessage()
+	local rnlayer = init()
+	rnlayer:createLayer("test",VIEWPORT)
+	returnedlayer,msg = rnlayer:createLayer("test",VIEWPORT)
+	assert_nil(returnedlayer)
+	assert_that(msg,is(equal_to(rnlayer.LAYER_WITH_SAME_NAME_EXISTS)))
+end
+
 lunatest.run()

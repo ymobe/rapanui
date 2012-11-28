@@ -17,7 +17,10 @@ function RNLayer:createLayer(name,viewport)
 	local layer = MOAILayer2D.new()
 	local index = table.getn(self) + 1
 	
-	
+	if self:get(name) ~= nil then
+		return nil,RNLayer.LAYER_WITH_SAME_NAME_EXISTS
+	end
+
 	self[index] = {} 
 	self[index].layer = layer
 	self[index].name = name
