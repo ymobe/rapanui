@@ -109,4 +109,18 @@ function testThatCreatedLayerIsPushedToTheMOAISim()
 	assert_true(calledFunctions.pushRenderPass)
 end
 
+function testThatCreatedLayerIsFoundByName()
+	local rnlayer = init()
+	returnedLayer = rnlayer:createLayer("test",VIEWPORT)
+	assert_that(rnlayer:get("test").name,is(equal_to(TEST_LAYER.name)))
+end
+
+function testThatAllCreatedLayersAreFoundByName()
+	local rnlayer = init()
+	rnlayer:createLayer("test",VIEWPORT)
+	rnlayer:createLayer("test2",VIEWPORT)
+	assert_that(rnlayer:get("test").name,is(equal_to(TEST_LAYER.name)))
+	assert_that(rnlayer:get("test2").name,is(equal_to(TEST_LAYER2.name)))
+end
+
 lunatest.run()

@@ -27,4 +27,13 @@ function RNLayer:createLayer(name,viewport)
 	return layer
 end
 
+function RNLayer:get(name)
+	for i,container in pairs(self) do
+		if container.name == name then
+			return container.layer
+		end
+	end
+end
+
+
 return RNLayer
