@@ -38,5 +38,11 @@ function RNLayer:get(name)
 	end
 end
 
+function RNLayer:createLayerWithPartition(name,viewport)
+	local layer = self:createLayer(name,viewport)
+	local partition = MOAIPartition.new()
+	layer:setPartition(partition)
+	return layer
+end
 
 return RNLayer

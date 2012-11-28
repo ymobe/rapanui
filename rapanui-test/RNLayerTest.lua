@@ -138,4 +138,14 @@ function testThatCreateLayerWithSameNameReturnsNilAndErrorMessage()
 	assert_that(msg,is(equal_to(rnlayer.LAYER_WITH_SAME_NAME_EXISTS)))
 end
 
+function testThatLayerCanBeCreatedWithPartition() 
+	local rnlayer = init()
+	returnnedLayer = rnlayer:createLayerWithPartition("test",VIEWPORT)
+	assert_true(calledFunctions.newLayer)
+	assert_true(calledFunctions.pushRenderPass)
+	assert_true(calledFunctions.newPartition)
+	assert_true(calledFunctions.setPartition)
+	assert_that(returnedLayer.name,is(equal_to(TEST_LAYER.name)))
+end
+
 lunatest.run()
