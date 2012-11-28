@@ -1,0 +1,1501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+<h1>Modules</h1>
+<ul>
+
+	<li><strong>lunatest</strong></li>
+	
+</ul>
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li>
+		<a href="../files/lunatest.html">lunatest.lua</a>
+	</li>
+
+</ul>
+
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="content">
+
+<h1>Module <code>lunatest</code></h1>
+
+<p>Unit testing module, with extensions for random testing.</p>
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_boolean">assert_boolean</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a boolean.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_equal">assert_equal</a>&nbsp;(exp, got, tol, msg)</td>
+	<td class="summary">exp == got.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_error">assert_error</a>&nbsp;(f, msg)</td>
+	<td class="summary">Test that the function raises an error when called.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_false">assert_false</a>&nbsp;(got, msg)</td>
+	<td class="summary">got == false.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_function">assert_function</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a function.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_gt">assert_gt</a>&nbsp;(lim, val, msg)</td>
+	<td class="summary">val > lim.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_gte">assert_gte</a>&nbsp;(lim, val, msg)</td>
+	<td class="summary">val >= lim.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_len">assert_len</a>&nbsp;(len, val, msg)</td>
+	<td class="summary">#val == len.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_lt">assert_lt</a>&nbsp;(lim, val, msg)</td>
+	<td class="summary">val < lim.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_lte">assert_lte</a>&nbsp;(lim, val, msg)</td>
+	<td class="summary">val <= lim.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_match">assert_match</a>&nbsp;(pat, s, msg)</td>
+	<td class="summary">Test that the string s matches the pattern exp.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_metatable">assert_metatable</a>&nbsp;(exp, val, msg)</td>
+	<td class="summary">Test that a value has the expected metatable.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_boolean">assert_not_boolean</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a boolean.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_equal">assert_not_equal</a>&nbsp;(exp, got, msg)</td>
+	<td class="summary">exp ~= got.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_function">assert_not_function</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a function.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_len">assert_not_len</a>&nbsp;(len, val, msg)</td>
+	<td class="summary">#val ~= len.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_match">assert_not_match</a>&nbsp;(pat, s, msg)</td>
+	<td class="summary">Test that the string s doesn't match the pattern exp.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_metatable">assert_not_metatable</a>&nbsp;(exp, val, msg)</td>
+	<td class="summary">Test that a value does not have a given metatable.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_number">assert_not_number</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a number.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_string">assert_not_string</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a string.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_table">assert_not_table</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a table.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_thread">assert_not_thread</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a thread (coroutine).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_not_userdata">assert_not_userdata</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is not a userdata (light or heavy).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_number">assert_number</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a number.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_random">assert_random</a>&nbsp;(opt, f, ...)</td>
+	<td class="summary">Run a test case with randomly instantiated arguments, running the test function f opt.count (default: 100) times.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_string">assert_string</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a string.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_table">assert_table</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a table.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_thread">assert_thread</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a thread (coroutine).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_true">assert_true</a>&nbsp;(got, msg)</td>
+	<td class="summary">got == true.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#assert_userdata">assert_userdata</a>&nbsp;(val, msg)</td>
+	<td class="summary">Test that val is a userdata (light or heavy).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#fail">fail</a>&nbsp;(msg, no_exit)</td>
+	<td class="summary">Fail a test.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#is_test_key">is_test_key</a>&nbsp;(k)</td>
+	<td class="summary">Check if a function name should be considered a test key.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#random_bool">random_bool</a>&nbsp;()</td>
+	<td class="summary">Get a random bool.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#random_float">random_float</a>&nbsp;(low, high)</td>
+	<td class="summary">Get a random float low <= x < high.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#random_int">random_int</a>&nbsp;(low, high)</td>
+	<td class="summary">Get a random value low <= x <= high.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#run">run</a>&nbsp;(hooks, suite_filter)</td>
+	<td class="summary">Run all known test suites, with given configuration hooks.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#set_seed">set_seed</a>&nbsp;(s)</td>
+	<td class="summary">Set random seed.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#skip">skip</a>&nbsp;(msg)</td>
+	<td class="summary">Skip a test, with a note, e.g.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#suite">suite</a>&nbsp;(modname)</td>
+	<td class="summary">Add a file as a test suite.</td>
+	</tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="assert_boolean"></a><strong>assert_boolean</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a boolean.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_equal"></a><strong>assert_equal</strong>&nbsp;(exp, got, tol, msg)</dt>
+<dd>
+exp == got.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  exp: 
+	</li>
+	
+	<li>
+	  got: 
+	</li>
+	
+	<li>
+	  tol: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_error"></a><strong>assert_error</strong>&nbsp;(f, msg)</dt>
+<dd>
+Test that the function raises an error when called.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  f: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_false"></a><strong>assert_false</strong>&nbsp;(got, msg)</dt>
+<dd>
+got == false.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  got: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_function"></a><strong>assert_function</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a function.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_gt"></a><strong>assert_gt</strong>&nbsp;(lim, val, msg)</dt>
+<dd>
+val > lim.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  lim: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_gte"></a><strong>assert_gte</strong>&nbsp;(lim, val, msg)</dt>
+<dd>
+val >= lim.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  lim: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_len"></a><strong>assert_len</strong>&nbsp;(len, val, msg)</dt>
+<dd>
+#val == len.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  len: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_lt"></a><strong>assert_lt</strong>&nbsp;(lim, val, msg)</dt>
+<dd>
+val < lim.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  lim: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_lte"></a><strong>assert_lte</strong>&nbsp;(lim, val, msg)</dt>
+<dd>
+val <= lim.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  lim: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_match"></a><strong>assert_match</strong>&nbsp;(pat, s, msg)</dt>
+<dd>
+Test that the string s matches the pattern exp.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  pat: 
+	</li>
+	
+	<li>
+	  s: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_metatable"></a><strong>assert_metatable</strong>&nbsp;(exp, val, msg)</dt>
+<dd>
+Test that a value has the expected metatable.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  exp: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_boolean"></a><strong>assert_not_boolean</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a boolean.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_equal"></a><strong>assert_not_equal</strong>&nbsp;(exp, got, msg)</dt>
+<dd>
+exp ~= got.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  exp: 
+	</li>
+	
+	<li>
+	  got: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_function"></a><strong>assert_not_function</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a function.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_len"></a><strong>assert_not_len</strong>&nbsp;(len, val, msg)</dt>
+<dd>
+#val ~= len.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  len: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_match"></a><strong>assert_not_match</strong>&nbsp;(pat, s, msg)</dt>
+<dd>
+Test that the string s doesn't match the pattern exp.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  pat: 
+	</li>
+	
+	<li>
+	  s: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_metatable"></a><strong>assert_not_metatable</strong>&nbsp;(exp, val, msg)</dt>
+<dd>
+Test that a value does not have a given metatable.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  exp: 
+	</li>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_number"></a><strong>assert_not_number</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a number.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_string"></a><strong>assert_not_string</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a string.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_table"></a><strong>assert_not_table</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a table.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_thread"></a><strong>assert_not_thread</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a thread (coroutine).
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_not_userdata"></a><strong>assert_not_userdata</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is not a userdata (light or heavy).
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_number"></a><strong>assert_number</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a number.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_random"></a><strong>assert_random</strong>&nbsp;(opt, f, ...)</dt>
+<dd>
+Run a test case with randomly instantiated arguments, running the test function f opt.count (default: 100) times.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  opt: A table with options, or just a test name string.<br> opt.count: how many random trials to perform<br> opt.seed: Start the batch of trials with a specific seed<br> opt.always: Always test these seeds (for regressions)<br> opt.show_progress: Whether to print a . after every opt.tick trials.<br> opt.seed_limit: Max seed to allow.<br> opt.max_failures, max_errors, max_skips: Give up after X of each.<br>
+	</li>
+	
+	<li>
+	  f: A test function, run as f(unpack(randomized_args(...)))
+	</li>
+	
+	<li>
+	  ...: the arg specification. For each argument, creates a random instance of that type.<br> boolean: return true or false<br> number n: returns 0 <= x < n, or -n <= x < n if negative. If n has a decimal component, so will the result.<br> string: Specifiedd as "(len[,maxlen]) (pattern)".<br> "10 %l" means 10 random lowercase letters.<br> "10,30 [aeiou]" means between 10-30 vowels.<br> function: Just call (as f()) and return result.<br> table or userdata: Call v.__random() and return result.<br> @usage
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_string"></a><strong>assert_string</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a string.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_table"></a><strong>assert_table</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a table.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_thread"></a><strong>assert_thread</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a thread (coroutine).
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_true"></a><strong>assert_true</strong>&nbsp;(got, msg)</dt>
+<dd>
+got == true. (Named "assert_true" to not conflict with standard assert.)
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  got: 
+	</li>
+	
+	<li>
+	  msg: Message to display with the result.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="assert_userdata"></a><strong>assert_userdata</strong>&nbsp;(val, msg)</dt>
+<dd>
+Test that val is a userdata (light or heavy).
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="fail"></a><strong>fail</strong>&nbsp;(msg, no_exit)</dt>
+<dd>
+Fail a test.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  msg: 
+	</li>
+	
+	<li>
+	  no_exit: Unless set to true, the presence of any failures causes the test suite to terminate with an exit status of 1.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="is_test_key"></a><strong>is_test_key</strong>&nbsp;(k)</dt>
+<dd>
+Check if a function name should be considered a test key. Defaults to functions starting or ending with "test", with leading underscores allowed.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  k: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="random_bool"></a><strong>random_bool</strong>&nbsp;()</dt>
+<dd>
+Get a random bool.
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="random_float"></a><strong>random_float</strong>&nbsp;(low, high)</dt>
+<dd>
+Get a random float low <= x < high.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  low: 
+	</li>
+	
+	<li>
+	  high: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="random_int"></a><strong>random_int</strong>&nbsp;(low, high)</dt>
+<dd>
+Get a random value low <= x <= high.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  low: 
+	</li>
+	
+	<li>
+	  high: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="run"></a><strong>run</strong>&nbsp;(hooks, suite_filter)</dt>
+<dd>
+Run all known test suites, with given configuration hooks.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  hooks: Override the default hooks.
+	</li>
+	
+	<li>
+	  suite_filter: If set, only run suite(s) with names matching this pattern.
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+If no hooks are provided and arg[1] == "-v", the verbose_hooks will be used.
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="set_seed"></a><strong>set_seed</strong>&nbsp;(s)</dt>
+<dd>
+Set random seed.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  s: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="skip"></a><strong>skip</strong>&nbsp;(msg)</dt>
+<dd>
+Skip a test, with a note, e.g. "TODO".
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  msg: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="suite"></a><strong>suite</strong>&nbsp;(modname)</dt>
+<dd>
+Add a file as a test suite.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  modname: The module to load as a suite. The file is interpreted in the same manner as require "modname". Which functions are tests is determined by is_test_key(name).
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>
