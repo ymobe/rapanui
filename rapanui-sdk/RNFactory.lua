@@ -676,11 +676,12 @@ end
 
 function RNFactory.createText(text, params)
 
-    local top, left, size, font, height, width, alignment
+    local top, left, size, font, height, width, alignment, parentGroup
 
     font = "arial-rounded.TTF"
     size = 15
     alignment = MOAITextBox.CENTER_JUSTIFY
+    parentGroup = RNFactory.mainGroup
     --LEFT_JUSTIFY, CENTER_JUSTIFY or RIGHT_JUSTIFY.
 
     if (params ~= nil) then
@@ -711,6 +712,10 @@ function RNFactory.createText(text, params)
         if (params.alignment ~= nil) then
             alignment = params.alignment
         end
+        
+        if params.parentGroup ~= nil then
+            parentGroup = params.parentGroup
+        end
     end
 
     local rntext = RNText:new()
@@ -718,7 +723,7 @@ function RNFactory.createText(text, params)
 
     rntext, gFont = rntext:initWithText2(text, font, size, width, height, alignment)
     RNFactory.screen:addRNObject(rntext)
-    RNFactory.mainGroup:insert(rntext)
+    parentGroup:insert(rntext)
 
     rntext.x = left
     rntext.y = top
