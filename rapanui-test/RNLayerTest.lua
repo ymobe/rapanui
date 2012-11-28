@@ -140,12 +140,13 @@ end
 
 function testThatLayerCanBeCreatedWithPartition() 
 	local rnlayer = init()
-	returnnedLayer = rnlayer:createLayerWithPartition("test",VIEWPORT)
+	returnnedLayer,returnnedPartition = rnlayer:createLayerWithPartition("test",VIEWPORT)
 	assert_true(calledFunctions.newLayer)
 	assert_true(calledFunctions.pushRenderPass)
 	assert_true(calledFunctions.newPartition)
 	assert_true(calledFunctions.setPartition)
 	assert_that(returnedLayer.name,is(equal_to(TEST_LAYER.name)))
+	assert_that(returnnedPartition,is(equal_to(TEST_PARTITION)))
 end
 
 function testThatLayerCanBeRemoved() 

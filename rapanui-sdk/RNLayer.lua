@@ -2,7 +2,8 @@
 -- Date: 11/25/12
 
 RNLayer = {
-	LAYER_WITH_SAME_NAME_EXISTS = "layer with same name already exists" 
+	LAYER_WITH_SAME_NAME_EXISTS = "layer with same name already exists",
+	layers=nil 
 
 }
 
@@ -42,7 +43,7 @@ function RNLayer:createLayerWithPartition(name,viewport)
 	local layer = self:createLayer(name,viewport)
 	local partition = MOAIPartition.new()
 	layer:setPartition(partition)
-	return layer
+	return layer,partition
 end
 
 function RNLayer:remove(layer)
