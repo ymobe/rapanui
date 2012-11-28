@@ -195,4 +195,10 @@ function testThatLayersAreStoredToScreen()
 	assert_not_nil(rnscreen.layers)	
 end
 
+function testThatMainPartitionIsFoundFromLayers()
+	local rnscreen = init()
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	assert_not_nil(rnscreen.layers:get(RNLayer.MAIN_LAYER))		
+end
+
 lunatest.run()

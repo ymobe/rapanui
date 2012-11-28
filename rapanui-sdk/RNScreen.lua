@@ -54,7 +54,7 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
     self.layers = RNLayer:new()
-    self.layer,self.mainPartition = self.layers:createLayerWithPartition("mainlayer",self.viewport)
+    self.layer,self.mainPartition = self.layers:createLayerWithPartition(RNLayer.MAIN_LAYER,self.viewport)
     self.layer:setViewport(self.viewport)
 
     self.layer:setPartition(self.mainPartition)
