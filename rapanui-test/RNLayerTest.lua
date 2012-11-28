@@ -181,4 +181,15 @@ function testThatLayerIsClearedWhenLayerIsRemoved()
 	assert_true(calledFunctions.clearLayer)
 end
 
+function testThatAllLayersAreDeletedAtOnce()
+    local rnlayer = init()
+    rnlayer:createLayer("test",VIEWPORT)
+    rnlayer:createLayer("test2",VIEWPORT)
+    assert_that(table.getn(rnlayer),equal_to(2))
+
+    rnlayer:removeAll()
+    assert_that(table.getn(rnlayer),equal_to(0))
+
+end
+
 lunatest.run()

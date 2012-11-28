@@ -54,6 +54,13 @@ function RNLayer:remove(layer)
 	end
 end
 
+function RNLayer:removeAll()
+	while table.getn(self) >0 do
+		self:clearContainer(self[1])
+		table.remove(self,1)
+	end
+end
+
 function RNLayer:clearContainer(container)
 	container.layer:clear()
 	container.layer=nil
