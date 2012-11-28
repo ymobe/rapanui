@@ -5,7 +5,9 @@ package.path = package.path .. ";../?.lua;lunatest/?.lua;../rapanui-sdk/?.lua"
 require('lunatest')
 require('lunahamcrest')
 require('RNScreen')
+require('RNLayer')
 
+RNLayer:new()
 --MOCK OBJECTS
 calledFunctions = nil
 TEST_PARTITION="TEST_PARTITION"
@@ -184,6 +186,13 @@ function testThatLayerIsPushedToMoaiSim()
 	local rnscreen = init()
 	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
 	assert_true(calledFunctions.pushRenderPass,true)
+end
+
+function testThatLayersAreStoredToScreen()
+	local rnscreen = init()
+	assert_nil(rnscreen.layers)	
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	assert_not_nil(rnscreen.layers)	
 end
 
 lunatest.run()

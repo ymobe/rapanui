@@ -27,6 +27,7 @@ function RNScreen:new(o)
         spriteIndex = 0,
         viewport = nil,
         layer = nil,
+        layers = nil,
         visible = true
     }
 
@@ -52,10 +53,10 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
     self.viewport:setSize(screenWidth, screenHeight)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
-    self.layer = MOAILayer2D.new()
+    self.layers = RNLayer:new()
+    self.layer,self.mainPartition = self.layers:createLayerWithPartition("mainlayer",self.viewport)
     self.layer:setViewport(self.viewport)
 
-    self.mainPartition = MOAIPartition.new()
     self.layer:setPartition(self.mainPartition)
 
     MOAISim.pushRenderPass(self.layer)
