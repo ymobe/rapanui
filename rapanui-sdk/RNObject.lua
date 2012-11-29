@@ -658,6 +658,10 @@ function RNObject:loadRect(width, height, rgb)
     self.prop:setPriority(1)
 end
 
+function RNObject:setScissorRect(scissorRect)
+    if self.prop and self.prop.setScissorRect then self.prop:setScissorRect(scissorRect) end
+end
+
 function RNObject:setPenColor(r, g, b, alpha)
     self.shapeR, self.shapeG, self.shapeB = r * 0.00392, g * 0.00392, b * 0.00392
     if alpha ~= nil then

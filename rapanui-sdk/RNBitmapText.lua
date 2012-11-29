@@ -230,9 +230,17 @@ function RNBitmapText:printText(text, left, top, charWidth, charHeight)
     self.text = text
 end
 
+function RNBitmapText:setScissorRect(scissorRect)
+	self.scissorRect = scissorRect
+    for i = 1, #self.displayObjects, 1 do
+        self.displayObjects[i]:setScissorRect(self.scissorRect)
+    end
+end
+
 function RNBitmapText:setText(text)
     --print("print text", text, "left", self.left, "top", self.top, self.charWidth, self.charHeight)
     self:printText(text, self.left, self.top, self.charWidth, self.charHeight)
+	self:setScissorRect(self.scissorRect)
 end
 
 function RNBitmapText:getText()

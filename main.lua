@@ -176,3 +176,13 @@ require("rapanui-samples/touch/rn-buttons-animated")
 
 -- Unit tests
 --require("rapanui-samples/test/unit/rn-groups-unit-test")
+
+-- Scissor rectangles
+--require("rapanui-samples/contribution/rnobject-scissorrect")
+--require("rapanui-samples/contribution/rnmap-scissorrect")
+--require("rapanui-samples/contribution/rntext-scissorrect")
+--require("rapanui-samples/contribution/rnbitmaptext-scissorrect")
+--require("rapanui-samples/contribution/rnbutton-scissorrect")
+--require("rapanui-samples/contribution/rngroup-scissorrect")
+--require("rapanui-samples/contribution/rnListView-scissorrect")
+--require("rapanui-samples/contribution/rnPageSwipe-scissorrect")

@@ -222,6 +222,8 @@ function RNGroup:insert(object, resetTransform)
         self.displayObjects[self.numChildren] = object
         object:setIDInGroup(self.numChildren)
     end
+	
+	if object.setScissorRect then object:setScissorRect(self.scissorRect or nil) end	
 end
 
 function RNGroup:removeChild(id)
@@ -336,6 +338,15 @@ function RNGroup:setVisible(value)
                 end
             end
         end
+    end
+end
+
+function RNGroup:setScissorRect(scissorRect)
+	self.scissorRect = scissorRect or nil
+	if self.displayObjects == nil then return end
+	
+    for i = 1, #self.displayObjects do
+        if self.displayObjects[i].setScissorRect then self.displayObjects[i]:setScissorRect(self.scissorRect) end
     end
 end
 
