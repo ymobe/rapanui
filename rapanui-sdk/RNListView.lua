@@ -375,6 +375,8 @@ function RNListView:insertElement(element, number)
         self.elements[self:getSize() + 1] = element
     end
     self:organizeItems()
+	
+	if element.object.setScissorRect then element.object:setScissorRect(self.scissorRect) end
 end
 
 function RNListView:removeElement(removeRNObject, number)
@@ -453,6 +455,13 @@ function RNListView:setVisibility(value)
     for i, v in ipairs(self.elements) do
         v.object.visible = value
     end
+end
+
+function RNListView:setScissorRect(scissorRect)
+	self.scissorRect = scissorRect
+    for i, v in ipairs(self.elements) do
+		if v.object.setScissorRect then v.object:setScissorRect(scissorRect) end
+	end
 end
 
 function RNListView:goToElement(value)

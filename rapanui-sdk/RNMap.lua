@@ -111,6 +111,13 @@ function RNMap:setDrawMode(drawmode)
     self.drawMode = drawmode
 end
 
+function RNMap:setScissorRect(scissorRect)
+	if not self.layers then return end	
+    for key, value in pairs(self.layers) do
+		value.prop:setScissorRect(scissorRect)
+    end
+end
+
 function RNMap:getLayers()
     return self.layers
 end
@@ -357,7 +364,7 @@ function RNMap:getAllProps()
         table.insert(props, layer:getProp())
     end
 
-
+	
     return props
 end
 
