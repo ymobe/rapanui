@@ -194,6 +194,9 @@ function RNText:setVisible(value)
     end
 end
 
+function RNText:setScissorRect(scissorRect)
+    self:getProp():setScissorRect(scissorRect)
+end
 
 function RNText:getText()
     return self.text
