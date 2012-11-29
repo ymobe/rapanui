@@ -25,3 +25,8 @@ If you want to contribute to RapaNui with a great code sample, feel free to crea
 Then simply open a pull request!
 
 Just remember to add all the assets needed to run your sample in your sample folder.
+
+
+Note:
+It would be better if all of us could read and follow this little contribution line guide, thanks:
+https://github.com/ymobe/rapanui/wiki/Perfomance-guide
