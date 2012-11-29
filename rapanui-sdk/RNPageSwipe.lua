@@ -282,6 +282,8 @@ function RNPageSwipe:insert(element, number)
     --setting self values
     if elementsInLastPage > 0 then self.pages = pages + 1 else self.pages = pages end
     self:arrange()
+	
+	if element.object.setScissorRect then element.object:setScissorRect(self.scissorRect) end
 end
 
 function RNPageSwipe:callRegisteredFunctions(phase)
@@ -508,6 +510,12 @@ function RNPageSwipe:getType()
     return "RNPageSwipe"
 end
 
+function RNPageSwipe:setScissorRect(scissorRect)
+	self.scissorRect = scissorRect
+    for i, v in ipairs(self.elements) do
+		if v.object.setScissorRect then v.object:setScissorRect(scissorRect) end
+	end
+end
 
 function RNPageSwipe:setAlpha(value)
     for i, v in ipairs(self.elements) do

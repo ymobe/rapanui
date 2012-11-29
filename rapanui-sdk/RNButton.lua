@@ -316,6 +316,22 @@ function RNButton:setText(value)
     end
 end
 
+function RNButton:setScissorRect(scissorRect)
+    self.rnImageDefault:getProp():setScissorRect(scissorRect)
+
+    if self.rnImageOver ~= nil then
+        self.rnImageOver:getProp():setScissorRect(scissorRect)
+    end
+	
+    if self.text ~= nil then
+        self.text:setScissorRect(scissorRect)
+    end
+
+    if self.rnImageDisabled ~= nil then
+        self.rnImageDisabled:getProp():setScissorRect(scissorRect)
+    end
+end
+
 function RNButton:remove(func)
     if self.text ~= nil then
         self.text:remove()
