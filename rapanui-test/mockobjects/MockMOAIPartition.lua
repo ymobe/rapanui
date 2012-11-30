@@ -3,17 +3,17 @@
 
 function createMockMOAIPartition(partition)
 	local MockMOAIPartition = {
-		newCalled = false,
+		newCalled = 0,
 		PARTITION = partition
 	}
 
 	function MockMOAIPartition.new()
-		MockMOAIPartition.newCalled = true
+		MockMOAIPartition.newCalled = MockMOAIPartition.newCalled + 1
 		return MockMOAIPartition.PARTITION
 	end
 
 	function MockMOAIPartition:reset()
-		self.newCalled = false
+		self.newCalled = 0
 	end
 
 	return MockMOAIPartition

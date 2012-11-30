@@ -33,7 +33,7 @@ end
 function testThatCreateShouldCreateNewLayer()
 	local rnlayer = init()
 	rnlayer:createLayer("test",VIEWPORT)
-	assert_true(MOAILayer2D.newCalled,true)
+	assert_that(MOAILayer2D.newCalled,is(greater_than(0)))
 	assert_that(table.getn(rnlayer),equal_to(1))
 end
 
@@ -53,13 +53,13 @@ end
 function testThatViewportIsAddedToTheCreatedLayer()
 	local rnlayer = init()
 	rnlayer:createLayer("test",VIEWPORT)
-	assert_true(TEST_LAYER.setViewportCalled)
+	assert_that(TEST_LAYER.setViewportCalled,is(greater_than(0)))
 end
 
 function testThatCreatedLayerIsPushedToTheMOAISim()
 	local rnlayer = init()
 	rnlayer:createLayer("test",VIEWPORT)
-	assert_true(MOAISim.pushRenderPassCalled)
+	assert_that(MOAISim.pushRenderPassCalled,is(greater_than(0)))
 end
 
 function testThatCreatedLayerIsFoundByName()
@@ -94,10 +94,10 @@ end
 function testThatLayerCanBeCreatedWithPartition() 
 	local rnlayer = init()
 	returnnedLayer,returnnedPartition = rnlayer:createLayerWithPartition("test",VIEWPORT)
-	assert_true(MOAILayer2D.newCalled)
-	assert_true(MOAISim.pushRenderPassCalled)
-	assert_true(MOAIPartition.newCalled)
-	assert_true(TEST_LAYER.setPartition)
+	assert_that(MOAILayer2D.newCalled,is(greater_than(0)))
+	assert_that(MOAISim.pushRenderPassCalled,is(greater_than(0)))
+	assert_that(MOAIPartition.newCalled,is(greater_than(0)))
+	assert_that(TEST_LAYER.setPartitionCalled ,is(greater_than(0)))
 	assert_that(returnedLayer.name,is(equal_to(TEST_LAYER.name)))
 	assert_that(returnnedPartition.name,is(equal_to(TEST_PARTITION.name)))
 end
@@ -132,7 +132,7 @@ function testThatLayerIsClearedWhenLayerIsRemoved()
 	local rnlayer = init()
 	returnedLayer = rnlayer:createLayer("test",VIEWPORT)
 	rnlayer:remove(returnedLayer)
-	assert_true(TEST_LAYER.clearCalled)
+	assert_that(TEST_LAYER.clearCalled,is(greater_than(0)))
 end
 
 function testThatAllLayersAreDeletedAtOnce()

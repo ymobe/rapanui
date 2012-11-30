@@ -3,9 +3,9 @@
 
 function createRNObject(name,prop)
 	local MockRNObject = {
-		setLocatingModeCalled = false,
-		setParentSceneCalled = false,
-		updateLocationCalled = false,
+		setLocatingModeCalled = 0,
+		setParentSceneCalled = 0,
+		updateLocationCalled = 0,
 		PROP = prop
 	}
 	
@@ -14,15 +14,21 @@ function createRNObject(name,prop)
 	end
 
 	function MockRNObject:setLocatingMode(mode)
-		self.setLocatingModeCalled = true
+		self.setLocatingModeCalled = self.setLocatingModeCalled + 1
 	end
 
 	function MockRNObject:setParentScene(object)
-		self.setParentSceneCalled = true
+		self.setParentSceneCalled = self.setParentSceneCalled + 1
 	end
 
 	function MockRNObject:updateLocation()
-		self.updateLocationCalled = true
+		self.updateLocationCalled = self.updateLocationCalled + 1
+	end
+
+	function MockRNObject:reset()
+		self.setLocatingModeCalled = 0
+		self.setParentSceneCalled = 0
+		self.updateLocationCalled = 0
 	end
 
 	return MockRNObject

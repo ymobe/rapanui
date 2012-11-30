@@ -75,3 +75,10 @@ function equals_ignoring_case(object)
         describe = "equal to " .. object .. " ignoring case"
     }
 end
+
+function greater_than(object)
+    return {
+        matches = function(value) return object < value end,
+        describe = "greater than " .. object
+    }
+end

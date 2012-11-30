@@ -4,18 +4,18 @@
 function createMockMOAIViewport(viewport)
 
 	MockMOAIViewport = {
-		newCalled = false,
+		newCalled = 0,
 		VIEWPORT = viewport,
 		name="testViewport"
 	}
 	
 	MockMOAIViewport.new = function()
-		MockMOAIViewport.newCalled = true
+		MockMOAIViewport.newCalled = MockMOAIViewport.newCalled + 1
 		return MockMOAIViewport.VIEWPORT
 	end
 
 	function MockMOAIViewport:reset()
-		self.newCalled = false
+		self.newCalled = 0
 	end
 
 	return MockMOAIViewport

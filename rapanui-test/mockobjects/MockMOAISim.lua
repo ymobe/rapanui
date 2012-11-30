@@ -4,16 +4,16 @@
 function createMockMOAISim()
 
  	local MockMOAISim = {
- 		pushRenderPassCalled = false,
+ 		pushRenderPassCalled = 0,
  	}
 
 	MockMOAISim.pushRenderPass = function(layer)
 		assert_not_nil(layer)
-		MOAISim.pushRenderPassCalled = true
+		MOAISim.pushRenderPassCalled = MOAISim.pushRenderPassCalled + 1
 	end
 	
 	function MockMOAISim:reset()
-		self.pushRenderPassCalled = false;
+		self.pushRenderPassCalled = 0;
 	end
 
 	return MockMOAISim

@@ -57,43 +57,43 @@ end
 function testThatViewportIsCreated()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(MOAIViewport.newCalled,true)
+	assert_that(MOAIViewport.newCalled,is(greater_than(0)))
 end
 
 function testThatViewportSizeIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(VIEWPORT.setSizeCalled,true)
+	assert_that(VIEWPORT.setSizeCalled,is(greater_than(0)))
 end
 
 function testThatViewportScaleIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(VIEWPORT.setScaleCalled,true)
+	assert_that(VIEWPORT.setScaleCalled,is(greater_than(0)))
 end
 
 function testThatViewportOffsetIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(VIEWPORT.setOffsetCalled,true)
+	assert_that(VIEWPORT.setOffsetCalled,is(greater_than(0)))
 end
 
 function testThatLayerIsCreated() 
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(MOAILayer2D.newCalled,true)	
+	assert_that(MOAILayer2D.newCalled,is(greater_than(0)))	
 end
 
 function testThatViewportIsSetToLayer() 
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(TEST_LAYER.setViewportCalled,true)	
+	assert_that(TEST_LAYER.setViewportCalled,is(greater_than(0)))	
 end
 
 function testThatNewPartitionIsCreated()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(MOAIPartition.newCalled,true)
+	assert_that(MOAIPartition.newCalled,is(greater_than(0)))
 end
 
 function testThatNewPartitionIsSetToScreenMainPartitiob()
@@ -105,13 +105,13 @@ end
 function testThatPartitionIsSetToLayer()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(TEST_LAYER.setPartitionCalled,true)
+	assert_that(TEST_LAYER.setPartitionCalled,is(greater_than(0)))
 end
 
 function testThatLayerIsPushedToMoaiSim()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	assert_true(MOAISim.pushRenderPassCalled,true)
+	assert_that(MOAISim.pushRenderPassCalled,is(greater_than(0)))
 end
 
 function testThatLayersAreStoredToScreen()
@@ -132,28 +132,28 @@ function testThatObjectLocationModeIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
 	rnscreen:addRNObject(RNOBJECT)
-	assert_true(RNOBJECT.setLocatingModeCalled)
+	assert_that(RNOBJECT.setLocatingModeCalled,is(greater_than(0)))
 end
 
 function testThatTheObjectIsAddedToMainPartition()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
 	rnscreen:addRNObject(RNOBJECT)
-	assert_true(TEST_PARTITION.insertPropCalled)
+	assert_that(TEST_PARTITION.insertPropCalled,is(greater_than(0)))
 end
 
 function testThatTheObjectParentSceneIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
 	rnscreen:addRNObject(RNOBJECT)
-	assert_true(RNOBJECT.setParentSceneCalled)
+	assert_that(RNOBJECT.setParentSceneCalled,is(greater_than(0)))
 end
 
 function testThatObjectUpdateLocationIsCalled()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
 	rnscreen:addRNObject(RNOBJECT)
-	assert_true(RNOBJECT.updateLocationCalled)
+	assert_that(RNOBJECT.updateLocationCalled,is(greater_than(0)))
 end
 
 lunatest.run()

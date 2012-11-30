@@ -40,4 +40,9 @@ function test_starts_with()
     assert_that("testable", equals_ignoring_case("tesTaBlE"))
 end
 
+function test_greater_than()
+    assert_that(3, greater_than(2))
+    assert_that(-1, greater_than(-2))
+ end
+
 lunatest.run()
