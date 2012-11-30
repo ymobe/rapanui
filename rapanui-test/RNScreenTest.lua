@@ -6,6 +6,7 @@ require('lunatest')
 require('lunahamcrest')
 require('RNScreen')
 require('RNLayer')
+
 require('MockPartition')
 require('MockViewport')
 require('MockLayer')
@@ -15,22 +16,25 @@ require('MockMOAISim')
 require('MockMOAIViewport')
 require('MockMOAIPartition')
 
-
-RNLayer:new()
-
 local MVC = MockViewportConstants
-PROP = {}
 
+--Mocked Objects 
+PROP = {}
 VIEWPORT = createViewport("viewport")
 TEST_PARTITION=createPartition("TEST_PARTITION")
 TEST_LAYER=createTestLayer("TEST_LAYER",VIEWPORT,TEST_PARTITION)
 TEST_LAYER2=createTestLayer("TEST_LAYER2",VIEWPORT,TEST_PARTITION)
 RNOBJECT = createRNObject("RNOBJECT",PROP)
 
+--Mocked MOIA classes
 MOAILayer2D = createMockMOAILayer2D(TEST_LAYER,TEST_LAYER2)
 MOAISim = createMockMOAISim()
 MOAIViewport = createMockMOAIViewport(VIEWPORT)
 MOAIPartition = createMockMOAIPartition(TEST_PARTITION)
+
+--Initialization
+
+RNLayer:new()
 
 local function init()
 	MOAILayer2D:reset()

@@ -3,7 +3,8 @@
 
 function createPartition(name)
 	local MockPartition = {
-		insertPropCalled = false
+		insertPropCalled = false,
+		name="TEST_PARTITION"
 	}
 
 	function MockPartition:insertProp(property)

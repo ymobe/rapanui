@@ -5,6 +5,7 @@ function createTestLayer(name,viewport,partition)
 	local MockLayer = {
 		setPartitionCalled = false,
 		setViewportCalled = false,
+		clearCalled = false,
 		VIEWPORT = viewport,
 		PARTITION = partition
 
@@ -20,9 +21,14 @@ function createTestLayer(name,viewport,partition)
 		MockLayer.setPartitionCalled = true
 	end
 
+	function MockLayer:clear()
+		MockLayer.clearCalled=true
+	end
+
 	function MockLayer:reset()
-		MockLayer.setPartitionCalled = false
-		MockLayer.setViewportCalled = false		
+		self.setPartitionCalled = false
+		self.setViewportCalled = false
+		self.clearCalled = false		
 	end
 
 	MockLayer.name = name
