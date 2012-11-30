@@ -61,8 +61,11 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
 
     MOAISim.pushRenderPass(self.layer)
 end
-
-function RNScreen:addRNObject(object, mode)
+--[[
+    layer parameter can be either partition or layer since
+    both MOAIObjects have the insertProp function.
+--]]
+function RNScreen:addRNObject(object, mode, layer)
 
     if object == nil then
         return
@@ -70,7 +73,7 @@ function RNScreen:addRNObject(object, mode)
 
     object:setLocatingMode(mode)
 
-    self.mainPartition:insertProp(object:getProp())
+    layer:insertProp(object:getProp())
     object:setParentScene(self)
     object:updateLocation()
 

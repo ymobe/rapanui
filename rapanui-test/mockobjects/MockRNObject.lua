@@ -6,11 +6,12 @@ function createRNObject(name,prop)
 		setLocatingModeCalled = 0,
 		setParentSceneCalled = 0,
 		updateLocationCalled = 0,
-		PROP = prop
+		MOAIPROP = prop,
+		name = name
 	}
-	
+
 	function MockRNObject:getProp()
-		return self.PROP
+		return self.MOAIPROP
 	end
 
 	function MockRNObject:setLocatingMode(mode)

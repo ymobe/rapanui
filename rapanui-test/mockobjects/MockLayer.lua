@@ -6,18 +6,19 @@ function createTestLayer(name,viewport,partition)
 		setPartitionCalled = 0,
 		setViewportCalled = 0,
 		clearCalled = 0,
-		VIEWPORT = viewport,
-		PARTITION = partition
-
+		insertPropCalled = 0,
+		MOAIVIEWPORT = viewport,
+		MOAIPARTITION = partition,
+		name = name
 	}
 
 	function MockLayer:setViewport(viewport)
 		MockLayer.setViewportCalled = MockLayer.setViewportCalled + 1
-		assert_that(viewport.name,is(equal_to(VIEWPORT.name)))
+		assert_that(viewport.name,is(equal_to(MockLayer.MOAIVIEWPORT.name)))
 	end
 
 	function MockLayer:setPartition(partition)
-		assert_that(partition.name,is(equal_to(MockLayer.PARTITION.name))) 
+		assert_that(partition.name,is(equal_to(MockLayer.MOAIPARTITION.name))) 
 		MockLayer.setPartitionCalled = MockLayer.setPartitionCalled + 1
 	end
 
@@ -25,12 +26,16 @@ function createTestLayer(name,viewport,partition)
 		MockLayer.clearCalled=MockLayer.clearCalled + 1
 	end
 
+	function MockLayer:insertProp(property)
+		MockLayer.insertPropCalled = MockLayer.insertPropCalled + 1
+	end
+
 	function MockLayer:reset()
 		self.setPartitionCalled = 0
 		self.setViewportCalled = 0
-		self.clearCalled = 0	
+		self.clearCalled = 0
+		self.insertPropCalled = 0
 	end
 
-	MockLayer.name = name
 	return MockLayer
 end

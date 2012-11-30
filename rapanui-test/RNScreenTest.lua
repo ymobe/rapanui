@@ -19,12 +19,15 @@ require('MockMOAIPartition')
 local MVC = MockViewportConstants
 
 --Mocked Objects 
-PROP = {}
-VIEWPORT = createViewport("viewport")
-TEST_PARTITION=createPartition("TEST_PARTITION")
-TEST_LAYER=createTestLayer("TEST_LAYER",VIEWPORT,TEST_PARTITION)
-TEST_LAYER2=createTestLayer("TEST_LAYER2",VIEWPORT,TEST_PARTITION)
-RNOBJECT = createRNObject("RNOBJECT",PROP)
+local PROP = {name="prop1"}
+local PROP2 = {name="prop2"}
+
+local VIEWPORT = createViewport("viewport")
+local TEST_PARTITION=createPartition("TEST_PARTITION")
+local TEST_LAYER=createTestLayer("TEST_LAYER",VIEWPORT,TEST_PARTITION)
+local TEST_LAYER2=createTestLayer("TEST_LAYER2",VIEWPORT,TEST_PARTITION)
+local RNOBJECT = createRNObject("RNOBJECT",PROP)
+local RNOBJECT2 = createRNObject("RNOBJECT2",PROP2)
 
 --Mocked MOIA classes
 MOAILayer2D = createMockMOAILayer2D(TEST_LAYER,TEST_LAYER2)
@@ -37,10 +40,16 @@ MOAIPartition = createMockMOAIPartition(TEST_PARTITION)
 RNLayer:new()
 
 local function init()
+	VIEWPORT:reset()
+	TEST_PARTITION:reset()
+	TEST_LAYER:reset()
+	TEST_LAYER2:reset()
+
 	MOAILayer2D:reset()
 	MOAISim:reset()
 	MOAIViewport:reset()
 	MOAIPartition:reset()
+	
 	return RNScreen:new()
 end
 
@@ -131,28 +140,40 @@ end
 function testThatObjectLocationModeIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT,nil,TEST_LAYER)
 	assert_that(RNOBJECT.setLocatingModeCalled,is(greater_than(0)))
 end
 
-function testThatTheObjectIsAddedToMainPartition()
+function testThatTheObjectIsAddedToPartition()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT, nil, TEST_PARTITION)
 	assert_that(TEST_PARTITION.insertPropCalled,is(greater_than(0)))
+end
+
+function testThatTheObjectIsAddedToGivenLayer()
+	local rnscreen = init()
+	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
+
+	rnscreen:addRNObject(RNOBJECT, nil, TEST_LAYER)
+	assert_that(TEST_LAYER.insertPropCalled,is(greater_than(0)))
+
+	rnscreen:addRNObject(RNOBJECT2, nil, TEST_LAYER2)
+	assert_that(TEST_LAYER2.insertPropCalled,is(greater_than(0)))
+
 end
 
 function testThatTheObjectParentSceneIsSet()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT, nil, TEST_LAYER)
 	assert_that(RNOBJECT.setParentSceneCalled,is(greater_than(0)))
 end
 
 function testThatObjectUpdateLocationIsCalled()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
-	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT, nil, TEST_LAYER)
 	assert_that(RNOBJECT.updateLocationCalled,is(greater_than(0)))
 end
 
