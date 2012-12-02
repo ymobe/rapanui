@@ -4,16 +4,19 @@
 package.path = package.path .. ";../?.lua;lunatest/?.lua;mockobjects/?.lua;../rapanui-sdk/?.lua"
 require('lunatest')
 require('lunahamcrest')
+require('MockRNLayer')
 require('MockRNScreen')
 require('MockRNGroup')
 require('MockMOAISim')
 require('MockRNInputManager')
 require('MockConstants')
 require('MockRNObject')
+require('MockLayer')
 
 lunatest.suite("RNFactory-hooks")
 
 
+RNLayer = createMockRNLayer(MockConstants.MAIN_LAYER)
 RNGroup = createMockRNGroup()
 RNScreen = createMockRNScreen()
 MOAISim = createMockMOAISim()
@@ -83,6 +86,14 @@ end
 function testThatCreateImageReturnsProperDeckAndRNObject()
 	init()
 	local rnobject,deck = RNFactory.createImage("img")
+	assert_not_nil(rnobject)
+	assert_not_nil(deck)
+	assert_true(rnobject == RNObject)
+end
+
+function testThatCreateImageFromReturnsProperDeckAndRNObject()
+	init()
+	local rnobject,deck = RNFactory.createImageFrom("img")
 	assert_not_nil(rnobject)
 	assert_not_nil(deck)
 	assert_true(rnobject == RNObject)

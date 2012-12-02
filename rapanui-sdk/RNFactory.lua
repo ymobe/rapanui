@@ -262,6 +262,10 @@ function RNFactory.createPageSwipe(name, params)
 end
 
 function RNFactory.createImage(image, params)
+    return RNFactory.createImageFrom(image,RNFactory.screen.layers:get(RNLayer.MAIN_LAYER),params)
+end
+
+function RNFactory.createImageFrom(image, layer, params)
 
     local parentGroup, left, top
 

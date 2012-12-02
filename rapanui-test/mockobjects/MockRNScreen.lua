@@ -5,8 +5,8 @@ function createMockRNScreen()
 	MockRNScreen = {
 		newCalled = 0,
 		initWithCalled = 0,
-		addRNObjectCalled = 0
-
+		addRNObjectCalled = 0,
+		layers = MockRNLayer.new()
 	}
 
 	function MockRNScreen:new()
