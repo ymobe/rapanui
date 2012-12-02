@@ -9,6 +9,7 @@ require('MockRNGroup')
 require('MockMOAISim')
 require('MockRNInputManager')
 require('MockConstants')
+require('MockRNObject')
 
 lunatest.suite("RNFactory-hooks")
 
@@ -17,6 +18,7 @@ RNGroup = createMockRNGroup()
 RNScreen = createMockRNScreen()
 MOAISim = createMockMOAISim()
 RNInputManager = createMockRNInputManager()
+RNObject = createRNObject()
 
 MOAIEnvironment = {
 	screenWidth = MockConstants.SCREENWIDTH, 
@@ -26,7 +28,9 @@ MOAIEnvironment = {
 config = {
 	stretch = {}
 }
-
+function init()
+	RNObject:reset()
+end
 
 --RNFactory default creation
 function testRNScreenIsCreatedWhenRNFactoryIsCreated()
@@ -48,6 +52,40 @@ end
 
 function testThatSetGlobalRNScreenIsCalled()
 	assert_that(MockRNInputManager.setGlobalRNScreenCalled,is(greater_than(0)))
+end
+
+--RNFactory:createImage()
+
+function testThatCreateImageCreatesNewObject()
+	init()
+	RNFactory.createImage("img")
+	assert_that(RNObject.newCalled,is(greater_than(0)))
+end
+
+function testThatCreateImageInitsTheCreatedObject()
+	init()
+	RNFactory.createImage("img")
+	assert_that(RNObject.initWithImage2Called,is(greater_than(0)))
+end
+
+function testThatCreateImageAddsObjectToTheScreen()
+	init()
+	RNFactory.createImage("img")
+	assert_that(RNScreen.addRNObjectCalled,is(greater_than(0)))
+end
+
+function testThatCreateImageAddsObjectToTheMainGroup()
+	init()
+	RNFactory.createImage("img")
+	assert_that(RNGroup.insertCalled,is(greater_than(0)))
+end
+
+function testThatCreateImageReturnsProperDeckAndRNObject()
+	init()
+	local rnobject,deck = RNFactory.createImage("img")
+	assert_not_nil(rnobject)
+	assert_not_nil(deck)
+	assert_true(rnobject == RNObject)
 end
 
 lunatest.run()

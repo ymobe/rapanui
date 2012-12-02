@@ -5,6 +5,8 @@ function createMockRNScreen()
 	MockRNScreen = {
 		newCalled = 0,
 		initWithCalled = 0,
+		addRNObjectCalled = 0
+
 	}
 
 	function MockRNScreen:new()
@@ -21,9 +23,16 @@ function createMockRNScreen()
 		self.initWithCalled = self.initWithCalled + 1
 	end
 
+	function MockRNScreen:addRNObject(rnobject)
+		assert_true(rnobject == RNObject)
+		assert_nil(mode)
+		self.addRNObjectCalled = self.addRNObjectCalled + 1
+	end
+
 	function MockRNScreen:reset()
-		MockRNScreen.newCalled = 0
+		--MockRNScreen.newCalled = 0
 		MockRNScreen.initWithCalled = 0
+		self.addRNObjectCalled = 0
 	end
 
 	return MockRNScreen

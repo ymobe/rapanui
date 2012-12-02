@@ -6,9 +6,24 @@ function createRNObject(name,prop)
 		setLocatingModeCalled = 0,
 		setParentSceneCalled = 0,
 		updateLocationCalled = 0,
+		newCalled = 0,
+		initWithImage2Called = 0,
 		MOAIPROP = prop,
-		name = name
+		name = name,
+		originalWidth = MockConstants.ORIGINALWIDTH,
+		originalHeight = MockConstants.ORIGINALHEIGHT
 	}
+
+	function MockRNObject:new()
+		self.newCalled = self.newCalled + 1
+		return self
+	end
+
+	function MockRNObject:initWithImage2(image)
+		self.initWithImage2Called = self.initWithImage2Called + 1
+		return self,{}
+
+	end
 
 	function MockRNObject:getProp()
 		return self.MOAIPROP
@@ -30,6 +45,7 @@ function createRNObject(name,prop)
 		self.setLocatingModeCalled = 0
 		self.setParentSceneCalled = 0
 		self.updateLocationCalled = 0
+		self.newCalled = 0
 	end
 
 	return MockRNObject

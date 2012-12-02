@@ -8,5 +8,7 @@ MockConstants = {
 	SCREENHEIGHT=4,
 	OFFSET_X = -1,
 	OFFSET_Y = 1,
+	ORIGINALWIDTH=4,
+	ORIGINALHEIGHT=6,
 	WINDOWNAME="mainwindow"
 }
