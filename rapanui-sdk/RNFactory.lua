@@ -299,7 +299,7 @@ function RNFactory.createImageFrom(image, layer, params)
     o.x = o.originalWidth / 2 + left
     o.y = o.originalHeight / 2 + top
 
-    RNFactory.screen:addRNObject(o)
+    RNFactory.screen:addRNObject(o,nil,layer)
 
     if parentGroup ~= nil then
         parentGroup:insert(o)

@@ -23,7 +23,7 @@ function createMockRNScreen()
 		self.initWithCalled = self.initWithCalled + 1
 	end
 
-	function MockRNScreen:addRNObject(rnobject)
+	function MockRNScreen:addRNObject(rnobject,mode,layer)
 		assert_true(rnobject == RNObject)
 		assert_nil(mode)
 		self.addRNObjectCalled = self.addRNObjectCalled + 1
