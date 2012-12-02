@@ -1,18 +1,8 @@
 -- Author: Marko Pukari
 -- Date: 11/30/12
 
-MockViewportConstants = {
-	WIDTH=1, 
-	HEIGHT=2,
-	SCREENWIDTH=3, 
-	SCREENHEIGHT=4,
-	OFFSET_X = -1,
-	OFFSET_Y = 1
-}
-
+require('MockConstants')
 function createViewport(name)
-	local MVC = MockViewportConstants
-
 	local MockViewport = {
 		setSizeCalled = 0,
 		setScaleCalled = 0,
@@ -20,20 +10,20 @@ function createViewport(name)
 	}
 
 	function MockViewport:setSize(screenWidth,screenHeight)
-		assert_that(screenWidth,is(equal_to(MVC.SCREENWIDTH)))
-		assert_that(screenHeight,is(equal_to(MVC.SCREENHEIGHT)))
+		assert_that(screenWidth,is(equal_to(MockConstants.SCREENWIDTH)))
+		assert_that(screenHeight,is(equal_to(MockConstants.SCREENHEIGHT)))
 		MockViewport.setSizeCalled = MockViewport.setSizeCalled + 1
 	end
 
 	function MockViewport:setScale(width,height)
-		assert_that(width,is(equal_to(MVC.WIDTH)))
-		assert_that(height,is(equal_to(-MVC.HEIGHT)))
+		assert_that(width,is(equal_to(MockConstants.WIDTH)))
+		assert_that(height,is(equal_to(-MockConstants.HEIGHT)))
 		MockViewport.setScaleCalled = MockViewport.setScaleCalled + 1
 	end
 
 	function MockViewport:setOffset(offset_x,offset_y)
-		assert_that(offset_x,is(equal_to(MVC.OFFSET_X)))
-		assert_that(offset_y,is(equal_to(MVC.OFFSET_Y)))
+		assert_that(offset_x,is(equal_to(MockConstants.OFFSET_X)))
+		assert_that(offset_y,is(equal_to(MockConstants.OFFSET_Y)))
 		MockViewport.setOffsetCalled = MockViewport.setOffsetCalled + 1	
 	end
 
