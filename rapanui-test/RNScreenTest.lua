@@ -53,6 +53,13 @@ local function init()
 	return RNScreen:new()
 end
 
+function initWithSprites(...)
+	local screen = init()
+	screen.sprites = arg
+	print(screen.sprites)
+	return screen
+end
+
 --TESTS
 
 --RNScreen:initWith
@@ -182,6 +189,16 @@ function testThatObjectUpdateLocationIsCalled()
 	rnscreen:initWith(MockConstants.WIDTH, MockConstants.HEIGHT, MockConstants.SCREENWIDTH, MockConstants.SCREENHEIGHT)
 	rnscreen:addRNObject(RNOBJECT, nil, TEST_LAYER)
 	assert_that(RNOBJECT.updateLocationCalled,is(greater_than(0)))
+end
+
+--RNScreen:removeRNObject()
+function testThatRemovedPropIsCalled()
+	local rnscreen = init()
+	rnscreen:initWith(MockConstants.WIDTH, MockConstants.HEIGHT, MockConstants.SCREENWIDTH, MockConstants.SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT2)
+	rnscreen:removeRNObject(RNOBJECT)
+	assert_that(rnscreen.mainPartition.removePropCalled,is(greater_than(0)))
 end
 
 lunatest.run()

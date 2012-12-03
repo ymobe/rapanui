@@ -7,6 +7,7 @@ function createTestLayer(name,viewport,partition)
 		setViewportCalled = 0,
 		clearCalled = 0,
 		insertPropCalled = 0,
+		removePropCalled = 0,
 		MOAIVIEWPORT = viewport,
 		MOAIPARTITION = partition,
 		name = name
@@ -35,7 +36,14 @@ function createTestLayer(name,viewport,partition)
 		self.setViewportCalled = 0
 		self.clearCalled = 0
 		self.insertPropCalled = 0
+		self.removePropCalled = 0
 	end
+
+	function MockLayer:removeProp(prop)
+		self.removePropCalled = self.removePropCalled + 1
+		self.MOAIPARTITION:removeProp(prop)
+	end
+
 
 	return MockLayer
 end
