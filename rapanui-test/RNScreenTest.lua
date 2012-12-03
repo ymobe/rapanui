@@ -24,8 +24,9 @@ local PROP2 = {name="prop2"}
 
 local VIEWPORT = createViewport("viewport")
 local TEST_PARTITION=createPartition("TEST_PARTITION")
+local TEST_PARTITION2=createPartition("TEST_PARTITION2")
 local TEST_LAYER=createTestLayer("TEST_LAYER",VIEWPORT,TEST_PARTITION)
-local TEST_LAYER2=createTestLayer("TEST_LAYER2",VIEWPORT,TEST_PARTITION)
+local TEST_LAYER2=createTestLayer("TEST_LAYER2",VIEWPORT,TEST_PARTITION2)
 local RNOBJECT = createRNObject("RNOBJECT",PROP)
 local RNOBJECT2 = createRNObject("RNOBJECT2",PROP2)
 
@@ -51,13 +52,6 @@ local function init()
 	MOAIPartition:reset()
 	
 	return RNScreen:new()
-end
-
-function initWithSprites(...)
-	local screen = init()
-	screen.sprites = arg
-	print(screen.sprites)
-	return screen
 end
 
 --TESTS
@@ -199,6 +193,29 @@ function testThatRemovedPropIsCalled()
 	rnscreen:addRNObject(RNOBJECT2)
 	rnscreen:removeRNObject(RNOBJECT)
 	assert_that(rnscreen.mainPartition.removePropCalled,is(greater_than(0)))
+end
+
+function testThatObjectIsRemovedFromMainLayerIfNoLayerIsGivenToRemove()
+	local rnscreen = init()
+	rnscreen:initWith(MockConstants.WIDTH, MockConstants.HEIGHT, MockConstants.SCREENWIDTH, MockConstants.SCREENHEIGHT)
+	local mainlayer = rnscreen.layers:get(RNLayer.MAIN_LAYER)
+	local mainpartition = mainlayer.MOAIPARTITION
+	rnscreen:removeRNObject(RNOBJECT)
+	assert_that(mainpartition.removePropCalled,is(greater_than(0)))
+end
+
+function testThatObjectIsRemovedFromGivenLayer()
+	local rnscreen = init()
+	rnscreen:initWith(MockConstants.WIDTH, MockConstants.HEIGHT, MockConstants.SCREENWIDTH, MockConstants.SCREENHEIGHT)
+	local mainlayer = rnscreen.layers:get(RNLayer.MAIN_LAYER)
+	local mainpartition = mainlayer.MOAIPARTITION
+	local otherpartition = TEST_LAYER2.MOAIPARTITION
+	rnscreen:addRNObject(RNOBJECT)
+	rnscreen:addRNObject(RNOBJECT2,nil,TEST_LAYER2)
+	rnscreen:removeRNObject(RNOBJECT2, TEST_LAYER2)
+	assert_that(mainpartition.removePropCalled,is(equal_to(0)))
+	assert_that(otherpartition.removePropCalled,is(greater_than(0)))
+
 end
 
 lunatest.run()

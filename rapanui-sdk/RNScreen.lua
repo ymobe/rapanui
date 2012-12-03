@@ -90,8 +90,13 @@ function RNScreen:addRNObject(object, mode, layer)
     object:getProp().RNObject = object
 end
 
-function RNScreen:removeRNObject(object)
-    self.layer:removeProp(object:getProp())
+function RNScreen:removeRNObject(object, layer)
+    
+    if(layer == nil) then
+        layer = self.layers:get(RNLayer.MAIN_LAYER)
+    end
+    
+     layer:removeProp(object:getProp())
     --    local id = object.idInScreen
     --    local len = table.getn(self.sprites)
     --    local ind = id
