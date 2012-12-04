@@ -10,7 +10,6 @@ require('RNLayer')
 RNLayer:new()
 --MOCK OBJECTS
 calledFunctions = nil
-TEST_PARTITION="TEST_PARTITION"
 i = 0
 WIDTH=1 
 HEIGHT=2
@@ -18,6 +17,19 @@ SCREENWIDTH=3
 SCREENHEIGHT=4
 OFFSET_X = -1
 OFFSET_Y = 1
+PROP = {}
+
+function createPartition(name)
+	local partition = {}
+
+	function partition:insertProp(property)
+		calledFunctions.insertPropToMainPartition = true
+	end
+
+	partition.name = name
+
+	return partition
+end
 
 function createViewport(name)
 
@@ -57,7 +69,7 @@ local function createTestLayer(name)
 	end
 
 	function layer:setPartition(partition)
-		assert_that(partition,is(equal_to(TEST_PARTITION))) 
+		assert_that(partition.name,is(equal_to(TEST_PARTITION.name))) 
 		calledFunctions.setPartition = true
 	end
 
@@ -65,8 +77,34 @@ local function createTestLayer(name)
 	return layer
 end
 
+function createRNObject()
+	local obj = {}
+	
+	function obj:getProp()
+		return PROP
+	end
+
+	function obj:setLocatingMode(mode)
+		calledFunctions.setLocatingMode = true
+	end
+
+	function obj:setParentScene(object)
+		calledFunctions.setParentScene = true
+	end
+
+	function obj:updateLocation()
+		calledFunctions.updateLocation=true
+	end
+
+	return obj
+end
+
+RNOBJECT = createRNObject()
+
 TEST_LAYER=createTestLayer("TEST_LAYER")
 TEST_LAYER2=createTestLayer("TEST_LAYER2")
+TEST_PARTITION=createPartition("TEST_PARTITION")
+
 
 layers={TEST_LAYER,TEST_LAYER2}
 
@@ -111,6 +149,9 @@ local function initTestParameters()
 		pushRenderPass = false,
 		newPartition = false,
 		setPartition = false,
+		setLocatingMode = false,
+		setParentScene = false,
+		updateLocation=false,
 	}
 
 end
@@ -121,6 +162,8 @@ local function init()
 end
 
 --TESTS
+
+--RNScreen:initWith
 function testThatScreenSizeIsSetCorrectly()
 	local rnscreen = init()
 	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
@@ -173,7 +216,7 @@ end
 function testThatNewPartitionIsSetToScreenMainPartitiob()
 	local rnscreen = init()
 	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
-	assert_that(rnscreen.mainPartition,is(equal_to(TEST_PARTITION)))
+	assert_that(rnscreen.mainPartition.name,is(equal_to(TEST_PARTITION.name)))
 end
 
 function testThatPartitionIsSetToLayer()
@@ -199,6 +242,35 @@ function testThatMainPartitionIsFoundFromLayers()
 	local rnscreen = init()
 	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
 	assert_not_nil(rnscreen.layers:get(RNLayer.MAIN_LAYER))		
+end
+
+--RNScreen:addRNObject
+function testThatObjectLocationModeIsSet()
+	local rnscreen = init()
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	assert_true(calledFunctions.setLocatingMode)
+end
+
+function testThatTheObjectIsAddedToMainPartition()
+	local rnscreen = init()
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	assert_true(calledFunctions.insertPropToMainPartition)
+end
+
+function testThatTheObjectParentSceneIsSet()
+	local rnscreen = init()
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	assert_true(calledFunctions.setParentScene)
+end
+
+function testThatObjectUpdateLocationIsCalled()
+	local rnscreen = init()
+	rnscreen:initWith(WIDTH, HEIGHT, SCREENWIDTH, SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	assert_true(calledFunctions.updateLocation)
 end
 
 lunatest.run()
