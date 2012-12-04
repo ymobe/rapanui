@@ -151,6 +151,13 @@ function testThatTheObjectIsAddedToPartition()
 	assert_that(TEST_PARTITION.insertPropCalled,is(greater_than(0)))
 end
 
+function testThatTheObjectIsAddedToMainPartitionIfNoLayerIsGiven()
+	local rnscreen = init()
+	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)
+	rnscreen:addRNObject(RNOBJECT)
+	assert_that(TEST_PARTITION.insertPropCalled,is(greater_than(0)))
+end
+
 function testThatTheObjectIsAddedToGivenLayer()
 	local rnscreen = init()
 	rnscreen:initWith(MVC.WIDTH, MVC.HEIGHT, MVC.SCREENWIDTH, MVC.SCREENHEIGHT)

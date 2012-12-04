@@ -71,6 +71,10 @@ function RNScreen:addRNObject(object, mode, layer)
         return
     end
 
+    if layer == nil then
+        layer = self.mainPartition
+    end
+    
     object:setLocatingMode(mode)
 
     layer:insertProp(object:getProp())
