@@ -23,7 +23,7 @@ RNButton = require("rapanui-sdk/RNButton")
 RNEvent = require("rapanui-sdk/RNEvent")
 RNScreen = require("rapanui-sdk/RNScreen")
 RNWrappedEventListener = require("rapanui-sdk/RNWrappedEventListener")
-
+RNLayer = require("rapanui-sdk/RNLayer")
 
 -- Touch Listeners requires
 
