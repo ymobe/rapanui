@@ -28,12 +28,12 @@ function RNLayer:new()
 end
 
 function RNLayer:createLayer(name,viewport)
-    local layer = MOAILayer2D.new()
-    local index = table.getn(self) + 1
-    
-    if self:get(name) ~= nil then
-        return nil,RNLayer.LAYER_WITH_SAME_NAME_EXISTS
-    end
+	local layer = MOAILayer2D.new()
+	local index = table.getn(self) + 1
+	
+	if self:get(name) then
+		return nil, RNLayer.LAYER_WITH_SAME_NAME_EXISTS
+	end
 
     self[index] = {} 
     self[index].layer = layer
@@ -60,25 +60,25 @@ function RNLayer:createLayerWithPartition(name,viewport)
 end
 
 function RNLayer:remove(layer)
-    for i, container in pairs(self) do
-        if container.layer == layer then
-            self:clearContainer(container)
-            table.remove(self,i)
-        end
-    end
+	for i, container in pairs(self) do
+		if container.layer == layer then
+			self:clearContainer(container)
+			table.remove(self, i)
+		end
+	end
 end
 
 function RNLayer:removeAll()
-    while table.getn(self) >0 do
-        self:clearContainer(self[1])
-        table.remove(self,1)
-    end
+	while table.getn(self) > 0 do
+		self:clearContainer(self[1])
+		table.remove(self, 1)
+	end
 end
 
 function RNLayer:clearContainer(container)
-    container.layer:clear()
-    container.layer=nil
-    container.name=nil
+	container.layer:clear()
+	container.layer = nil
+	container.name = nil
 end
 
 return RNLayer
