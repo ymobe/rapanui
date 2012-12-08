@@ -27,6 +27,7 @@ function RNScreen:new(o)
         spriteIndex = 0,
         viewport = nil,
         layer = nil,
+        layers = nil,
         visible = true
     }
 
@@ -52,24 +53,31 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
     self.viewport:setSize(screenWidth, screenHeight)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
-    self.layer = MOAILayer2D.new()
+    self.layers = RNLayer:new()
+    self.layer,self.mainPartition = self.layers:createLayerWithPartition(RNLayer.MAIN_LAYER,self.viewport)
     self.layer:setViewport(self.viewport)
 
-    self.mainPartition = MOAIPartition.new()
     self.layer:setPartition(self.mainPartition)
 
     MOAISim.pushRenderPass(self.layer)
 end
-
-function RNScreen:addRNObject(object, mode)
+--[[
+    layer parameter can be either partition or layer since
+    both MOAIObjects have the insertProp function.
+--]]
+function RNScreen:addRNObject(object, mode, layer)
 
     if object == nil then
         return
     end
 
+    if layer == nil then
+        layer = self.mainPartition
+    end
+    
     object:setLocatingMode(mode)
 
-    self.mainPartition:insertProp(object:getProp())
+    layer:insertProp(object:getProp())
     object:setParentScene(self)
     object:updateLocation()
 
@@ -82,8 +90,13 @@ function RNScreen:addRNObject(object, mode)
     object:getProp().RNObject = object
 end
 
-function RNScreen:removeRNObject(object)
-    self.layer:removeProp(object:getProp())
+function RNScreen:removeRNObject(object, layer)
+    
+    if(layer == nil) then
+        layer = self.layers:get(RNLayer.MAIN_LAYER)
+    end
+    
+     layer:removeProp(object:getProp())
     --    local id = object.idInScreen
     --    local len = table.getn(self.sprites)
     --    local ind = id
