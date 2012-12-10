@@ -51,7 +51,7 @@ end      --]]
 --require("rapanui-samples/lists/rn-rnListView")
 --require("rapanui-samples/lists/rn-rnListView-multilist")
 --require("rapanui-samples/lists/rn-rnPageSwipe")
---require("rapanui-samples/lists/rn-rnPageSwipe-multiswipe")
+require("rapanui-samples/lists/rn-rnPageSwipe-multiswipe")
 
 -- Menu
 --require("rapanui-samples/menu/rn-menu-director")
@@ -104,6 +104,10 @@ end      --]]
 --require("rapanui-samples/transition/rn-transition-bitmaptext-move")
 --require("rapanui-samples/transition/rn-transition-bitmaptext-alpha")
 
+-- Layers
+--require("rapanui-samples/layers/rn-layers-multilayerHud")
+--require("rapanui-samples/layers/rn-layers-putOnLayer")
+
 
 -- Transition on RNButton
 --require("rapanui-samples/transition/rn-transition-rnbutton-move")
@@ -123,7 +127,7 @@ end      --]]
 --require("rapanui-samples/touch/rn-touch-rnobject")
 --require("rapanui-samples/touch/rn-touch-buttons-globaleventlistener")
 --require("rapanui-samples/touch/rn-touch-global-rnobject")
-require("rapanui-samples/touch/rn-buttons-animated")
+--require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/touch/rn-touch-buttons-untouchable")
 
 -- listeners

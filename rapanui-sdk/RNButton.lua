@@ -322,7 +322,7 @@ function RNButton:setScissorRect(scissorRect)
     if self.rnImageOver ~= nil then
         self.rnImageOver:getProp():setScissorRect(scissorRect)
     end
-	
+
     if self.text ~= nil then
         self.text:setScissorRect(scissorRect)
     end
@@ -330,6 +330,18 @@ function RNButton:setScissorRect(scissorRect)
     if self.rnImageDisabled ~= nil then
         self.rnImageDisabled:getProp():setScissorRect(scissorRect)
     end
+end
+
+function RNButton:getAllChildren()
+    local t = {}
+    --the inserting order is quite important for prop priorities
+    table.insert(t, self.rnImageDefault)
+    table.insert(t, self.rnImageOver)
+    if self.rnImageDisabled ~= nil then
+        table.insert(t, self.rnImageDisabled)
+    end
+    table.insert(t, self.text)
+    return t
 end
 
 function RNButton:remove(func)
