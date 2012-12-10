@@ -23,9 +23,15 @@ canChangeLevel = false
 shots = 0
 level = 0
 
+ball = nil
+hole = nil
+obstacle1 = nil
+obstacle2 = nil
+obstacle3 = nil
+
 --add images
-background = RNFactory.createImage("RapaNui-samples/games/SunGolf/grass.png")
-bounding = RNFactory.createImage("RapaNui-samples/games/SunGolf/grass.png"); bounding.x = 0; bounding.y = 0;
+background = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png")
+bounding = RNFactory.createImage("rapanui-samples/games/SunGolf/grass.png"); bounding.x = 0; bounding.y = 0;
 
 
 --create a complex body for bounding handling (and set it as invisible)
@@ -45,14 +51,14 @@ function create_level()
     lev:setText("" .. level)
     canChangeLevel = true
     --create images
-    hole = RNFactory.createImage("RapaNui-samples/games/SunGolf/hole.png");
+    hole = RNFactory.createImage("rapanui-samples/games/SunGolf/hole.png");
     hole.x = math.random() * 120 + 100; hole.y = 100
-    ball = RNFactory.createImage("RapaNui-samples/games/SunGolf/gball.png"); ball.x = 240; ball.y = 400;
-    obstacle1 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    ball = RNFactory.createImage("rapanui-samples/games/SunGolf/gball.png"); ball.x = 240; ball.y = 400;
+    obstacle1 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle1.x = math.random() * 100 - 20; obstacle1.y = 140 + math.random() * 150; obstacle1.rotation = math.random() * 360;
-    obstacle2 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    obstacle2 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle2.x = 160; obstacle2.y = 140 + math.random() * 150; obstacle2.rotation = math.random() * 360;
-    obstacle3 = RNFactory.createImage("RapaNui-samples/games/SunGolf/obstacle.png");
+    obstacle3 = RNFactory.createImage("rapanui-samples/games/SunGolf/obstacle.png");
     obstacle3.x = math.random() * 100 + 280; obstacle3.y = 140 + math.random() * 150; obstacle3.rotation = math.random() * 360;
 
     --add physics bodies
@@ -88,17 +94,19 @@ end
 
 --handling touch
 function screen_touch(event)
-    local xx = event.x
-    local yy = event.y
-    local fx = event.x - ball.x
-    local fy = event.y - ball.y
-    local distance
+    if event.phase == "began" then
+        local xx = event.x
+        local yy = event.y
+        local fx = event.x - ball.x
+        local fy = event.y - ball.y
+        local distance
 
-    distance = math.sqrt(math.pow(event.x - ball.x, 2) + math.pow(event.y - ball.y, 2))
-    if canMove == true then
-        ball:applyForce(fx * 2000, fy * 2000, ball.x, ball.y)
-        shots = shots + 1
-        score:setText("" .. shots)
+        distance = math.sqrt(math.pow(event.x - ball.x, 2) + math.pow(event.y - ball.y, 2))
+        if canMove == true then
+            ball:applyForce(fx * 99999 * 2, fy * 99999 * 2, ball.x, ball.y)
+            shots = shots + 1
+            score:setText("" .. shots)
+        end
     end
 end
 
@@ -116,6 +124,7 @@ function Step()
     if ball.linearVelocityY > 0 then
         ball.linearVelocityY = ball.linearVelocityY - 1
     end
+
     if ball.linearVelocityX < 0 then
         ball.linearVelocityX = ball.linearVelocityX + 1
     end
@@ -127,6 +136,12 @@ function Step()
     end
     if ball.angularVelocity < 0 then
         ball.angularVelocity = ball.angularVelocity + 1
+    end
+    if (ball.linearVelocityX > 0 and ball.linearVelocityX < 1) or (ball.linearVelocityX > -1 and ball.linearVelocityX < 0) then
+        ball.linearVelocityX = 0
+    end
+    if (ball.linearVelocityY > 0 and ball.linearVelocityY < 1) or (ball.linearVelocityY > -1 and ball.linearVelocityY < 0) then
+        ball.linearVelocityY = 0
     end
     --toggle movement possibility
     if ball.linearVelocityX > -1 and ball.linearVelocityX < 1 and ball.linearVelocityY > -1 and ball.linearVelocityY < 1 then
@@ -148,10 +163,10 @@ RNListeners:addEventListener("enterFrame", Step)
 
 
 --create texts
-label = RNFactory.createText("Shots: ", { size = 10, top = 420, left = -60, width = 200, height = 50 })
-score = RNFactory.createText("0", { size = 10, top = 420, left = 100, width = 30, height = 50 })
-label2 = RNFactory.createText("Level: ", { size = 10, top = 440, left = -60, width = 200, height = 50 })
-lev = RNFactory.createText("1", { size = 10, top = 440, left = 100, width = 30, height = 50 })
+label = RNFactory.createText("Shots: ", { size = 20, top = 420, left = -60, width = 200, height = 50 })
+score = RNFactory.createText("0", { size = 20, top = 420, left = 100, width = 30, height = 50 })
+label2 = RNFactory.createText("Level: ", { size = 20, top = 440, left = -60, width = 200, height = 50 })
+lev = RNFactory.createText("1", { size = 20, top = 440, left = 100, width = 30, height = 50 })
 
 
 --create starting level

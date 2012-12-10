@@ -8,17 +8,30 @@
 --  |_|  \_\__,_| .__/ \__,_|_| \_|\__,_|_|
 --              | |
 --              |_|
---
--- RapaNui
---
--- by Ymobe ltd  (http://ymobe.co.uk)
---
--- LICENSE:
---
--- RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
--- CPAL is an Open Source Initiative approved
--- license based on the Mozilla Public License, with the added requirement that you attribute
--- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
+--]]
+
+RapaNui
+
+by Ymobe ltd  (http://ymobe.co.uk)
+
+LICENSE:
+
+ RapaNui uses the Common Public Attribution License Version 1.0 (CPAL) http://www.opensource.org/licenses/cpal_1.0.
+ CPAL is an Open Source Initiative approved
+ license based on the Mozilla Public License, with the added requirement that you attribute
+ Moai (http://getmoai.com/) and RapaNui in the credits of your program.
+
+How to use RapaNui in your project:
+
+1) Copy rapanui-sdk under your project dir
+2) Copy config.lua from rapanui directory under your project
+3) Add a require "config" into your main.lua
+4) Add a require "rapanui-sdk.rapanui" into your main.lua
+
+Now your main.lua should look something like this
+require "config"
+require "rapanui-sdk.rapanui"
+
 
 
 How to test RapaNui in Moai distribution for Mac iOS:
@@ -63,12 +76,6 @@ To change the demo of RapaNui
 3) uncomment the sample you want to test.
 4) run the project
 
-
-
-How to use RapaNui in your project:
-
-1) copy all the files of the root dir of the distribution into your project and add a lua require
-   in your app's scripts.
 
 enjoy,
 The RapaNui team

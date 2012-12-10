@@ -11,15 +11,19 @@
 -- license based on the Mozilla Public License, with the added requirement that you attribute
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 ]]
+config = require("config")
+
 
 RNObject = require("rapanui-sdk/RNObject")
---require("rapanui-sdk/RNRectangle")
+
 RNText = require("rapanui-sdk/RNText")
---require("rapanui-sdk/RNGroup")
+
+RNButton = require("rapanui-sdk/RNButton")
+
 RNEvent = require("rapanui-sdk/RNEvent")
 RNScreen = require("rapanui-sdk/RNScreen")
 RNWrappedEventListener = require("rapanui-sdk/RNWrappedEventListener")
---require("rapanui-sdk/RNUtil")
+
 
 -- Touch Listeners requires
 
@@ -29,6 +33,8 @@ RNInputManager = require("rapanui-sdk/RNInputManager")
 RNUtil = require("rapanui-sdk/RNUtil")
 RNUnit = require("rapanui-sdk/RNUnit")
 RNGroup = require("rapanui-sdk/RNGroup")
+
+
 RNTransition = require("rapanui-sdk/RNTransition")
 RNPhysics = require("rapanui-sdk/RNPhysics")
 
@@ -37,7 +43,7 @@ RNJoint = require("rapanui-sdk/RNJoint")
 RNFixture = require("rapanui-sdk/RNFixture")
 
 
--- Threds requires
+-- Threads requires
 
 RNThread = require("rapanui-sdk/RNThread")
 RNMainThread = require("rapanui-sdk/RNMainThread")
@@ -58,3 +64,16 @@ RNTiledLuaMapParser = require("rapanui-sdk/RNTiledLuaMapParser")
 
 RNMapFactory = require("rapanui-sdk/RNMapFactory")
 RNFactory = require("rapanui-sdk/RNFactory")
+
+RNListView = require("rapanui-sdk/RNListView")
+
+RNPageSwipe = require("rapanui-sdk/RNPageSwipe")
+
+RNTimer = require("rapanui-sdk/RNTimer")
+
+RNGraphicsManager = require("rapanui-sdk/RNGraphicsManager")
+
+RNBitmapText = require("rapanui-sdk/RNBitmapText")
+--starts main thread
+RNMainThread.startMainThread()
+

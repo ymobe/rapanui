@@ -15,11 +15,11 @@
 times = 0
 local background = RNFactory.createImage("images/background-purple.png")
 
-text = RNFactory.createText("Times 0", { size = 10, top = 5, left = 5, width = 200, height = 50 })
+text = RNFactory.createText("Times 0", { size = 20, top = 5, left = 5, width = 200, height = 50 })
 
 local function count()
     times = times + 1
     text:setText("Times " .. times)
 end
 
-local actionId = RNMainThread.addTimedAction(2000, count)
+local actionId = RNMainThread.addTimedAction(0.5, count)

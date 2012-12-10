@@ -243,14 +243,13 @@ end
 -- collision handling
 function RNBody:addEventListener(Type)
     if (Type == "collision") then
-        flist = self.fixturelist
-        len = table.getn(flist)
+        local flist = self.fixturelist
+        local len = table.getn(flist)
         --for each fixture in in self.fixturelist
         for i = 1, len, 1 do
-
             --sets the fixture for callbacks
-            currentfixture = flist[i].fixture
-            currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, MOAIBox2DArbiter.ALL)
+            local currentfixture = flist[i].fixture
+            currentfixture:setCollisionHandler(RNPhysics.LocalCollisionHandling, RNPhysics.collisionTypeAllowed)
         end
     end
 end
@@ -348,7 +347,7 @@ end
 
 --sets all fixture of this body as sensors
 function RNBody:setSensor(value)
-    len = table.getn(self.fixturelist)
+    local len = table.getn(self.fixturelist)
     for i = 1, len, 1 do
         self.fixturelist[i].fixture:setSensor(value)
         self.fixturelist[i].sensor = value
@@ -419,13 +418,13 @@ function RNBody:setAngle(Angle)
 end
 
 function RNBody:setX(value)
-    local posx, posy = self:getWorldCenter()
+    local posx, posy = self.body:getPosition()
     local angle = self:getAngle()
     self:setTransform(value, posy, angle)
 end
 
 function RNBody:setY(value)
-    local posx, posy = self:getWorldCenter()
+    local posx, posy = self.body:getPosition()
     local angle = self:getAngle()
     self:setTransform(posx, value, angle)
 end

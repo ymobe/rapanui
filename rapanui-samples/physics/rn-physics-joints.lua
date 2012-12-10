@@ -44,10 +44,10 @@ RNPhysics.setDebugDraw(RNFactory.screen)
 --add Joints! Remove comments to add joints
 
 --revolute  (type,bodyA,bodyB,anchorX,anchorY)
-j1 = RNPhysics.createJoint("revolute", box, triangle, 100, 100)
+--j1 = RNPhysics.createJoint("revolute", box, triangle, 100, 100)
 
 --distance  (type,bodyA,bodyB,anchorA_X.anchorA_Y,anchorB_X,anchorB_Y[,frequency,damping])
-j2 = RNPhysics.createJoint("distance", box, triangle, box.x, box.y, triangle.x, triangle.y)
+--j2 = RNPhysics.createJoint("distance", box, triangle, box.x, box.y, triangle.x, triangle.y)
 
 --prismatic (type,bodyA,bodyB,anchorA_X,anchorA_Y,axisA,axisB)
 --j3=RNPhysics.createJoint("prismatic",box,triangle,box.x,box.y,10,10)
@@ -62,7 +62,7 @@ j2 = RNPhysics.createJoint("distance", box, triangle, box.x, box.y, triangle.x, 
 --j6=RNPhysics.createJoint("wheel",box,triangle,10,10,10,10)
 
 --pulley (type,bodyA,bodyB,groundAnchorA_X,groundAnchorA_Y,groundAnchorB_X,groundAnchorB_Y,anchorA_X,anchorA_Y,anchorB_X,anchorB_Y[,ratio,maxLength1,maxLength2])
-j7 = RNPhysics.createJoint("pulley", box, triangle, 100, 100, 200, 100, box:getX(), box:getY(), triangle:getX(), triangle:getY(), 1)
+--j7 = RNPhysics.createJoint("pulley", box, triangle, 100, 100, 200, 100, box:getX(), box:getY(), triangle:getX(), triangle:getY(), 1)
 
 
 --gear (type,jointA,jointB,ratio)
@@ -70,14 +70,14 @@ j7 = RNPhysics.createJoint("pulley", box, triangle, 100, 100, 200, 100, box:getX
 --j8= RNPhysics.createJoint("gear",j1,j3,5)
 
 --rope(type,bodyA,bodyB,maxLength,[,anchorAX,anchorAY,anchorBX,anchorBY])
---j10= RNPhysics.createJoint("rope",box,triangle,10,box.x,box.y,triangle.x,triangle.y)
+j10= RNPhysics.createJoint("rope",box,triangle,10,box.x,box.y,triangle.x,triangle.y)
 
 --remove joint tutorial
 --Remove Join doesnt work, it throws an exception:
 --PANIC: unprotected error in call to Lua API (error loading module 'RNObject' from file './RNObject.lua':
 --	./RNObject.lua:880: ')' expected (to close '(' at line 879) near 'self')
 
---j1:remove()
+j10:remove()
 
 
 
@@ -85,7 +85,7 @@ j7 = RNPhysics.createJoint("pulley", box, triangle, 100, 100, 200, 100, box:getX
 
 --[[ Mouse Joint Testing
 
-ground=RNFactory.createImage("RapaNui-samples/physics/floor.png");ground.x=0;ground.y=0;
+ground=RNFactory.createImage("rapanui-samples/physics/floor.png");ground.x=0;ground.y=0;
 ground.visible=false
 RNPhysics.createBodyFromImage(ground,"kinematic",{shape={0,0,320,0,320,480,0,480},sensor=true })
 

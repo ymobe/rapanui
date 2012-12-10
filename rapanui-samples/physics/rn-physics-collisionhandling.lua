@@ -15,6 +15,7 @@
 --Collision callbacks handling
 
 
+
 --add images
 background = RNFactory.createImage("rapanui-samples/physics/background-purple.png")
 box = RNFactory.createImage("rapanui-samples/physics/box.png"); box.x = 170; box.y = 80;
@@ -24,6 +25,13 @@ floor = RNFactory.createImage("rapanui-samples/physics/floor.png"); floor.x = 16
 
 --starts simulation
 RNPhysics.start()
+
+--filter collisions
+--you may want to set a global filter for collision types: all, begin, end, pre_solve or post_solve
+--to register all fixtures in the game to call back only for one kind of collision (to optimize game speed)
+--by default its set to "all"
+RNPhysics.setCollisions("all")  --optional
+
 
 
 --set images as physics objects
@@ -51,9 +59,9 @@ function onCollide(event)
     --only in pre_solve and post_solve phase event can find a force and a friction
     if (event.phase == "begin") then
         print(event.phase .. " collision between fixture number " .. event.fixture1.indexinlist .. " of " .. event.object1.name .. " and fixture number " .. event.fixture2.indexinlist .. " of " .. event.object2.name .. "---with a force of " .. event.force .. " and a friction of " .. event.friction)
+        if (event.object1 == ball) and (event.object2 == floor) then ball:remove() end
     end
     --remove the  ball at floor collision
-    if (event.object1 == ball) and (event.object2 == floor) then ball:remove() end
 end
 
 --and set it for receiveing callbacks

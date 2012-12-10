@@ -41,7 +41,7 @@ end
 
 --physical animation with many sequences
 --newAnim(file,sizeX,sizeY[,posx,posy,scaleX,scaleY])
-char = RNFactory.createAnim("images/char.png", 42, 32, 100, 200, 0.27, 0.5)
+char = RNFactory.createAnim("images/char.png", 42, 32, 100, 300, 2, 3)
 --newSequence(name,frameOrder,speed,repeatTimes,onStopFunction)
 char:newSequence("walkFront", { 7, 8, 9 }, 6, 10, onEndS1)
 char:newSequence("walkBack", { 1, 2, 3 }, 6, 10, onEndS2)
@@ -94,6 +94,6 @@ char2:removeSequence("try") --removes the sequence
     char.sequenceList[3].speed=12
     
 	Animations will be improved soon.
-    
+
     
 ]] --

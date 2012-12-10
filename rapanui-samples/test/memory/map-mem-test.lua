@@ -12,15 +12,9 @@
 -- Moai (http://getmoai.com/) and RapaNui in the credits of your program.
 --]]
 
-require("RNMapFactory")
-require("RNMap")
-require("RNMapLayer")
-require("RNMapObject")
-require("RNMapObjectGroup")
-require("RNMapTileset")
-require("RNUtil")
 
-for i = 0, 100 do
+
+for i = 0, 1000 do
     map = RNMapFactory.loadMap(RNMapFactory.TILED, "rapanui-samples/maps/rpgmap.tmx")
 
     aTileset = map:getTileset(0)
@@ -28,7 +22,10 @@ for i = 0, 100 do
 
     map:drawMapAt(0, 0, aTileset)
     memestatus(true)
-    print_r(map)
     map:remove()
     collectgarbage("collect")
 end
+
+
+print("End")
+memestatus(true)

@@ -76,7 +76,11 @@ function update(enterFrame)
     end
 end
 
-RNListeners:addEventListener("enterFrame", update)
+-- scrolling can be done either with enterFrame and Timer.
+-- timer is recommend due to enterFrame massive consume of device's CPU.
+
+--RNListeners:addEventListener("enterFrame", update)
+local actionId = RNMainThread.addTimedAction(0.009, update)
 
 
 

@@ -1,4 +1,3 @@
-
 RNUnit.assertEquals(2, map:getTilesetSize(), "Wrong tileset size")
 RNUnit.assertEquals(6, map:getLayersSize(), "Wrong layers size")
 

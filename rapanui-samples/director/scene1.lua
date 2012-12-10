@@ -37,6 +37,18 @@ function aScene.onCreate()
     local tile1a = RNFactory.createImage("images/tile1.png", { parentGroup = sceneGroup }); tile1a.x = 160; tile1a.y = 240;
     local tile1b = RNFactory.createImage("images/tile1.png", { parentGroup = sceneGroup }); tile1b.x = 100; tile1b.y = 340;
     local tile1c = RNFactory.createImage("images/tile1.png", { parentGroup = sceneGroup }); tile1c.x = 260; tile1c.y = 240;
+
+    local text1 = RNFactory.createBitmapText("SCENE 1", {
+        parentGroup = sceneGroup,
+        image = "images/kromasky.png",
+        charcodes = " ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789:;?!\"%',.",
+        top = 55,
+        left = 10,
+        charWidth = 16,
+        charHeight = 16
+    })
+
+
     --return sceneGroup
     return sceneGroup
 end

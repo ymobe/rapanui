@@ -20,8 +20,8 @@ function RNScreen:new()
 
     local o = {
         name = "",
-        sprites = {},
-        numSprites = 0,
+        --        sprites = {},
+        --        numSprites = 0,
         width = 0,
         height = 0,
         spriteIndex = 0,
@@ -73,41 +73,77 @@ function RNScreen:addRNObject(object, mode)
     object:setParentScene(self)
     object:updateLocation()
 
-    self.numSprites = self.numSprites + 1
-    self.sprites[self.numSprites] = object
-    object:setIDInScreen(self.numSprites)
+    --    self.numSprites = self.numSprites + 1
+    --    self.sprites[self.numSprites] = object
+    --    object:setIDInScreen(self.numSprites)
 
-    object:getProp().rnObjectId = self.numSprites
+    --    object:getProp().rnObjectId = self.numSprites
+
+    object:getProp().RNObject = object
 end
 
 function RNScreen:removeRNObject(object)
     self.layer:removeProp(object:getProp())
-    id = object.idInScreen
-    len = table.getn(self.sprites)
-    ind = id
-    for i = 1, len, 1 do
-        if (i == ind) then
-            for k = ind + 1, len, 1 do
-                self.sprites[k - 1] = self.sprites[k]
-                self.sprites[k].idInScreen = k - 1
-            end
-            self.sprites[len] = nil
-        end
-    end
-
-    --refresh other objects id
-    for i, v in ipairs(self.sprites) do v.idInScreen = i end
+    --    local id = object.idInScreen
+    --    local len = table.getn(self.sprites)
+    --    local ind = id
+    --    for i = 1, len, 1 do
+    --        if (i == ind) then
+    --            for k = ind + 1, len, 1 do
+    --                self.sprites[k - 1] = self.sprites[k]
+    --                self.sprites[k].idInScreen = k - 1
+    --                self.sprites[k]:getProp().rnObjectId = k - 1
+    --            end
+    --            self.sprites[len] = nil
+    --        end
+    --    end
     --
-    self.numSprites = table.getn(self.sprites)
+    --    --
+    --    self.numSprites = table.getn(self.sprites)
 end
 
-function RNScreen:getPropWithHighestLevelOn(x, y)
-    return self.mainPartition:propForPoint(x, y)
+function RNScreen:getObjectWithHighestLevelOn(x, y)
+
+
+
+
+    local props
+    if config.stretch.status == true then
+        if config.stretch.letterbox == true then
+            local toGetX, toGetY = (x - RNFactory.ofx) * RNFactory.Ax, (y - RNFactory.ofy) * RNFactory.Ay
+            props = { self.mainPartition:propListForPoint(toGetX, toGetY + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        else
+            local toGetX, toGetY = (x - RNFactory.ofx) * RNFactory.Ax, (y - RNFactory.ofy) * RNFactory.Ay
+            props = { self.mainPartition:propListForPoint(toGetX, toGetY + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+        end
+    else
+        props = { self.mainPartition:propListForPoint(x, y + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
+    end
+
+    --Old, deprecated worst way to do this.
+    --    for i, p in ipairs(props) do
+    --        for j, k in ipairs(self.sprites) do
+    --            if k.prop == p then
+    --                if k.touchable == true then
+    --                    --                    print(k.name)
+    --                    return k
+    --                end
+    --            end
+    --        end
+    --    end
+
+
+    for i = 1, #props do
+        local currentProp = props[i]
+        if currentProp.RNObject.touchable == true then
+            return currentProp.RNObject
+        end
+    end
 end
 
 function RNScreen:getRNObjectWithHighestLevelOn(x, y)
-    if self:getPropWithHighestLevelOn(x, y) ~= nil then
-        return self.sprites[self:getPropWithHighestLevelOn(x, y).rnObjectId]
+    if self:getObjectWithHighestLevelOn(x, y) ~= nil then
+        return self:getObjectWithHighestLevelOn(x, y)
     else
         return nil
     end

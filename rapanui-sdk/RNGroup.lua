@@ -22,6 +22,9 @@ local function fieldChangedListener(self, key, value)
     if key ~= nil and key == "x" then
 
 
+        local xx, yy = self.prop:getLoc()
+        self.prop:setLoc(value, yy)
+
         -- print(self.lastx, value)
         local deltax = self:getDelta(self.lastx, value)
         if self.lastx == nil then
@@ -32,14 +35,21 @@ local function fieldChangedListener(self, key, value)
             deltax = -deltax
         end
 
+
         for i = 1, self.numChildren, 1 do
             local anObject = self.displayObjects[i]
             anObject.x = anObject.x + deltax
         end
+
+
+
         self.lastx = value
     end
 
     if key ~= nil and key == "y" then
+
+        local xx, yy = self.prop:getLoc()
+        self.prop:setLoc(xx, value)
 
         local deltay = self:getDelta(self.lasty, value)
 
@@ -55,6 +65,8 @@ local function fieldChangedListener(self, key, value)
             local anObject = self.displayObjects[i]
             anObject.y = anObject.y + deltay
         end
+
+
         self.lasty = value
     end
 
@@ -76,9 +88,20 @@ end
 
 
 local function fieldAccessListener(self, key)
-    if getmetatable(self).__object[key] == nil then
-        getmetatable(self).__object[key] = {}
+    local object = getmetatable(self).__object
+
+    if key ~= nil and key == "x" then
+        local xx, yy = object.prop:getLoc()
+        object.x = xx
+        object.y = yy
     end
+
+    if key ~= nil and key == "y" then
+        local xx, yy = object.prop:getLoc()
+        object.x = xx
+        object.y = yy
+    end
+
     return getmetatable(self).__object[key]
 end
 
@@ -99,14 +122,68 @@ function RNGroup:new()
 end
 
 
-function RNGroup:innerNew()
-    local o = {
+function RNGroup:setAlpha(value)
+    for i, v in ipairs(self:getAllNonGroupChildren()) do
+        v:setAlpha(value)
+    end
+end
+
+function RNGroup:getAllNonGroupChildren()
+    --returns all children , sub-groups excluded
+    local t = {}
+    for i, v in ipairs(self.displayObjects) do
+        if v:getType() == "RNGroup" then
+            local gt = v:getAllNonGroupChildren()
+            for j, k in ipairs(gt) do
+                t[#t + 1] = k
+            end
+        else
+            t[#t + 1] = v
+        end
+    end
+
+    return t
+end
+
+function RNGroup:getAllChildren()
+    --returns all children , sub-groups included
+    local t = {}
+    for i, v in ipairs(self.displayObjects) do
+        if v:getType() == "RNGroup" then
+            local gt = v:getAllChildren()
+            for j, k in ipairs(gt) do
+                t[#t + 1] = k
+            end
+        end
+        t[#t + 1] = v
+    end
+
+    return t
+end
+
+function RNGroup:flattern(value)
+    for i, v in ipairs(self:getAllChildren()) do
+        v:setLevel(value + i)
+    end
+end
+
+function RNGroup:setPriority(value)
+    self:flattern(value)
+end
+
+function RNGroup:innerNew(o)
+    o = o or {
         name = "",
         visible = true,
     }
 
+    o.parentGroup = nil
     setmetatable(o, self)
     self.__index = self
+    if RNFactory.mainGroup ~= nil then
+        RNFactory.mainGroup:insert(o)
+    end
+    o.prop = MOAIProp2D.new()
     return o
 end
 
@@ -117,33 +194,46 @@ end
 
 
 function RNGroup:insert(object, resetTransform)
+    if object:getType() == "RNTableElement" then
+        for i, v in ipairs(object.elements) do
+            self:insert(v.rnText)
+        end
+    else
 
-    if resetTransform == true then
-        object.x = 0
-        object.y = 0
-    end
+        if resetTransform == true then
+            object.x = self.x
+            object.y = self.y
+        end
 
-    if object.setParentGroup ~= nil then
+        if object.parentGroup ~= nil and object:getType() ~= "RNMap" then
+            object.parentGroup:removeChild(object.idInGroup)
+        end
+
         object:setParentGroup(self)
+
+
+        local level = self:getHighestLevel() + 1
+
+
+        object:setLevel(level)
+
+
+        self.levels[level] = level
+
+        self.numChildren = self.numChildren + 1
+        self.displayObjects[self.numChildren] = object
+        object:setIDInGroup(self.numChildren)
     end
 
-    local level = self:getHighestLevel() + 1
-
-    object:setLevel(level)
-
-    self.levels[level] = level
-
-    self.numChildren = self.numChildren + 1
-    self.displayObjects[self.numChildren] = object
-    object:setIDInGroup(self.numChildren)
+    if object.setScissorRect and self.scissorRect ~= nil then object:setScissorRect(self.scissorRect) end
 end
 
 
 --- Removes from current RNGroup the RNObject with given id
 -- @param id number RNObject id to remove from current group
 function RNGroup:removeChild(id)
-    len = table.getn(self.displayObjects)
-    ind = id
+    local len = table.getn(self.displayObjects)
+    local ind = id
     for i = 1, len, 1 do
         if (i == ind) then
             for k = ind + 1, len, 1 do
@@ -168,14 +258,26 @@ end
 --- returns the lowest level among the RNObjects of the RNGroup
 -- @return level number
 function RNGroup:getLowestLevel()
-    return math.min(unpack(self.levels))
+    local t = -1
+    for i, v in pairs(self.levels) do
+        if t > v then
+            t = v
+        end
+    end
+    return t
 end
 
 
 --- returns the highest level among the RNObjects of the RNGroup
 -- @return level number
 function RNGroup:getHighestLevel()
-    return math.max(unpack(self.levels))
+    local t = -1
+    for i, v in pairs(self.levels) do
+        if t < v then
+            t = v
+        end
+    end
+    return t
 end
 
 
@@ -197,6 +299,20 @@ end
 function RNGroup:setReferencePoint(referencePoint)
 end
 
+function RNGroup:getChild(value)
+    local o
+    if type(value) == "string" then
+        for i, v in ipairs(self:getAllChildren()) do
+            if v.name == value then
+                o = v
+            end
+        end
+    else
+        o = self.displayObjects[value]
+    end
+    return o
+end
+
 function RNGroup:getSize()
     return self.numChildren
 end
@@ -204,10 +320,18 @@ end
 function RNGroup:setFocus(value)
 end
 
---- removes given RNObject from current group
+--- removes current RNGroup
 -- @param value RNObject
-function RNGroup:remove(value)
-    self:removeChild(value:getIDInGroup())
+function RNGroup:remove()
+    for i = 1, #self.displayObjects do
+        self.displayObjects[1]:remove()
+    end
+    if (self.parentGroup) then
+        self.parentGroup:removeChild(self.idInGroup)
+    end
+    self.prop = nil
+    self = nil
+    --    collectgarbage()
 end
 
 
@@ -223,9 +347,26 @@ end
 function RNGroup:setVisible(value)
     for i = 0, self.numChildren - 1 do
         local anObject = self.displayObjects[i]
-        if anObject ~= nil and type(anObject.getProp) ~= "table" and anObject:getProp() ~= nil then
-            anObject.visible = value
+        if anObject ~= nil then
+            if anObject.getType ~= nil then
+                if anObject:getType() ~= "RNButton" then
+                    if anObject ~= nil and type(anObject.getProp) ~= "table" and anObject:getProp() ~= nil then
+                        anObject.visible = value
+                    end
+                else
+                    anObject.visible = value
+                end
+            end
         end
+    end
+end
+
+function RNGroup:setScissorRect(scissorRect)
+    self.scissorRect = scissorRect or nil
+    if self.displayObjects == nil then return end
+
+    for i = 1, #self.displayObjects do
+        if self.displayObjects[i].setScissorRect then self.displayObjects[i]:setScissorRect(self.scissorRect) end
     end
 end
 
@@ -250,6 +391,28 @@ function RNGroup:getDelta01(a, b)
     else
         return -1 * (b - a)
     end
+end
+
+function RNGroup:setLevel(value)
+    if self.prop ~= nil then
+        self:setPriority(value)
+    end
+end
+
+function RNGroup:setParentGroup(group)
+    self.parentGroup = group
+end
+
+function RNGroup:getProp()
+    return self.prop
+end
+
+function RNGroup:setIDInGroup(id)
+    self.idInGroup = id
+end
+
+function RNGroup:getType()
+    return "RNGroup"
 end
 
 return RNGroup

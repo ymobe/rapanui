@@ -91,9 +91,8 @@ function RNMap:innerNew()
         physicsIsStarted = false,
         movePhysicsFirstCall = true,
         lastX = 0,
-        lastY = 0
+        lastY = 0,
     }
-
     setmetatable(o, self)
     self.__index = self
     return o
@@ -110,6 +109,13 @@ end
 
 function RNMap:setDrawMode(drawmode)
     self.drawMode = drawmode
+end
+
+function RNMap:setScissorRect(scissorRect)
+	if not self.layers then return end	
+    for key, value in pairs(self.layers) do
+		value.prop:setScissorRect(scissorRect)
+    end
 end
 
 function RNMap:getLayers()
@@ -214,6 +220,16 @@ function RNMap:getFirstObjectGroupByName(name)
     return nil
 end
 
+function RNMap:getLayerByName(name)
+    for i = 0, #self.layers do
+        if self.layers[i].name == name then
+            return self.layers[i]
+        end
+    end
+
+    return false
+end
+
 
 function RNMap:getLoc()
     return self.mapx, self.mapy
@@ -264,6 +280,25 @@ function RNMap:remove()
         local layer = self.layers[i]
         layer:remove()
     end
+    if self.parentGroup.getType ~= nil then
+        if (self.parentGroup:getType() == "RNGroup") then
+            self.parentGroup:removeChild(self.idInGroup)
+        end
+    end
+
+    for i, v in pairs(self.tilesets) do
+        v:remove()
+        v = nil
+    end
+    self.layersSize = nil
+    self.objectgroupsSize = nil
+    self.tilesetsSize = nil
+    self.propertiesSize = nil
+    self.objectgroups = nil
+    self.tilesets = nil
+    self.layers = nil
+    self = nil
+    --    collectgarbage()
 end
 
 function RNMap:getDelta(a, b)
@@ -329,7 +364,7 @@ function RNMap:getAllProps()
         table.insert(props, layer:getProp())
     end
 
-
+	
     return props
 end
 
