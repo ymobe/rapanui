@@ -262,6 +262,10 @@ function RNFactory.createPageSwipe(name, params)
 end
 
 function RNFactory.createImage(image, params)
+    return RNFactory.createImageFrom(image,RNFactory.screen.layers:get(RNLayer.MAIN_LAYER),params)
+end
+
+function RNFactory.createImageFrom(image, layer, params)
 
     local parentGroup, left, top
 
@@ -295,7 +299,7 @@ function RNFactory.createImage(image, params)
     o.x = o.originalWidth / 2 + left
     o.y = o.originalHeight / 2 + top
 
-    RNFactory.screen:addRNObject(o)
+    RNFactory.screen:addRNObject(o,nil,layer)
 
     if parentGroup ~= nil then
         parentGroup:insert(o)
