@@ -1268,7 +1268,9 @@ function RNObject:remove()
 
     if self.tmplistener ~= nil then RNListeners:removeEventListener("enterFrame", self.tmplistener) end
 
-    self.scene:removeRNObject(self)
+    if self.layer ~= nil then
+        self.scene:removeRNObject(self)
+    end
     --print_r(self.scene)
     if self.isPhysical == true then
         self.physicObject:remove()
