@@ -262,10 +262,17 @@ function RNFactory.createPageSwipe(name, params)
 end
 
 function RNFactory.createImage(image, params)
-    return RNFactory.createImageFrom(image,RNFactory.screen.layers:get(RNLayer.MAIN_LAYER),params)
+    return RNFactory.createImageFrom(image, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params)
 end
 
-function RNFactory.createImageFrom(image, layer, params)
+function RNFactory.loadImage(image, params)
+    return RNFactory.createImageFrom(image, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params, false)
+end
+
+function RNFactory.createImageFrom(image, layer, params, putOnScreen)
+    if putOnScreen == nil then
+        putOnScreen = true
+    end
 
     local parentGroup, left, top
 
@@ -299,7 +306,10 @@ function RNFactory.createImageFrom(image, layer, params)
     o.x = o.originalWidth / 2 + left
     o.y = o.originalHeight / 2 + top
 
-    RNFactory.screen:addRNObject(o,nil,layer)
+    if putOnScreen == true then
+        RNFactory.screen:addRNObject(o, nil, layer)
+        o.layer = layer
+    end
 
     if parentGroup ~= nil then
         parentGroup:insert(o)
@@ -310,6 +320,18 @@ function RNFactory.createImageFrom(image, layer, params)
 end
 
 function RNFactory.createButton(image, params)
+    return RNFactory.createButtonFrom(image, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params)
+end
+
+function RNFactory.loadButton(image, params)
+    return RNFactory.createButtonFrom(image, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params, false)
+end
+
+
+function RNFactory.createButtonFrom(image, layer, params, putOnScreen)
+    if putOnScreen == nil then
+        putOnScreen = true
+    end
 
     local parentGroup, left, top
 
@@ -391,8 +413,9 @@ function RNFactory.createButton(image, params)
 
     rnButtonImage.x = rnButtonImage.originalWidth / 2 + left
     rnButtonImage.y = rnButtonImage.originalHeight / 2 + top
-
-    RNFactory.screen:addRNObject(rnButtonImage)
+    if putOnScreen == true then
+        RNFactory.screen:addRNObject(rnButtonImage, nil, layer)
+    end
 
 
     local rnButtonImageOver
@@ -407,7 +430,9 @@ function RNFactory.createButton(image, params)
 
         rnButtonImageOver:setVisible(false)
 
-        RNFactory.screen:addRNObject(rnButtonImageOver)
+        if putOnScreen == true then
+            RNFactory.screen:addRNObject(rnButtonImageOver, nil, layer)
+        end
     end
 
 
@@ -423,7 +448,9 @@ function RNFactory.createButton(image, params)
 
         rnButtonImageDisabled:setVisible(false)
 
-        RNFactory.screen:addRNObject(rnButtonImageDisabled)
+        if putOnScreen == true then
+            RNFactory.screen:addRNObject(rnButtonImageDisabled, nil, layer)
+        end
     end
 
     local rnText
@@ -436,8 +463,10 @@ function RNFactory.createButton(image, params)
 
     rnText = RNText:new()
     rnText, gFont = rnText:initWithText2(params.text, font, size, rnButtonImage.originalWidth, rnButtonImage.originalHeight, vAlignment, hAlignment)
+    if putOnScreen == true then
+        RNFactory.screen:addRNObject(rnText, nil, layer)
+    end
 
-    RNFactory.screen:addRNObject(rnText)
     --     RNFactory.mainGroup:insert(rnText)
     rnText.x = left
     rnText.y = top
@@ -468,6 +497,9 @@ function RNFactory.createButton(image, params)
         rnButton:setOnTouchDown(params.onTouchDown)
     end
 
+    if putOnScreen == true then
+        rnButton.layer = layer
+    end
 
     return rnButton, deck
 end
@@ -679,6 +711,17 @@ params.letterHeight
 end
 
 function RNFactory.createText(text, params)
+    return RNFactory.createTextFrom(text, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params)
+end
+
+function RNFactory.loadText(text, params)
+    return RNFactory.createTextFrom(text, RNFactory.screen.layers:get(RNLayer.MAIN_LAYER), params, false)
+end
+
+function RNFactory.createTextFrom(text, layer, params, putOnScreen)
+    if putOnScreen == nil then
+        putOnScreen = true
+    end
 
     local top, left, size, font, height, width, alignment
 
@@ -721,7 +764,12 @@ function RNFactory.createText(text, params)
     local gFont
 
     rntext, gFont = rntext:initWithText2(text, font, size, width, height, alignment)
-    RNFactory.screen:addRNObject(rntext)
+
+    if putOnScreen == true then
+        RNFactory.screen:addRNObject(rntext, nil, layer)
+        rntext.layer = layer
+    end
+
     RNFactory.mainGroup:insert(rntext)
 
     rntext.x = left

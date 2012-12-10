@@ -54,17 +54,62 @@ function RNScreen:initWith(width, height, screenWidth, screenHeight)
     self.viewport:setScale(width, -height)
     self.viewport:setOffset(-1, 1)
     self.layers = RNLayer:new()
-    self.layer,self.mainPartition = self.layers:createLayerWithPartition(RNLayer.MAIN_LAYER,self.viewport)
+    self.layer, self.mainPartition = self.layers:createLayerWithPartition(RNLayer.MAIN_LAYER, self.viewport)
     self.layer:setViewport(self.viewport)
 
     self.layer:setPartition(self.mainPartition)
 
     MOAISim.pushRenderPass(self.layer)
 end
+
 --[[
     layer parameter can be either partition or layer since
     both MOAIObjects have the insertProp function.
 --]]
+
+
+function RNScreen:putOnLayer(object, layer)
+    if object:getType() == "RNObject" or object:getType() == "RNText" then
+        if object.layer == nil then
+            self:addRNObject(object, nil, layer)
+        else
+            self:removeRNObject(object, object.layer)
+            self:addRNObject(object, nil, layer)
+        end
+    elseif object:getType() == "RNGroup" then
+        local childrenTable = object:getAllChildren()
+        for i = 1, #childrenTable do
+            self:putOnLayer(childrenTable[i], layer)
+        end
+    elseif object:getType() == "RNButton" then
+        local childrenTable = object:getAllChildren()
+        for i = 1, #childrenTable do
+            self:putOnLayer(childrenTable[i], layer)
+        end
+    end
+    object.layer = layer
+end
+
+function RNScreen:removeFromLayer(object, layer)
+    if layer == nil then
+        layer = object.layer
+    end
+    if object:getType() == "RNObject" or object:getType() == "RNText" then
+        self:removeRNObject(object, layer)
+    elseif object:getType() == "RNGroup" then
+        local childrenTable = object:getAllChildren()
+        for i = 1, #childrenTable do
+            self:removeFromLayer(childrenTable[i], layer)
+        end
+    elseif object:getType() == "RNButton" then
+        local childrenTable = object:getAllChildren()
+        for i = 1, #childrenTable do
+            self:removeFromLayer(childrenTable[i], layer)
+        end
+    end
+    object.layer = nil
+end
+
 function RNScreen:addRNObject(object, mode, layer)
 
     if object == nil then
@@ -74,45 +119,27 @@ function RNScreen:addRNObject(object, mode, layer)
     if layer == nil then
         layer = self.mainPartition
     end
-    
+
     object:setLocatingMode(mode)
 
     layer:insertProp(object:getProp())
     object:setParentScene(self)
     object:updateLocation()
 
-    --    self.numSprites = self.numSprites + 1
-    --    self.sprites[self.numSprites] = object
-    --    object:setIDInScreen(self.numSprites)
-
-    --    object:getProp().rnObjectId = self.numSprites
+    object.layer = layer
 
     object:getProp().RNObject = object
 end
 
 function RNScreen:removeRNObject(object, layer)
-    
-    if(layer == nil) then
+
+    if (layer == nil) then
         layer = self.layers:get(RNLayer.MAIN_LAYER)
     end
-    
-     layer:removeProp(object:getProp())
-    --    local id = object.idInScreen
-    --    local len = table.getn(self.sprites)
-    --    local ind = id
-    --    for i = 1, len, 1 do
-    --        if (i == ind) then
-    --            for k = ind + 1, len, 1 do
-    --                self.sprites[k - 1] = self.sprites[k]
-    --                self.sprites[k].idInScreen = k - 1
-    --                self.sprites[k]:getProp().rnObjectId = k - 1
-    --            end
-    --            self.sprites[len] = nil
-    --        end
-    --    end
-    --
-    --    --
-    --    self.numSprites = table.getn(self.sprites)
+
+    layer:removeProp(object:getProp())
+
+    object.layer = nil
 end
 
 function RNScreen:getObjectWithHighestLevelOn(x, y)
@@ -132,18 +159,6 @@ function RNScreen:getObjectWithHighestLevelOn(x, y)
     else
         props = { self.mainPartition:propListForPoint(x, y + RNFactory.statusBarHeight * y / RNFactory.height, 0, MOAILayer.SORT_PRIORITY_DESCENDING) }
     end
-
-    --Old, deprecated worst way to do this.
-    --    for i, p in ipairs(props) do
-    --        for j, k in ipairs(self.sprites) do
-    --            if k.prop == p then
-    --                if k.touchable == true then
-    --                    --                    print(k.name)
-    --                    return k
-    --                end
-    --            end
-    --        end
-    --    end
 
 
     for i = 1, #props do
