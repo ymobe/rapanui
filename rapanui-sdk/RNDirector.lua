@@ -141,6 +141,10 @@ function RNDirector:popIn()
     if NEXT_SCENE ~= nil then
         CURRENT_SCENE_GROUP = NEXT_SCENE.onCreate()
         CURRENT_SCENE = NEXT_SCENE
+
+        CURRENT_SCENE_GROUP.scissorRect = MOAIScissorRect.new()
+        CURRENT_SCENE_GROUP.scissorRect:setRect( 0, 0, RNFactory.screenUnitsX, RNFactory.screenUnitsY)
+        CURRENT_SCENE_GROUP:setScissorRect(CURRENT_SCENE_GROUP.scissorRect)
     end
 
     TRANSITIONING = false
@@ -158,6 +162,10 @@ function RNDirector:slideout(xx, yy)
 
     --start slide
     if CURRENT_SCENE_GROUP ~= nil then
+        if CURRENT_SCENE_GROUP.scissorRect then
+            CURRENT_SCENE_GROUP.scissorRect:moveLoc(-xx, -yy, 0, 0.001*TIME, MOAIEaseType.SMOOTH)
+        end
+
         for i = 1, table.getn(CURRENT_SCENE_GROUP.displayObjects), 1 do
             if i == table.getn(CURRENT_SCENE_GROUP.displayObjects) then --call transition end callback only for last element
                 trn:run(CURRENT_SCENE_GROUP.displayObjects[i], { type = "move", x = CURRENT_SCENE_GROUP.displayObjects[i].x - xx, y = CURRENT_SCENE_GROUP.displayObjects[i].y - yy, time = TIME, onComplete = slideEnd })
@@ -173,6 +181,12 @@ function RNDirector:slideout(xx, yy)
         NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
         NEXT_SCENE_GROUP.x = xx
         NEXT_SCENE_GROUP.y = yy
+
+        --Scissor Rectangle handling
+        NEXT_SCENE_GROUP.scissorRect = MOAIScissorRect.new()
+        NEXT_SCENE_GROUP.scissorRect:setRect( 0, 0, RNFactory.screenUnitsX, RNFactory.screenUnitsY)
+        NEXT_SCENE_GROUP:setScissorRect(NEXT_SCENE_GROUP.scissorRect)
+
         --start slide
         for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
             if CURRENT_SCENE_GROUP == nil and i == table.getn(NEXT_SCENE_GROUP.displayObjects) then --if CURRENT_SCENE nil we have to call endSlide on last element transition
@@ -223,6 +237,10 @@ function RNDirector:crossFade()
     if NEXT_SCENE ~= nil then
 
         NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
+        NEXT_SCENE_GROUP.scissorRect = MOAIScissorRect.new()
+        NEXT_SCENE_GROUP.scissorRect:setRect( 0, 0, RNFactory.screenUnitsX, RNFactory.screenUnitsY)
+        NEXT_SCENE_GROUP:setScissorRect(NEXT_SCENE_GROUP.scissorRect)
 
         for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
             NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
@@ -276,6 +294,10 @@ end
 function RNDirector:startFadeInNext()
 
     NEXT_SCENE_GROUP = NEXT_SCENE.onCreate()
+
+    NEXT_SCENE_GROUP.scissorRect = MOAIScissorRect.new()
+    NEXT_SCENE_GROUP.scissorRect:setRect( 0, 0, RNFactory.screenUnitsX, RNFactory.screenUnitsY)
+    NEXT_SCENE_GROUP:setScissorRect(NEXT_SCENE_GROUP.scissorRect)
 
     for i = 1, table.getn(NEXT_SCENE_GROUP.displayObjects), 1 do
         NEXT_SCENE_GROUP.displayObjects[i]:setAlpha(0)
