@@ -102,6 +102,9 @@ function RNListView:init()
     self:organizeItems()
 
     self.touchEvent = function(event)
+        if event.realTouch == nil then
+            event.realTouch = true
+        end
         local self = self
         if self.canScrollY == true then
             if event.x > self.options.touchStartX and event.x < self.options.touchStartX + self.options.touchW and
@@ -146,17 +149,25 @@ function RNListView:init()
                         end
                     end
                     self.olddeltay = self.deltay
+
+
+                    --
+
+                    if event.y > self.options.touchStartY then
+                    end
                 end
 
                 if event.phase == "ended" and self ~= nil and self.isScrollingY == false and self.isChooseDone == false then
                     if self ~= nil then
                         self:createTimer()
                     end
-                    for i = 1, table.getn(self.elements), 1 do
-                        if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
-                            if self.elements[i].onClick ~= nil and self.scrolled == false then
-                                local funct = self.elements[i].onClick
-                                funct({ target = self.elements[i] }, event)
+                    if event.realTouch == true then
+                        for i = 1, table.getn(self.elements), 1 do
+                            if event.x > self.x and event.x < self.x + self.options.cellW and event.y > self.y + i * self.options.cellH - self.options.cellH and event.y < self.y + i * self.options.cellH + self.options.cellH - self.options.cellH then
+                                if self.elements[i].onClick ~= nil and self.scrolled == false then
+                                    local funct = self.elements[i].onClick
+                                    funct({ target = self.elements[i] }, event)
+                                end
                             end
                         end
                     end
@@ -174,6 +185,25 @@ function RNListView:init()
             self.isTouching = false
             self:callRegisteredFunctions("cancelledTouch")
             self.scrolled = false
+        end
+        if event.phase == "moved" then
+            if event.y < self.options.touchStartY then
+                local _nEv = {}
+                _nEv.y = self.options.touchStartY + 10
+                _nEv.x = event.x
+                _nEv.phase = "ended"
+                _nEv.realTouch = false
+                self.touchEvent(_nEv)
+                self:callRegisteredFunctions("cancelledTouch")
+            elseif event.y > self.options.touchStartY + self.options.touchH - 10 then
+                local _nEv = {}
+                _nEv.y = self.options.touchStartY + self.options.touchH - 10
+                _nEv.x = event.x
+                _nEv.phase = "ended"
+                _nEv.realTouch = false
+                self.touchEvent(_nEv)
+                self:callRegisteredFunctions("cancelledTouch")
+            end
         end
     end
 
@@ -375,8 +405,8 @@ function RNListView:insertElement(element, number)
         self.elements[self:getSize() + 1] = element
     end
     self:organizeItems()
-	
-	if element.object.setScissorRect then element.object:setScissorRect(self.scissorRect) end
+
+    if element.object.setScissorRect then element.object:setScissorRect(self.scissorRect) end
 end
 
 function RNListView:removeElement(removeRNObject, number)
@@ -458,10 +488,10 @@ function RNListView:setVisibility(value)
 end
 
 function RNListView:setScissorRect(scissorRect)
-	self.scissorRect = scissorRect
+    self.scissorRect = scissorRect
     for i, v in ipairs(self.elements) do
-		if v.object.setScissorRect then v.object:setScissorRect(scissorRect) end
-	end
+        if v.object.setScissorRect then v.object:setScissorRect(scissorRect) end
+    end
 end
 
 function RNListView:goToElement(value)
