@@ -253,6 +253,50 @@ function RNFactory.createList(name, params)
     return list
 end
 
+function RNFactory.createParticle(pex, params)
+
+    local parentGroup, left, top
+
+    top = 0
+    left = 0
+
+    if (params ~= nil) then
+        if (params.top ~= nil) then
+            top = params.top
+        end
+
+        if (params.left ~= nil) then
+            left = params.left
+        end
+
+        if (params.parentGroup ~= nil) then
+            parentGroup = params.parentGroup
+        else
+            parentGroup = RNFactory.mainGroup
+        end
+    end
+
+    if (parentGroup == nil) then
+        parentGroup = RNFactory.mainGroup
+    end
+
+
+    local o = RNObject:new()
+    local o, deck = o:initParticleEngine(pex)
+
+    o.x = o.originalWidth / 2 + left
+    o.y = o.originalHeight / 2 + top
+
+    RNFactory.screen:addRNObject(o)
+
+    if parentGroup ~= nil then
+        parentGroup:insert(o)
+    end
+
+
+    return o, deck
+end
+
 function RNFactory.createPageSwipe(name, params)
     local pSwipe = RNPageSwipe:new()
     pSwipe.options = params.options

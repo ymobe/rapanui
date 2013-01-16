@@ -507,6 +507,55 @@ function RNObject:initWithMoaiImage(moaiImage)
     self.prop:setPriority(1)
 end
 
+function RNObject:initParticleEngine(pex)
+
+    local plugin =  MOAIParticlePexPlugin.load(pex)
+    local maxParticles = plugin:getMaxParticles ()
+    local blendsrc, blenddst = plugin:getBlendMode ()
+    local minLifespan, maxLifespan = plugin:getLifespan ()
+    local duration = plugin:getDuration ()
+    local xMin, yMin, xMax, yMax = plugin:getRect ()
+
+    if type(pex) == "string" then self.name = image else self.name = "" end
+
+    local system = MOAIParticleSystem.new ()
+    system._duration = duration
+    system._lifespan = maxLifespan
+    system:reserveParticles ( maxParticles , plugin:getSize() )
+    system:reserveSprites ( maxParticles )
+    system:reserveStates ( 1 )
+    system:setBlendMode ( blendsrc, blenddst )
+
+    local state = MOAIParticleState.new ()
+    state:setTerm ( minLifespan, maxLifespan )
+    state:setPlugin(  plugin  )
+    system:setState ( 1, state )
+
+    local emitter = MOAIParticleTimedEmitter.new()
+    emitter:setSystem ( system )
+    emitter:setEmission ( plugin:getEmission () )
+    emitter:setFrequency ( plugin:getFrequency () )
+    emitter:setRect ( xMin, yMin, xMax, yMax )
+
+    local deck = MOAIGfxQuad2D.new()
+    deck:setTexture( plugin:getTextureName() )
+    deck:setRect( -0.5, -0.5, 0.5, 0.5 ) -- HACK: Currently for scaling we need to set the deck's rect to 1x1
+    system:setDeck(deck)
+
+    system:start ()
+    emitter:start ()
+
+    self.prop = system
+    self.prop:setDeck(deck)
+    self.prop:setPriority(1)
+
+    self.scaleX = 1
+    self.scaleY = 1
+
+    return self, deck
+
+end
+
 
 function RNObject:initWithImage2(image)
 

@@ -130,6 +130,9 @@ require("rapanui-samples/touch/rn-buttons-animated")
 --require("rapanui-samples/listeners/rn-listener-touch-remove")
 --require("rapanui-samples/listeners/rn-listener-enterFrame-remove")
 
+-- Particles
+-- require("rapanui-samples/particles/particle-snow")
+
 -- RapaNui Physics demos:
 --require("rapanui-samples/physics/rn-physics-shapes")
 --require("rapanui-samples/physics/rn-physics-types")

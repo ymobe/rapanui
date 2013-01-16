@@ -1,0 +1,1 @@
+particle = RNFactory.createParticle('rapanui-samples/particles/snow.pex')
