@@ -89,9 +89,18 @@ function RNGraphicsManager:loadAtlas(lua, png)
     local frames = dofile(lua).frames
 
     local tex = MOAITexture.new()
+   
     tex:load(png)
     local xtex, ytex = tex:getSize()
 
+	-- Construct the deck
+    local deck = MOAIGfxQuadDeck2D.new()
+    deck:setTexture(tex)
+    deck:reserve(#frames)
+    local names = {}
+    local sizes = {}
+    
+    
     -- Annotate the frame array with uv quads and geometry rects
     for i, frame in ipairs(frames) do
         -- convert frame.uvRect to frame.uvQuad to handle rotation
@@ -122,15 +131,7 @@ function RNGraphicsManager:loadAtlas(lua, png)
         r.x1 = cr.x + cr.width / 2
         r.y0 = cr.y + cr.height / 2
         frame.geomRect = r
-    end
-
-    -- Construct the deck
-    local deck = MOAIGfxQuadDeck2D.new()
-    deck:setTexture(tex)
-    deck:reserve(#frames)
-    local names = {}
-    local sizes = {}
-    for i, frame in ipairs(frames) do
+        
         local q = frame.uvQuad
         local r = frame.geomRect
         names[frame.name] = i
@@ -138,7 +139,7 @@ function RNGraphicsManager:loadAtlas(lua, png)
         deck:setUVQuad(i, q.x0, q.y0, q.x1, q.y1, q.x2, q.y2, q.x3, q.y3)
         deck:setRect(i, r.x0, r.y0, r.x1, r.y1)
     end
-
+  
     return deck, names, sizes
 end
 
