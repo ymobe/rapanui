@@ -17,6 +17,8 @@
 
 --sample on how to deallocate images assets from memory
 
+--the basic function for doing this is:
+--RNFactory.removeAsset(strAssetPath, booleanForceCollectGarbage)
 
 
 
@@ -30,6 +32,8 @@ function t(event)
         --onTouch we remove object, asset and create a new image
         image:remove()
         RNFactory.removeAsset("images/tile0.png")
+        --        RNFactory.removeAsset("images/tile0.png",true) --to force garbage collector
+        --        RNFactory.removeAsset("images/tile0.png",false) --false by default
         image = RNFactory.createImage("images/tile0.png", { left = 100 })
     end
 end

@@ -64,7 +64,7 @@ function RNGraphicsManager:allocateTileset(image, tileW, tileH)
     return object
 end
 
-function RNGraphicsManager:deallocateGfx(path)
+function RNGraphicsManager:deallocateGfx(path, garbagecollect)
     local indexToRemove
     for i, v in ipairs(self.gfx) do
         if v.path == path then
@@ -80,8 +80,10 @@ function RNGraphicsManager:deallocateGfx(path)
         object.deck = nil
         object = nil
 
-        --free memory and OpenGL
-        MOAISim.forceGarbageCollection()
+        if garbagecollect then
+            --free memory and OpenGL
+            MOAISim.forceGarbageCollection()
+        end
     end
 end
 
@@ -89,18 +91,18 @@ function RNGraphicsManager:loadAtlas(lua, png)
     local frames = dofile(lua).frames
 
     local tex = MOAITexture.new()
-   
+
     tex:load(png)
     local xtex, ytex = tex:getSize()
 
-	-- Construct the deck
+    -- Construct the deck
     local deck = MOAIGfxQuadDeck2D.new()
     deck:setTexture(tex)
     deck:reserve(#frames)
     local names = {}
     local sizes = {}
-    
-    
+
+
     -- Annotate the frame array with uv quads and geometry rects
     for i, frame in ipairs(frames) do
         -- convert frame.uvRect to frame.uvQuad to handle rotation
@@ -131,7 +133,7 @@ function RNGraphicsManager:loadAtlas(lua, png)
         r.x1 = cr.x + cr.width / 2
         r.y0 = cr.y + cr.height / 2
         frame.geomRect = r
-        
+
         local q = frame.uvQuad
         local r = frame.geomRect
         names[frame.name] = i
@@ -139,7 +141,7 @@ function RNGraphicsManager:loadAtlas(lua, png)
         deck:setUVQuad(i, q.x0, q.y0, q.x1, q.y1, q.x2, q.y2, q.x3, q.y3)
         deck:setRect(i, r.x0, r.y0, r.x1, r.y1)
     end
-  
+
     return deck, names, sizes
 end
 

@@ -225,8 +225,11 @@ end
 -- extra method call to setup the underlying system
 RNFactory.init()
 
-function RNFactory.removeAsset(path)
-    RNGraphicsManager:deallocateGfx(path)
+function RNFactory.removeAsset(path, garbagecollect)
+    if garbagecollect == nil then
+        garbagecollect = false
+    end
+    RNGraphicsManager:deallocateGfx(path, garbagecollect)
 end
 
 
