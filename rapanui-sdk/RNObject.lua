@@ -59,20 +59,18 @@ local function fieldChangedListener(self, key, value)
     if self.isPhysical == false then
 
         if key ~= nil and key == "x" then
-            local tmpX = self.currentRefX + value
-            local tmpY = self.y
+            local tmpX, tmpY = self.prop:getLoc()
 
             if (self:getProp() ~= nil) then
-                self:getProp():setLoc(tmpX, tmpY);
+                self:getProp():setLoc(value, tmpY);
             end
         end
 
         if key ~= nil and key == "y" then
-            local tmpX = self.x
-            local tmpY = self.currentRefY + value
+            local tmpX, tmpY = self.prop:getLoc()
 
             if (self:getProp() ~= nil) then
-                self:getProp():setLoc(tmpX, tmpY);
+                self:getProp():setLoc(tmpX, value);
             end
         end
 
@@ -1076,35 +1074,25 @@ end
 
 
 function RNObject:setY(y)
-
     if self.isPhysical == false then
-        local tmpX = self.x
-        local tmpY = self.currentRefY + y
-
+        local tmpX, tmpY = self.prop:getLoc()
         if (self:getProp() ~= nil) then
-            self:getProp():setLoc(tmpX, tmpY);
+            self:getProp():setLoc(tmpX, y);
         end
     else
         self.physicObject:setY()
     end
-
-    self.y = self.currentRefY + y
 end
 
 function RNObject:setX(x)
-
     if self.isPhysical == false then
-        local tmpX = self.currentRefX + x
-        local tmpY = self.y
-
-
+        local tmpX, tmpY = self.prop:getLoc()
         if (self:getProp() ~= nil) then
-            self:getProp():setLoc(tmpX, tmpY);
+            self:getProp():setLoc(x, tmpY);
         end
     else
         self.physicObject:setX()
     end
-    self.x = self.currentRefX + x
 end
 
 function RNObject:setTouchable(value)
