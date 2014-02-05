@@ -134,6 +134,9 @@ require("rapanui-samples/lists/rn-rnPageSwipe-multiswipe")
 --require("rapanui-samples/listeners/rn-listener-touch-remove")
 --require("rapanui-samples/listeners/rn-listener-enterFrame-remove")
 
+-- Particles
+-- require("rapanui-samples/particles/particle-snow")
+
 -- RapaNui Physics demos:
 --require("rapanui-samples/physics/rn-physics-shapes")
 --require("rapanui-samples/physics/rn-physics-types")
