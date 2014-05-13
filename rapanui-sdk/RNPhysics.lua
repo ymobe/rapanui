@@ -170,6 +170,8 @@ function RNPhysics.createBodyFromImage(image, ...)
          in RNBody and the prop is used in RNBody:removeSelf()
          Just keep it in mind for future changes to rapanui or/and RapaNui
     --]]
+    
+    local arg = {n=select('#',...),...}
 
     local Type, typeGiven, fixturesReceived --type,if type is given as first optional argumen,how many fixtures have been received
     local firstFixtureArgument --what is the first fixture/table arguments in the optional received
@@ -391,6 +393,7 @@ end
 
 function RNPhysics.createBodyFromMapObject(mapObject, ...)
 
+    local arg = {n=select('#',...),...}
 
     local Type, typeGiven, fixturesReceived --type,if type is given as first optional argumen,how many fixtures have been received
     local firstFixtureArgument --what is the first fixture/table arguments in the optional received
